@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ReadKeeper</string>
+    <string name="home">Home</string>
+    <string name="favor">Favor</string>
+    <string name="reading">Reading</string>
+    <string name="wish">Wish</string>
+    <string name="archived">Archived</string>
+    <string name="search_hint">Find a book...</string>
 </resources>
