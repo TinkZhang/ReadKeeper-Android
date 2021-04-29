@@ -59,6 +59,9 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
 
+    // Compose Image Coil
+    implementation("com.google.accompanist:accompanist-coil:0.8.1")
+
     // Retrofit
     val retrofitVersion = "2.9.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
