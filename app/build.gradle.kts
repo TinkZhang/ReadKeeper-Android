@@ -50,13 +50,19 @@ dependencies {
     implementation("com.google.android.material:material:1.3.0")
 
     // Compose
-    implementation("androidx.compose.ui:ui:${rootProject.extra["compose_version"]}")
-    implementation("androidx.compose.material:material:${rootProject.extra["compose_version"]}")
-    implementation("androidx.compose.material:material-icons-extended:${rootProject.extra["compose_version"]}")
-    implementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
+    val composeVersion = "1.0.0-beta05"
+    implementation("androidx.compose.ui:ui:$composeVersion")
+    implementation("androidx.compose.material:material:$composeVersion")
+    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
+    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
     implementation("androidx.navigation:navigation-compose:1.0.0-alpha10")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
+    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
 
+    // Retrofit
+    val retrofitVersion = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     implementation("androidx.activity:activity-compose:1.3.0-alpha07")
     testImplementation("junit:junit:4.13.2")

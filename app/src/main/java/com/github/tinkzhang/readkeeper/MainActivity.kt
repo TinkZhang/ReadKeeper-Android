@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                                 HomePage(navController = navController)
                             }
                             composable(SCREEN_ROUTE.SEARCH) {
-                                SearchResultPage(keyword = it.arguments?.getString("keyword"))
+                                SearchResultPage(keyword = it.arguments?.getString("keyword") ?: "")
                             }
                             composable(SCREEN_ROUTE.WISH_LIST) {
                                 WishListPage()
