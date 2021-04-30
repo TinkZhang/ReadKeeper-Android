@@ -7,7 +7,9 @@ import androidx.compose.material.*
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.*
+import com.github.tinkzhang.readkeeper.search.SearchViewModel
 import com.github.tinkzhang.readkeeper.ui.ReadingListPage
 import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
 import com.github.tinkzhang.readkeeper.ui.getBottomBarItemList
@@ -18,6 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            val searchViewModel: SearchViewModel = viewModel()
             ReadKeeperTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
@@ -55,10 +58,10 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
                             composable(SCREEN_ROUTE.HOME) {
-                                HomePage(navController = navController)
+                                HomePage(navController = navController, searchViewModel)
                             }
                             composable(SCREEN_ROUTE.SEARCH) {
-                                SearchResultPage(keyword = it.arguments?.getString("keyword") ?: "")
+                                SearchResultPage(searchViewModel)
                             }
                             composable(SCREEN_ROUTE.WISH_LIST) {
                                 WishListPage()

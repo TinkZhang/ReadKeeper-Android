@@ -11,6 +11,7 @@ import github.tinkzhang.readkeeper.search.model.googlebook.Item
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class SearchViewModel() : ViewModel() {
     var books = MutableLiveData<List<SearchBook>>()
@@ -24,13 +25,13 @@ class SearchViewModel() : ViewModel() {
                     GoogleBookService.instance.search(keyword)
                 }
                 if (data.code() == 200) {
-                    Log.d("Tink", data.body()?.totalItems.toString())
+                    Timber.d(data.body()?.totalItems.toString())
                     books.value = data.body()?.items?.map { it.convertToSearchBook() }
                     isLoading.value = false
                 }
-                Log.d("Tink", data.toString())
+                Timber.d(data.toString())
             } catch (e: Exception) {
-                Log.d("Tink", e.toString())
+                Timber.e(e.toString())
                 isLoading.value = false
             }
         }

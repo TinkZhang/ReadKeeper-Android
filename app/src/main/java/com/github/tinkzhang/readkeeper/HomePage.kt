@@ -23,8 +23,7 @@ import timber.log.Timber
 
 
 @Composable
-fun HomePage(navController: NavController) {
-    val viewModel: SearchViewModel = viewModel("search")
+fun HomePage(navController: NavController, searchViewModel: SearchViewModel) {
     var searchKeyword by remember {
         mutableStateOf("")
     }
@@ -37,8 +36,7 @@ fun HomePage(navController: NavController) {
         leadingIcon = { Icon(Icons.Outlined.Search, contentDescription = "Search") },
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions {
-            viewModel.searchBook(searchKeyword)
-            Timber.d("start search. ${viewModel.hashCode()}")
+            searchViewModel.searchBook(searchKeyword)
             navController.navigate("search/${searchKeyword}") {
                 launchSingleTop = true
             }
