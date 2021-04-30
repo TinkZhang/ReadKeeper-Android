@@ -28,7 +28,7 @@ object SCREEN_ROUTE {
 sealed class Screen(val route: String, @StringRes val labelId: Int, var icon: ImageVector) {
     object HomePage : Screen(SCREEN_ROUTE.HOME, R.string.home, Icons.Filled.Home)
     object ReadingListPage :
-        Screen(SCREEN_ROUTE.READING_LIST, R.string.reading, Icons.Filled.MenuBook)
+        Screen(SCREEN_ROUTE.READING_LIST, R.string.reading, Icons.Filled.Bookmark)
 
     object WishListPage : Screen(SCREEN_ROUTE.WISH_LIST, R.string.wish, Icons.Filled.Favorite)
     object ArchivedPage :

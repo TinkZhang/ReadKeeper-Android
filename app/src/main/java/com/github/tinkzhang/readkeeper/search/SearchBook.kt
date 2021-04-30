@@ -12,3 +12,16 @@ data class SearchBook(
     var ratingsCount: Int = 0,
     override var originalPublicationYear: Int = 1900
 ) : BasicBook()
+
+fun SearchBook.buildSample(): SearchBook {
+    return SearchBook(
+        title = "Hello World",
+        imageUrl = "http://books.google.com/books/content?id=gK98gXR8onwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        author = "Tink",
+        pages = 1688,
+        addedTime = 2019,
+        rating = 5.0,
+        ratingsCount = 999,
+        originalPublicationYear = 1987
+    )
+}

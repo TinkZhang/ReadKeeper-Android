@@ -39,7 +39,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = rootProject.extra["compose_version"] as String
-        kotlinCompilerVersion = "1.4.32"
+//        kotlinCompilerVersion = "1.4.32"
     }
 }
 
@@ -58,6 +58,9 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:1.0.0-alpha10")
     implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
+
+    // Compose Image Coil
+    implementation("com.google.accompanist:accompanist-coil:0.8.1")
 
     // Retrofit
     val retrofitVersion = "2.9.0"
