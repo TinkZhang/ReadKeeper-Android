@@ -66,6 +66,7 @@ fun SearchBookItem(book: SearchBook) {
                     IconToggleButton(
                         checked = wishChecked,
                         onCheckedChange = { wishChecked = it },
+                        modifier = Modifier.padding(end = 16.dp)
                     ) {
                         if (wishChecked) {
                             Icon(
