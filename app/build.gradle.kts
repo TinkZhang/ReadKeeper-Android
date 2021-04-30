@@ -39,7 +39,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = rootProject.extra["compose_version"] as String
-//        kotlinCompilerVersion = "1.4.32"
     }
 }
 
@@ -61,6 +60,9 @@ dependencies {
 
     // Compose Image Coil
     implementation("com.google.accompanist:accompanist-coil:0.8.1")
+
+    // Timber
+    implementation("com.jakewharton.timber:timber:4.7.1")
 
     // Retrofit
     val retrofitVersion = "2.9.0"

@@ -15,13 +15,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
-import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
+import com.github.tinkzhang.readkeeper.search.SearchViewModel
+import timber.log.Timber
 
 
 @Composable
 fun HomePage(navController: NavController) {
+    val viewModel: SearchViewModel = viewModel("search")
     var searchKeyword by remember {
         mutableStateOf("")
     }
@@ -33,7 +36,13 @@ fun HomePage(navController: NavController) {
         trailingIcon = { Icon(Icons.Filled.Settings, contentDescription = "Settings") },
         leadingIcon = { Icon(Icons.Outlined.Search, contentDescription = "Search") },
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions { navController.navigate("search/${searchKeyword}") { launchSingleTop = true } },
+        keyboardActions = KeyboardActions {
+            viewModel.searchBook(searchKeyword)
+            Timber.d("start search. ${viewModel.hashCode()}")
+            navController.navigate("search/${searchKeyword}") {
+                launchSingleTop = true
+            }
+        },
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
