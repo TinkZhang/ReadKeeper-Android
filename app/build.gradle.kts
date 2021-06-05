@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkPreview = "S"
+    compileSdk = 30
 
     defaultConfig {
         applicationId = "com.github.tinkzhang.readkeeper"
         minSdk = 24
-        targetSdkPreview = "S"
+        targetSdk = 30
         versionCode = 1
         versionName = "1.0"
 
