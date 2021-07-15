@@ -8,6 +8,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.*
 import com.github.tinkzhang.readkeeper.search.SearchViewModel
 import com.github.tinkzhang.readkeeper.ui.ReadingListPage
@@ -28,11 +30,10 @@ class MainActivity : ComponentActivity() {
                         bottomBar = {
                             BottomNavigation {
                                 val navBackStackEntry by navController.currentBackStackEntryAsState()
-                                val currentRoute =
-                                    navBackStackEntry?.arguments?.getString(KEY_ROUTE)
+                                val currentDestination = navBackStackEntry?.destination
                                 getBottomBarItemList().forEach { screen ->
                                     BottomNavigationItem(
-                                        selected = currentRoute == screen.route,
+                                        selected = currentDestination?.hierarchy?.any{ it.route == screen.route} == true,
                                         icon = {
                                             Icon(
                                                 screen.icon,
@@ -45,10 +46,14 @@ class MainActivity : ComponentActivity() {
                                                 // Pop up to the start destination of the graph to
                                                 // avoid building up a large stack of destinations
                                                 // on the back stack as users select items
-                                                popUpTo = navController.graph.startDestination
+                                                popUpTo(navController.graph.findStartDestination().id) {
+                                                    saveState = true
+                                                }
                                                 // Avoid multiple copies of the same destination when
                                                 // reselecting the same item
                                                 launchSingleTop = true
+                                                // Restore state when reselecting a previously selected item
+                                                restoreState = true
                                             }
                                         },
                                     )

@@ -1,21 +1,13 @@
 package com.github.tinkzhang.readkeeper.ui
 
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
-import com.github.tinkzhang.readkeeper.R
-import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Archive
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.github.tinkzhang.readkeeper.R
 
 object SCREEN_ROUTE {
     const val HOME = "home"

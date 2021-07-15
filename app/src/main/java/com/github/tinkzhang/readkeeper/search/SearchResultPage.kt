@@ -38,7 +38,7 @@ fun SearchResultPage(viewModel: SearchViewModel) {
             Column {
                 books?.let {
                     LazyColumn {
-                        itemsIndexed(books!!) { index, book ->
+                        itemsIndexed(books!!) { _, book ->
                             SearchBookItem(book = book)
                         }
                     }
