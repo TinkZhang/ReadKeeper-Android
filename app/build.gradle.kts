@@ -53,13 +53,13 @@ dependencies {
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    implementation("androidx.compose.ui:ui-tooling:1.0.0-beta09")
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha04")
     implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
 
     // Compose Image Coil
-    implementation("com.google.accompanist:accompanist-coil:0.8.1")
+    implementation("com.google.accompanist:accompanist-coil:0.14.0")
 
     // Timber
     implementation("com.jakewharton.timber:timber:4.7.1")
