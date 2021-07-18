@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -95,13 +96,31 @@ private fun SearchBookItemActionBar(
     ) {
         var wishChecked by remember { mutableStateOf(false) }
         var readingChecked by remember { mutableStateOf(false) }
-        ReadingIconToggleButton(checked = readingChecked) {
-            readingChecked = it
-            onReadingButtonClicked()
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+            Text(
+                "Add this book into: ",
+                style = MaterialTheme.typography.caption,
+                modifier = Modifier
+                    .weight(0.5f)
+                    .align(Alignment.CenterVertically)
+                    .padding(start = 8.dp)
+            )
         }
-        WishIconToggleButton(checked = wishChecked) {
-            wishChecked = it
-            onWishButtonClicked()
+
+        Row(
+            modifier = Modifier.weight(0.5f),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+        ) {
+            ReadingIconToggleButton(
+                checked = readingChecked
+            ) {
+                readingChecked = it
+                onReadingButtonClicked()
+            }
+            WishIconToggleButton(checked = wishChecked) {
+                wishChecked = it
+                onWishButtonClicked()
+            }
         }
     }
 }
