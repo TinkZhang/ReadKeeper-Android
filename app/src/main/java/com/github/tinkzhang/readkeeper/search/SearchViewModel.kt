@@ -1,8 +1,5 @@
 package com.github.tinkzhang.readkeeper.search
 
-import android.util.Log
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,14 +10,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class SearchViewModel() : ViewModel() {
+class SearchViewModel : ViewModel() {
     var books = MutableLiveData<List<SearchBook>>()
     var isLoading = MutableLiveData(false)
+    var searchKeyword = MutableLiveData<String>()
 
     fun searchBook(keyword: String) {
         viewModelScope.launch {
             try {
                 isLoading.value = true
+                searchKeyword.value = keyword
                 val data = withContext(Dispatchers.IO) {
                     GoogleBookService.instance.search(keyword)
                 }

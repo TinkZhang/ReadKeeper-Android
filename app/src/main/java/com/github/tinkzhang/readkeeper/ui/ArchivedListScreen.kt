@@ -4,7 +4,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun ArchivedPage() {
+fun ArchivedScreen() {
     Text("Archived List")
 
 }

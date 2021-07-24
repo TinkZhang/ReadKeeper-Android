@@ -5,14 +5,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.*
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.painterResource
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.github.tinkzhang.readkeeper.common.RkScreen
 import com.github.tinkzhang.readkeeper.search.SearchViewModel
-import com.github.tinkzhang.readkeeper.ui.ReadingListPage
+import com.github.tinkzhang.readkeeper.ui.ReadingListScreen
 import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
 import com.github.tinkzhang.readkeeper.ui.getBottomBarItemList
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
@@ -21,9 +26,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val navController = rememberNavController()
             val searchViewModel: SearchViewModel = viewModel()
             ReadKeeperTheme {
+                val currentScreen by rememberSaveable { mutableStateOf(RkScreen.Home) }
+                val navController = rememberNavController()
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Scaffold(
@@ -33,7 +39,7 @@ class MainActivity : ComponentActivity() {
                                 val currentDestination = navBackStackEntry?.destination
                                 getBottomBarItemList().forEach { screen ->
                                     BottomNavigationItem(
-                                        selected = currentDestination?.hierarchy?.any{ it.route == screen.route} == true,
+                                        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                                         icon = {
                                             Icon(
                                                 screen.icon,
@@ -63,19 +69,19 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
                             composable(SCREEN_ROUTE.HOME) {
-                                HomePage(navController = navController, searchViewModel)
+                                HomeScreen(navController = navController, searchViewModel)
                             }
                             composable(SCREEN_ROUTE.SEARCH) {
-                                SearchResultPage(searchViewModel)
+                                SearchResultScreen(searchViewModel)
                             }
                             composable(SCREEN_ROUTE.WISH_LIST) {
-                                WishListPage()
+                                WishListScreen()
                             }
                             composable(SCREEN_ROUTE.READING_LIST) {
-                                ReadingListPage()
+                                ReadingListScreen()
                             }
                             composable(SCREEN_ROUTE.ARCHIVED_LIST) {
-                                WishListPage()
+                                WishListScreen()
                             }
                         }
                     }

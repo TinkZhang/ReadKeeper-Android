@@ -9,11 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.ui.components.ReadingIconToggleButton
 import com.github.tinkzhang.readkeeper.ui.components.WishIconToggleButton
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
-import com.google.accompanist.coil.rememberCoilPainter
+import com.google.accompanist.coil.LocalImageLoader
+import com.google.accompanist.imageloading.LoadPainterDefaults
 
 @Composable
 fun SearchBookItem(book: SearchBook) {
@@ -25,9 +27,13 @@ fun SearchBookItem(book: SearchBook) {
         Column {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Image(
-                    painter = rememberCoilPainter(
-                        request = book.imageUrl,
-                        previewPlaceholder = R.drawable.ic_launcher_foreground,
+                    painter = rememberImagePainter(
+                        data = book.imageUrl,
+                        imageLoader = LocalImageLoader.current,
+                        builder = {
+                            if (false == true) this.crossfade(LoadPainterDefaults.FadeInTransitionDuration)
+                            placeholder(drawableResId = R.drawable.ic_launcher_foreground)
+                        }
                     ),
                     contentDescription = book.title,
                     contentScale = ContentScale.FillWidth,
@@ -136,7 +142,7 @@ fun SearchBookItemActionBarPreview() {
 @Preview
 @Composable
 fun SearchBookItemPrev(book: SearchBook = SearchBook().buildSample()) {
-    ReadKeeperTheme() {
+    ReadKeeperTheme {
         SearchBookItem(book = book)
     }
 }
@@ -144,7 +150,7 @@ fun SearchBookItemPrev(book: SearchBook = SearchBook().buildSample()) {
 @Preview
 @Composable
 fun SearchBookItemListPrev(book: SearchBook = SearchBook().buildSample()) {
-    Column() {
+    Column {
         SearchBookItem(book = book)
         SearchBookItem(book = book)
         SearchBookItem(book = book)

@@ -4,6 +4,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun WishListPage() {
+fun WishListScreen() {
     Text(text = "Wish List")
 }

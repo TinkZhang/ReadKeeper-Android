@@ -15,14 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.github.tinkzhang.readkeeper.search.SearchViewModel
-import timber.log.Timber
 
 
 @Composable
-fun HomePage(navController: NavController, searchViewModel: SearchViewModel) {
+fun HomeScreen(navController: NavController, searchViewModel: SearchViewModel) {
     var searchKeyword by remember {
         mutableStateOf("")
     }
