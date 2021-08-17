@@ -3,28 +3,12 @@ package com.github.tinkzhang.readkeeper
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -37,6 +21,7 @@ import com.github.tinkzhang.readkeeper.common.RkScreen
 import com.github.tinkzhang.readkeeper.search.SearchViewModel
 import com.github.tinkzhang.readkeeper.ui.ReadingListScreen
 import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
+import com.github.tinkzhang.readkeeper.ui.components.RkTopBar
 import com.github.tinkzhang.readkeeper.ui.getBottomBarItemList
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
 
@@ -51,7 +36,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Scaffold(
-                        topBar = { TopBar() },
+                        topBar = { RkTopBar() },
                         bottomBar = { BottomBar(navController = navController) },
                     ) {
                         NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
@@ -88,8 +73,7 @@ fun BottomBar(navController: NavHostController) {
                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 icon = {
                     Icon(
-                        screen.icon,
-                        contentDescription = stringResource(id = screen.labelId),
+                        screen.icon, contentDescription = stringResource(id = screen.labelId),
                     )
                 },
                 label = { Text(stringResource(id = screen.labelId)) },
@@ -113,63 +97,3 @@ fun BottomBar(navController: NavHostController) {
     }
 }
 
-@Composable
-fun TopBar(modifier: Modifier = Modifier.fillMaxWidth()) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier,
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-
-            ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentDescription = "",
-                modifier = Modifier.size(64.dp)
-            )
-            ReadKeeperBarTitleText()
-        }
-        ProfileImage(modifier = Modifier.padding(end = 16.dp))
-    }
-}
-
-@Composable
-fun ReadKeeperBarTitleText() {
-    Text(buildAnnotatedString {
-        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = Color(0xffdb4437))) {
-            append("R")
-        }
-        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = Color(0xff4285f4))) {
-            append("eed")
-        }
-        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = Color(0xfff4b400))) {
-            append("K")
-        }
-        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = Color(0xff0f9d58))) {
-            append("eeper")
-        }
-    }, fontSize = 22.sp)
-}
-
-@Composable
-fun ProfileImage(
-    modifier: Modifier = Modifier,
-    onClickAction: () -> Unit = {},
-) {
-    Image(
-        painter = painterResource(id = R.drawable.ic_profile_24),
-        contentDescription = "Profile",
-        modifier = modifier
-            .size(36.dp)
-            .clip(CircleShape)
-            .clickable { onClickAction },
-    )
-}
-
-@Preview
-@Composable
-fun TopBarPreview() {
-    TopBar()
-}
