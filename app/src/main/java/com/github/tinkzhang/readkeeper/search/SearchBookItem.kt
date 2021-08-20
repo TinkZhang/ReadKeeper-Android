@@ -9,13 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.ui.components.ReadingIconToggleButton
 import com.github.tinkzhang.readkeeper.ui.components.WishIconToggleButton
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
-import com.google.accompanist.coil.LocalImageLoader
-import com.google.accompanist.imageloading.LoadPainterDefaults
 
 @Composable
 fun SearchBookItem(book: SearchBook) {
@@ -31,7 +30,7 @@ fun SearchBookItem(book: SearchBook) {
                         data = book.imageUrl,
                         imageLoader = LocalImageLoader.current,
                         builder = {
-                            if (false == true) this.crossfade(LoadPainterDefaults.FadeInTransitionDuration)
+                            this.crossfade(true)
                             placeholder(drawableResId = R.drawable.ic_launcher_foreground)
                         }
                     ),

@@ -8,7 +8,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -29,7 +28,6 @@ fun HomeScreen(navController: NavController, searchViewModel: SearchViewModel) {
         onValueChange = { text -> searchKeyword = text },
         singleLine = true,
         placeholder = { Text(text = stringResource(id = R.string.search_hint)) },
-        trailingIcon = { Icon(Icons.Filled.Settings, contentDescription = "Settings") },
         leadingIcon = { Icon(Icons.Outlined.Search, contentDescription = "Search") },
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions {
