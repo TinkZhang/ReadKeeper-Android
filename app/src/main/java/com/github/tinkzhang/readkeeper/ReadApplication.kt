@@ -2,11 +2,13 @@ package com.github.tinkzhang.readkeeper
 
 import android.app.Application
 import android.util.Log
+import com.github.tinkzhang.readkeeper.instabug.InstabugWrapper
 import timber.log.Timber
 
 class ReadApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+        InstabugWrapper.init(this)
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         } else {

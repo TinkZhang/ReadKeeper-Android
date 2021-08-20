@@ -12,4 +12,5 @@
     <string name="add_reading">+Reading</string>
     <string name="reading_added">Added into the reading list</string>
     <string name="back">Back</string>
+    <string name="instabug_token">7f3e50ba07fbe7378f9dfa8ff77cb4bb</string>
 </resources>

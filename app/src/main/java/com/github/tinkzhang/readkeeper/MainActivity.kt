@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.tinkzhang.readkeeper.common.RkScreen
+import com.github.tinkzhang.readkeeper.instabug.InstabugWrapper
 import com.github.tinkzhang.readkeeper.search.SearchViewModel
 import com.github.tinkzhang.readkeeper.ui.ReadingListScreen
 import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Scaffold(
-                        topBar = { RkTopBar() },
+                        topBar = { RkTopBar(onProfileClickAction = { InstabugWrapper.show() }) },
                         bottomBar = { BottomBar(navController = navController) },
                     ) {
                         NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
