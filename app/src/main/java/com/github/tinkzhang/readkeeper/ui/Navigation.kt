@@ -2,10 +2,7 @@ package com.github.tinkzhang.readkeeper.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Archive
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.github.tinkzhang.readkeeper.R
 
@@ -15,6 +12,7 @@ object SCREEN_ROUTE {
     const val WISH_LIST = "wish_list"
     const val ARCHIVED_LIST = "archived_list"
     const val SEARCH = "search/{keyword}"
+    const val SETTINGS = "settings"
 }
 
 sealed class Screen(val route: String, @StringRes val labelId: Int, var icon: ImageVector) {
@@ -25,6 +23,7 @@ sealed class Screen(val route: String, @StringRes val labelId: Int, var icon: Im
     object WishListPage : Screen(SCREEN_ROUTE.WISH_LIST, R.string.wish, Icons.Filled.Favorite)
     object ArchivedPage :
         Screen(SCREEN_ROUTE.ARCHIVED_LIST, R.string.archived, Icons.Filled.Archive)
+    object SettingsPage: Screen(SCREEN_ROUTE.SETTINGS, R.string.settings, Icons.Filled.Settings)
 }
 
 fun getBottomBarItemList() = listOf(

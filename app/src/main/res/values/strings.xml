@@ -13,4 +13,7 @@
     <string name="reading_added">Added into the reading list</string>
     <string name="back">Back</string>
     <string name="instabug_token">7f3e50ba07fbe7378f9dfa8ff77cb4bb</string>
+    <string name="settings">Settings</string>
+    <string name="logout">SIGN OUT</string>
+    <string name="login_with_google">Google Login</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.github.tinkzhang.readkeeper
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -18,8 +20,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.tinkzhang.readkeeper.common.RkScreen
-import com.github.tinkzhang.readkeeper.instabug.InstabugWrapper
 import com.github.tinkzhang.readkeeper.search.SearchViewModel
+import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.github.tinkzhang.readkeeper.ui.ReadingListScreen
 import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
 import com.github.tinkzhang.readkeeper.ui.components.RkTopBar
@@ -34,10 +36,17 @@ class MainActivity : ComponentActivity() {
             ReadKeeperTheme {
                 val currentScreen by rememberSaveable { mutableStateOf(RkScreen.Home) }
                 val navController = rememberNavController()
+                val context = LocalContext.current
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Scaffold(
-                        topBar = { RkTopBar(onProfileClickAction = { InstabugWrapper.show() }) },
+                        topBar = {
+                            RkTopBar(onProfileClickAction = {
+                                context.startActivity(
+                                    Intent(context, SettingsActivity::class.java)
+                                )
+                            })
+                        },
                         bottomBar = { BottomBar(navController = navController) },
                     ) {
                         NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
