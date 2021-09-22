@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,9 +25,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.github.tinkzhang.readkeeper.R
+import com.github.tinkzhang.readkeeper.user.UserViewModel
 
 @Composable
 fun RkBackTopBar(title: String) {
@@ -43,7 +46,7 @@ fun RkBackTopBar(title: String) {
 @Composable
 fun RkTopBar(
     modifier: Modifier = Modifier,
-    isSignedIn: Boolean = false,
+    userViewModel: UserViewModel,
     profileUrl: String? = "https://lh3.googleusercontent.com/ogw/ADea4I7Sai6ixeWECnEqktIJ3iH_Vx9YwZyM26e2Whdn_A=s192-c-mo",
     onProfileClickAction: () -> Unit = {}
 ) {
@@ -62,7 +65,7 @@ fun RkTopBar(
             )
             RkTopBarTitleText()
         }
-        if (isSignedIn) {
+        if (userViewModel.isSignedIn.observeAsState(false).value) {
             RkProfileImage(
                 modifier = Modifier.padding(end = 16.dp),
                 profileUrl = profileUrl,
@@ -141,5 +144,6 @@ fun RkProfileImage(
 @Preview
 @Composable
 fun TopBarPreview() {
-    RkTopBar()
+    val userViewModel: UserViewModel = viewModel()
+    RkTopBar(userViewModel = userViewModel)
 }

@@ -1,7 +1,11 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("com.google.gms.google-services")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -71,6 +75,12 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
 
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
+    implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    kapt ("androidx.hilt:hilt-compiler:1.0.0")
+
     // Google Play Service
     implementation("com.google.android.gms:play-services-auth:19.2.0")
 
@@ -95,4 +105,9 @@ dependencies {
     // Instabug
     val instabugVersion = "10.8.1"
     implementation("com.instabug.library:instabug:$instabugVersion")
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

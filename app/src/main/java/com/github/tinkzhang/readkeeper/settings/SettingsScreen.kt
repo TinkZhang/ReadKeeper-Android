@@ -36,13 +36,11 @@ fun SettingsScreen(
 
 @Composable
 fun LoginOrProfileSection(userViewModel: UserViewModel) {
-    val isLoggedIn by userViewModel.isLoggedIn.observeAsState()
-    isLoggedIn?.let {
-        if (it) {
-            ProfileAndLogoutSection(userViewModel)
-        } else {
-            LoginSection(userViewModel)
-        }
+    val isLoggedIn:Boolean by userViewModel.isSignedIn.observeAsState(false)
+    if (isLoggedIn) {
+        ProfileAndLogoutSection(userViewModel = userViewModel)
+    } else {
+        LoginSection(userViewModel = userViewModel)
     }
 }
 
@@ -53,12 +51,12 @@ fun ProfileAndLogoutSection(userViewModel: UserViewModel) {
         .padding(top = 16.dp)) {
         ProfileSection(
             profileImageUrl = userViewModel.profileImageUrl,
-            username = userViewModel.userName,
-            userEmail = userViewModel.userEmail,
+            username = userViewModel.userName.value ?: "",
+            userEmail = userViewModel.userEmail.value ?: "",
         )
         Spacer(modifier = Modifier.height(8.dp))
         Button(
-            onClick = userViewModel::logout,
+            onClick = userViewModel::signOutWithGoogle,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Icon(Icons.Default.Logout, contentDescription = null)
@@ -105,7 +103,7 @@ fun LoginSection(userViewModel: UserViewModel) {
         SignInButton(context).apply {
             setSize(SignInButton.SIZE_WIDE)
             layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-            setOnClickListener { userViewModel.login() }
+            setOnClickListener { userViewModel.loginWithGoogle(context) }
         }
     })
 }

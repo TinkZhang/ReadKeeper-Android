@@ -27,12 +27,16 @@ import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
 import com.github.tinkzhang.readkeeper.ui.components.RkTopBar
 import com.github.tinkzhang.readkeeper.ui.getBottomBarItemList
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
+import com.github.tinkzhang.readkeeper.user.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             val searchViewModel: SearchViewModel = viewModel()
+            val userViewModel: UserViewModel = viewModel()
             ReadKeeperTheme {
                 val currentScreen by rememberSaveable { mutableStateOf(RkScreen.Home) }
                 val navController = rememberNavController()
@@ -41,7 +45,9 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     Scaffold(
                         topBar = {
-                            RkTopBar(onProfileClickAction = {
+                            RkTopBar(
+                                userViewModel = userViewModel,
+                                onProfileClickAction = {
                                 context.startActivity(
                                     Intent(context, SettingsActivity::class.java)
                                 )

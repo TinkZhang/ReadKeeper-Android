@@ -3,8 +3,10 @@ package com.github.tinkzhang.readkeeper
 import android.app.Application
 import android.util.Log
 import com.github.tinkzhang.readkeeper.instabug.InstabugWrapper
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+@HiltAndroidApp
 class ReadApplication : Application() {
     override fun onCreate() {
         super.onCreate()
