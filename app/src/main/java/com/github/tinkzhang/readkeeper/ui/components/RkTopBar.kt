@@ -47,7 +47,6 @@ fun RkBackTopBar(title: String) {
 fun RkTopBar(
     modifier: Modifier = Modifier,
     userViewModel: UserViewModel,
-    profileUrl: String? = "https://lh3.googleusercontent.com/ogw/ADea4I7Sai6ixeWECnEqktIJ3iH_Vx9YwZyM26e2Whdn_A=s192-c-mo",
     onProfileClickAction: () -> Unit = {}
 ) {
     Row(
@@ -68,7 +67,7 @@ fun RkTopBar(
         if (userViewModel.isSignedIn.observeAsState(false).value) {
             RkProfileImage(
                 modifier = Modifier.padding(end = 16.dp),
-                profileUrl = profileUrl,
+                profileUrl = userViewModel.userProfileImageUrl.value,
                 onProfileClickAction = onProfileClickAction,
             )
         } else {

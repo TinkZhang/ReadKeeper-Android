@@ -50,7 +50,7 @@ fun ProfileAndLogoutSection(userViewModel: UserViewModel) {
         .fillMaxWidth()
         .padding(top = 16.dp)) {
         ProfileSection(
-            profileImageUrl = userViewModel.profileImageUrl,
+            profileImageUrl = userViewModel.userProfileImageUrl.value ?: "",
             username = userViewModel.userName.value ?: "",
             userEmail = userViewModel.userEmail.value ?: "",
         )
@@ -88,7 +88,7 @@ fun ProfileSection(
 
 @Preview
 @Composable
-fun ProfileSectionPrew() {
+fun ProfileSectionPrev() {
     ProfileSection(
         profileImageUrl = "https://lh3.googleusercontent.com/ogw/ADea4I7Sai6ixeWECnEqktIJ3iH_Vx9YwZyM26e2Whdn_A=s192-c-mo",
         userEmail = "ZhangYunfengzju@gmail.com",
@@ -103,7 +103,7 @@ fun LoginSection(userViewModel: UserViewModel) {
         SignInButton(context).apply {
             setSize(SignInButton.SIZE_WIDE)
             layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-            setOnClickListener { userViewModel.loginWithGoogle(context) }
+            setOnClickListener { userViewModel.signInWithGoogle(context) }
         }
     })
 }
