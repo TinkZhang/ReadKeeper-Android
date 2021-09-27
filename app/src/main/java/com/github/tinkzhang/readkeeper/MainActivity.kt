@@ -20,6 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.tinkzhang.readkeeper.common.RkScreen
+import com.github.tinkzhang.readkeeper.reading.ReadingViewModel
 import com.github.tinkzhang.readkeeper.search.SearchViewModel
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.github.tinkzhang.readkeeper.ui.ReadingListScreen
@@ -37,6 +38,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val searchViewModel: SearchViewModel = viewModel()
             val userViewModel: UserViewModel = viewModel()
+            val readingViewModel: ReadingViewModel = viewModel()
             ReadKeeperTheme {
                 val currentScreen by rememberSaveable { mutableStateOf(RkScreen.Home) }
                 val navController = rememberNavController()
@@ -57,7 +59,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
                             composable(SCREEN_ROUTE.HOME) {
-                                HomeScreen(navController = navController, searchViewModel)
+                                HomeScreen(navController = navController, searchViewModel, readingViewModel)
                             }
                             composable(SCREEN_ROUTE.SEARCH) {
                                 SearchResultScreen(searchViewModel)
