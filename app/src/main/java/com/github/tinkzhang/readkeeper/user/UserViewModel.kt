@@ -8,6 +8,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -63,8 +64,10 @@ class UserViewModel @Inject constructor(
                     syncUserInfo()
                     isSignedIn.value = true
                     signInError.value = false
+                    Timber.d("Google Sign in succeed !!!")
                 } else {
                     signInError.value = true
+                    Timber.e("Failed to sign in!!!")
                 }
             }
     }

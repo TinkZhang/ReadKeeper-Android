@@ -68,7 +68,7 @@ class MainActivity : ComponentActivity() {
                                 WishListScreen()
                             }
                             composable(SCREEN_ROUTE.READING_LIST) {
-                                ReadingListScreen()
+                                ReadingListScreen(readingViewModel)
                             }
                             composable(SCREEN_ROUTE.ARCHIVED_LIST) {
                                 WishListScreen()

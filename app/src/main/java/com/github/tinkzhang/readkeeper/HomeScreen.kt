@@ -49,9 +49,14 @@ fun HomeScreen(navController: NavController,
         )
         Button(onClick = {
             readingViewModel.addBook()
-            readingViewModel.getBook()
         }) {
-           Text("Add Book")
+            Text("Add Book")
+        }
+
+        Button(onClick = {
+            readingViewModel.syncList()
+        }) {
+           Text("Get Book")
         }
     }
 

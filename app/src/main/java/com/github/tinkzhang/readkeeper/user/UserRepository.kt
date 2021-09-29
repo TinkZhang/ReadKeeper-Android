@@ -18,8 +18,10 @@ class UserRepository {
     val user = Firebase.auth.currentUser
 
     private val userDocumentRef = if (user == null) {
+        Timber.d("offline users")
         Firebase.firestore.document("user/${UUID.randomUUID()}}")
     } else {
+        Timber.d("Signed in user with id: ${user.uid}")
         Firebase.firestore.document("user/${user.uid}")
     }
 
@@ -36,12 +38,20 @@ class UserRepository {
             }
     }
 
-    fun getReadingBook() {
+    fun getReadingList(): MutableList<ReadingBook>? {
+        var result: MutableList<ReadingBook>? = mutableListOf()
         readingCollectionRef
             .get()
             .addOnSuccessListener { document ->
-                Timber.d("Reading List: ${document.toObjects<ReadingBook>().forEach { it.title }}")
+                val lists = document.toObjects<ReadingBook>()
+                Timber.d("Reading List: ${lists.forEach { it.title }}")
+                result = lists.toMutableList()
             }
+            .addOnFailureListener { error ->
+                Timber.d("Failed to fetch Reading Lists, $error")
+                result = null
+            }
+        return result
     }
 
     fun signOutWithGoogle() {
