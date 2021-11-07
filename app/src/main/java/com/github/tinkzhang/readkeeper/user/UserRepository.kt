@@ -44,8 +44,9 @@ class UserRepository {
             .get()
             .addOnSuccessListener { document ->
                 val lists = document.toObjects<ReadingBook>()
-                Timber.d("Reading List: ${lists.forEach { it.title }}")
+                Timber.d("Reading List: ${lists.map { it.title }}")
                 result = lists.toMutableList()
+                Timber.d("${result!!.size}")
             }
             .addOnFailureListener { error ->
                 Timber.d("Failed to fetch Reading Lists, $error")

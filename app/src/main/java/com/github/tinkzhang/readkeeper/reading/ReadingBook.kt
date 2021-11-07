@@ -1,5 +1,6 @@
 package com.github.tinkzhang.readkeeper.reading
 
+import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.common.BasicBook
 import com.google.firebase.Timestamp
 
@@ -12,34 +13,43 @@ data class ReadingBook(
     override var rating: Double = 0.0,
     override var originalPublicationYear: Int = 1900,
     val platform: ReadingPlatform = ReadingPlatform.PAPER,
+    val recordFormat: RecordFormat = RecordFormat.PAGE,
     val labels: MutableList<String> = mutableListOf(),
     val readingRecords: MutableList<ReadingRecord> = mutableListOf(),
     val readingNotes: MutableList<ReadingNote> = mutableListOf(),
 ) : BasicBook()
 
 data class ReadingRecord(
-    val startPage: Double = 0.0,
-    val endPage: Double = 0.0,
+    val startPage: Int = 0,
+    val endPage: Int = 0,
     val timestamp: Timestamp = Timestamp.now()
 )
 
 data class ReadingNote(
     val note: String = "",
+    val position: Int = 0,
     val timestamp: Timestamp = Timestamp.now()
 )
 
-enum class ReadingPlatform(val label: String) {
-    PAPER("Paper"),
-    PDF("PDF" ),
-    APPLE_BOOKS("Apple Book"),
-    WECHAT("WeChat Read"),
-    KINDLE("Kindle");
+enum class RecordFormat() {
+    PAGE,
+    PERCENTAGE,
+}
+
+enum class ReadingPlatform(val label: String, val icon: Int) {
+    PAPER("Paper", R.drawable.ic_paper_book),
+    PDF("PDF", R.drawable.ic_pdf),
+    APPLE_BOOKS("Apple Book", R.drawable.ic_apple_book),
+    WECHAT("WeChat Read", R.drawable.ic_wechat),
+    KINDLE("Kindle", R.drawable.ic_kindle),
+    GOOGLE("Google Book", R.drawable.ic_google_book),
+    EBOOK("E Book", R.drawable.ic_ebook),
 }
 
 class ReadingBookFactory {
     companion object {
         fun buildSample(): ReadingBook {
-            val records = mutableListOf(ReadingRecord(startPage = 12.0, endPage = 112.0))
+            val records = mutableListOf(ReadingRecord(startPage = 10, endPage = 112))
             val notes = mutableListOf(ReadingNote("Hello world"))
             return ReadingBook(
                 title = "Book Title",
