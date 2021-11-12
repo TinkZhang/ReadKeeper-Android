@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -44,22 +45,26 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val context = LocalContext.current
                 // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
+                Surface() {
                     Scaffold(
                         topBar = {
                             RkTopBar(
                                 userViewModel = userViewModel,
                                 onProfileClickAction = {
-                                context.startActivity(
-                                    Intent(context, SettingsActivity::class.java)
-                                )
-                            })
+                                    context.startActivity(
+                                        Intent(context, SettingsActivity::class.java)
+                                    )
+                                })
                         },
                         bottomBar = { BottomBar(navController = navController) },
                     ) {
                         NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
                             composable(SCREEN_ROUTE.HOME) {
-                                HomeScreen(navController = navController, searchViewModel, readingViewModel)
+                                HomeScreen(
+                                    navController = navController,
+                                    searchViewModel,
+                                    readingViewModel
+                                )
                             }
                             composable(SCREEN_ROUTE.SEARCH) {
                                 SearchResultScreen(searchViewModel)
@@ -83,17 +88,30 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BottomBar(navController: NavHostController) {
-    BottomNavigation {
+    NavigationBar {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
         getBottomBarItemList().forEach { screen ->
-            BottomNavigationItem(
+            NavigationBarItem(
                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 icon = {
-                    Icon(
-                        screen.icon, contentDescription = stringResource(id = screen.labelId),
-                    )
+                    if (currentDestination?.hierarchy?.any { it.route == screen.route } == true) {
+                        Icon(
+                            screen.selectedIcon,
+                            contentDescription = stringResource(id = screen.labelId)
+                        )
+                    } else {
+                        Icon(
+                            screen.unselectedIcon,
+                            contentDescription = stringResource(id = screen.labelId)
+                        )
+                    }
                 },
+//                icon = if (){
+//                    Icon(
+//                        screen.icon, contentDescription = stringResource(id = screen.labelId),
+//                    )
+//                },
                 label = { Text(stringResource(id = screen.labelId)) },
                 onClick = {
                     navController.navigate(screen.route) {
