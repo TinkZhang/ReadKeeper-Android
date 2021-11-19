@@ -25,7 +25,7 @@ import com.github.tinkzhang.readkeeper.search.SearchViewModel
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.github.tinkzhang.readkeeper.ui.ReadingListScreen
 import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
-import com.github.tinkzhang.readkeeper.ui.components.RkTopBar
+import com.github.tinkzhang.readkeeper.ui.components.RkMainTopBar
 import com.github.tinkzhang.readkeeper.ui.getBottomBarItemList
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
 import com.github.tinkzhang.readkeeper.user.UserViewModel
@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                 Surface() {
                     Scaffold(
                         topBar = {
-                            RkTopBar(
+                            RkMainTopBar(
                                 userViewModel = userViewModel,
                                 onProfileClickAction = {
                                     context.startActivity(
@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                                     )
                                 })
                         },
-                        bottomBar = { BottomBar(navController = navController) },
+                        bottomBar = { RkNavigationBar(navController = navController) },
                     ) {
                         NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
                             composable(SCREEN_ROUTE.HOME) {
@@ -87,7 +87,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun BottomBar(navController: NavHostController) {
+fun RkNavigationBar(navController: NavHostController) {
     NavigationBar {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
@@ -107,11 +107,6 @@ fun BottomBar(navController: NavHostController) {
                         )
                     }
                 },
-//                icon = if (){
-//                    Icon(
-//                        screen.icon, contentDescription = stringResource(id = screen.labelId),
-//                    )
-//                },
                 label = { Text(stringResource(id = screen.labelId)) },
                 onClick = {
                     navController.navigate(screen.route) {

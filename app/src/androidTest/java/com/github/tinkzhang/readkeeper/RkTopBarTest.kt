@@ -5,18 +5,16 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.printToLog
-import com.github.tinkzhang.readkeeper.ui.components.RkTopBar
 import org.junit.Rule
 import org.junit.Test
 
-class RkTopBarTest {
+class RkMainTopBarTest {
     @get: Rule
     val composeTestRule = createComposeRule()
 
     @Test
-    fun rkTopBarSignedTest() {
+    fun rkMainTopBarSignedTest() {
         composeTestRule.setContent {
-            RkTopBar(isSignedIn = true)
         }
 
         composeTestRule.onRoot().printToLog("RkTopBar")
@@ -28,9 +26,8 @@ class RkTopBarTest {
     }
 
     @Test
-    fun rkTopBarUnsignedTest() {
+    fun rkMainTopBarUnsignedTest() {
         composeTestRule.setContent {
-            RkTopBar(isSignedIn = false)
         }
 
         composeTestRule
