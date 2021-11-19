@@ -1,17 +1,19 @@
 package com.github.tinkzhang.readkeeper.ui.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -21,15 +23,14 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.user.UserViewModel
+import timber.log.Timber
 
 @Composable
 fun RkBackTopBar(title: String) {
@@ -44,39 +45,31 @@ fun RkBackTopBar(title: String) {
 }
 
 @Composable
-fun RkTopBar(
-    modifier: Modifier = Modifier,
+fun RkMainTopBar(
     userViewModel: UserViewModel,
-    onProfileClickAction: () -> Unit = {}
+    modifier: Modifier = Modifier,
+    onProfileClickAction: () -> Unit = { Timber.d("Clicked") }
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.fillMaxWidth(),
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
+    CenterAlignedTopAppBar(
+        title = { RkTopBarTitleText() },
+        navigationIcon = {
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                painter = painterResource(id = R.drawable.ic_readkeeperlogo),
                 contentDescription = "",
-                modifier = Modifier.size(64.dp)
             )
-            RkTopBarTitleText()
+        },
+        actions = {
+            if (userViewModel.isSignedIn.observeAsState(false).value) {
+                IconButton(onClick = onProfileClickAction) {
+                    RkProfileImage(profileUrl = userViewModel.userProfileImageUrl.value)
+                }
+            } else {
+                IconButton(onClick = onProfileClickAction) {
+                    Icon(imageVector = Icons.Default.Settings, contentDescription = "Settings")
+                }
+            }
         }
-        if (userViewModel.isSignedIn.observeAsState(false).value) {
-            RkProfileImage(
-                modifier = Modifier.padding(end = 16.dp),
-                profileUrl = userViewModel.userProfileImageUrl.value,
-                onProfileClickAction = onProfileClickAction,
-            )
-        } else {
-            TopBarSettingButton(
-                modifier = Modifier.padding(end = 16.dp),
-                onSettingClickAction = onProfileClickAction,
-            )
-        }
-    }
+    )
 }
 
 @Composable
@@ -102,27 +95,10 @@ fun RkTopBarTitleText() {
 }
 
 @Composable
-fun TopBarSettingButton(
-    modifier: Modifier = Modifier,
-    onSettingClickAction: () -> Unit,
-) {
-    Icon(
-        painter = painterResource(id = R.drawable.ic_settings_24),
-        contentDescription = "Settings",
-        modifier = modifier
-            .size(35.dp)
-            .clip(CircleShape)
-            .clickable(onClick = onSettingClickAction),
-        tint = MaterialTheme.colors.secondary,
-    )
-}
-
-@Composable
 fun RkProfileImage(
     modifier: Modifier = Modifier,
     profileUrl: String?,
     size: Dp = 36.dp,
-    onProfileClickAction: () -> Unit = {},
 ) {
     Image(
         painter = rememberImagePainter(
@@ -136,13 +112,5 @@ fun RkProfileImage(
         modifier = modifier
             .size(size)
             .clip(CircleShape)
-            .clickable(onClick = onProfileClickAction),
     )
-}
-
-@Preview
-@Composable
-fun TopBarPreview() {
-    val userViewModel: UserViewModel = viewModel()
-    RkTopBar(userViewModel = userViewModel)
 }
