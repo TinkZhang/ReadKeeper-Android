@@ -35,6 +35,10 @@ class SearchViewModel : ViewModel() {
             }
         }
     }
+
+    fun addHistory(keyword: String) {
+        // TODO: add search history
+    }
 }
 
 private fun Item.convertToSearchBook(): SearchBook {

@@ -6,62 +6,82 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Archive
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.github.tinkzhang.readkeeper.R
+import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE.ARCHIVED_LIST
+import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE.HOME
+import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE.READING_LIST
+import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE.SEARCH
+import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE.SETTINGS
+import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE.WISH_LIST
 
 object SCREEN_ROUTE {
     const val HOME = "home"
     const val READING_LIST = "reading_list"
     const val WISH_LIST = "wish_list"
     const val ARCHIVED_LIST = "archived_list"
-    const val SEARCH = "search/{keyword}"
+    const val SEARCH = "search"
+    const val SEARCH_RESUTL = "search_result/{keyword}"
     const val SETTINGS = "settings"
 }
 
-sealed class Screen(
-    val route: String,
+val ROUTE_TO_SCREEN_MAP = mapOf(
+    HOME to MainScreenViewData.HomeScreenViewData,
+    READING_LIST to MainScreenViewData.ReadingListScreenViewData,
+    WISH_LIST to MainScreenViewData.WishListScreenViewData,
+    ARCHIVED_LIST to MainScreenViewData.ArchiveScreenViewData,
+    SETTINGS to SubScreenViewData.SettingScreenViewData,
+    SEARCH to SubScreenViewData.SearchScreenViewData,
+)
+
+interface ScreenViewData {
+    open val route: String
+}
+
+open class SubScreenViewData(
+    override val route: String,
+    val title: String,
+) : ScreenViewData {
+    object SettingScreenViewData: SubScreenViewData(SETTINGS, "Setting")
+    object SearchScreenViewData: SubScreenViewData(SEARCH, "Search")
+}
+
+sealed class MainScreenViewData(
+    override val route: String,
     @StringRes val labelId: Int,
     var selectedIcon: ImageVector,
     var unselectedIcon: ImageVector
-) {
-    object HomePage :
-        Screen(SCREEN_ROUTE.HOME, R.string.home, Icons.Filled.Home, Icons.Outlined.Home)
+) : ScreenViewData {
+    object HomeScreenViewData :
+        MainScreenViewData(SCREEN_ROUTE.HOME, R.string.home, Icons.Filled.Home, Icons.Outlined.Home)
 
-    object ReadingListPage :
-        Screen(
+    object ReadingListScreenViewData :
+        MainScreenViewData(
             SCREEN_ROUTE.READING_LIST,
             R.string.reading,
             Icons.Filled.Bookmark,
             Icons.Filled.BookmarkBorder
         )
 
-    object WishListPage : Screen(
+    object WishListScreenViewData : MainScreenViewData(
         SCREEN_ROUTE.WISH_LIST,
         R.string.wish,
         Icons.Filled.Favorite,
         Icons.Outlined.FavoriteBorder
     )
 
-    object ArchivedPage :
-        Screen(
+    object ArchiveScreenViewData :
+        MainScreenViewData(
             SCREEN_ROUTE.ARCHIVED_LIST,
             R.string.archived,
             Icons.Filled.Archive,
             Icons.Outlined.Archive
         )
-
-    object SettingsPage : Screen(
-        SCREEN_ROUTE.SETTINGS,
-        R.string.settings,
-        Icons.Filled.Settings,
-        Icons.Outlined.Settings
-    )
 }
 
 fun getBottomBarItemList() = listOf(
-    Screen.HomePage,
-    Screen.ReadingListPage,
-    Screen.WishListPage,
-    Screen.ArchivedPage,
+    MainScreenViewData.HomeScreenViewData,
+    MainScreenViewData.ReadingListScreenViewData,
+    MainScreenViewData.WishListScreenViewData,
+    MainScreenViewData.ArchiveScreenViewData,
 )

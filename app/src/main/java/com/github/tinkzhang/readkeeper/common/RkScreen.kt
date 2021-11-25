@@ -5,15 +5,12 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class RkScreen(
-    val icon: ImageVector,
-    val topBarBackEnabled: Boolean = false,
-    val bottomBarHidden: Boolean = false,
+    val icon: ImageVector = Icons.Filled.Home,
 ) {
     Home(icon = Icons.Filled.Home),
     Reading(icon = Icons.Filled.Bookmark),
     Wish(icon = Icons.Filled.Favorite),
     Archived(icon = Icons.Filled.Archive),
-    Settings(icon = Icons.Filled.Settings, topBarBackEnabled = true, bottomBarHidden = true),
     Search(icon = Icons.Filled.Search);
 
     companion object {
