@@ -106,6 +106,11 @@ dependencies {
     // Instabug
     val instabugVersion = "10.8.1"
     implementation("com.instabug.library:instabug:$instabugVersion")
+
+    // Paging
+    val paging_version = "3.1.0"
+    implementation("androidx.paging:paging-runtime:$paging_version")
+    implementation("androidx.paging:paging-compose:1.0.0-alpha14")
 }
 
 // Allow references to generated code
