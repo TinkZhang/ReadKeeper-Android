@@ -76,7 +76,6 @@ class MainActivity : ComponentActivity() {
                                         SEARCH -> {
                                             RkSearchTextField(
                                                 onSearch = { keyword ->
-                                                    searchViewModel.searchBook(keyword)
                                                     searchViewModel.addHistory(keyword)
                                                     navController.navigate("search_result/${keyword}")
                                                 }

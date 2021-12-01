@@ -1,11 +1,10 @@
 package com.github.tinkzhang.readkeeper
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -15,6 +14,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemsIndexed
 import com.github.tinkzhang.readkeeper.search.SearchBookItem
 import com.github.tinkzhang.readkeeper.search.SearchViewModel
 
@@ -43,24 +45,53 @@ fun SearchResultScreen(viewModel: SearchViewModel) {
                 .background(MaterialTheme.colors.background)
                 .fillMaxSize(),
         ) {
-            if (isLoading == true) {
-                Box(
-                    modifier = Modifier.fillMaxSize(0.2f),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    CircularProgressIndicator()
+            val books = viewModel.flow.collectAsLazyPagingItems()
+
+            LazyColumn {
+                if (books.loadState.refresh == LoadState.Loading) {
+                    item {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentWidth(Alignment.CenterHorizontally)
+                        )
+                    }
                 }
-            } else {
-                Column {
-                    books?.let {
-                        LazyColumn {
-                            itemsIndexed(books!!) { _, book ->
-                                SearchBookItem(book = book)
-                            }
-                        }
-                    } ?: Text(text = "Empty List")
+
+                itemsIndexed(books) { index, item ->
+                    if (item != null) {
+                        SearchBookItem(book = item)
+                    }
+                }
+
+                if (books.loadState.append == LoadState.Loading) {
+                    item {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentWidth(Alignment.CenterHorizontally)
+                        )
+                    }
                 }
             }
+//            if (isLoading == true) {
+//                Box(
+//                    modifier = Modifier.fillMaxSize(0.2f),
+//                    contentAlignment = Alignment.Center,
+//                ) {
+//                    CircularProgressIndicator()
+//                }
+//            } else {
+//                Column {
+//                    books?.let {
+//                        LazyColumn {
+//                            itemsIndexed(books!!) { _, book ->
+//                                SearchBookItem(book = book)
+//                            }
+//                        }
+//                    } ?: Text(text = "Empty List")
+//                }
+//            }
 //        Column {
 //            Text(if (isLoading == true) {
 //                "Loading"
