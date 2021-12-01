@@ -10,7 +10,7 @@ import timber.log.Timber
 import java.io.IOException
 
 class SearchResultDataSource(
-    val keyword: String,
+    private val keyword: String,
 ) : PagingSource<Int, Item>() {
 
     override fun getRefreshKey(state: PagingState<Int, Item>): Int? {
@@ -22,7 +22,7 @@ class SearchResultDataSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
         return try {
-            val nextPage = params.key ?: 1
+            val nextPage = params.key ?: 0
             val response = GoogleBookService.instance.search(keyword, nextPage * SIZE)
             val totalItems = response.totalItems
             Timber.d(

@@ -11,7 +11,7 @@ import com.github.tinkzhang.readkeeper.search.network.SIZE
 import github.tinkzhang.readkeeper.search.model.googlebook.Item
 import kotlinx.coroutines.flow.map
 
-class SearchViewModel(private val keyword: String) : ViewModel() {
+class SearchResultViewModel(private val keyword: String) : ViewModel() {
     val flow = Pager(
         PagingConfig(pageSize = SIZE)
     ) {
@@ -35,8 +35,8 @@ private fun Item.convertToSearchBook(): SearchBook {
     )
 }
 
-class SearchViewModelFactory(private val keyword: String) : ViewModelProvider.Factory {
+class SearchResultViewModelFactory(private val keyword: String) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return SearchViewModel(keyword) as T
+        return SearchResultViewModel(keyword) as T
     }
 }

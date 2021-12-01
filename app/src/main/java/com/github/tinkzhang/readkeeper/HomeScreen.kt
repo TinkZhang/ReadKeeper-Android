@@ -22,29 +22,7 @@ fun HomeScreen(
     readingViewModel: ReadingViewModel,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        // TODO: Update to M3 version TextField when it's available
-//        OutlinedTextField(
-//            value = searchKeyword,
-//            onValueChange = { text -> searchKeyword = text },
-//            singleLine = true,
-//            placeholder = { Text(text = stringResource(id = R.string.search_hint)) },
-//            leadingIcon = { Icon(Icons.Outlined.Search, contentDescription = "Search") },
-//            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-//            keyboardActions = KeyboardActions {
-//                searchViewModel.searchBook(searchKeyword)
-//                navController.navigate("search/${searchKeyword}") {
-//                    launchSingleTop = true
-//                }
-//            },
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(16.dp),
-//            colors = TextFieldDefaults.outlinedTextFieldColors(
-//                backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
-//                unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-//                focusedBorderColor = MaterialTheme.colorScheme.primary,
-//            )
-//        )
+
         FilledTonalButton(onClick = { navController.navigate(SCREEN_ROUTE.SEARCH)}, modifier = Modifier.padding(16.dp).fillMaxWidth()) {
             Row(modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                 Icon(

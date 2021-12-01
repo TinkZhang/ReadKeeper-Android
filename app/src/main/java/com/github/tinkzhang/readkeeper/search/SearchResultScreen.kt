@@ -17,13 +17,15 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.github.tinkzhang.readkeeper.search.SearchBookItem
-import com.github.tinkzhang.readkeeper.search.SearchViewModel
-import com.github.tinkzhang.readkeeper.search.SearchViewModelFactory
+import com.github.tinkzhang.readkeeper.search.SearchResultViewModel
+import com.github.tinkzhang.readkeeper.search.SearchResultViewModelFactory
+import com.github.tinkzhang.readkeeper.search.components.RkSearchErrorItem
+import com.github.tinkzhang.readkeeper.search.components.RkSearchTipItem
 
 @Composable
 fun SearchResultScreen(keyword: String) {
-    val viewModel: SearchViewModel = viewModel(
-        factory = SearchViewModelFactory(keyword)
+    val resultViewModel: SearchResultViewModel = viewModel(
+        factory = SearchResultViewModelFactory(keyword)
     )
     Scaffold(
         topBar = {
@@ -45,19 +47,34 @@ fun SearchResultScreen(keyword: String) {
                 .background(MaterialTheme.colors.background)
                 .fillMaxSize(),
         ) {
-            val books = viewModel.flow.collectAsLazyPagingItems()
-
+            val books = resultViewModel.flow.collectAsLazyPagingItems()
             LazyColumn {
-                if (books.loadState.refresh == LoadState.Loading) {
-                    item {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .wrapContentWidth(Alignment.CenterHorizontally)
-                        )
+                when {
+                    books.loadState.refresh is LoadState.Loading -> {
+                        item {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentWidth(Alignment.CenterHorizontally)
+                            )
+                        }
+                    }
+                    books.loadState.refresh is LoadState.Error -> {
+                        item {
+                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
+                        }
+                    }
+                    books.loadState.append is LoadState.Error -> {
+                        item {
+                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
+                        }
+                    }
+                    books.loadState.refresh is LoadState.NotLoading -> {
+                        item {
+                            RkSearchTipItem(books.itemCount)
+                        }
                     }
                 }
-
                 itemsIndexed(books) { index, item ->
                     if (item != null) {
                         SearchBookItem(book = item)
@@ -74,35 +91,6 @@ fun SearchResultScreen(keyword: String) {
                     }
                 }
             }
-//            if (isLoading == true) {
-//                Box(
-//                    modifier = Modifier.fillMaxSize(0.2f),
-//                    contentAlignment = Alignment.Center,
-//                ) {
-//                    CircularProgressIndicator()
-//                }
-//            } else {
-//                Column {
-//                    books?.let {
-//                        LazyColumn {
-//                            itemsIndexed(books!!) { _, book ->
-//                                SearchBookItem(book = book)
-//                            }
-//                        }
-//                    } ?: Text(text = "Empty List")
-//                }
-//            }
-//        Column {
-//            Text(if (isLoading == true) {
-//                "Loading"
-//            } else {
-//                keyword
-//            },
-//                modifier = Modifier.clickable {
-//                    viewModel.searchBook(keyword)
-//                }
-//            )
-//        }
         }
     }
 }
