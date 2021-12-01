@@ -35,7 +35,7 @@ class SearchResultDataSource(
             LoadResult.Page(
                 data = response.items,
                 prevKey = null,
-                nextKey = if (totalItems < nextPage * SIZE) null else nextPage + 1
+                nextKey = if (totalItems < SIZE) null else nextPage + 1
             )
         } catch (exception: IOException) {
             Timber.e("Search failed: ${exception.localizedMessage}")

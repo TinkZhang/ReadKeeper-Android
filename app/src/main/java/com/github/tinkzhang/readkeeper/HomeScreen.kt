@@ -7,25 +7,20 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.tinkzhang.readkeeper.reading.ReadingViewModel
-import com.github.tinkzhang.readkeeper.search.SearchViewModel
 import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
 
 
 @Composable
 fun HomeScreen(
     navController: NavController,
-    searchViewModel: SearchViewModel,
     readingViewModel: ReadingViewModel,
 ) {
-    var searchKeyword by remember {
-        mutableStateOf("")
-    }
     Column(modifier = Modifier.fillMaxWidth()) {
         // TODO: Update to M3 version TextField when it's available
 //        OutlinedTextField(

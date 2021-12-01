@@ -33,7 +33,6 @@ import androidx.navigation.compose.rememberNavController
 import com.github.tinkzhang.readkeeper.common.RkScreen
 import com.github.tinkzhang.readkeeper.reading.ReadingViewModel
 import com.github.tinkzhang.readkeeper.search.SearchScreen
-import com.github.tinkzhang.readkeeper.search.SearchViewModel
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.github.tinkzhang.readkeeper.ui.*
 import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE.SEARCH
@@ -48,7 +47,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val searchViewModel: SearchViewModel = viewModel()
             val userViewModel: UserViewModel = viewModel()
             val readingViewModel: ReadingViewModel = viewModel()
             ReadKeeperTheme {
@@ -76,7 +74,6 @@ class MainActivity : ComponentActivity() {
                                         SEARCH -> {
                                             RkSearchTextField(
                                                 onSearch = { keyword ->
-                                                    searchViewModel.addHistory(keyword)
                                                     navController.navigate("search_result/${keyword}")
                                                 }
                                             )
@@ -103,7 +100,6 @@ class MainActivity : ComponentActivity() {
                             composable(SCREEN_ROUTE.HOME) {
                                 HomeScreen(
                                     navController = navController,
-                                    searchViewModel,
                                     readingViewModel
                                 )
                             }
@@ -111,7 +107,7 @@ class MainActivity : ComponentActivity() {
                                 SearchScreen()
                             }
                             composable(SCREEN_ROUTE.SEARCH_RESUTL) {
-                                SearchResultScreen(searchViewModel, it.arguments?.getString("keyword"))
+                                SearchResultScreen(it.arguments?.getString("keyword") ?: "")
                             }
                             composable(SCREEN_ROUTE.WISH_LIST) {
                                 WishListScreen()

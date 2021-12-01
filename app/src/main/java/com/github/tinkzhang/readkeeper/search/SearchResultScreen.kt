@@ -12,20 +12,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.github.tinkzhang.readkeeper.search.SearchBookItem
 import com.github.tinkzhang.readkeeper.search.SearchViewModel
+import com.github.tinkzhang.readkeeper.search.SearchViewModelFactory
 
 @Composable
-fun SearchResultScreen(viewModel: SearchViewModel, keyword: String?) {
-    viewModel.searchKeyword.value = keyword
-//    val keyword by viewModel.searchKeyword.observeAsState()
+fun SearchResultScreen(keyword: String) {
+    val viewModel: SearchViewModel = viewModel(
+        factory = SearchViewModelFactory(keyword)
+    )
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(keyword.toString()) },
+                title = { Text(keyword) },
                 navigationIcon = {
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(
