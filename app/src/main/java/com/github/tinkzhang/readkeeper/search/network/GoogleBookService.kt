@@ -1,5 +1,7 @@
 package com.github.tinkzhang.readkeeper.search.network
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -12,7 +14,7 @@ const val SIZE = 10
 
 interface GoogleBookService {
     @GET("books/v1/volumes")
-    fun search(
+    suspend fun search(
         @Query("q") keyword: String,
         @Query("startIndex") startIndex: Int,
         @Query("key") key: String = GOOGLE_BOOK_KEY
@@ -20,9 +22,13 @@ interface GoogleBookService {
 
     companion object {
         val instance: GoogleBookService by lazy {
+            val client = OkHttpClient.Builder().addInterceptor(
+                HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BASIC) }
+            ).build()
             val retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl("https://www.googleapis.com/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
                 .build()
 
             retrofit.create()

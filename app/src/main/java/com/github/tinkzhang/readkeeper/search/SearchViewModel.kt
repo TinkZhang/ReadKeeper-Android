@@ -12,8 +12,6 @@ import github.tinkzhang.readkeeper.search.model.googlebook.Item
 import kotlinx.coroutines.flow.map
 
 class SearchViewModel : ViewModel() {
-    var books = MutableLiveData<List<SearchBook>>()
-    var isLoading = MutableLiveData(false)
     var searchKeyword = MutableLiveData<String>()
 
     val flow = Pager(

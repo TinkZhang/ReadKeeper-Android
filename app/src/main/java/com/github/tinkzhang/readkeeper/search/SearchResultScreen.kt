@@ -9,8 +9,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -21,10 +19,9 @@ import com.github.tinkzhang.readkeeper.search.SearchBookItem
 import com.github.tinkzhang.readkeeper.search.SearchViewModel
 
 @Composable
-fun SearchResultScreen(viewModel: SearchViewModel) {
-    val isLoading by viewModel.isLoading.observeAsState()
-    val books by viewModel.books.observeAsState()
-    val keyword by viewModel.searchKeyword.observeAsState()
+fun SearchResultScreen(viewModel: SearchViewModel, keyword: String?) {
+    viewModel.searchKeyword.value = keyword
+//    val keyword by viewModel.searchKeyword.observeAsState()
     Scaffold(
         topBar = {
             TopAppBar(

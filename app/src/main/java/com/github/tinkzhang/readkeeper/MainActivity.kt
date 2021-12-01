@@ -111,7 +111,7 @@ class MainActivity : ComponentActivity() {
                                 SearchScreen()
                             }
                             composable(SCREEN_ROUTE.SEARCH_RESUTL) {
-                                SearchResultScreen(searchViewModel)
+                                SearchResultScreen(searchViewModel, it.arguments?.getString("keyword"))
                             }
                             composable(SCREEN_ROUTE.WISH_LIST) {
                                 WishListScreen()
