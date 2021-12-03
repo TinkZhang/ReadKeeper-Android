@@ -113,6 +113,9 @@ dependencies {
     val paging_version = "3.1.0"
     implementation("androidx.paging:paging-runtime:$paging_version")
     implementation("androidx.paging:paging-compose:1.0.0-alpha14")
+
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }
 
 // Allow references to generated code

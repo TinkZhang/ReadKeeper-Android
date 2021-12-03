@@ -4,24 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -35,7 +24,6 @@ import com.github.tinkzhang.readkeeper.reading.ReadingViewModel
 import com.github.tinkzhang.readkeeper.search.SearchScreen
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.github.tinkzhang.readkeeper.ui.*
-import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE.SEARCH
 import com.github.tinkzhang.readkeeper.ui.components.RkMainTopBar
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
 import com.github.tinkzhang.readkeeper.user.UserViewModel
@@ -68,26 +56,6 @@ class MainActivity : ComponentActivity() {
                                             Intent(context, SettingsActivity::class.java)
                                         )
                                     })
-                            } else if (screen is SubScreenViewData) {
-                                SmallTopAppBar(title = {
-                                    when (screen.route) {
-                                        SEARCH -> {
-                                            RkSearchTextField(
-                                                onSearch = { keyword ->
-                                                    navController.navigate("search_result/${keyword}")
-                                                }
-                                            )
-                                        }
-                                        else -> {
-                                            Text(screen.title)
-                                        }
-                                    }
-                                },
-                                    navigationIcon = {
-                                        IconButton(onClick = { navController.popBackStack() }) {
-                                            Icon(Icons.Default.ArrowBack, contentDescription = null)
-                                        }
-                                    })
                             }
                         },
                         bottomBar = {
@@ -104,7 +72,7 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable(SCREEN_ROUTE.SEARCH) {
-                                SearchScreen()
+                                SearchScreen(navController = navController)
                             }
                             composable(SCREEN_ROUTE.SEARCH_RESUTL) {
                                 SearchResultScreen(it.arguments?.getString("keyword") ?: "")
@@ -125,47 +93,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    private fun RkSearchTextField(
-        onSearch: (String) -> Unit,
-    ) {
-        var keyword by remember { mutableStateOf("") }
 
-        val focusRequester = FocusRequester()
-        DisposableEffect(Unit) {
-            focusRequester.requestFocus()
-            onDispose { }
-        }
-        // TODO: replace to M3 when it's available
-        OutlinedTextField(
-            value = keyword,
-            onValueChange = {
-                keyword = it
-            },
-            singleLine = true,
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    onSearch(keyword)
-                }
-            ),
-            trailingIcon = {
-                IconButton(onClick = { onSearch(keyword) }) {
-                    Icon(
-                        Icons.Default.Search,
-                        contentDescription = null
-                    )
-                }
-            },
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-            modifier = Modifier
-                .fillMaxWidth()
-                .focusRequester(focusRequester),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent
-            )
-        )
-    }
 }
 
 @Composable

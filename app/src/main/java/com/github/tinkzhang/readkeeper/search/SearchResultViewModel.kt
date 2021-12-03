@@ -21,6 +21,7 @@ class SearchResultViewModel(private val keyword: String) : ViewModel() {
 
     fun addHistory(keyword: String) {
         // TODO: add search history
+
     }
 }
 
