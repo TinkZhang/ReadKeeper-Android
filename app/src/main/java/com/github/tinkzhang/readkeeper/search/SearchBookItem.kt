@@ -64,7 +64,7 @@ fun SearchBookItemMetadata(
     ) {
         Text(
             book.title,
-            style = MaterialTheme.typography.h5,
+            style = MaterialTheme.typography.h6,
             maxLines = 3,
             modifier = Modifier.padding(bottom = 8.dp),
         )

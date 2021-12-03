@@ -1,52 +1,39 @@
 package com.github.tinkzhang.readkeeper
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.tinkzhang.readkeeper.reading.ReadingViewModel
-import com.github.tinkzhang.readkeeper.search.SearchViewModel
+import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
 
 
 @Composable
-fun HomeScreen(navController: NavController,
-               searchViewModel: SearchViewModel,
-               readingViewModel: ReadingViewModel,
+fun HomeScreen(
+    navController: NavController,
+    readingViewModel: ReadingViewModel,
 ) {
-    var searchKeyword by remember {
-        mutableStateOf("")
-    }
-    Column() {
-        OutlinedTextField(
-            value = searchKeyword,
-            onValueChange = { text -> searchKeyword = text },
-            singleLine = true,
-            placeholder = { Text(text = stringResource(id = R.string.search_hint)) },
-            leadingIcon = { Icon(Icons.Outlined.Search, contentDescription = "Search") },
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-            keyboardActions = KeyboardActions {
-                searchViewModel.searchBook(searchKeyword)
-                navController.navigate("search/${searchKeyword}") {
-                    launchSingleTop = true
-                }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-        )
+    Column(modifier = Modifier.fillMaxWidth()) {
+
+        FilledTonalButton(onClick = { navController.navigate(SCREEN_ROUTE.SEARCH)}, modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+            Row(modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    Icons.Default.Search,
+                    contentDescription = "Search"
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                Text("Search by Google Books™")
+            }
+        }
+
         Button(onClick = {
             readingViewModel.addBook()
         }) {
@@ -56,7 +43,7 @@ fun HomeScreen(navController: NavController,
         Button(onClick = {
             readingViewModel.syncList()
         }) {
-           Text("Get Book")
+            Text("Get Book")
         }
     }
 

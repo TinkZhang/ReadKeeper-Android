@@ -97,6 +97,8 @@ dependencies {
     val retrofitVersion = "2.9.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
     implementation("androidx.activity:activity-compose:1.4.0")
     testImplementation("junit:junit:4.13.2")
@@ -106,6 +108,11 @@ dependencies {
     // Instabug
     val instabugVersion = "10.8.1"
     implementation("com.instabug.library:instabug:$instabugVersion")
+
+    // Paging
+    val paging_version = "3.1.0"
+    implementation("androidx.paging:paging-runtime:$paging_version")
+    implementation("androidx.paging:paging-compose:1.0.0-alpha14")
 }
 
 // Allow references to generated code

@@ -1,32 +1,36 @@
 package com.github.tinkzhang.readkeeper
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemsIndexed
 import com.github.tinkzhang.readkeeper.search.SearchBookItem
-import com.github.tinkzhang.readkeeper.search.SearchViewModel
+import com.github.tinkzhang.readkeeper.search.SearchResultViewModel
+import com.github.tinkzhang.readkeeper.search.SearchResultViewModelFactory
+import com.github.tinkzhang.readkeeper.search.components.RkSearchErrorItem
+import com.github.tinkzhang.readkeeper.search.components.RkSearchTipItem
 
 @Composable
-fun SearchResultScreen(viewModel: SearchViewModel) {
-    val isLoading by viewModel.isLoading.observeAsState()
-    val books by viewModel.books.observeAsState()
-    val keyword by viewModel.searchKeyword.observeAsState()
+fun SearchResultScreen(keyword: String) {
+    val resultViewModel: SearchResultViewModel = viewModel(
+        factory = SearchResultViewModelFactory(keyword)
+    )
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(keyword.toString()) },
+                title = { Text(keyword) },
                 navigationIcon = {
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(
@@ -43,35 +47,50 @@ fun SearchResultScreen(viewModel: SearchViewModel) {
                 .background(MaterialTheme.colors.background)
                 .fillMaxSize(),
         ) {
-            if (isLoading == true) {
-                Box(
-                    modifier = Modifier.fillMaxSize(0.2f),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    CircularProgressIndicator()
-                }
-            } else {
-                Column {
-                    books?.let {
-                        LazyColumn {
-                            itemsIndexed(books!!) { _, book ->
-                                SearchBookItem(book = book)
-                            }
+            val books = resultViewModel.flow.collectAsLazyPagingItems()
+            LazyColumn {
+                when {
+                    books.loadState.refresh is LoadState.Loading -> {
+                        item {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentWidth(Alignment.CenterHorizontally)
+                            )
                         }
-                    } ?: Text(text = "Empty List")
+                    }
+                    books.loadState.refresh is LoadState.Error -> {
+                        item {
+                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
+                        }
+                    }
+                    books.loadState.append is LoadState.Error -> {
+                        item {
+                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
+                        }
+                    }
+                    books.loadState.refresh is LoadState.NotLoading -> {
+                        item {
+                            RkSearchTipItem(books.itemCount)
+                        }
+                    }
+                }
+                itemsIndexed(books) { index, item ->
+                    if (item != null) {
+                        SearchBookItem(book = item)
+                    }
+                }
+
+                if (books.loadState.append == LoadState.Loading) {
+                    item {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentWidth(Alignment.CenterHorizontally)
+                        )
+                    }
                 }
             }
-//        Column {
-//            Text(if (isLoading == true) {
-//                "Loading"
-//            } else {
-//                keyword
-//            },
-//                modifier = Modifier.clickable {
-//                    viewModel.searchBook(keyword)
-//                }
-//            )
-//        }
         }
     }
 }
