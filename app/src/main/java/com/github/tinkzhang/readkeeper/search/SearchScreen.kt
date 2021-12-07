@@ -20,24 +20,33 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.navigation.NavController
 import com.github.tinkzhang.readkeeper.common.dataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 @Composable
 fun SearchScreen(navController: NavController) {
     val searchHistory = stringPreferencesKey("history")
-    val searchHistoryFlow: Flow<String> = LocalContext.current.dataStore.data.map {
+    val context = LocalContext.current
+    val searchHistoryFlow: Flow<String> = context.dataStore.data.map {
         it[searchHistory] ?: ""
     }
-
-    Column() {
+    val value: String by searchHistoryFlow.collectAsState("")
+    Column {
+        val coroutineScope = rememberCoroutineScope()
         SmallTopAppBar(title = {
             RkSearchTextField(
                 onSearch = { keyword ->
                     navController.navigate("search_result/${keyword}")
+                    coroutineScope.launch {
+                        context.dataStore.edit {
+                            it[searchHistory] = keyword
+                        }
+                    }
                 }
             )
         }, navigationIcon = {
@@ -45,7 +54,7 @@ fun SearchScreen(navController: NavController) {
                 Icon(Icons.Default.ArrowBack, contentDescription = null)
             }
         })
-        Text("hello")
+        Text(value)
     }
 }
 
