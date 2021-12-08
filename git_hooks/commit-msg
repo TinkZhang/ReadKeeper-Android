@@ -1,0 +1,4 @@
+ticket=$(git symbolic-ref HEAD | awk -F/ '{print $2}' | awk -F_ '{print $1}')
+if [ -n "$ticket" ]; then
+    sed -i "" "1s/^/[$ticket] /" $1
+fi
