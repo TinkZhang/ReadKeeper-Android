@@ -18,11 +18,6 @@ class SearchResultViewModel(private val keyword: String) : ViewModel() {
         SearchResultDataSource(keyword)
     }.flow.map { pagingData -> pagingData.map { it.convertToSearchBook() } }
         .cachedIn(viewModelScope)
-
-    fun addHistory(keyword: String) {
-        // TODO: add search history
-
-    }
 }
 
 private fun Item.convertToSearchBook(): SearchBook {
