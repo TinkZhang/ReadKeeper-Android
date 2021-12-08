@@ -59,7 +59,7 @@ dependencies {
 
     // Compose
     val composeVersion = "1.1.0-beta03"
-    val composeMaterial3Version = "1.0.0-alpha01"
+    val composeMaterial3Version = "1.0.0-alpha02"
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
