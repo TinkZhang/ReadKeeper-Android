@@ -3,14 +3,15 @@ package com.github.tinkzhang.readkeeper.user
 import android.app.Activity
 import android.content.Context
 import com.github.tinkzhang.readkeeper.R
+import com.github.tinkzhang.readkeeper.reading.PAGE_SIZE
 import com.github.tinkzhang.readkeeper.reading.ReadingBook
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.util.*
 
@@ -38,21 +39,14 @@ class UserRepository {
             }
     }
 
-    fun getReadingList(): MutableList<ReadingBook>? {
-        var result: MutableList<ReadingBook>? = mutableListOf()
-        readingCollectionRef
+    suspend fun getReadingList(page: Int): List<ReadingBook>? {
+        return readingCollectionRef
+            .orderBy("addedTime")
+            .startAt(page * PAGE_SIZE)
+            .limit(PAGE_SIZE.toLong())
             .get()
-            .addOnSuccessListener { document ->
-                val lists = document.toObjects<ReadingBook>()
-                Timber.d("Reading List: ${lists.map { it.title }}")
-                result = lists.toMutableList()
-                Timber.d("${result!!.size}")
-            }
-            .addOnFailureListener { error ->
-                Timber.d("Failed to fetch Reading Lists, $error")
-                result = null
-            }
-        return result
+            .await()
+            .toObjects(ReadingBook::class.java)
     }
 
     fun signOutWithGoogle() {
