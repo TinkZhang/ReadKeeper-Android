@@ -3,6 +3,7 @@ package com.github.tinkzhang.readkeeper.reading
 import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.common.BasicBook
 import com.google.firebase.Timestamp
+import kotlin.random.Random
 
 data class ReadingBook(
     override var title: String = "",
@@ -52,7 +53,7 @@ class ReadingBookFactory {
             val records = mutableListOf(ReadingRecord(startPage = 10, endPage = 112))
             val notes = mutableListOf(ReadingNote("Hello world"))
             return ReadingBook(
-                title = "Book Title",
+                title = "Book Title ${Random.nextInt()}",
                 imageUrl = "http://books.google.com/books/content?id=gK98gXR8onwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
                 author = "Tink",
                 pages = 1688,

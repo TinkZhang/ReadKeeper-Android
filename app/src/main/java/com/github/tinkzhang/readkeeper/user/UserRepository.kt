@@ -3,19 +3,22 @@ package com.github.tinkzhang.readkeeper.user
 import android.app.Activity
 import android.content.Context
 import com.github.tinkzhang.readkeeper.R
+import com.github.tinkzhang.readkeeper.reading.PAGE_SIZE
 import com.github.tinkzhang.readkeeper.reading.ReadingBook
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.util.*
 
 class UserRepository {
     val user = Firebase.auth.currentUser
+    lateinit var lastBook: ReadingBook
+    lateinit var firstPage: List<ReadingBook>
 
     private val userDocumentRef = if (user == null) {
         Timber.d("offline users")
@@ -38,21 +41,36 @@ class UserRepository {
             }
     }
 
-    fun getReadingList(): MutableList<ReadingBook>? {
-        var result: MutableList<ReadingBook>? = mutableListOf()
-        readingCollectionRef
-            .get()
-            .addOnSuccessListener { document ->
-                val lists = document.toObjects<ReadingBook>()
-                Timber.d("Reading List: ${lists.map { it.title }}")
-                result = lists.toMutableList()
-                Timber.d("${result!!.size}")
+    suspend fun getReadingList(page: Int): List<ReadingBook> {
+        Timber.d("Load Reading List for Page: $page")
+        return when (page) {
+            0 -> {
+                firstPage = readingCollectionRef
+                    .orderBy("addedTime")
+                    .limit(PAGE_SIZE.toLong())
+                    .get()
+                    .await()
+                    .toObjects(ReadingBook::class.java)
+                if (firstPage.isNotEmpty()) {
+                    lastBook = firstPage.last()
+                    firstPage
+                }
+                firstPage
             }
-            .addOnFailureListener { error ->
-                Timber.d("Failed to fetch Reading Lists, $error")
-                result = null
+            else -> {
+                val books = readingCollectionRef
+                    .orderBy("addedTime")
+                    .startAfter(lastBook)
+                    .limit(PAGE_SIZE.toLong())
+                    .get()
+                    .await()
+                    .toObjects(ReadingBook::class.java)
+                if (books.isNotEmpty()) {
+                    lastBook = books.last()
+                }
+                books
             }
-        return result
+        }
     }
 
     fun signOutWithGoogle() {

@@ -20,6 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.tinkzhang.readkeeper.common.RkScreen
+import com.github.tinkzhang.readkeeper.reading.ReadingListScreen
 import com.github.tinkzhang.readkeeper.reading.ReadingViewModel
 import com.github.tinkzhang.readkeeper.search.SearchScreen
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity

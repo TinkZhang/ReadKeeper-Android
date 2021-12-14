@@ -41,7 +41,6 @@ fun HomeScreen(
         }
 
         Button(onClick = {
-            readingViewModel.syncList()
         }) {
             Text("Get Book")
         }
