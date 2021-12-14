@@ -20,9 +20,9 @@ class ReadingDataSource (
         val nextPage = params.key ?: 0
         val response = userRepository.getReadingList(nextPage)
         return LoadResult.Page(
-            data = response!!,
+            data = response,
             prevKey = null,
-            nextKey = if (response.isNullOrEmpty()) null else nextPage + 1
+            nextKey = if (response.size < PAGE_SIZE) null else nextPage + 1
         )
     }
 }

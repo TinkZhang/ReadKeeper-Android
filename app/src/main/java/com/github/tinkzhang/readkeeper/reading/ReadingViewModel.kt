@@ -12,7 +12,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.github.tinkzhang.readkeeper.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -32,7 +31,7 @@ class ReadingViewModel @Inject constructor(
     val list: LiveData<MutableList<ReadingBook>> = _list
 
     val categories: MutableLiveData<List<String>> by lazy {
-        MutableLiveData<List<String>>(listOf("Coding", "Lifing", "Working", "Playing", "Loving", "Sleeping", "Watching", "Winning"))
+        MutableLiveData<List<String>>(listOf("Coding", "Life", "Working", "Playing", "Loving", "Sleeping", "Watching", "Winning"))
     }
 
     val flow = Pager(
@@ -41,19 +40,8 @@ class ReadingViewModel @Inject constructor(
         ReadingDataSource(userRepository)
     }.flow.cachedIn(viewModelScope)
 
-    init {
-        syncList()
-    }
-
     fun addBook(book: ReadingBook = ReadingBookFactory.buildSample()) {
         userRepository.addReadingBook(book)
-        syncList()
-    }
-
-    fun syncList() {
-//        _list.value = userRepository.getReadingList(0)
-        Timber.d("_list size: ${_list.value?.size}")
-        Timber.d("list size: ${list.value?.size}")
     }
 
     fun newSearch() {

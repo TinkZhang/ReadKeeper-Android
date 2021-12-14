@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -26,9 +27,11 @@ fun ReadingListScreen(viewModel: ReadingViewModel) {
     val selectedCategory = viewModel.selectedCategory.value
     val books: MutableList<ReadingBook> by viewModel.list.observeAsState(mutableListOf())
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(8.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp)
+    ) {
 //        val scrollState = rememberLazyListState()
         val composableScope = rememberCoroutineScope()
         LazyRow(
@@ -85,7 +88,13 @@ fun ReadingListScreen(viewModel: ReadingViewModel) {
             }
             itemsIndexed(books) { index, item ->
                 if (item != null) {
-                    Text(item.title)
+                    Text(
+                        item.title,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp)
+                    )
                 }
             }
 

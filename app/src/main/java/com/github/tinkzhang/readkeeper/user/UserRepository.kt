@@ -17,6 +17,8 @@ import java.util.*
 
 class UserRepository {
     val user = Firebase.auth.currentUser
+    lateinit var lastBook: ReadingBook
+    lateinit var firstPage: List<ReadingBook>
 
     private val userDocumentRef = if (user == null) {
         Timber.d("offline users")
@@ -39,14 +41,36 @@ class UserRepository {
             }
     }
 
-    suspend fun getReadingList(page: Int): List<ReadingBook>? {
-        return readingCollectionRef
-            .orderBy("addedTime")
-            .startAt(page * PAGE_SIZE)
-            .limit(PAGE_SIZE.toLong())
-            .get()
-            .await()
-            .toObjects(ReadingBook::class.java)
+    suspend fun getReadingList(page: Int): List<ReadingBook> {
+        Timber.d("Load Reading List for Page: $page")
+        return when (page) {
+            0 -> {
+                firstPage = readingCollectionRef
+                    .orderBy("addedTime")
+                    .limit(PAGE_SIZE.toLong())
+                    .get()
+                    .await()
+                    .toObjects(ReadingBook::class.java)
+                if (firstPage.isNotEmpty()) {
+                    lastBook = firstPage.last()
+                    firstPage
+                }
+                firstPage
+            }
+            else -> {
+                val books = readingCollectionRef
+                    .orderBy("addedTime")
+                    .startAfter(lastBook)
+                    .limit(PAGE_SIZE.toLong())
+                    .get()
+                    .await()
+                    .toObjects(ReadingBook::class.java)
+                if (books.isNotEmpty()) {
+                    lastBook = books.last()
+                }
+                books
+            }
+        }
     }
 
     fun signOutWithGoogle() {
