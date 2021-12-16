@@ -1,0 +1,71 @@
+@startuml
+skinparam titleBorderRoundCorner 15
+skinparam titleBorderThickness 2
+skinparam titleBorderColor red
+skinparam titleBackgroundColor Aqua-CadetBlue
+title ReadKeeper Book Class Diagram
+class BookInfo {
+    title: String
+    imageUrl: String
+    author: String
+    pages: Int
+    rating: Double
+    pubYear: Int
+}
+class TimeInfo {
+    addedTime: Timestamp
+    editedTime: Timestamp
+}
+enum ReadingPlatform {
+    Paper
+    PDF
+    Apple_BOOK
+    WECHAT
+    KINDLE
+    GOOGLE
+    GENERAL
+}
+enum PageFormat {
+    PAGE
+    PERCENTAGE
+}
+class ReadingRecord {
+    startPage: Int
+    endPage: Int
+    timestamp: Timestamp
+}
+class ReadingNote {
+    note: String
+    position: Int
+    timestamp: Timestamp
+}
+interface EditableBook extends Book {
+    timeInfo: TimeInfo
+    category: String
+}
+
+interface Book {
+    bookInfo: BookInfo
+}
+TimeInfo <-- EditableBook
+BookInfo <-- Book
+ReadingPlatform <-- ReadingBook
+PageFormat <-- ReadingBook
+ReadingRecord <-- ReadingBook
+ReadingNote <-- ReadingBook
+
+class SearchBook implements Book {
+    {method} convertToWishBook(): WishBook
+    {method} convertToReadingBook(): ReadingBook
+}
+class ReadingBook implements EditableBook {
+    platform: ReadingPlatform
+    pageFormat: PageFormat
+    records: List<ReadingRecord>
+    notes: List<ReadingNote>
+    archived: Boolean
+}
+class WishBook implements EditableBook {
+    {method} convertToReadingBook(): ReadingBook
+}
+@enduml
