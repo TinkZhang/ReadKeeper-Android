@@ -5,8 +5,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -17,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
+import com.github.tinkzhang.readkeeper.common.data.ReadingBook
 import com.github.tinkzhang.readkeeper.search.components.RkSearchErrorItem
 import com.github.tinkzhang.readkeeper.search.components.RkSearchTipItem
 import com.github.tinkzhang.readkeeper.ui.components.RkCategoryChip
@@ -88,13 +87,14 @@ fun ReadingListScreen(viewModel: ReadingViewModel) {
             }
             itemsIndexed(books) { index, item ->
                 if (item != null) {
-                    Text(
-                        item.title,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(48.dp)
-                    )
+//                    Text(
+//                        item.title,
+//                        color = MaterialTheme.colorScheme.primary,
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .height(48.dp)
+//                    )
+                    ReadingBookItem(item)
                 }
             }
 

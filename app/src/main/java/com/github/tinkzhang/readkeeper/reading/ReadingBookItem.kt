@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import com.github.tinkzhang.readkeeper.R
+import com.github.tinkzhang.readkeeper.common.data.*
 import com.github.tinkzhang.readkeeper.ui.components.RkCategoryChip
 
 @Composable
@@ -28,14 +29,14 @@ fun ReadingBookItem(book: ReadingBook) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Image(
                     painter = rememberImagePainter(
-                        data = book.imageUrl,
+                        data = book.bookInfo.imageUrl,
                         imageLoader = LocalImageLoader.current,
                         builder = {
                             this.crossfade(true)
                             placeholder(drawableResId = R.drawable.ic_launcher_foreground)
                         }
                     ),
-                    contentDescription = book.title,
+                    contentDescription = book.bookInfo.title,
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier
                         .weight(0.2f)
@@ -48,17 +49,20 @@ fun ReadingBookItem(book: ReadingBook) {
             }
             Divider()
             RkProgress(
-                records = book.readingRecords,
+                records = book.records,
                 platform = book.platform,
-                recordFormat = book.recordFormat,
-                page = book.pages,
+                pageFormat = book.pageFormat,
+                page = book.bookInfo.pages,
                 onInitProgressClicked = { /*TODO*/ },
                 onRealProgressClicked = { /*TODO*/ })
             Divider()
-            RkShortNote(
-                note = book.readingNotes.last(),
-                onAddButtonClicked = {},
-            )
+            if (book.notes.isNotEmpty()) {
+                RkShortNote(
+                    note = book.notes.last(),
+                    onAddButtonClicked = {},
+                )
+            }
+
         }
     }
 }
@@ -75,7 +79,7 @@ fun ReadingBookItemMetadata(
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(
-            book.title,
+            book.bookInfo.title,
             style = MaterialTheme.typography.h5,
             maxLines = 3,
             modifier = Modifier.padding(bottom = 8.dp),
@@ -83,14 +87,14 @@ fun ReadingBookItemMetadata(
         Column(verticalArrangement = Arrangement.Bottom) {
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                 Text(
-                    "✍️   " + book.author,
+                    "✍️   " + book.bookInfo.author,
                     style = MaterialTheme.typography.subtitle1,
                     maxLines = 2,
                     modifier = Modifier.padding(bottom = 8.dp),
                 )
             }
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                RkCategoryChip(category = book.labels.first(), isSelected = true)
+                RkCategoryChip(category = book?.category ?: "", isSelected = true)
             }
         }
 
@@ -101,7 +105,7 @@ fun ReadingBookItemMetadata(
 fun RkProgress(
     records: List<ReadingRecord>,
     platform: ReadingPlatform,
-    recordFormat: RecordFormat,
+    pageFormat: PageFormat,
     page: Int,
     onInitProgressClicked: () -> Unit,
     onRealProgressClicked: () -> Unit,
@@ -112,7 +116,7 @@ fun RkProgress(
             Text("Start to track Progress")
         }
     } else {
-        RkRealProgress(records, platform, recordFormat, page, onRealProgressClicked, modifier)
+        RkRealProgress(records, platform, pageFormat, page, onRealProgressClicked, modifier)
     }
 }
 
@@ -120,7 +124,7 @@ fun RkProgress(
 fun RkRealProgress(
     records: List<ReadingRecord>,
     platform: ReadingPlatform,
-    recordFormat: RecordFormat,
+    pageFormat: PageFormat,
     page: Int,
     onRealProgressClicked: () -> Unit,
     modifier: Modifier = Modifier,
@@ -134,9 +138,10 @@ fun RkRealProgress(
             val progress = records.last().endPage
             RkProgressBar(progress = progress, total = page)
             Text(
-                when (recordFormat) {
-                    RecordFormat.PAGE -> "$progress of $page"
-                    RecordFormat.PERCENTAGE -> "${progress / 10000.0}%"
+                when (pageFormat) {
+                    PageFormat.PAGE
+                    -> "$progress of $page"
+                    PageFormat.PERCENTAGE -> "${progress / 10000.0}%"
                 }
             )
             Icon(Icons.Default.Addchart, contentDescription = "Add reading progress")

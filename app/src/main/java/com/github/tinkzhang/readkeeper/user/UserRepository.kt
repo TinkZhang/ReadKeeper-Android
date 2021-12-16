@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.reading.PAGE_SIZE
-import com.github.tinkzhang.readkeeper.reading.ReadingBook
+import com.github.tinkzhang.readkeeper.common.data.ReadingBook
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -34,10 +34,10 @@ class UserRepository {
         readingCollectionRef
             .add(book)
             .addOnSuccessListener {
-                Timber.d("Book ${book.title} has been added to reading lists")
+                Timber.d("Book ${book.bookInfo.title} has been added to reading lists")
             }
             .addOnFailureListener {
-                Timber.e("The book ${book.title} failed to be added into the reading list")
+                Timber.e("The book ${book.bookInfo.title} failed to be added into the reading list")
             }
     }
 
@@ -46,14 +46,14 @@ class UserRepository {
         return when (page) {
             0 -> {
                 firstPage = readingCollectionRef
-                    .orderBy("addedTime")
+                    .orderBy("category")
                     .limit(PAGE_SIZE.toLong())
                     .get()
                     .await()
                     .toObjects(ReadingBook::class.java)
                 if (firstPage.isNotEmpty()) {
                     lastBook = firstPage.last()
-                    firstPage
+                    Timber.d("ReadingBook: ${firstPage.first()}")
                 }
                 firstPage
             }

@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import com.github.tinkzhang.readkeeper.R
+import com.github.tinkzhang.readkeeper.common.data.SearchBook
 import com.github.tinkzhang.readkeeper.ui.components.ReadingIconToggleButton
 import com.github.tinkzhang.readkeeper.ui.components.WishIconToggleButton
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
@@ -27,14 +28,14 @@ fun SearchBookItem(book: SearchBook) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Image(
                     painter = rememberImagePainter(
-                        data = book.imageUrl,
+                        data = book.bookInfo.imageUrl,
                         imageLoader = LocalImageLoader.current,
                         builder = {
                             this.crossfade(true)
                             placeholder(drawableResId = R.drawable.ic_launcher_foreground)
                         }
                     ),
-                    contentDescription = book.title,
+                    contentDescription = book.bookInfo.title,
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier
                         .weight(0.314f)
@@ -63,7 +64,7 @@ fun SearchBookItemMetadata(
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(
-            book.title,
+            book.bookInfo.title,
             style = MaterialTheme.typography.h6,
             maxLines = 3,
             modifier = Modifier.padding(bottom = 8.dp),
@@ -71,7 +72,7 @@ fun SearchBookItemMetadata(
         Column(verticalArrangement = Arrangement.Bottom) {
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                 Text(
-                    "✍️   " + book.author,
+                    "✍️   " + book.bookInfo.author,
                     style = MaterialTheme.typography.subtitle1,
                     maxLines = 2,
                     modifier = Modifier.padding(bottom = 8.dp),
@@ -79,7 +80,7 @@ fun SearchBookItemMetadata(
             }
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                 Text(
-                    "\uD83D\uDCC5   " + book.originalPublicationYear.toString(),
+                    "\uD83D\uDCC5   " + book.bookInfo.pubYear.toString(),
                     style = MaterialTheme.typography.subtitle1,
                     modifier = Modifier.padding(bottom = 8.dp),
                 )
@@ -135,24 +136,5 @@ private fun SearchBookItemActionBar(
 fun SearchBookItemActionBarPreview() {
     ReadKeeperTheme {
         SearchBookItemActionBar()
-    }
-}
-
-@Preview
-@Composable
-fun SearchBookItemPrev(book: SearchBook = SearchBook().buildSample()) {
-    ReadKeeperTheme {
-        SearchBookItem(book = book)
-    }
-}
-
-@Preview
-@Composable
-fun SearchBookItemListPrev(book: SearchBook = SearchBook().buildSample()) {
-    Column {
-        SearchBookItem(book = book)
-        SearchBookItem(book = book)
-        SearchBookItem(book = book)
-        SearchBookItem(book = book)
     }
 }
