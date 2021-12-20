@@ -6,8 +6,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,7 +14,6 @@ import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
-import com.github.tinkzhang.readkeeper.common.data.ReadingBook
 import com.github.tinkzhang.readkeeper.search.components.RkSearchErrorItem
 import com.github.tinkzhang.readkeeper.search.components.RkSearchTipItem
 import com.github.tinkzhang.readkeeper.ui.components.RkCategoryChip
@@ -27,7 +24,6 @@ import timber.log.Timber
 @Composable
 fun ReadingListScreen(viewModel: ReadingViewModel, navController: NavController) {
     val selectedCategory = viewModel.selectedCategory.value
-    val books: MutableList<ReadingBook> by viewModel.list.observeAsState(mutableListOf())
 
     Column(
         modifier = Modifier
@@ -50,9 +46,7 @@ fun ReadingListScreen(viewModel: ReadingViewModel, navController: NavController)
                         isSelected = selectedCategory == category,
                         onSelectedCategoryChanged = {
                             viewModel.onSelectedCategoryChanged(category)
-                            viewModel.addBook()
                             Timber.d("${viewModel.list.value?.size}")
-                            Timber.d("${books.size}")
 //                            viewModel.onChangeCategoryScrollPosition(scrollState)
                         },
                         onExecuteSearch = viewModel::newSearch,
@@ -84,7 +78,7 @@ fun ReadingListScreen(viewModel: ReadingViewModel, navController: NavController)
                 }
                 itemsIndexed(books) { index, item ->
                     if (item != null) {
-                        viewModel.addBook(item)
+                        viewModel.addLocalList(item)
                         ReadingBookListItem(item, navController)
                     }
                 }
