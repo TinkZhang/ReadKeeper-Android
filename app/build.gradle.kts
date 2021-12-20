@@ -117,6 +117,9 @@ dependencies {
 
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // Accompanist
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.21.5-rc")
 }
 
 // Allow references to generated code

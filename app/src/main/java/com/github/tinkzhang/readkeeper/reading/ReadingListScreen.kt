@@ -19,6 +19,8 @@ import com.github.tinkzhang.readkeeper.common.data.ReadingBook
 import com.github.tinkzhang.readkeeper.search.components.RkSearchErrorItem
 import com.github.tinkzhang.readkeeper.search.components.RkSearchTipItem
 import com.github.tinkzhang.readkeeper.ui.components.RkCategoryChip
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import timber.log.Timber
 
 @Composable
@@ -58,9 +60,34 @@ fun ReadingListScreen(viewModel: ReadingViewModel) {
             }
         }
         val books = viewModel.flow.collectAsLazyPagingItems()
-        LazyColumn {
-            when {
-                books.loadState.refresh is LoadState.Loading -> {
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = books.loadState.refresh is LoadState.Loading),
+            onRefresh = { books.refresh() }) {
+            LazyColumn(modifier = Modifier.fillMaxHeight()) {
+                when {
+                    books.loadState.refresh is LoadState.Error -> {
+                        item {
+                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
+                        }
+                    }
+                    books.loadState.append is LoadState.Error -> {
+                        item {
+                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
+                        }
+                    }
+                    books.loadState.refresh is LoadState.NotLoading -> {
+                        item {
+                            RkSearchTipItem(books.itemCount)
+                        }
+                    }
+                }
+                itemsIndexed(books) { index, item ->
+                    if (item != null) {
+                        ReadingBookItem(item)
+                    }
+                }
+
+                if (books.loadState.append == LoadState.Loading) {
                     item {
                         CircularProgressIndicator(
                             modifier = Modifier
@@ -69,44 +96,8 @@ fun ReadingListScreen(viewModel: ReadingViewModel) {
                         )
                     }
                 }
-                books.loadState.refresh is LoadState.Error -> {
-                    item {
-                        RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
-                    }
-                }
-                books.loadState.append is LoadState.Error -> {
-                    item {
-                        RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
-                    }
-                }
-                books.loadState.refresh is LoadState.NotLoading -> {
-                    item {
-                        RkSearchTipItem(books.itemCount)
-                    }
-                }
-            }
-            itemsIndexed(books) { index, item ->
-                if (item != null) {
-//                    Text(
-//                        item.title,
-//                        color = MaterialTheme.colorScheme.primary,
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .height(48.dp)
-//                    )
-                    ReadingBookItem(item)
-                }
-            }
-
-            if (books.loadState.append == LoadState.Loading) {
-                item {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(Alignment.CenterHorizontally)
-                    )
-                }
             }
         }
+
     }
 }
