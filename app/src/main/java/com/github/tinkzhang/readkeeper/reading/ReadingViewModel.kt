@@ -32,6 +32,8 @@ class ReadingViewModel @Inject constructor(
     private val _list = MutableLiveData(mutableListOf<ReadingBook>())
     val list: LiveData<MutableList<ReadingBook>> = _list
 
+    val localList = mutableSetOf<ReadingBook>()
+
     val categories: MutableLiveData<List<String>> by lazy {
         MutableLiveData<List<String>>(listOf("Coding", "Life", "Working", "Playing", "Loving", "Sleeping", "Watching", "Winning"))
     }
@@ -45,6 +47,12 @@ class ReadingViewModel @Inject constructor(
     fun addBook(book: ReadingBook = ReadingBookFactory.buildSample()) {
         userRepository.addReadingBook(book)
     }
+
+    fun addLocalList(book: ReadingBook) {
+        localList.add(book)
+    }
+
+    fun getBook(uuid: String) = localList.first { it.uuid == uuid }
 
     fun newSearch() {
 

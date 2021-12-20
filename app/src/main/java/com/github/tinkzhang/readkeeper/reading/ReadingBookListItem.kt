@@ -31,7 +31,7 @@ fun ReadingBookListItem(book: ReadingBook, navController: NavController) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { navController.navigate("reading_item/${book.bookInfo.pages}") }) {
+                    .clickable { navController.navigate("reading_item/${book.uuid}") }) {
                 Image(
                     painter = rememberImagePainter(
                         data = book.bookInfo.imageUrl,

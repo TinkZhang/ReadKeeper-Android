@@ -84,6 +84,7 @@ fun ReadingListScreen(viewModel: ReadingViewModel, navController: NavController)
                 }
                 itemsIndexed(books) { index, item ->
                     if (item != null) {
+                        viewModel.addBook(item)
                         ReadingBookListItem(item, navController)
                     }
                 }

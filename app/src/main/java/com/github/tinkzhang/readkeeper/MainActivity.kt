@@ -89,7 +89,11 @@ class MainActivity : ComponentActivity() {
                                 ReadingListScreen(readingViewModel, navController = navController)
                             }
                             composable(SCREEN_ROUTE.READING_ITEM) {
-                                ReadingItemScreen(it.arguments?.getString("uuid") ?: "")
+                                ReadingItemScreen(
+                                    it.arguments?.getString("uuid") ?: "",
+                                    readingViewModel,
+                                    navController = navController
+                                )
                             }
                             composable(SCREEN_ROUTE.ARCHIVED_LIST) {
                                 WishListScreen()
