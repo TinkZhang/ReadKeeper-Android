@@ -12,6 +12,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
@@ -24,7 +25,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import timber.log.Timber
 
 @Composable
-fun ReadingListScreen(viewModel: ReadingViewModel) {
+fun ReadingListScreen(viewModel: ReadingViewModel, navController: NavController) {
     val selectedCategory = viewModel.selectedCategory.value
     val books: MutableList<ReadingBook> by viewModel.list.observeAsState(mutableListOf())
 
@@ -83,7 +84,7 @@ fun ReadingListScreen(viewModel: ReadingViewModel) {
                 }
                 itemsIndexed(books) { index, item ->
                     if (item != null) {
-                        ReadingBookItem(item)
+                        ReadingBookListItem(item, navController)
                     }
                 }
 
