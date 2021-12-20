@@ -21,6 +21,7 @@ interface Book {
 }
 
 interface EditableBook : Book {
+    val uuid: String
     val category: String?
     val timeInfo: TimeInfo
 }
