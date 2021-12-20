@@ -3,12 +3,14 @@ package com.github.tinkzhang.readkeeper.user
 import android.app.Activity
 import android.content.Context
 import com.github.tinkzhang.readkeeper.R
-import com.github.tinkzhang.readkeeper.reading.PAGE_SIZE
 import com.github.tinkzhang.readkeeper.common.data.ReadingBook
+import com.github.tinkzhang.readkeeper.reading.PAGE_SIZE
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
@@ -46,7 +48,7 @@ class UserRepository {
         return when (page) {
             0 -> {
                 firstPage = readingCollectionRef
-                    .orderBy("category")
+                    .orderBy(FieldPath.of("timeInfo", "editedTime"), Query.Direction.DESCENDING)
                     .limit(PAGE_SIZE.toLong())
                     .get()
                     .await()
@@ -59,7 +61,7 @@ class UserRepository {
             }
             else -> {
                 val books = readingCollectionRef
-                    .orderBy("addedTime")
+                    .orderBy(FieldPath.of("timeInfo", "editedTime"), Query.Direction.DESCENDING)
                     .startAfter(lastBook)
                     .limit(PAGE_SIZE.toLong())
                     .get()
