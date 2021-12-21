@@ -86,11 +86,6 @@ dependencies {
     // Google Play Service
     implementation("com.google.android.gms:play-services-auth:19.2.0")
 
-    // Compose Image Coil
-//    implementation("com.google.accompanist:accompanist-coil:0.16.1")
-
-    implementation("io.coil-kt:coil-compose:1.3.2")
-
     // Timber
     implementation("com.jakewharton.timber:timber:4.7.1")
 
@@ -120,6 +115,9 @@ dependencies {
 
     // Accompanist
     implementation("com.google.accompanist:accompanist-swiperefresh:0.21.5-rc")
+
+    // Coil
+    implementation("io.coil-kt:coil-compose:1.4.0")
 }
 
 // Allow references to generated code

@@ -14,7 +14,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.common.data.*
@@ -35,7 +34,6 @@ fun ReadingBookListItem(book: ReadingBook, navController: NavController) {
                 Image(
                     painter = rememberImagePainter(
                         data = book.bookInfo.imageUrl,
-                        imageLoader = LocalImageLoader.current,
                         builder = {
                             this.crossfade(true)
                             placeholder(drawableResId = R.drawable.ic_launcher_foreground)
@@ -44,12 +42,12 @@ fun ReadingBookListItem(book: ReadingBook, navController: NavController) {
                     contentDescription = book.bookInfo.title,
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier
-                        .weight(0.2f)
+                        .weight(1.0f)
                         .fillMaxWidth()
                 )
                 ReadingBookItemMetadata(
                     book = book,
-                    modifier = Modifier.weight(0.8f),
+                    modifier = Modifier.weight(2.0f),
                 )
             }
             Divider()
