@@ -40,6 +40,7 @@ class ReadingNote {
     timestamp: Timestamp
 }
 interface EditableBook extends Book {
+    uuid: String
     timeInfo: TimeInfo
     category: String
 }

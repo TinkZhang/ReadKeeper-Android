@@ -20,12 +20,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.tinkzhang.readkeeper.common.RkScreen
+import com.github.tinkzhang.readkeeper.reading.ReadingItemScreen
 import com.github.tinkzhang.readkeeper.reading.ReadingListScreen
 import com.github.tinkzhang.readkeeper.reading.ReadingViewModel
 import com.github.tinkzhang.readkeeper.search.SearchScreen
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
-import com.github.tinkzhang.readkeeper.ui.*
+import com.github.tinkzhang.readkeeper.ui.MainScreenViewData
+import com.github.tinkzhang.readkeeper.ui.ROUTE_TO_SCREEN_MAP
+import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
 import com.github.tinkzhang.readkeeper.ui.components.RkMainTopBar
+import com.github.tinkzhang.readkeeper.ui.getBottomBarItemList
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
 import com.github.tinkzhang.readkeeper.user.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -82,7 +86,14 @@ class MainActivity : ComponentActivity() {
                                 WishListScreen()
                             }
                             composable(SCREEN_ROUTE.READING_LIST) {
-                                ReadingListScreen(readingViewModel)
+                                ReadingListScreen(readingViewModel, navController = navController)
+                            }
+                            composable(SCREEN_ROUTE.READING_ITEM) {
+                                ReadingItemScreen(
+                                    it.arguments?.getString("uuid") ?: "",
+                                    readingViewModel,
+                                    navController = navController
+                                )
                             }
                             composable(SCREEN_ROUTE.ARCHIVED_LIST) {
                                 WishListScreen()

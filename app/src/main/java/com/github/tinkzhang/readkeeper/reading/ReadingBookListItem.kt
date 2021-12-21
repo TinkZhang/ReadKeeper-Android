@@ -1,6 +1,7 @@
 package com.github.tinkzhang.readkeeper.reading
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -12,25 +13,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import coil.compose.LocalImageLoader
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.common.data.*
 import com.github.tinkzhang.readkeeper.ui.components.RkCategoryChip
 
 @Composable
-fun ReadingBookItem(book: ReadingBook) {
+fun ReadingBookListItem(book: ReadingBook, navController: NavController) {
     Card(
         modifier = Modifier
             .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
             .fillMaxWidth(),
     ) {
         Column {
-            Row(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { navController.navigate("reading_item/${book.uuid}") }) {
                 Image(
                     painter = rememberImagePainter(
                         data = book.bookInfo.imageUrl,
-                        imageLoader = LocalImageLoader.current,
                         builder = {
                             this.crossfade(true)
                             placeholder(drawableResId = R.drawable.ic_launcher_foreground)
@@ -39,12 +42,12 @@ fun ReadingBookItem(book: ReadingBook) {
                     contentDescription = book.bookInfo.title,
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier
-                        .weight(0.2f)
+                        .weight(1.0f)
                         .fillMaxWidth()
                 )
                 ReadingBookItemMetadata(
                     book = book,
-                    modifier = Modifier.weight(0.8f),
+                    modifier = Modifier.weight(2.0f),
                 )
             }
             Divider()
