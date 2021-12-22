@@ -17,4 +17,5 @@
     <string name="logout">SIGN OUT</string>
     <string name="login_with_google">Google Login</string>
     <string name="google_sign_in_token_id">594810278400-tvviknir2uqc2qd95uts1l5s54309als.apps.googleusercontent.com</string>
+    <string name="page">P. %d</string>
 </resources>

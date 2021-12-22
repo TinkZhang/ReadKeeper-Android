@@ -29,9 +29,9 @@ data class ReadingNote(
     val timestamp: Timestamp = Timestamp.now()
 )
 
-enum class PageFormat {
-    PAGE,
-    PERCENTAGE,
+sealed class PageFormat {
+    object PAGE: PageFormat()
+    object PERCENTAGE: PageFormat()
 }
 
 enum class ReadingPlatform(val label: String, val icon: Int) {
