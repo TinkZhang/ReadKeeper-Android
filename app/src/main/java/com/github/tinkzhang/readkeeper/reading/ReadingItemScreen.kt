@@ -59,7 +59,7 @@ fun ReadingItemScreen(
             Divider(Modifier.padding(vertical = 8.dp))
             RkBookProgressSection1(book.records, book.pageFormat, book.platform)
             Divider(Modifier.padding(vertical = 8.dp))
-            RkBookNoteSection(book.notes)
+            RkBookNoteSection(book.notes, book.pageFormat, book.bookInfo.pages)
         }
     }
 }
