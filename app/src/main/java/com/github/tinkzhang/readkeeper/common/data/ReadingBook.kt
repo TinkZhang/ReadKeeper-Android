@@ -13,19 +13,13 @@ data class ReadingBook(
     val platform: ReadingPlatform = ReadingPlatform.GENERAL,
     val pageFormat: PageFormat = PageFormat.PAGE,
     val records: List<ReadingRecord> = listOf(),
-    val notes: List<ReadingNote> = listOf(),
     val archived: Boolean = false,
 ) : EditableBook
 
 data class ReadingRecord(
     val startPage: Int = 0,
     val endPage: Int = 0,
-    val timestamp: Timestamp = Timestamp.now()
-)
-
-data class ReadingNote(
     val note: String = "",
-    val position: Int = 0,
     val timestamp: Timestamp = Timestamp.now()
 )
 
@@ -60,8 +54,23 @@ class ReadingBookFactory {
                     Timestamp.now(),
                     Timestamp.now()
                 ),
+                records = buildReadingRecords(),
                 category = "Kotlin"
             )
+        }
+
+        fun buildReadingRecords(): List<ReadingRecord> {
+            val list = mutableListOf<ReadingRecord>()
+            for (i in 0..Random.nextInt(20)) {
+                list.add(
+                    ReadingRecord(
+                        startPage = Random.nextInt(12, 21),
+                        endPage = Random.nextInt(577, 689),
+                        note = "this is a testing pfjdisjapiofjapiofjaiojdfioajfiosa"
+                    )
+                )
+            }
+            return list
         }
     }
 }

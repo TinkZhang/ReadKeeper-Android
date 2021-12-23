@@ -15,11 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.tinkzhang.readkeeper.common.data.PageFormat
-import com.github.tinkzhang.readkeeper.common.data.ReadingNote
+import com.github.tinkzhang.readkeeper.common.data.ReadingRecord
 import com.google.firebase.Timestamp
 
 @Composable
-fun RkBookNoteSection(notes: List<ReadingNote>, pageFormat: PageFormat, pages: Int) {
+fun RkBookNoteSection(records: List<ReadingRecord>, pageFormat: PageFormat, pages: Int) {
     Surface(tonalElevation = 4.dp) {
         Column(
             Modifier
@@ -32,7 +32,7 @@ fun RkBookNoteSection(notes: List<ReadingNote>, pageFormat: PageFormat, pages: I
             )
             Divider(Modifier.padding(vertical = 4.dp), thickness = 2.dp)
             when {
-                notes.isEmpty() -> {
+                records.isEmpty() -> {
                     Text(
                         "\uD83D\uDDF3️  Empty reading note.",
                         Modifier
@@ -41,20 +41,20 @@ fun RkBookNoteSection(notes: List<ReadingNote>, pageFormat: PageFormat, pages: I
                         style = MaterialTheme.typography.titleSmall
                     )
                 }
-                notes.size < 4 -> {
-                    notes.forEach {
+                records.size < 4 -> {
+                    records.forEach {
                         RkBookNote(it, pageFormat, pages)
                         Divider()
                     }
                 }
                 else -> {
-                    notes.subList(0, 4).forEach {
+                    records.subList(0, 4).forEach {
                         RkBookNote(it, pageFormat, pages)
                         Divider()
                     }
                 }
             }
-            if (notes.isNotEmpty()) {
+            if (records.isNotEmpty()) {
                 OutlinedButton(
                     onClick = {},
                     Modifier
@@ -71,20 +71,20 @@ fun RkBookNoteSection(notes: List<ReadingNote>, pageFormat: PageFormat, pages: I
 }
 
 @Composable
-fun RkBookNote(note: ReadingNote, pageFormat: PageFormat, pages: Int) {
+fun RkBookNote(record: ReadingRecord, pageFormat: PageFormat, pages: Int) {
     Row(
         Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
     ) {
-        RkProgress(format = pageFormat, position = note.position, totalPages = pages)
+        RkProgress(format = pageFormat, position = record.endPage, totalPages = pages)
         Column(Modifier.padding(start = 8.dp)) {
             Text(
-                note.note,
+                record.note,
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "--- ${note.timestamp.toDate().toLocaleString()}",
+                text = "--- ${record.timestamp.toDate().toLocaleString()}",
                 Modifier
                     .padding(top = 8.dp)
                     .align(Alignment.End),
@@ -98,9 +98,9 @@ fun RkBookNote(note: ReadingNote, pageFormat: PageFormat, pages: Int) {
 @Composable
 private fun RkBookNotePreview() {
     RkBookNote(
-        note = ReadingNote(
-            "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
-            position = 123,
+        record = ReadingRecord(
+            note = "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
+            endPage = 123,
             timestamp = Timestamp.now()
         ),
         pageFormat = PageFormat.PAGE,
@@ -112,9 +112,9 @@ private fun RkBookNotePreview() {
 @Composable
 private fun RkBookNotePreview2() {
     RkBookNote(
-        note = ReadingNote(
-            "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
-            position = 123,
+        record = ReadingRecord(
+            note = "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
+            endPage = 123,
             timestamp = Timestamp.now()
         ),
         pageFormat = PageFormat.PERCENTAGE,
@@ -126,18 +126,18 @@ private fun RkBookNotePreview2() {
 @Composable
 fun RkBookNoteSectionPreview() {
     RkBookNoteSection(
-        notes = listOf(
-            ReadingNote(
-                "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
-                position = 123,
+        records = listOf(
+            ReadingRecord(
+                note = "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
+                endPage = 123,
                 timestamp = Timestamp.now()
-            ), ReadingNote(
-                "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
-                position = 123,
+            ), ReadingRecord(
+                note = "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
+                endPage = 123,
                 timestamp = Timestamp.now()
-            ), ReadingNote(
-                "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
-                position = 123,
+            ), ReadingRecord(
+                note = "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
+                endPage = 123,
                 timestamp = Timestamp.now()
             )
         ), pageFormat = PageFormat.PAGE, pages = 345
