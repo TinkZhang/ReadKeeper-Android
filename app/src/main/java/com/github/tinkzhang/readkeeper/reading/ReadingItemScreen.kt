@@ -1,9 +1,9 @@
 package com.github.tinkzhang.readkeeper.reading
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
@@ -56,10 +56,10 @@ fun ReadingItemScreen(
                 .padding(horizontal = 16.dp)
         ) {
             RkBookInfoSection(book = book)
-            Divider(Modifier.padding(vertical = 8.dp))
+            Spacer(modifier = Modifier.padding(vertical = 16.dp))
             RkBookProgressSection1(book.records, book.pageFormat, book.platform)
-            Divider(Modifier.padding(vertical = 8.dp))
-            RkBookNoteSection(book.notes)
+            Spacer(modifier = Modifier.padding(vertical = 16.dp))
+            RkBookNoteSection(book.notes, book.pageFormat, book.bookInfo.pages)
         }
     }
 }

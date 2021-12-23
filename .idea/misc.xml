@@ -12,13 +12,17 @@
         <entry key="../../../../layout/compose-model-1631070972990.xml" value="0.4383916990920882" />
         <entry key="../../../../layout/compose-model-1632315785298.xml" value="0.24814814814814815" />
         <entry key="../../../../layout/compose-model-1632877195258.xml" value="0.3016720028459623" />
-        <entry key="../../../../layout/compose-model-1640093721197.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1640154014552.xml" value="4.0" />
+        <entry key="../../../../layout/compose-model-1640219267166.xml" value="1.0" />
+        <entry key="../../../../layout/compose-model-1640219545816.xml" value="0.44074074074074077" />
+        <entry key="app/src/main/res/drawable/ic_kindle.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_pdf.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.18642785065590312" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

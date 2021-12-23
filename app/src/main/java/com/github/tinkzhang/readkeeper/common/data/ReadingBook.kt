@@ -31,7 +31,7 @@ data class ReadingNote(
 
 enum class PageFormat {
     PAGE,
-    PERCENTAGE,
+    PERCENTAGE
 }
 
 enum class ReadingPlatform(val label: String, val icon: Int) {
@@ -50,7 +50,7 @@ class ReadingBookFactory {
             return ReadingBook(
                 bookInfo = BookInfo(
                     title = "Book Title ${Random.nextInt()}",
-                    imageUrl = "http://books.google.com/books/content?id=gK98gXR8onwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+                    imageUrl = "https://img2.doubanio.com/view/subject/s/public/s34039232.jpg",
                     author = "Tink",
                     pages = 1688,
                     rating = 5.0,
