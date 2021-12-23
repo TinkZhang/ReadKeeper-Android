@@ -48,9 +48,9 @@ fun RkBookInfoMetadata(book: BookInfo, modifier: Modifier = Modifier) {
             Text(
                 "✍️  " + book.author,
                 style = if (book.author.length > 40) {
-                    MaterialTheme.typography.titleMedium
+                    MaterialTheme.typography.titleSmall
                 } else {
-                    MaterialTheme.typography.titleLarge
+                    MaterialTheme.typography.titleMedium
                 },
                 maxLines = 3,
                 modifier = Modifier.padding(bottom = 8.dp)
@@ -60,7 +60,7 @@ fun RkBookInfoMetadata(book: BookInfo, modifier: Modifier = Modifier) {
         if (book.rating != 0.0) {
             Text(
                 text = "⭐  Rating: ${book.rating}",
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
         }
@@ -68,7 +68,7 @@ fun RkBookInfoMetadata(book: BookInfo, modifier: Modifier = Modifier) {
         if (book.pubYear != 0) {
             Text(
                 "\uD83D\uDDD3️  Published in ${book.pubYear}",
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
         }
