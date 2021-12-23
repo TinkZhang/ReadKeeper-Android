@@ -16,7 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.github.tinkzhang.readkeeper.R
-import com.github.tinkzhang.readkeeper.common.data.*
+import com.github.tinkzhang.readkeeper.common.data.PageFormat
+import com.github.tinkzhang.readkeeper.common.data.ReadingBook
+import com.github.tinkzhang.readkeeper.common.data.ReadingPlatform
+import com.github.tinkzhang.readkeeper.common.data.ReadingRecord
 import com.github.tinkzhang.readkeeper.ui.components.RkCategoryChip
 
 @Composable
@@ -59,9 +62,9 @@ fun ReadingBookListItem(book: ReadingBook, navController: NavController) {
                 onInitProgressClicked = { /*TODO*/ },
                 onRealProgressClicked = { /*TODO*/ })
             Divider()
-            if (book.notes.isNotEmpty()) {
+            if (book.records.isNotEmpty()) {
                 RkShortNote(
-                    note = book.notes.last(),
+                    record = book.records.last(),
                     onAddButtonClicked = {},
                 )
             }
@@ -159,11 +162,11 @@ fun RkProgressBar(progress: Int, total: Int) {
 
 @Composable
 fun RkShortNote(
-    note: ReadingNote,
+    record: ReadingRecord,
     onAddButtonClicked: () -> Unit,
 ) {
     Column() {
-        Text(note.note)
+        Text(record.note)
         Button(onClick = onAddButtonClicked) {
             Icon(Icons.Default.AddComment, contentDescription = "Add reading note")
             Spacer(Modifier.size(ButtonDefaults.IconSpacing))
