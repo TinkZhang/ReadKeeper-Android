@@ -117,7 +117,7 @@ private fun RkBookNotePreview2() {
             endPage = 123,
             timestamp = Timestamp.now()
         ),
-        pageFormat = PageFormat.PERCENTAGE,
+        pageFormat = PageFormat.PERCENT_1000,
         pages = 1000
     )
 }

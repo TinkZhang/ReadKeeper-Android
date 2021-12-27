@@ -25,7 +25,9 @@ data class ReadingRecord(
 
 enum class PageFormat {
     PAGE,
-    PERCENTAGE
+    PERCENT_100,
+    PERCENT_1000,
+    PERCENT_10000
 }
 
 enum class ReadingPlatform(val label: String, val icon: Int) {

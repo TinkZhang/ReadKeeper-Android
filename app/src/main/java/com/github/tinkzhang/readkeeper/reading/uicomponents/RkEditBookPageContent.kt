@@ -35,9 +35,9 @@ fun RkEditBookPageContent(
                 .verticalScroll(rememberScrollState())
                 .padding(8.dp)
         ) {
-            PlatformSelectionSection()
-            Divider()
             BookPageFormatSection()
+            Divider()
+            PlatformSelectionSection()
             Row(Modifier.align(Alignment.End)) {
                 TextButton(onClick = onCancelClicked) {
                     Text("Cancel")
@@ -84,7 +84,7 @@ fun PlatformSelectionSection() {
 fun BookPageFormatSection() {
     var pageFormatState by remember { mutableStateOf(PageFormat.PAGE) }
     var pageState by remember { mutableStateOf("100") }
-    var percentageState by remember { mutableStateOf(1) }
+    var percentageState by remember { mutableStateOf(PageFormat.PERCENT_100) }
     Column(Modifier.fillMaxWidth()) {
         Text("Page Format", style = MaterialTheme.typography.titleLarge)
         Spacer(modifier = Modifier.height(4.dp))
@@ -109,7 +109,7 @@ fun BookPageFormatSection() {
                         Text("Pages")
                     }
                     OutlinedButton(
-                        onClick = { pageFormatState = PageFormat.PERCENTAGE },
+                        onClick = { pageFormatState = PageFormat.PERCENT_100 },
                         shape = RoundedCornerShape(
                             topStart = 0.dp,
                             topEnd = 8.dp,
@@ -156,7 +156,7 @@ fun BookPageFormatSection() {
                         Text("Pages")
                     }
                     FilledTonalButton(
-                        onClick = { pageFormatState = PageFormat.PERCENTAGE },
+                        onClick = { pageFormatState = PageFormat.PERCENT_100 },
                         shape = RoundedCornerShape(
                             topStart = 0.dp,
                             topEnd = 8.dp,
@@ -174,50 +174,30 @@ fun BookPageFormatSection() {
                     }
                 }
                 Text("Percent Format", style = MaterialTheme.typography.titleMedium)
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .clickable { percentageState = 1 },
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    RadioButton(selected = percentageState == 1, onClick = { percentageState = 1 })
-                    Spacer(Modifier.width(8.dp))
-                    Text("100%  e.g. 12%", style = MaterialTheme.typography.titleMedium)
-                }
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .clickable { percentageState = 2 },
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    RadioButton(
-                        selected = percentageState == 2,
-                        onClick = { percentageState = 2 })
-                    Spacer(Modifier.width(8.dp))
-                    Text(
-                        "100.0%  e.g. 12.3%",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                }
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .clickable { percentageState = 3 },
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    RadioButton(
-                        selected = percentageState == 3,
-                        onClick = { percentageState = 3 })
-                    Spacer(Modifier.width(8.dp))
-                    Text(
-                        "100.00%  e.g. 12.34%",
-                        style = MaterialTheme.typography.titleMedium
-                    )
+
+                PageFormat.values().filterNot { it == PageFormat.PAGE }.forEach {
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable { percentageState = it },
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            selected = percentageState == it,
+                            onClick = { percentageState = it })
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = when (it) {
+                                PageFormat.PAGE -> ""
+                                PageFormat.PERCENT_100 -> "100%  e.g. 12%"
+                                PageFormat.PERCENT_1000 -> "100.0%  e.g. 12.3%"
+                                PageFormat.PERCENT_10000 -> "100.00%  e.g. 12.34%"
+                            }, style = MaterialTheme.typography.titleMedium
+                        )
+                    }
                 }
             }
-
         }
-
     }
 }
 
