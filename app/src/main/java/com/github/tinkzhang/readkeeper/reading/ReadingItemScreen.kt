@@ -12,20 +12,20 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DataSaverOn
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import com.github.tinkzhang.readkeeper.R
-import com.github.tinkzhang.readkeeper.reading.uicomponents.RkBookInfoSection
-import com.github.tinkzhang.readkeeper.reading.uicomponents.RkBookNoteSection
-import com.github.tinkzhang.readkeeper.reading.uicomponents.RkBookProgressSection
+import com.github.tinkzhang.readkeeper.reading.uicomponents.*
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
 fun ReadingItemScreen(
     uuid: String,
@@ -37,6 +37,8 @@ fun ReadingItemScreen(
     val scrollBehavior = remember(decayAnimationSpec) {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
     }
+    var showAddProgressDialog by remember { mutableStateOf(false) }
+    var showEditBookPageDialog by remember { mutableStateOf(false) }
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -51,12 +53,30 @@ fun ReadingItemScreen(
                         )
                     }
                 },
+                actions = {
+                    IconButton(onClick = {
+                        showEditBookPageDialog = true
+                    }) {
+                        Icon(
+                            Icons.Default.Edit,
+                            contentDescription = "Edit",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                },
                 scrollBehavior = scrollBehavior
             )
         }, floatingActionButton = {
             ExtendedFloatingActionButton(
                 text = { Text("Progress", color = MaterialTheme.colorScheme.onPrimaryContainer) },
-                onClick = { /*TODO*/ },
+                onClick = {
+                    if (book.records.isEmpty()) {
+                        showEditBookPageDialog = true
+                    } else {
+                        showAddProgressDialog = true
+                    }
+                },
+
                 icon = {
                     Icon(
                         Icons.Default.DataSaverOn,
@@ -82,6 +102,35 @@ fun ReadingItemScreen(
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
             RkBookNoteSection(book.records, book.pageFormat, book.bookInfo.pages)
             Spacer(modifier = Modifier.padding(vertical = 48.dp))
+        }
+
+        if (showEditBookPageDialog) {
+            Dialog(
+                onDismissRequest = { showEditBookPageDialog = false },
+                properties = DialogProperties(
+                    dismissOnClickOutside = false,
+                    usePlatformDefaultWidth = true,
+                    dismissOnBackPress = true,
+                )
+            ) {
+                RkEditBookPageContent(
+                    onCancelClicked = { showEditBookPageDialog = false },
+                    onSaveClicked = { showEditBookPageDialog })
+            }
+        }
+
+        if (showAddProgressDialog) {
+            // TODO: Replace with M3 Full Screen Dialog when available
+            Dialog(
+                onDismissRequest = { showAddProgressDialog = false },
+                properties = DialogProperties(
+                    dismissOnClickOutside = false,
+                    usePlatformDefaultWidth = true,
+                    dismissOnBackPress = true,
+                )
+            ) {
+                RkProgressDialogContent()
+            }
         }
     }
 }
