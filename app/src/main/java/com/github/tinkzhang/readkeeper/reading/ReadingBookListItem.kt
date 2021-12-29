@@ -147,7 +147,9 @@ fun RkRealProgress(
                 when (pageFormat) {
                     PageFormat.PAGE
                     -> "$progress of $page"
-                    PageFormat.PERCENTAGE -> "${progress / 10000.0}%"
+                    PageFormat.PERCENT_100 -> "${progress}%"
+                    PageFormat.PERCENT_1000 -> "${progress/10.0f}%"
+                    PageFormat.PERCENT_10000 -> "${progress/100.00f}%"
                 }
             )
             Icon(Icons.Default.Addchart, contentDescription = "Add reading progress")

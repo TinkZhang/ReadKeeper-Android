@@ -49,7 +49,7 @@ fun RkProgressPreview() {
 @Preview
 @Composable
 fun RkProgressPercentagePreview() {
-    RkProgress(format = PageFormat.PERCENTAGE, position = 123, totalPages = 1000)
+    RkProgress(format = PageFormat.PERCENT_10000, position = 133, totalPages = 10000)
 }
 
 @Composable
@@ -63,8 +63,16 @@ fun RkProgressText(
             stringResource(id = R.string.page, position),
             style = textStyle
         )
-        PageFormat.PERCENTAGE -> Text(
+        PageFormat.PERCENT_100 -> Text(
+            "${(position)}%",
+            style = textStyle
+        )
+        PageFormat.PERCENT_1000 -> Text(
             "${(position / 10.0)}%",
+            style = textStyle
+        )
+        PageFormat.PERCENT_10000 -> Text(
+            "${position / 100.00}%",
             style = textStyle
         )
     }

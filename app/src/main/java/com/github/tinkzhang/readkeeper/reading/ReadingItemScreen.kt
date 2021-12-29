@@ -12,31 +12,35 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DataSaverOn
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import com.github.tinkzhang.readkeeper.R
-import com.github.tinkzhang.readkeeper.reading.uicomponents.RkBookInfoSection
-import com.github.tinkzhang.readkeeper.reading.uicomponents.RkBookNoteSection
-import com.github.tinkzhang.readkeeper.reading.uicomponents.RkBookProgressSection
+import com.github.tinkzhang.readkeeper.reading.uicomponents.*
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
 fun ReadingItemScreen(
     uuid: String,
     readingViewModel: ReadingViewModel,
     navController: NavController
 ) {
-    val book = readingViewModel.getBook(uuid)
+    var book by remember {
+        mutableStateOf(readingViewModel.getBook(uuid))
+    }
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
     val scrollBehavior = remember(decayAnimationSpec) {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
     }
+    var showAddProgressDialog by remember { mutableStateOf(false) }
+    var showEditBookPageDialog by remember { mutableStateOf(false) }
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -51,19 +55,54 @@ fun ReadingItemScreen(
                         )
                     }
                 },
+                actions = {
+                    IconButton(onClick = {
+                        showEditBookPageDialog = true
+                    }) {
+                        Icon(
+                            Icons.Default.Edit,
+                            contentDescription = "Edit",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                },
                 scrollBehavior = scrollBehavior
             )
         }, floatingActionButton = {
-            ExtendedFloatingActionButton(
-                text = { Text("Progress", color = MaterialTheme.colorScheme.onPrimaryContainer) },
-                onClick = { /*TODO*/ },
-                icon = {
-                    Icon(
-                        Icons.Default.DataSaverOn,
-                        contentDescription = "Add Reading Progress",
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                })
+            if (book.formatEdited) {
+                ExtendedFloatingActionButton(
+                    text = {
+                        Text(
+                            "Progress",
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    },
+                    onClick = {
+                        showAddProgressDialog = true
+                    },
+                    icon = {
+                        Icon(
+                            Icons.Default.DataSaverOn,
+                            contentDescription = "Add Reading Progress",
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    })
+            } else {
+                ExtendedFloatingActionButton(
+                    text = { Text("Edit", color = MaterialTheme.colorScheme.onPrimaryContainer) },
+                    onClick = {
+                        showEditBookPageDialog = true
+                    },
+
+                    icon = {
+                        Icon(
+                            Icons.Default.Edit,
+                            contentDescription = "Edit Book",
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    })
+            }
+
         }) {
         Column(
             modifier = Modifier
@@ -80,8 +119,54 @@ fun ReadingItemScreen(
                 platform = book.platform
             )
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
-            RkBookNoteSection(book.records, book.pageFormat, book.bookInfo.pages)
+            RkBookNoteSection(book.records.reversed(), book.pageFormat, book.bookInfo.pages)
             Spacer(modifier = Modifier.padding(vertical = 48.dp))
+        }
+
+        if (showEditBookPageDialog) {
+            Dialog(
+                onDismissRequest = { showEditBookPageDialog = false },
+                properties = DialogProperties(
+                    dismissOnClickOutside = false,
+                    usePlatformDefaultWidth = true,
+                    dismissOnBackPress = true,
+                )
+            ) {
+                RkEditBookPageContent(
+                    book = book,
+                    onCancelClicked = { showEditBookPageDialog = false },
+                    onSaveClicked = {
+                        readingViewModel.addBook(it)
+                        readingViewModel.updateLocalList(it)
+                        book = it
+                        showEditBookPageDialog = false
+                    })
+            }
+        }
+
+        if (showAddProgressDialog) {
+            // TODO: Replace with M3 Full Screen Dialog when available
+            Dialog(
+                onDismissRequest = { showAddProgressDialog = false },
+                properties = DialogProperties(
+                    dismissOnClickOutside = false,
+                    usePlatformDefaultWidth = true,
+                    dismissOnBackPress = true,
+                )
+            ) {
+                RkProgressDialogContent(
+                    book = book,
+                    onCancelClicked = {
+                        showAddProgressDialog = false
+                    },
+                    onSaveClicked = {
+                        readingViewModel.addBook(it)
+                        readingViewModel.updateLocalList(it)
+                        book = it
+                        showAddProgressDialog = false
+                    }
+                )
+            }
         }
     }
 }
