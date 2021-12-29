@@ -57,7 +57,10 @@ fun ReadingListScreen(viewModel: ReadingViewModel, navController: NavController)
         val books = viewModel.flow.collectAsLazyPagingItems()
         SwipeRefresh(
             state = rememberSwipeRefreshState(isRefreshing = books.loadState.refresh is LoadState.Loading),
-            onRefresh = { books.refresh() }) {
+            onRefresh = {
+                viewModel.resetLocalList()
+                books.refresh()
+            }) {
             LazyColumn(modifier = Modifier.fillMaxHeight()) {
                 when {
                     books.loadState.refresh is LoadState.Error -> {

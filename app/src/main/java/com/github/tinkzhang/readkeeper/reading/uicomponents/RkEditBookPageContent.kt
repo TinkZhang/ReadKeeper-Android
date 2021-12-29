@@ -22,27 +22,55 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.tinkzhang.readkeeper.common.data.PageFormat
+import com.github.tinkzhang.readkeeper.common.data.ReadingBook
+import com.github.tinkzhang.readkeeper.common.data.ReadingBookFactory
 import com.github.tinkzhang.readkeeper.common.data.ReadingPlatform
 
 @Composable
 fun RkEditBookPageContent(
+    book: ReadingBook,
     onCancelClicked: () -> Unit = {},
-    onSaveClicked: () -> Unit = {},
+    onSaveClicked: (ReadingBook) -> Unit = {},
 ) {
+    var platformState by remember { mutableStateOf(book.platform) }
+    var pageFormatState by remember { mutableStateOf(book.pageFormat) }
+    var pageState by remember { mutableStateOf(book.bookInfo.pages.toString()) }
+
     Surface(color = MaterialTheme.colorScheme.surface) {
         Column(
             Modifier
                 .verticalScroll(rememberScrollState())
                 .padding(8.dp)
         ) {
-            BookPageFormatSection()
+            BookPageFormatSection(
+                pageFormatState = pageFormatState,
+                pageState = pageState,
+                onPageFormatChanged = { pageFormatState = it },
+                onPageChanged = { pageState = it }
+            )
             Divider()
-            PlatformSelectionSection()
+            Spacer(modifier = Modifier.height(16.dp))
+            PlatformSelectionSection(platformState) { platformState = it }
             Row(Modifier.align(Alignment.End)) {
                 TextButton(onClick = onCancelClicked) {
                     Text("Cancel")
                 }
-                TextButton(onClick = onSaveClicked) {
+                TextButton(onClick = {
+                    val pages: Int = when (pageFormatState) {
+                        PageFormat.PAGE -> pageState.toInt()
+                        PageFormat.PERCENT_100 -> 100
+                        PageFormat.PERCENT_1000 -> 1000
+                        PageFormat.PERCENT_10000 -> 10000
+                    }
+                    onSaveClicked(
+                        book.update(
+                            platform = platformState,
+                            pages = pages,
+                            pageFormat = pageFormatState,
+                            formatEdited = true
+                        )
+                    )
+                }) {
                     Text("Save")
                 }
             }
@@ -51,8 +79,10 @@ fun RkEditBookPageContent(
 }
 
 @Composable
-fun PlatformSelectionSection() {
-    var state by remember { mutableStateOf(ReadingPlatform.GENERAL) }
+fun PlatformSelectionSection(
+    platformState: ReadingPlatform,
+    onPlatformSelect: (ReadingPlatform) -> Unit = {}
+) {
     Column(Modifier.fillMaxWidth()) {
         Text("Read Platform", style = MaterialTheme.typography.titleLarge)
         Spacer(modifier = Modifier.height(4.dp))
@@ -60,11 +90,12 @@ fun PlatformSelectionSection() {
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .clickable { state = it }, verticalAlignment = Alignment.CenterVertically
+                    .clickable { onPlatformSelect(it) },
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
-                    selected = state.name == it.name,
-                    onClick = { state = it },
+                    selected = platformState.name == it.name,
+                    onClick = { onPlatformSelect(it) },
                     modifier = Modifier.padding(4.dp)
                 )
                 Icon(
@@ -75,16 +106,17 @@ fun PlatformSelectionSection() {
                 Spacer(Modifier.width(8.dp))
                 Text(it.label, style = MaterialTheme.typography.titleMedium)
             }
-
         }
     }
 }
 
 @Composable
-fun BookPageFormatSection() {
-    var pageFormatState by remember { mutableStateOf(PageFormat.PAGE) }
-    var pageState by remember { mutableStateOf("100") }
-    var percentageState by remember { mutableStateOf(PageFormat.PERCENT_100) }
+fun BookPageFormatSection(
+    pageFormatState: PageFormat,
+    pageState: String,
+    onPageFormatChanged: (PageFormat) -> Unit = {},
+    onPageChanged: (String) -> Unit = {}
+) {
     Column(Modifier.fillMaxWidth()) {
         Text("Page Format", style = MaterialTheme.typography.titleLarge)
         Spacer(modifier = Modifier.height(4.dp))
@@ -92,7 +124,7 @@ fun BookPageFormatSection() {
             Column() {
                 Row(Modifier.fillMaxWidth()) {
                     FilledTonalButton(
-                        onClick = { /*TODO*/ },
+                        onClick = { onPageFormatChanged(PageFormat.PAGE) },
                         shape = RoundedCornerShape(
                             topStart = 8.dp,
                             topEnd = 0.dp,
@@ -109,7 +141,7 @@ fun BookPageFormatSection() {
                         Text("Pages")
                     }
                     OutlinedButton(
-                        onClick = { pageFormatState = PageFormat.PERCENT_100 },
+                        onClick = { onPageFormatChanged(PageFormat.PERCENT_100) },
                         shape = RoundedCornerShape(
                             topStart = 0.dp,
                             topEnd = 8.dp,
@@ -128,14 +160,17 @@ fun BookPageFormatSection() {
                     style = MaterialTheme.typography.titleLarge
                 )
                 Spacer(Modifier.height(8.dp))
-                TextField(
+                OutlinedTextField(
                     value = pageState,
-                    onValueChange = { value -> pageState = value },
+                    onValueChange = { onPageChanged(it) },
                     Modifier.align(Alignment.CenterHorizontally),
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    shape = androidx.compose.material.MaterialTheme.shapes.large,
-                    singleLine = true,
                     textStyle = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        textColor = MaterialTheme.colorScheme.onSurface,
+                        backgroundColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f),
+                    )
                 )
                 Spacer(Modifier.height(16.dp))
             }
@@ -144,7 +179,7 @@ fun BookPageFormatSection() {
             Column() {
                 Row(Modifier.fillMaxWidth()) {
                     OutlinedButton(
-                        onClick = { pageFormatState = PageFormat.PAGE },
+                        onClick = { onPageFormatChanged(PageFormat.PAGE) },
                         shape = RoundedCornerShape(
                             topStart = 8.dp,
                             topEnd = 0.dp,
@@ -156,7 +191,7 @@ fun BookPageFormatSection() {
                         Text("Pages")
                     }
                     FilledTonalButton(
-                        onClick = { pageFormatState = PageFormat.PERCENT_100 },
+                        onClick = { onPageFormatChanged(PageFormat.PERCENT_100) },
                         shape = RoundedCornerShape(
                             topStart = 0.dp,
                             topEnd = 8.dp,
@@ -179,19 +214,18 @@ fun BookPageFormatSection() {
                     Row(
                         Modifier
                             .fillMaxWidth()
-                            .clickable { percentageState = it },
+                            .clickable { onPageFormatChanged(it) },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = percentageState == it,
-                            onClick = { percentageState = it })
-                        Spacer(Modifier.width(8.dp))
+                            selected = pageFormatState == it,
+                            onClick = { onPageFormatChanged(it) })
                         Text(
                             text = when (it) {
                                 PageFormat.PAGE -> ""
-                                PageFormat.PERCENT_100 -> "100%  e.g. 12%"
-                                PageFormat.PERCENT_1000 -> "100.0%  e.g. 12.3%"
-                                PageFormat.PERCENT_10000 -> "100.00%  e.g. 12.34%"
+                                PageFormat.PERCENT_100 -> "100% e.g. 12%"
+                                PageFormat.PERCENT_1000 -> "100.0% e.g. 12.3%"
+                                PageFormat.PERCENT_10000 -> "100.00% e.g. 12.34%"
                             }, style = MaterialTheme.typography.titleMedium
                         )
                     }
@@ -204,5 +238,15 @@ fun BookPageFormatSection() {
 @Preview
 @Composable
 fun RkEditBookPageContentPreview() {
-    RkEditBookPageContent()
+    RkEditBookPageContent(
+        book = ReadingBookFactory.buildSample()
+    )
+}
+
+@Preview
+@Composable
+fun RkEditBookPageContentPercentPreview() {
+    RkEditBookPageContent(
+        book = ReadingBookFactory.buildSample().copy(pageFormat = PageFormat.PERCENT_1000)
+    )
 }

@@ -34,7 +34,8 @@ class UserRepository {
 
     fun addReadingBook(book: ReadingBook) {
         readingCollectionRef
-            .add(book)
+            .document(book.uuid)
+            .set(book)
             .addOnSuccessListener {
                 Timber.d("Book ${book.bookInfo.title} has been added to reading lists")
             }

@@ -13,8 +13,28 @@ data class ReadingBook(
     val platform: ReadingPlatform = ReadingPlatform.GENERAL,
     val pageFormat: PageFormat = PageFormat.PAGE,
     val records: List<ReadingRecord> = listOf(),
+    val formatEdited: Boolean = false,
     val archived: Boolean = false,
-) : EditableBook
+) : EditableBook {
+    fun update(
+        pages: Int = this.bookInfo.pages,
+        category: String? = this.category,
+        platform: ReadingPlatform = this.platform,
+        pageFormat: PageFormat = this.pageFormat,
+        records: List<ReadingRecord> = this.records,
+        formatEdited: Boolean = this.formatEdited,
+        archived: Boolean = this.archived,
+    ): ReadingBook = this.copy(
+        bookInfo = this.bookInfo.copy(pages = pages),
+        timeInfo = this.timeInfo.copy(editedTime = Timestamp.now()),
+        platform = platform,
+        category = category,
+        pageFormat = pageFormat,
+        records = records,
+        formatEdited = formatEdited,
+        archived = archived,
+    )
+}
 
 data class ReadingRecord(
     val startPage: Int = 0,

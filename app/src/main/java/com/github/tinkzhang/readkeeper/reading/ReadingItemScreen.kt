@@ -32,7 +32,9 @@ fun ReadingItemScreen(
     readingViewModel: ReadingViewModel,
     navController: NavController
 ) {
-    val book = readingViewModel.getBook(uuid)
+    var book by remember {
+        mutableStateOf(readingViewModel.getBook(uuid))
+    }
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
     val scrollBehavior = remember(decayAnimationSpec) {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
@@ -67,23 +69,40 @@ fun ReadingItemScreen(
                 scrollBehavior = scrollBehavior
             )
         }, floatingActionButton = {
-            ExtendedFloatingActionButton(
-                text = { Text("Progress", color = MaterialTheme.colorScheme.onPrimaryContainer) },
-                onClick = {
-                    if (book.records.isEmpty()) {
-                        showEditBookPageDialog = true
-                    } else {
+            if (book.formatEdited) {
+                ExtendedFloatingActionButton(
+                    text = {
+                        Text(
+                            "Progress",
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    },
+                    onClick = {
                         showAddProgressDialog = true
-                    }
-                },
+                    },
+                    icon = {
+                        Icon(
+                            Icons.Default.DataSaverOn,
+                            contentDescription = "Add Reading Progress",
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    })
+            } else {
+                ExtendedFloatingActionButton(
+                    text = { Text("Edit", color = MaterialTheme.colorScheme.onPrimaryContainer) },
+                    onClick = {
+                        showEditBookPageDialog = true
+                    },
 
-                icon = {
-                    Icon(
-                        Icons.Default.DataSaverOn,
-                        contentDescription = "Add Reading Progress",
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                })
+                    icon = {
+                        Icon(
+                            Icons.Default.Edit,
+                            contentDescription = "Edit Book",
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    })
+            }
+
         }) {
         Column(
             modifier = Modifier
@@ -100,7 +119,7 @@ fun ReadingItemScreen(
                 platform = book.platform
             )
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
-            RkBookNoteSection(book.records, book.pageFormat, book.bookInfo.pages)
+            RkBookNoteSection(book.records.reversed(), book.pageFormat, book.bookInfo.pages)
             Spacer(modifier = Modifier.padding(vertical = 48.dp))
         }
 
@@ -114,8 +133,14 @@ fun ReadingItemScreen(
                 )
             ) {
                 RkEditBookPageContent(
+                    book = book,
                     onCancelClicked = { showEditBookPageDialog = false },
-                    onSaveClicked = { showEditBookPageDialog })
+                    onSaveClicked = {
+                        readingViewModel.addBook(it)
+                        readingViewModel.updateLocalList(it)
+                        book = it
+                        showEditBookPageDialog = false
+                    })
             }
         }
 
@@ -129,7 +154,18 @@ fun ReadingItemScreen(
                     dismissOnBackPress = true,
                 )
             ) {
-                RkProgressDialogContent()
+                RkProgressDialogContent(
+                    book = book,
+                    onCancelClicked = {
+                        showAddProgressDialog = false
+                    },
+                    onSaveClicked = {
+                        readingViewModel.addBook(it)
+                        readingViewModel.updateLocalList(it)
+                        book = it
+                        showAddProgressDialog = false
+                    }
+                )
             }
         }
     }

@@ -66,4 +66,13 @@ class ReadingViewModel @Inject constructor(
         categoryScrollPosition = position
     }
 
+    fun resetLocalList() {
+        localList.clear()
+    }
+
+    fun updateLocalList(book: ReadingBook) {
+        localList.removeIf { it.uuid == book.uuid }
+        localList.add(book)
+    }
+
 }

@@ -44,13 +44,11 @@ fun RkBookNoteSection(records: List<ReadingRecord>, pageFormat: PageFormat, page
                 records.size < 4 -> {
                     records.forEach {
                         RkBookNote(it, pageFormat, pages)
-                        Divider()
                     }
                 }
                 else -> {
                     records.subList(0, 4).forEach {
                         RkBookNote(it, pageFormat, pages)
-                        Divider()
                     }
                 }
             }
@@ -72,24 +70,29 @@ fun RkBookNoteSection(records: List<ReadingRecord>, pageFormat: PageFormat, page
 
 @Composable
 fun RkBookNote(record: ReadingRecord, pageFormat: PageFormat, pages: Int) {
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-    ) {
-        RkProgress(format = pageFormat, position = record.endPage, totalPages = pages)
-        Column(Modifier.padding(start = 8.dp)) {
-            Text(
-                record.note,
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Text(
-                text = "--- ${record.timestamp.toDate().toLocaleString()}",
+    if (record.note.isNotBlank()) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+        ) {
+            RkProgress(format = pageFormat, position = record.endPage, totalPages = pages)
+            Column(
                 Modifier
-                    .padding(top = 8.dp)
-                    .align(Alignment.End),
-                style = MaterialTheme.typography.bodySmall,
-            )
+                    .fillMaxWidth()
+                    .padding(start = 8.dp)) {
+                Text(
+                    record.note,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Text(
+                    text = "--- ${record.timestamp.toDate().toLocaleString()}",
+                    Modifier
+                        .padding(top = 8.dp)
+                        .align(Alignment.End),
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
         }
     }
 }
