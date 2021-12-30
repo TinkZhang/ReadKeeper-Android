@@ -19,7 +19,7 @@ import com.github.tinkzhang.readkeeper.common.data.ReadingBookFactory
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun RkBookInfoSection(book: ReadingBook) {
+fun ReadingVipInfoSection(book: ReadingBook) {
     Row(modifier = Modifier.fillMaxWidth()) {
         Card(modifier = Modifier.weight(1.0f)) {
             Image(
@@ -32,12 +32,12 @@ fun RkBookInfoSection(book: ReadingBook) {
                 contentScale = ContentScale.FillWidth,
             )
         }
-        RkBookInfoMetadata(book = book.bookInfo, modifier = Modifier.weight(2.0f))
+        ReadingVipMetadata(book = book.bookInfo, modifier = Modifier.weight(2.0f))
     }
 }
 
 @Composable
-fun RkBookInfoMetadata(book: BookInfo, modifier: Modifier = Modifier) {
+fun ReadingVipMetadata(book: BookInfo, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -77,6 +77,6 @@ fun RkBookInfoMetadata(book: BookInfo, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun RkBookInfoSectionPreview() {
-    RkBookInfoSection(book = ReadingBookFactory.buildSample())
+private fun BookVipInfoSectionPreview() {
+    ReadingVipInfoSection(book = ReadingBookFactory.buildSample())
 }

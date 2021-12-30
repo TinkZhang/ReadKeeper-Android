@@ -27,8 +27,10 @@ import com.github.tinkzhang.readkeeper.reading.uicomponents.*
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
-fun ReadingItemScreen(
+fun ReadingVip(
     uuid: String,
+    openAddProgressDialog: Boolean,
+    openEditDialog: Boolean,
     readingViewModel: ReadingViewModel,
     navController: NavController
 ) {
@@ -39,8 +41,8 @@ fun ReadingItemScreen(
     val scrollBehavior = remember(decayAnimationSpec) {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
     }
-    var showAddProgressDialog by remember { mutableStateOf(false) }
-    var showEditBookPageDialog by remember { mutableStateOf(false) }
+    var showAddProgressDialog by remember { mutableStateOf(openAddProgressDialog) }
+    var showEditBookPageDialog by remember { mutableStateOf(openEditDialog) }
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -110,16 +112,16 @@ fun ReadingItemScreen(
                 .padding(horizontal = 16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            RkBookInfoSection(book = book)
+            ReadingVipInfoSection(book = book)
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
-            RkBookProgressSection(
+            ReadingVipProgressSection(
                 lastRecord = book.records.lastOrNull(),
                 pageFormat = book.pageFormat,
                 totalPages = book.bookInfo.pages,
                 platform = book.platform
             )
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
-            RkBookNoteSection(book.records.reversed(), book.pageFormat, book.bookInfo.pages)
+            ReadingVipNoteSection(book.records.reversed(), book.pageFormat, book.bookInfo.pages)
             Spacer(modifier = Modifier.padding(vertical = 48.dp))
         }
 
@@ -132,7 +134,7 @@ fun ReadingItemScreen(
                     dismissOnBackPress = true,
                 )
             ) {
-                RkEditBookPageContent(
+                EditBookDialogContent(
                     book = book,
                     onCancelClicked = { showEditBookPageDialog = false },
                     onSaveClicked = {
@@ -154,7 +156,7 @@ fun ReadingItemScreen(
                     dismissOnBackPress = true,
                 )
             ) {
-                RkProgressDialogContent(
+                AddProgressDialogContent(
                     book = book,
                     onCancelClicked = {
                         showAddProgressDialog = false

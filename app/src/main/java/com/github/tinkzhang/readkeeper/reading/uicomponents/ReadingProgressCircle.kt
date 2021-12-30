@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,16 +13,14 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.common.data.PageFormat
 
 @Composable
-fun RkProgress(
+fun ReadingProgressCircleWithText(
     format: PageFormat = PageFormat.PAGE,
     position: Int,
     totalPages: Int,
@@ -31,55 +28,33 @@ fun RkProgress(
     textStyle: TextStyle = MaterialTheme.typography.titleMedium
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        RkProgressCircle(
+        ReadingProgressCircle(
             progress = position.toFloat() / totalPages.toFloat(),
             modifier = Modifier.size(size)
         )
         Spacer(modifier = Modifier.height(8.dp))
-        RkProgressText(format = format, position = position, textStyle = textStyle)
+        ReadingProgressText(format = format, position = position, textStyle = textStyle)
     }
 }
 
 @Preview
 @Composable
-fun RkProgressPreview() {
-    RkProgress(position = 123, totalPages = 456)
+private fun ProgressPreview() {
+    ReadingProgressCircleWithText(position = 123, totalPages = 456)
 }
 
 @Preview
 @Composable
-fun RkProgressPercentagePreview() {
-    RkProgress(format = PageFormat.PERCENT_10000, position = 133, totalPages = 10000)
+private fun RkProgressPercentagePreview() {
+    ReadingProgressCircleWithText(
+        format = PageFormat.PERCENT_10000,
+        position = 133,
+        totalPages = 10000
+    )
 }
 
 @Composable
-fun RkProgressText(
-    format: PageFormat,
-    position: Int,
-    textStyle: TextStyle = MaterialTheme.typography.titleLarge
-) {
-    when (format) {
-        PageFormat.PAGE -> Text(
-            stringResource(id = R.string.page, position),
-            style = textStyle
-        )
-        PageFormat.PERCENT_100 -> Text(
-            "${(position)}%",
-            style = textStyle
-        )
-        PageFormat.PERCENT_1000 -> Text(
-            "${(position / 10.0)}%",
-            style = textStyle
-        )
-        PageFormat.PERCENT_10000 -> Text(
-            "${position / 100.00}%",
-            style = textStyle
-        )
-    }
-}
-
-@Composable
-fun RkProgressCircle(
+fun ReadingProgressCircle(
     modifier: Modifier = Modifier,
     progress: Float = 0.0f
 ) {
@@ -122,6 +97,6 @@ fun RkProgressCircle(
 
 @Preview
 @Composable
-fun RkProgressCirclePreview() {
-    RkProgressCircle(Modifier.size(144.dp), 0.6f)
+private fun ReadingProgressCirclePreview() {
+    ReadingProgressCircle(Modifier.size(144.dp), 0.6f)
 }
