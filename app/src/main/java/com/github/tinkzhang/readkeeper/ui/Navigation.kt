@@ -18,7 +18,7 @@ import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE.WISH_LIST
 object SCREEN_ROUTE {
     const val HOME = "home"
     const val READING_LIST = "reading_list"
-    const val READING_ITEM = "reading_item/{uuid}"
+    const val READING_ITEM = "reading_item/{uuid}?open_progress_dialog={open_progress_dialog}"
     const val WISH_LIST = "wish_list"
     const val ARCHIVED_LIST = "archived_list"
     const val SEARCH = "search"

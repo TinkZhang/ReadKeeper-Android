@@ -6,8 +6,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -21,44 +21,41 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import timber.log.Timber
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ReadingListScreen(viewModel: ReadingViewModel, navController: NavController) {
-    val selectedCategory = viewModel.selectedCategory.value
-
+fun ReadingListPage(readingViewModel: ReadingViewModel, navController: NavController) {
+    val selectedCategory = readingViewModel.selectedCategory.value
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
     ) {
-//        val scrollState = rememberLazyListState()
-        val composableScope = rememberCoroutineScope()
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-//            state = scrollState,
         ) {
-            val categories = viewModel.categories.value
+            val categories = readingViewModel.categories.value
             if (categories != null) {
                 items(categories) { category ->
                     RkCategoryChip(
                         category = category,
                         isSelected = selectedCategory == category,
                         onSelectedCategoryChanged = {
-                            viewModel.onSelectedCategoryChanged(category)
-                            Timber.d("${viewModel.list.value?.size}")
+                            readingViewModel.onSelectedCategoryChanged(category)
+                            Timber.d("${readingViewModel.list.value?.size}")
 //                            viewModel.onChangeCategoryScrollPosition(scrollState)
                         },
-                        onExecuteSearch = viewModel::newSearch,
+                        onExecuteSearch = readingViewModel::newSearch,
                     )
                 }
             }
         }
-        val books = viewModel.flow.collectAsLazyPagingItems()
+        val books = readingViewModel.flow.collectAsLazyPagingItems()
         SwipeRefresh(
             state = rememberSwipeRefreshState(isRefreshing = books.loadState.refresh is LoadState.Loading),
             onRefresh = {
-                viewModel.resetLocalList()
+                readingViewModel.resetLocalList()
                 books.refresh()
             }) {
             LazyColumn(modifier = Modifier.fillMaxHeight()) {
@@ -81,8 +78,8 @@ fun ReadingListScreen(viewModel: ReadingViewModel, navController: NavController)
                 }
                 itemsIndexed(books) { index, item ->
                     if (item != null) {
-                        viewModel.addLocalList(item)
-                        ReadingBookListItem(item, navController)
+                        readingViewModel.addLocalList(item)
+                        ReadingListCard(item, navController)
                     }
                 }
 
@@ -95,8 +92,9 @@ fun ReadingListScreen(viewModel: ReadingViewModel, navController: NavController)
                         )
                     }
                 }
+
+                item { Spacer(modifier = Modifier.height(96.dp)) }
             }
         }
-
     }
 }

@@ -27,8 +27,9 @@ import com.github.tinkzhang.readkeeper.reading.uicomponents.*
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
-fun ReadingItemScreen(
+fun ReadingVip(
     uuid: String,
+    openProgressBar: Boolean,
     readingViewModel: ReadingViewModel,
     navController: NavController
 ) {
@@ -39,7 +40,7 @@ fun ReadingItemScreen(
     val scrollBehavior = remember(decayAnimationSpec) {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
     }
-    var showAddProgressDialog by remember { mutableStateOf(false) }
+    var showAddProgressDialog by remember { mutableStateOf(openProgressBar) }
     var showEditBookPageDialog by remember { mutableStateOf(false) }
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),

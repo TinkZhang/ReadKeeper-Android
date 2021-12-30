@@ -15,14 +15,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.github.tinkzhang.readkeeper.common.RkScreen
-import com.github.tinkzhang.readkeeper.reading.ReadingItemScreen
-import com.github.tinkzhang.readkeeper.reading.ReadingListScreen
+import com.github.tinkzhang.readkeeper.reading.ReadingListPage
 import com.github.tinkzhang.readkeeper.reading.ReadingViewModel
+import com.github.tinkzhang.readkeeper.reading.ReadingVip
 import com.github.tinkzhang.readkeeper.search.SearchScreen
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.github.tinkzhang.readkeeper.ui.MainScreenViewData
@@ -86,11 +88,19 @@ class MainActivity : ComponentActivity() {
                                 WishListScreen()
                             }
                             composable(SCREEN_ROUTE.READING_LIST) {
-                                ReadingListScreen(readingViewModel, navController = navController)
+                                ReadingListPage(readingViewModel, navController = navController)
                             }
-                            composable(SCREEN_ROUTE.READING_ITEM) {
-                                ReadingItemScreen(
+                            composable(SCREEN_ROUTE.READING_ITEM,
+                                arguments = listOf(
+                                    navArgument("uuid") { type = NavType.StringType },
+                                    navArgument("open_progress_dialog") {
+                                        type = NavType.BoolType
+                                        defaultValue = false
+                                    }
+                                )) {
+                                ReadingVip(
                                     it.arguments?.getString("uuid") ?: "",
+                                    it.arguments?.getBoolean("open_progress_dialog") ?: false,
                                     readingViewModel,
                                     navController = navController
                                 )
