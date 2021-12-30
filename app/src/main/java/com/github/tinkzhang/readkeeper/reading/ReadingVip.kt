@@ -112,16 +112,16 @@ fun ReadingVip(
                 .padding(horizontal = 16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            RkBookInfoSection(book = book)
+            ReadingVipInfoSection(book = book)
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
-            RkBookProgressSection(
+            ReadingVipProgressSection(
                 lastRecord = book.records.lastOrNull(),
                 pageFormat = book.pageFormat,
                 totalPages = book.bookInfo.pages,
                 platform = book.platform
             )
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
-            RkBookNoteSection(book.records.reversed(), book.pageFormat, book.bookInfo.pages)
+            ReadingVipNoteSection(book.records.reversed(), book.pageFormat, book.bookInfo.pages)
             Spacer(modifier = Modifier.padding(vertical = 48.dp))
         }
 
@@ -134,7 +134,7 @@ fun ReadingVip(
                     dismissOnBackPress = true,
                 )
             ) {
-                RkEditBookPageContent(
+                EditBookDialogContent(
                     book = book,
                     onCancelClicked = { showEditBookPageDialog = false },
                     onSaveClicked = {
@@ -156,7 +156,7 @@ fun ReadingVip(
                     dismissOnBackPress = true,
                 )
             ) {
-                RkProgressDialogContent(
+                AddProgressDialogContent(
                     book = book,
                     onCancelClicked = {
                         showAddProgressDialog = false

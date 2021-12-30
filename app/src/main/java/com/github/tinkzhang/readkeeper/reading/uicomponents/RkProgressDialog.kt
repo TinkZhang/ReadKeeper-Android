@@ -25,7 +25,7 @@ import com.github.tinkzhang.readkeeper.common.data.ReadingBookFactory
 import com.github.tinkzhang.readkeeper.common.data.ReadingRecord
 
 @Composable
-fun RkProgressDialogContent(
+fun AddProgressDialogContent(
     book: ReadingBook,
     onCancelClicked: () -> Unit = {},
     onSaveClicked: (ReadingBook) -> Unit = {},
@@ -74,7 +74,7 @@ fun RkProgressDialogContent(
 }
 
 @Composable
-fun ProgressEditSection(
+private fun ProgressEditSection(
     book: ReadingBook,
     value: String,
     onProgressValueChange: (String) -> Unit = {},
@@ -113,7 +113,7 @@ fun ProgressEditSection(
 }
 
 @Composable
-fun NoteEditSection(
+private fun NoteEditSection(
     value: String,
     onValueChange: (String) -> Unit = {}
 ) {
@@ -137,6 +137,6 @@ fun NoteEditSection(
 
 @Preview
 @Composable
-fun RkProgressDialogPreview() {
-    RkProgressDialogContent(ReadingBookFactory.buildSample())
+private fun ProgressDialogPreview() {
+    AddProgressDialogContent(ReadingBookFactory.buildSample())
 }

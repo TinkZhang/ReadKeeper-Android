@@ -17,7 +17,7 @@ import com.github.tinkzhang.readkeeper.common.data.ReadingPlatform
 import com.github.tinkzhang.readkeeper.common.data.ReadingRecord
 
 @Composable
-fun RkBookProgressSection(
+fun ReadingVipProgressSection(
     lastRecord: ReadingRecord?,
     pageFormat: PageFormat,
     totalPages: Int,
@@ -49,28 +49,26 @@ fun RkBookProgressSection(
                         contentDescription = platform.label
                     )
                     Spacer(modifier = Modifier.height(4.dp))
-                    RkProgressText(
+                    ReadingProgressText(
                         format = pageFormat,
                         position = lastRecord?.endPage ?: 0,
-                        textStyle = MaterialTheme.typography.titleMedium
+                        textStyle = MaterialTheme.typography.titleMedium,
                     )
                 }
 
-                RkProgressCircle(
+                ReadingProgressCircle(
                     Modifier.size(192.dp),
                     progress = lastRecord?.endPage?.toFloat()?.div(totalPages.toFloat()) ?: 0.0f,
                 )
             }
         }
     }
-
-
 }
 
 @Preview
 @Composable
-fun RkBookProgressSectionPreview() {
-    RkBookProgressSection(
+private fun ReadingVipProgressSectionPreview() {
+    ReadingVipProgressSection(
         ReadingRecord(12, 34),
         pageFormat = PageFormat.PAGE,
         platform = ReadingPlatform.KINDLE,

@@ -19,7 +19,7 @@ import com.github.tinkzhang.readkeeper.common.data.ReadingRecord
 import com.google.firebase.Timestamp
 
 @Composable
-fun RkBookNoteSection(records: List<ReadingRecord>, pageFormat: PageFormat, pages: Int) {
+fun ReadingVipNoteSection(records: List<ReadingRecord>, pageFormat: PageFormat, pages: Int) {
     Surface(tonalElevation = 4.dp) {
         Column(
             Modifier
@@ -43,12 +43,12 @@ fun RkBookNoteSection(records: List<ReadingRecord>, pageFormat: PageFormat, page
                 }
                 records.size < 4 -> {
                     records.forEach {
-                        RkBookNote(it, pageFormat, pages)
+                        BookNote(it, pageFormat, pages)
                     }
                 }
                 else -> {
                     records.subList(0, 4).forEach {
-                        RkBookNote(it, pageFormat, pages)
+                        BookNote(it, pageFormat, pages)
                     }
                 }
             }
@@ -69,14 +69,14 @@ fun RkBookNoteSection(records: List<ReadingRecord>, pageFormat: PageFormat, page
 }
 
 @Composable
-fun RkBookNote(record: ReadingRecord, pageFormat: PageFormat, pages: Int) {
+fun BookNote(record: ReadingRecord, pageFormat: PageFormat, pages: Int) {
     if (record.note.isNotBlank()) {
         Row(
             Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp)
         ) {
-            RkProgress(format = pageFormat, position = record.endPage, totalPages = pages)
+            ReadingProgressCircleWithText(format = pageFormat, position = record.endPage, totalPages = pages)
             Column(
                 Modifier
                     .fillMaxWidth()
@@ -99,8 +99,8 @@ fun RkBookNote(record: ReadingRecord, pageFormat: PageFormat, pages: Int) {
 
 @Preview
 @Composable
-private fun RkBookNotePreview() {
-    RkBookNote(
+private fun BookNotePreview() {
+    BookNote(
         record = ReadingRecord(
             note = "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
             endPage = 123,
@@ -113,8 +113,8 @@ private fun RkBookNotePreview() {
 
 @Preview
 @Composable
-private fun RkBookNotePreview2() {
-    RkBookNote(
+private fun BookNotePreview2() {
+    BookNote(
         record = ReadingRecord(
             note = "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
             endPage = 123,
@@ -127,8 +127,8 @@ private fun RkBookNotePreview2() {
 
 @Preview
 @Composable
-fun RkBookNoteSectionPreview() {
-    RkBookNoteSection(
+private fun BookNoteSectionPreview() {
+    ReadingVipNoteSection(
         records = listOf(
             ReadingRecord(
                 note = "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",

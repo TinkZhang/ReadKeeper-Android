@@ -27,7 +27,7 @@ import com.github.tinkzhang.readkeeper.common.data.ReadingBookFactory
 import com.github.tinkzhang.readkeeper.common.data.ReadingPlatform
 
 @Composable
-fun RkEditBookPageContent(
+fun EditBookDialogContent(
     book: ReadingBook,
     onCancelClicked: () -> Unit = {},
     onSaveClicked: (ReadingBook) -> Unit = {},
@@ -79,7 +79,7 @@ fun RkEditBookPageContent(
 }
 
 @Composable
-fun PlatformSelectionSection(
+private fun PlatformSelectionSection(
     platformState: ReadingPlatform,
     onPlatformSelect: (ReadingPlatform) -> Unit = {}
 ) {
@@ -111,7 +111,7 @@ fun PlatformSelectionSection(
 }
 
 @Composable
-fun BookPageFormatSection(
+private fun BookPageFormatSection(
     pageFormatState: PageFormat,
     pageState: String,
     onPageFormatChanged: (PageFormat) -> Unit = {},
@@ -237,16 +237,16 @@ fun BookPageFormatSection(
 
 @Preview
 @Composable
-fun RkEditBookPageContentPreview() {
-    RkEditBookPageContent(
+private fun EditBookPageContentPreview() {
+    EditBookDialogContent(
         book = ReadingBookFactory.buildSample()
     )
 }
 
 @Preview
 @Composable
-fun RkEditBookPageContentPercentPreview() {
-    RkEditBookPageContent(
+private fun EditBookPageContentPercentPreview() {
+    EditBookDialogContent(
         book = ReadingBookFactory.buildSample().copy(pageFormat = PageFormat.PERCENT_1000)
     )
 }
