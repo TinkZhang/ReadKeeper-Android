@@ -29,7 +29,8 @@ import com.github.tinkzhang.readkeeper.reading.uicomponents.*
 @Composable
 fun ReadingVip(
     uuid: String,
-    openProgressBar: Boolean,
+    openAddProgressDialog: Boolean,
+    openEditDialog: Boolean,
     readingViewModel: ReadingViewModel,
     navController: NavController
 ) {
@@ -40,8 +41,8 @@ fun ReadingVip(
     val scrollBehavior = remember(decayAnimationSpec) {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
     }
-    var showAddProgressDialog by remember { mutableStateOf(openProgressBar) }
-    var showEditBookPageDialog by remember { mutableStateOf(false) }
+    var showAddProgressDialog by remember { mutableStateOf(openAddProgressDialog) }
+    var showEditBookPageDialog by remember { mutableStateOf(openEditDialog) }
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {

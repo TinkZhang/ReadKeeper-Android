@@ -50,9 +50,13 @@ fun ReadingListCard(book: ReadingBook, navController: NavController? = null) {
                 Divider()
                 Spacer(modifier = Modifier.width(8.dp))
                 if (book.formatEdited) {
-                    ReadingCardProgressBottom(book = book)
+                    ReadingCardProgressBottom(book = book) {
+                        navController?.navigate("reading_item/${book.uuid}?open_progress_dialog=${true}")
+                    }
                 } else {
-                    ReadingCardEditBottom(book = book)
+                    ReadingCardEditBottom() {
+                        navController?.navigate("reading_item/${book.uuid}?open_edit_dialog=${true}")
+                    }
                 }
             }
         }
@@ -124,13 +128,16 @@ private fun ReadingCardMetadataPreview() {
 }
 
 @Composable
-fun ReadingCardEditBottom(book: ReadingBook, modifier: Modifier = Modifier) {
+fun ReadingCardEditBottom(
+    modifier: Modifier = Modifier,
+    onButtonClicked: () -> Unit = {}
+) {
     Row(
         modifier
             .fillMaxWidth()
             .padding(8.dp), horizontalArrangement = Arrangement.End
     ) {
-        FilledTonalButton(onClick = { /*TODO*/ }) {
+        FilledTonalButton(onClick = onButtonClicked) {
             Icon(Icons.Default.Edit, contentDescription = "Edit Book")
             Spacer(modifier = Modifier.width(4.dp))
             Text("Edit Book")
@@ -141,11 +148,15 @@ fun ReadingCardEditBottom(book: ReadingBook, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun ReadingCardEditBottomPreview() {
-    ReadingCardEditBottom(book = ReadingBookFactory.buildSample())
+    ReadingCardEditBottom()
 }
 
 @Composable
-fun ReadingCardProgressBottom(book: ReadingBook, modifier: Modifier = Modifier) {
+fun ReadingCardProgressBottom(
+    book: ReadingBook,
+    modifier: Modifier = Modifier,
+    onButtonClicked: () -> Unit = {}
+) {
     Row(
         modifier
             .fillMaxWidth()
@@ -177,7 +188,7 @@ fun ReadingCardProgressBottom(book: ReadingBook, modifier: Modifier = Modifier) 
         }
 
         Spacer(modifier = Modifier.width(16.dp))
-        FilledTonalButton(onClick = { /*TODO*/ }, Modifier.weight(1.0f)) {
+        FilledTonalButton(onClick = onButtonClicked, Modifier.weight(1.0f)) {
             Icon(Icons.Default.DataSaverOn, contentDescription = "Add Progress")
         }
     }

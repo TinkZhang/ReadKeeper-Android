@@ -18,7 +18,8 @@ import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE.WISH_LIST
 object SCREEN_ROUTE {
     const val HOME = "home"
     const val READING_LIST = "reading_list"
-    const val READING_ITEM = "reading_item/{uuid}?open_progress_dialog={open_progress_dialog}"
+    const val READING_ITEM =
+        "reading_item/{uuid}?open_progress_dialog={open_progress_dialog}&open_edit_dialog={open_edit_dialog}"
     const val WISH_LIST = "wish_list"
     const val ARCHIVED_LIST = "archived_list"
     const val SEARCH = "search"
@@ -43,8 +44,8 @@ open class SubScreenViewData(
     override val route: String,
     val title: String,
 ) : ScreenViewData {
-    object SettingScreenViewData: SubScreenViewData(SETTINGS, "Setting")
-    object SearchScreenViewData: SubScreenViewData(SEARCH, "Search")
+    object SettingScreenViewData : SubScreenViewData(SETTINGS, "Setting")
+    object SearchScreenViewData : SubScreenViewData(SEARCH, "Search")
 }
 
 sealed class MainScreenViewData(

@@ -96,11 +96,16 @@ class MainActivity : ComponentActivity() {
                                     navArgument("open_progress_dialog") {
                                         type = NavType.BoolType
                                         defaultValue = false
+                                    },
+                                    navArgument("open_edit_dialog") {
+                                        type = NavType.BoolType
+                                        defaultValue = false
                                     }
                                 )) {
                                 ReadingVip(
                                     it.arguments?.getString("uuid") ?: "",
                                     it.arguments?.getBoolean("open_progress_dialog") ?: false,
+                                    it.arguments?.getBoolean("open_edit_dialog") ?: false,
                                     readingViewModel,
                                     navController = navController
                                 )
