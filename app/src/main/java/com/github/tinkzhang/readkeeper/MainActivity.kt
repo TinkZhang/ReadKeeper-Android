@@ -82,7 +82,10 @@ class MainActivity : ComponentActivity() {
                                 SearchScreen(navController = navController)
                             }
                             composable(SCREEN_ROUTE.SEARCH_RESUTL) {
-                                SearchResultScreen(it.arguments?.getString("keyword") ?: "")
+                                SearchResultScreen(
+                                    it.arguments?.getString("keyword") ?: "",
+                                    navController = navController
+                                )
                             }
                             composable(SCREEN_ROUTE.WISH_LIST) {
                                 WishListScreen()

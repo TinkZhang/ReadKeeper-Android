@@ -2,11 +2,9 @@ package com.github.tinkzhang.readkeeper.common.data
 
 import com.github.tinkzhang.readkeeper.R
 import com.google.firebase.Timestamp
-import java.util.*
 import kotlin.random.Random
 
 data class ReadingBook(
-    override val uuid: String = UUID.randomUUID().toString(),
     override val bookInfo: BookInfo = BookInfo(),
     override val category: String? = null,
     override val timeInfo: TimeInfo = TimeInfo(),

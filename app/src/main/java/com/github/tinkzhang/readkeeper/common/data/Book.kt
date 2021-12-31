@@ -1,8 +1,10 @@
 package com.github.tinkzhang.readkeeper.common.data
 
 import com.google.firebase.Timestamp
+import java.util.*
 
 data class BookInfo(
+    val uuid: String = UUID.randomUUID().toString(),
     var title: String = "",
     var imageUrl: String = "",
     var author: String = "",
@@ -21,7 +23,6 @@ interface Book {
 }
 
 interface EditableBook : Book {
-    val uuid: String
     val category: String?
     val timeInfo: TimeInfo
 }

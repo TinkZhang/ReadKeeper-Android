@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.reading.uicomponents
+package com.github.tinkzhang.readkeeper.search.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,13 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.tinkzhang.readkeeper.common.data.ReadingBook
-import com.github.tinkzhang.readkeeper.common.data.ReadingBookFactory
-import com.github.tinkzhang.readkeeper.ui.components.RkCategoryChip
+import com.github.tinkzhang.readkeeper.common.data.SearchBook
+import com.github.tinkzhang.readkeeper.common.data.SearchBookFactory
+
 
 @Composable
-fun ReadingCardMetadata(
-    book: ReadingBook,
+fun SearchCardMetadata(
+    book: SearchBook,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -38,13 +38,17 @@ fun ReadingCardMetadata(
                 maxLines = 2,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
-            RkCategoryChip(category = book.category ?: "", isSelected = true)
+            Text(
+                "\uD83D\uDCC5   " + book.bookInfo.pubYear.toString(),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(bottom = 8.dp),
+            )
         }
     }
 }
 
 @Preview
 @Composable
-private fun ReadingCardMetadataPreview() {
-    ReadingCardMetadata(book = ReadingBookFactory.buildSample())
+private fun SearchCardMetadataPreview() {
+    SearchCardMetadata(book = SearchBookFactory.buildSample())
 }

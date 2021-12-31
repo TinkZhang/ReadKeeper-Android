@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.common.data.ReadingBook
+import com.github.tinkzhang.readkeeper.common.data.WishBook
 import com.github.tinkzhang.readkeeper.reading.PAGE_SIZE
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -17,7 +18,7 @@ import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.util.*
 
-class UserRepository {
+object UserRepository {
     val user = Firebase.auth.currentUser
     lateinit var lastBook: ReadingBook
     lateinit var firstPage: List<ReadingBook>
@@ -31,10 +32,11 @@ class UserRepository {
     }
 
     private val readingCollectionRef = userDocumentRef.collection("readings")
+    private val wishCollectionRef = userDocumentRef.collection("wishes")
 
     fun addReadingBook(book: ReadingBook) {
         readingCollectionRef
-            .document(book.uuid)
+            .document(book.bookInfo.uuid)
             .set(book)
             .addOnSuccessListener {
                 Timber.d("Book ${book.bookInfo.title} has been added to reading lists")
@@ -42,6 +44,26 @@ class UserRepository {
             .addOnFailureListener {
                 Timber.e("The book ${book.bookInfo.title} failed to be added into the reading list")
             }
+    }
+
+    fun removeReadingBook(uuid: String) {
+        readingCollectionRef.document(uuid).delete()
+    }
+
+    fun addWishBook(book: WishBook) {
+        wishCollectionRef
+            .document(book.bookInfo.uuid)
+            .set(book)
+            .addOnSuccessListener {
+                Timber.d("Book ${book.bookInfo.title} has been added to wish lists")
+            }
+            .addOnFailureListener {
+                Timber.e("The book ${book.bookInfo.title} failed to be added into the wish list")
+            }
+    }
+
+    fun removeWishBook(uuid: String) {
+        wishCollectionRef.document(uuid).delete()
     }
 
     suspend fun getReadingList(page: Int): List<ReadingBook> {
