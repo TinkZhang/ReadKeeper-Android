@@ -13,5 +13,5 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideUserRepository():UserRepository = UserRepository()
+    fun provideUserRepository():UserRepository = UserRepository
 }

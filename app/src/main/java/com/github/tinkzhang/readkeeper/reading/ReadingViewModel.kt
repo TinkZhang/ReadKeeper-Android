@@ -52,7 +52,7 @@ class ReadingViewModel @Inject constructor(
         localList.add(book)
     }
 
-    fun getBook(uuid: String) = localList.first { it.uuid == uuid }
+    fun getBook(uuid: String) = localList.first { it.bookInfo.uuid == uuid }
 
     fun newSearch() {
 
@@ -71,7 +71,7 @@ class ReadingViewModel @Inject constructor(
     }
 
     fun updateLocalList(book: ReadingBook) {
-        localList.removeIf { it.uuid == book.uuid }
+        localList.removeIf { it.bookInfo.uuid == book.bookInfo.uuid }
         localList.add(book)
     }
 
