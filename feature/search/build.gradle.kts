@@ -39,6 +39,8 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":common:basic")))
+    implementation(project(mapOf("path" to ":common:uicomponent")))
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.0")
@@ -46,8 +48,6 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    implementation(project(mapOf("path" to ":common:basic")))
-    implementation(project(mapOf("path" to ":common:uicomponent")))
 
     // Compose
     val composeVersion = "1.1.0-beta03"
@@ -61,20 +61,4 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
     debugImplementation("androidx.compose.ui:ui-test-manifest:$composeVersion")
-
-    // Paging
-    val paging_version = "3.1.0"
-    implementation("androidx.paging:paging-runtime:$paging_version")
-    implementation("androidx.paging:paging-compose:1.0.0-alpha14")
-
-    // Accompanist
-    implementation("com.google.accompanist:accompanist-swiperefresh:0.21.5-rc")
-
-    // Coil
-    implementation("io.coil-kt:coil-compose:1.4.0")
-
-    // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:28.4.0"))
-    implementation("com.google.firebase:firebase-firestore-ktx")
-
 }
