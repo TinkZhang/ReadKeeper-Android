@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.github.tinkzhang.readkeeper.model.PageFormat
 import com.github.tinkzhang.readkeeper.model.ReadingPlatform
 import com.github.tinkzhang.readkeeper.model.ReadingRecord
+import com.github.tinkzhang.uicomponent.ReadingProgressText
 
 @Composable
 fun ReadingVipProgressSection(

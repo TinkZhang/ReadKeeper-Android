@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.reading.uicomponents
+package com.github.tinkzhang.uicomponent
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState

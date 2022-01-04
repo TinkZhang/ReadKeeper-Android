@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.github.tinkzhang.readkeeper.model.PageFormat
+import com.github.tinkzhang.uicomponent.ReadingProgressText
 
 @Composable
 fun ReadingProgressCircleWithText(

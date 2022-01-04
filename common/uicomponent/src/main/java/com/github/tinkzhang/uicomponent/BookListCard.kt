@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.reading.uicomponents
+package com.github.tinkzhang.uicomponent
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

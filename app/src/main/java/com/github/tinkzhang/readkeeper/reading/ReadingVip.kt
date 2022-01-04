@@ -24,6 +24,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.reading.uicomponents.*
+import com.github.tinkzhang.uicomponent.AddProgressDialogContent
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable

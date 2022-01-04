@@ -63,4 +63,7 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil-compose:1.4.0")
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:28.4.0"))
+    implementation("com.google.firebase:firebase-firestore-ktx")
 }

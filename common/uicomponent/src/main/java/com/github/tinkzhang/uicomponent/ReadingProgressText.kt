@@ -1,11 +1,10 @@
-package com.github.tinkzhang.readkeeper.reading.uicomponents
+package com.github.tinkzhang.uicomponent
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.model.PageFormat
 
 @Composable
