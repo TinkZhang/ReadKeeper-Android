@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.tinkzhang.readkeeper.common.data.SearchBook
-import com.github.tinkzhang.readkeeper.common.data.SearchBookFactory
+import com.github.tinkzhang.readkeeper.model.SearchBook
+import com.github.tinkzhang.readkeeper.model.SearchBookFactory
 
 
 @Composable

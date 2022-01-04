@@ -13,8 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.tinkzhang.readkeeper.common.data.ReadingBook
-import com.github.tinkzhang.readkeeper.common.data.ReadingBookFactory
+import com.github.tinkzhang.readkeeper.model.ReadingBook
+import com.github.tinkzhang.readkeeper.model.ReadingBookFactory
 
 @Composable
 fun ReadingCardProgressBottom(

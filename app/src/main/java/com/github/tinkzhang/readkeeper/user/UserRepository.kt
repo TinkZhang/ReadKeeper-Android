@@ -3,8 +3,8 @@ package com.github.tinkzhang.readkeeper.user
 import android.app.Activity
 import android.content.Context
 import com.github.tinkzhang.readkeeper.R
-import com.github.tinkzhang.readkeeper.common.data.ReadingBook
-import com.github.tinkzhang.readkeeper.common.data.WishBook
+import com.github.tinkzhang.readkeeper.model.ReadingBook
+import com.github.tinkzhang.readkeeper.model.WishBook
 import com.github.tinkzhang.readkeeper.reading.PAGE_SIZE
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn

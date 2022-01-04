@@ -7,4 +7,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ReadKeeper"
 include(":app")
- 
+include(":common:model")

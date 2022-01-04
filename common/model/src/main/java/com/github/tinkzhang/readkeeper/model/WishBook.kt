@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.common.data
+package com.github.tinkzhang.readkeeper.model
 
 data class WishBook(
     override val bookInfo: BookInfo = BookInfo(),

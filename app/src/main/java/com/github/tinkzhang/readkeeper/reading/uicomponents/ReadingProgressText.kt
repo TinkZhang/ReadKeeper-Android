@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import com.github.tinkzhang.readkeeper.R
-import com.github.tinkzhang.readkeeper.common.data.PageFormat
+import com.github.tinkzhang.readkeeper.model.PageFormat
 
 @Composable
 fun ReadingProgressText(

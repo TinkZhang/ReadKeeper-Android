@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import com.github.tinkzhang.readkeeper.R
-import com.github.tinkzhang.readkeeper.common.data.SearchBook
+import com.github.tinkzhang.readkeeper.model.SearchBook
 import com.github.tinkzhang.readkeeper.ui.components.ReadingIconToggleButton
 import com.github.tinkzhang.readkeeper.ui.components.WishIconToggleButton
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme

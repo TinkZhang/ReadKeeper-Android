@@ -21,10 +21,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.tinkzhang.readkeeper.common.data.PageFormat
-import com.github.tinkzhang.readkeeper.common.data.ReadingBook
-import com.github.tinkzhang.readkeeper.common.data.ReadingBookFactory
-import com.github.tinkzhang.readkeeper.common.data.ReadingPlatform
+import com.github.tinkzhang.readkeeper.model.PageFormat
+import com.github.tinkzhang.readkeeper.model.ReadingBook
+import com.github.tinkzhang.readkeeper.model.ReadingBookFactory
+import com.github.tinkzhang.readkeeper.model.ReadingPlatform
 
 @Composable
 fun EditBookDialogContent(

@@ -14,8 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.tinkzhang.readkeeper.common.data.PageFormat
-import com.github.tinkzhang.readkeeper.common.data.ReadingRecord
+import com.github.tinkzhang.readkeeper.model.PageFormat
+import com.github.tinkzhang.readkeeper.model.ReadingRecord
 import com.google.firebase.Timestamp
 
 @Composable

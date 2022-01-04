@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.common.data
+package com.github.tinkzhang.readkeeper.model
 
 import com.google.firebase.Timestamp
 import java.util.*

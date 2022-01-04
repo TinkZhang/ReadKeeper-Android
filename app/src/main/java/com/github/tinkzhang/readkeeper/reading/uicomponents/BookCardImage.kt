@@ -9,8 +9,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.github.tinkzhang.readkeeper.R
-import com.github.tinkzhang.readkeeper.common.data.Book
-import com.github.tinkzhang.readkeeper.common.data.ReadingBookFactory
+import com.github.tinkzhang.readkeeper.model.ReadingBookFactory
+import com.github.tinkzhang.readkeeper.model.Book
 
 @Composable
 fun BookCardImage(book: Book, modifier: Modifier = Modifier) {
