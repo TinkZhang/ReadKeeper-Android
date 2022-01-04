@@ -1,9 +1,9 @@
-package com.github.tinkzhang.readkeeper.search
+package com.github.tinkzhang.search
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.github.tinkzhang.readkeeper.search.network.GoogleBookService
-import com.github.tinkzhang.readkeeper.search.network.SIZE
+import com.github.tinkzhang.search.network.GoogleBookService
+import com.github.tinkzhang.search.network.SIZE
 import github.tinkzhang.readkeeper.search.model.googlebook.Item
 import retrofit2.HttpException
 import timber.log.Timber

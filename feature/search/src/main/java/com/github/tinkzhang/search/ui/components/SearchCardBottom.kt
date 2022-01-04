@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.search.components
+package com.github.tinkzhang.search.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme

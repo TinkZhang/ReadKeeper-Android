@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.common
+package com.github.tinkzhang.search
 
 import android.content.Context
 import androidx.datastore.core.DataStore

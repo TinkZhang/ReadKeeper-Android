@@ -13,8 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
-import com.github.tinkzhang.readkeeper.R
+import com.github.tinkzhang.readkeeper.model.R
 
 /**
  * An [IconToggleButton] with on and off state, and use different icons
@@ -88,23 +87,19 @@ fun WishIconToggleButton(
 @Preview
 @Composable
 fun ReadingIconToggleButtonCheckedPreview() {
-    ReadKeeperTheme(darkTheme = false) {
-        var checked by remember { mutableStateOf(true) }
-        ReadingIconToggleButton(checked = checked) {
-            checked = it
-        }
+    var checked by remember { mutableStateOf(true) }
+    ReadingIconToggleButton(checked = checked) {
+        checked = it
     }
 }
 
 @Preview
 @Composable
 fun WishIconToggleButtonUncheckedPreview() {
-    ReadKeeperTheme(darkTheme = true) {
-        var checked by remember {
-            mutableStateOf(false)
-        }
-        WishIconToggleButton(checked = checked) {
-            checked = it
-        }
+    var checked by remember {
+        mutableStateOf(false)
+    }
+    WishIconToggleButton(checked = checked) {
+        checked = it
     }
 }

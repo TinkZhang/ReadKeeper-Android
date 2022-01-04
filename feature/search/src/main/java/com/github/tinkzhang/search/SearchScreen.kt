@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.search
+package com.github.tinkzhang.search
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.navigation.NavController
-import com.github.tinkzhang.readkeeper.common.dataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch

@@ -87,10 +87,10 @@ dependencies {
     kapt ("androidx.hilt:hilt-compiler:1.0.0")
 
     // Google Play Service
-    implementation("com.google.android.gms:play-services-auth:19.2.0")
+    implementation("com.google.android.gms:play-services-auth:20.0.0")
 
     // Timber
-    implementation("com.jakewharton.timber:timber:4.7.1")
+    implementation("com.jakewharton.timber:timber:5.0.1")
 
     // Retrofit
     val retrofitVersion = "2.9.0"

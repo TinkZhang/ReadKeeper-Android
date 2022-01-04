@@ -7,10 +7,6 @@
     <string name="wish">Wish</string>
     <string name="archived">Archived</string>
     <string name="search_hint">Find a book…</string>
-    <string name="add_wish">+Wish</string>
-    <string name="wished">Added into the wish list</string>
-    <string name="add_reading">+Reading</string>
-    <string name="reading_added">Added into the reading list</string>
     <string name="back">Back</string>
     <string name="instabug_token">7f3e50ba07fbe7378f9dfa8ff77cb4bb</string>
     <string name="settings">Settings</string>

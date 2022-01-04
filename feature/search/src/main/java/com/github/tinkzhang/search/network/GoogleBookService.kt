@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.search.network
+package com.github.tinkzhang.search.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

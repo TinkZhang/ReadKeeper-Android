@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.search.network
+package com.github.tinkzhang.search.network
 
 sealed class SearchResult<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T) : SearchResult<T>(data)

@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper
+package com.github.tinkzhang.search
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,12 +17,9 @@ import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
-import com.github.tinkzhang.readkeeper.search.SearchListCard
-import com.github.tinkzhang.readkeeper.search.SearchResultViewModel
-import com.github.tinkzhang.readkeeper.search.SearchResultViewModelFactory
-import com.github.tinkzhang.readkeeper.search.components.RkSearchErrorItem
-import com.github.tinkzhang.readkeeper.search.components.RkSearchTipItem
-import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
+import com.github.tinkzhang.basic.SCREEN_ROUTE
+import com.github.tinkzhang.search.ui.components.RkSearchErrorItem
+import com.github.tinkzhang.search.ui.components.RkSearchTipItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
