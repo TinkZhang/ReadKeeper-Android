@@ -12,7 +12,7 @@ import com.github.tinkzhang.readkeeper.model.SearchBook
 import com.github.tinkzhang.readkeeper.model.WishBook
 import com.github.tinkzhang.readkeeper.model.BookInfo
 import com.github.tinkzhang.readkeeper.search.network.SIZE
-import com.github.tinkzhang.readkeeper.user.UserRepository
+import com.github.tinkzhang.readkeeper.model.UserRepository
 import github.tinkzhang.readkeeper.search.model.googlebook.Item
 import kotlinx.coroutines.flow.map
 

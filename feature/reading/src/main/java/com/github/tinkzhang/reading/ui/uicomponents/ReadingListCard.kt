@@ -3,13 +3,13 @@ package com.github.tinkzhang.readkeeper.reading
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.github.tinkzhang.reading.ui.uicomponents.ReadingCardEditBottom
+import com.github.tinkzhang.reading.ui.uicomponents.ReadingCardMetadata
+import com.github.tinkzhang.reading.ui.uicomponents.ReadingCardProgressBottom
 import com.github.tinkzhang.readkeeper.model.ReadingBook
 import com.github.tinkzhang.readkeeper.model.ReadingBookFactory
-import com.github.tinkzhang.uicomponent.BookListCard
-import com.github.tinkzhang.readkeeper.reading.uicomponents.ReadingCardEditBottom
-import com.github.tinkzhang.readkeeper.reading.uicomponents.ReadingCardMetadata
-import com.github.tinkzhang.readkeeper.reading.uicomponents.ReadingCardProgressBottom
 import com.github.tinkzhang.uicomponent.BookCardImage
+import com.github.tinkzhang.uicomponent.BookListCard
 
 @Composable
 fun ReadingListCard(book: ReadingBook, navController: NavController? = null) {

@@ -9,3 +9,4 @@ rootProject.name = "ReadKeeper"
 include(":app")
 include(":common:model")
 include(":common:uicomponent")
+include(":feature:reading")

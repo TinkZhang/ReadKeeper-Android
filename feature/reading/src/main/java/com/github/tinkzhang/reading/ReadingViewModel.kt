@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.reading
+package com.github.tinkzhang.reading
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.MutableState
@@ -12,14 +12,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.github.tinkzhang.readkeeper.model.ReadingBook
 import com.github.tinkzhang.readkeeper.model.ReadingBookFactory
-import com.github.tinkzhang.readkeeper.user.UserRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import com.github.tinkzhang.readkeeper.model.UserRepository
 
-
-@HiltViewModel
-class ReadingViewModel @Inject constructor(
-    private val userRepository: UserRepository
+class ReadingViewModel(
 ) : ViewModel() {
 
     val isError: MutableLiveData<Boolean> by lazy {
@@ -41,11 +36,11 @@ class ReadingViewModel @Inject constructor(
     val flow = Pager(
         PagingConfig(pageSize = PAGE_SIZE)
     ) {
-        ReadingDataSource(userRepository)
+        ReadingDataSource(UserRepository)
     }.flow.cachedIn(viewModelScope)
 
     fun addBook(book: ReadingBook = ReadingBookFactory.buildSample()) {
-        userRepository.addReadingBook(book)
+        UserRepository.addReadingBook(book)
     }
 
     fun addLocalList(book: ReadingBook) {

@@ -22,8 +22,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
-import com.github.tinkzhang.readkeeper.R
-import com.github.tinkzhang.readkeeper.reading.uicomponents.*
+import com.github.tinkzhang.reading.R
+import com.github.tinkzhang.reading.ReadingViewModel
+import com.github.tinkzhang.reading.ui.uicomponents.EditBookDialogContent
+import com.github.tinkzhang.reading.ui.uicomponents.ReadingVipInfoSection
+import com.github.tinkzhang.reading.ui.uicomponents.ReadingVipNoteSection
+import com.github.tinkzhang.reading.ui.uicomponents.ReadingVipProgressSection
 import com.github.tinkzhang.uicomponent.AddProgressDialogContent
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)

@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.reading.uicomponents
+package com.github.tinkzhang.reading.ui.uicomponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -12,10 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.github.tinkzhang.readkeeper.R
+import com.github.tinkzhang.readkeeper.model.BookInfo
 import com.github.tinkzhang.readkeeper.model.ReadingBook
 import com.github.tinkzhang.readkeeper.model.ReadingBookFactory
-import com.github.tinkzhang.readkeeper.model.BookInfo
+import com.github.tinkzhang.reading.R
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable

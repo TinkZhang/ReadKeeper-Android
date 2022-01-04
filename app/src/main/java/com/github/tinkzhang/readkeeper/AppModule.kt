@@ -1,6 +1,6 @@
 package com.github.tinkzhang.readkeeper
 
-import com.github.tinkzhang.readkeeper.user.UserRepository
+import com.github.tinkzhang.readkeeper.model.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,5 +13,5 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideUserRepository():UserRepository = UserRepository
+    fun provideUserRepository(): UserRepository = UserRepository
 }

@@ -57,6 +57,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.2")
     implementation(project(mapOf("path" to ":common:model")))
     implementation(project(mapOf("path" to ":common:uicomponent")))
+    implementation(project(mapOf("path" to ":feature:reading")))
 
     // Compose
     val composeVersion = "1.1.0-beta03"

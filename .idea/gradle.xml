@@ -14,6 +14,8 @@
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/common/model" />
             <option value="$PROJECT_DIR$/common/uicomponent" />
+            <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/reading" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

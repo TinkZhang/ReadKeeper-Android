@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.reading.uicomponents
+package com.github.tinkzhang.reading.ui.uicomponents
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.tinkzhang.readkeeper.model.ReadingBook
 import com.github.tinkzhang.readkeeper.model.ReadingBookFactory
-import com.github.tinkzhang.readkeeper.ui.components.RkCategoryChip
 
 @Composable
 fun ReadingCardMetadata(
@@ -38,7 +37,7 @@ fun ReadingCardMetadata(
                 maxLines = 2,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
-            RkCategoryChip(category = book.category ?: "", isSelected = true)
+//            RkCategoryChip(category = book.category ?: "", isSelected = true)
         }
     }
 }

@@ -1,9 +1,9 @@
-package com.github.tinkzhang.readkeeper.reading
+package com.github.tinkzhang.reading
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.github.tinkzhang.readkeeper.model.ReadingBook
-import com.github.tinkzhang.readkeeper.user.UserRepository
+import com.github.tinkzhang.readkeeper.model.UserRepository
 
 const val PAGE_SIZE = 10
 

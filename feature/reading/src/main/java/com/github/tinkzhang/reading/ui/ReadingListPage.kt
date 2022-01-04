@@ -14,12 +14,9 @@ import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
-import com.github.tinkzhang.readkeeper.search.components.RkSearchErrorItem
-import com.github.tinkzhang.readkeeper.search.components.RkSearchTipItem
-import com.github.tinkzhang.readkeeper.ui.components.RkCategoryChip
+import com.github.tinkzhang.reading.ReadingViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import timber.log.Timber
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -38,16 +35,16 @@ fun ReadingListPage(readingViewModel: ReadingViewModel, navController: NavContro
             val categories = readingViewModel.categories.value
             if (categories != null) {
                 items(categories) { category ->
-                    RkCategoryChip(
-                        category = category,
-                        isSelected = selectedCategory == category,
-                        onSelectedCategoryChanged = {
-                            readingViewModel.onSelectedCategoryChanged(category)
-                            Timber.d("${readingViewModel.list.value?.size}")
-//                            viewModel.onChangeCategoryScrollPosition(scrollState)
-                        },
-                        onExecuteSearch = readingViewModel::newSearch,
-                    )
+//                    RkCategoryChip(
+//                        category = category,
+//                        isSelected = selectedCategory == category,
+//                        onSelectedCategoryChanged = {
+//                            readingViewModel.onSelectedCategoryChanged(category)
+//                            Timber.d("${readingViewModel.list.value?.size}")
+////                            viewModel.onChangeCategoryScrollPosition(scrollState)
+//                        },
+//                        onExecuteSearch = readingViewModel::newSearch,
+//                    )
                 }
             }
         }
@@ -62,17 +59,17 @@ fun ReadingListPage(readingViewModel: ReadingViewModel, navController: NavContro
                 when {
                     books.loadState.refresh is LoadState.Error -> {
                         item {
-                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
+//                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
                         }
                     }
                     books.loadState.append is LoadState.Error -> {
                         item {
-                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
+//                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
                         }
                     }
                     books.loadState.refresh is LoadState.NotLoading -> {
                         item {
-                            RkSearchTipItem(books.itemCount)
+//                            RkSearchTipItem(books.itemCount)
                         }
                     }
                 }

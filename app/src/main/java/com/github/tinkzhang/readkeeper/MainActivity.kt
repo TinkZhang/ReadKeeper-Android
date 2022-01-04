@@ -23,7 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.github.tinkzhang.readkeeper.common.RkScreen
 import com.github.tinkzhang.readkeeper.reading.ReadingListPage
-import com.github.tinkzhang.readkeeper.reading.ReadingViewModel
+import com.github.tinkzhang.reading.ReadingViewModel
 import com.github.tinkzhang.readkeeper.reading.ReadingVip
 import com.github.tinkzhang.readkeeper.search.SearchScreen
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
