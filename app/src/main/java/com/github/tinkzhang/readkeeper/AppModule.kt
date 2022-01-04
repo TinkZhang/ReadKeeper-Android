@@ -1,6 +1,6 @@
 package com.github.tinkzhang.readkeeper
 
-import com.github.tinkzhang.readkeeper.model.UserRepository
+import com.github.tinkzhang.basic.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

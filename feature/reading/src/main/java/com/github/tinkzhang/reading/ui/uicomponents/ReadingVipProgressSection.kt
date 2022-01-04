@@ -12,9 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.tinkzhang.readkeeper.model.PageFormat
-import com.github.tinkzhang.readkeeper.model.ReadingPlatform
-import com.github.tinkzhang.readkeeper.model.ReadingRecord
+import com.github.tinkzhang.basic.model.PageFormat
+import com.github.tinkzhang.basic.model.ReadingPlatform
+import com.github.tinkzhang.basic.model.ReadingRecord
 import com.github.tinkzhang.uicomponent.ReadingProgressText
 
 @Composable

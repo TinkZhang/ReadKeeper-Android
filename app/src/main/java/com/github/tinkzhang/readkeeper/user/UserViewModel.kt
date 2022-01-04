@@ -3,7 +3,7 @@ package com.github.tinkzhang.readkeeper.user
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.tinkzhang.readkeeper.model.UserRepository
+import com.github.tinkzhang.basic.UserRepository
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth

@@ -2,8 +2,8 @@ package com.github.tinkzhang.readkeeper.search
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.github.tinkzhang.readkeeper.model.SearchBook
-import com.github.tinkzhang.readkeeper.model.SearchBookFactory
+import com.github.tinkzhang.basic.model.SearchBook
+import com.github.tinkzhang.basic.model.SearchBookFactory
 import com.github.tinkzhang.uicomponent.BookListCard
 import com.github.tinkzhang.readkeeper.search.components.SearchCardBottom
 import com.github.tinkzhang.readkeeper.search.components.SearchCardMetadata

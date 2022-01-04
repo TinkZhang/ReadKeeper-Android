@@ -1,5 +1,6 @@
-package com.github.tinkzhang.readkeeper.model
+package com.github.tinkzhang.basic.model
 
+import com.github.tinkzhang.readkeeper.model.R
 import com.google.firebase.Timestamp
 import kotlin.random.Random
 

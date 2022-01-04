@@ -1,7 +1,11 @@
-package com.github.tinkzhang.readkeeper.model
+package com.github.tinkzhang.basic
 
+import android.app.Activity
 import android.content.Context
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import com.github.tinkzhang.basic.model.ReadingBook
+import com.github.tinkzhang.basic.model.WishBook
+import com.github.tinkzhang.readkeeper.model.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ktx.auth
@@ -106,6 +110,6 @@ object UserRepository {
         val googleSignInClient = GoogleSignIn.getClient(context, gso)
 
         val signInIntent = googleSignInClient.signInIntent
-//        (context as Activity).startActivityForResult(signInIntent, SettingsActivity.RC_SIGN_IN)
+        (context as Activity).startActivityForResult(signInIntent, 9001)
     }
 }

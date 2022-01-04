@@ -1,4 +1,4 @@
-package com.github.tinkzhang.readkeeper.model
+package com.github.tinkzhang.basic.model
 
 import kotlin.random.Random
 

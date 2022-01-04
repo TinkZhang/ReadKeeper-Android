@@ -7,12 +7,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.github.tinkzhang.readkeeper.model.ReadingBook
-import com.github.tinkzhang.readkeeper.model.SearchBook
-import com.github.tinkzhang.readkeeper.model.WishBook
-import com.github.tinkzhang.readkeeper.model.BookInfo
+import com.github.tinkzhang.basic.model.ReadingBook
+import com.github.tinkzhang.basic.model.SearchBook
+import com.github.tinkzhang.basic.model.WishBook
+import com.github.tinkzhang.basic.model.BookInfo
 import com.github.tinkzhang.readkeeper.search.network.SIZE
-import com.github.tinkzhang.readkeeper.model.UserRepository
+import com.github.tinkzhang.basic.UserRepository
 import github.tinkzhang.readkeeper.search.model.googlebook.Item
 import kotlinx.coroutines.flow.map
 

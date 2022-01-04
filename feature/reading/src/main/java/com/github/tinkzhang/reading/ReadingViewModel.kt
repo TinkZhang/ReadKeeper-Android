@@ -10,9 +10,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.github.tinkzhang.readkeeper.model.ReadingBook
-import com.github.tinkzhang.readkeeper.model.ReadingBookFactory
-import com.github.tinkzhang.readkeeper.model.UserRepository
+import com.github.tinkzhang.basic.model.ReadingBook
+import com.github.tinkzhang.basic.model.ReadingBookFactory
+import com.github.tinkzhang.basic.UserRepository
 
 class ReadingViewModel(
 ) : ViewModel() {

@@ -12,9 +12,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.github.tinkzhang.readkeeper.model.BookInfo
-import com.github.tinkzhang.readkeeper.model.ReadingBook
-import com.github.tinkzhang.readkeeper.model.ReadingBookFactory
+import com.github.tinkzhang.basic.model.BookInfo
+import com.github.tinkzhang.basic.model.ReadingBook
+import com.github.tinkzhang.basic.model.ReadingBookFactory
 import com.github.tinkzhang.reading.R
 
 @OptIn(ExperimentalCoilApi::class)

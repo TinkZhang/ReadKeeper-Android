@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
+import com.github.tinkzhang.readkeeper.R
 
 /**
  * An [IconToggleButton] with on and off state, and use different icons
