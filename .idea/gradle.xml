@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/common/model" />
+            <option value="$PROJECT_DIR$/common/uicomponent" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
