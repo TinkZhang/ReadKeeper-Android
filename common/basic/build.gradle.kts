@@ -35,16 +35,8 @@ android {
 dependencies {
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:28.4.0"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.2")
-    implementation("com.google.android.gms:play-services-auth:20.0.0")
-
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(libs.bundles.google.login)
+    implementation(libs.bundles.firestore)
 
     // Timber
     implementation(libs.timber)

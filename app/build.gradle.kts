@@ -51,14 +51,16 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.0")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.2")
+    // Child-Modules
     implementation(project(mapOf("path" to ":common:basic")))
     implementation(project(mapOf("path" to ":common:uicomponent")))
     implementation(project(mapOf("path" to ":feature:reading")))
     implementation(project(mapOf("path" to ":feature:search")))
+
+    // Core
+    implementation(libs.androidCore)
+    implementation(libs.appCompat)
+    implementation(libs.material)
 
     // Compose
     implementation(libs.bundles.androidx.compose)
@@ -66,44 +68,23 @@ dependencies {
     debugImplementation(libs.composeUiTest)
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:28.4.0"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.2")
+    implementation(libs.bundles.google.login)
+
+    // Timber
+    implementation(libs.timber)
+
+    // Instabug
+    implementation(libs.instabug)
+
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.bundles.testing)
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.38.1")
     kapt("com.google.dagger:hilt-android-compiler:2.38.1")
     implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt ("androidx.hilt:hilt-compiler:1.0.0")
-
-    // Google Play Service
-    implementation("com.google.android.gms:play-services-auth:20.0.0")
-
-    // Timber
-    implementation(libs.timber)
-
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
-    implementation("androidx.activity:activity-compose:1.4.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-
-    // Instabug
-    val instabugVersion = "10.8.1"
-    implementation("com.instabug.library:instabug:$instabugVersion")
-
-    // Paging
-    val paging_version = "3.1.0"
-    implementation("androidx.paging:paging-runtime:$paging_version")
-    implementation("androidx.paging:paging-compose:1.0.0-alpha14")
-
-    // DataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-
-    // Accompanist
-    implementation("com.google.accompanist:accompanist-swiperefresh:0.21.5-rc")
 
 }
 

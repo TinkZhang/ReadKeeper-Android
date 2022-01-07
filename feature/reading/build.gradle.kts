@@ -40,12 +40,6 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.0")
-    implementation("com.google.android.material:material:1.4.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     implementation(project(mapOf("path" to ":common:basic")))
     implementation(project(mapOf("path" to ":common:uicomponent")))
 
@@ -55,15 +49,16 @@ dependencies {
     debugImplementation(libs.composeUiTest)
 
     // Paging
-    val paging_version = "3.1.0"
-    implementation("androidx.paging:paging-runtime:$paging_version")
-    implementation("androidx.paging:paging-compose:1.0.0-alpha14")
+    implementation(libs.bundles.paging)
+
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.bundles.testing)
 
     // Accompanist
-    implementation("com.google.accompanist:accompanist-swiperefresh:0.21.5-rc")
+    implementation(libs.accompanistSwiperefresh)
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:28.4.0"))
-    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation(libs.firebaseFirestore)
 
 }
