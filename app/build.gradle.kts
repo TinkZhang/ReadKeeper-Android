@@ -90,7 +90,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.0.0")
 
     // Timber
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation(libs.timber)
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
     implementation("androidx.activity:activity-compose:1.4.0")
