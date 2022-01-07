@@ -5,7 +5,7 @@ androidx-core = "1.7.0"
 androidx-appcompat = "1.4.0"
 material = "1.4.0"
 
-compose = "1.1.0-beta-03"
+compose = "1.1.0-beta03"
 compose-material3 = "1.0.0-alpha02"
 compose-navigation = "2.4.0-beta02"
 
@@ -17,6 +17,7 @@ retrofit = "2.9.0"
 retrofit-logging = "4.9.2"
 
 timber = "5.0.1"
+coil = "1.4.0"
 
 [libraries]
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -31,11 +32,13 @@ composeUiTest = { module = "androidx.compose.ui:ui-test-manifest", version.ref =
 composeMaterial3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 composeNavigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
 
+coil = {module= "io.coil-kt:coil-compose", version.ref = "coil"}
+
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 retrofit-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "retrofit-logging" }
 
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 [bundles]
-androidx-compose = ["composeUi", "composeMaterial", "composeUiTooling", "composeIcon", "composeLiveData", "composeMaterial3"]
+androidx-compose = ["composeUi", "coil", "composeMaterial", "composeUiTooling", "composeIcon", "composeMaterial3", "composeLiveData", "composeNavigation"]
 retrofit = ["retrofit", "retrofit-gson", "retrofit-logging"]

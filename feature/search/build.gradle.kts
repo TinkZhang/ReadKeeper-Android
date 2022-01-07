@@ -50,17 +50,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
     // Compose
-    val composeVersion = "1.1.0-beta03"
-    val composeMaterial3Version = "1.0.0-alpha02"
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
-    implementation("androidx.compose.material3:material3:$composeMaterial3Version")
-    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    implementation("androidx.navigation:navigation-compose:2.4.0-beta02")
-    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$composeVersion")
+    implementation(libs.bundles.androidx.compose)
+    androidTestImplementation(libs.composeUiTestJunit)
+    debugImplementation(libs.composeUiTest)
 
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
@@ -72,9 +64,6 @@ dependencies {
 
     // Timber
     implementation(libs.timber)
-
-    // Coil
-    implementation("io.coil-kt:coil-compose:1.4.0")
 
     // Retrofit
     implementation(libs.bundles.retrofit)
