@@ -40,7 +40,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-        useIR = true
     }
     buildFeatures {
         compose = true
@@ -56,6 +55,10 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.4.0")
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.2")
+    implementation(project(mapOf("path" to ":common:basic")))
+    implementation(project(mapOf("path" to ":common:uicomponent")))
+    implementation(project(mapOf("path" to ":feature:reading")))
+    implementation(project(mapOf("path" to ":feature:search")))
 
     // Compose
     val composeVersion = "1.1.0-beta03"
@@ -84,16 +87,10 @@ dependencies {
     kapt ("androidx.hilt:hilt-compiler:1.0.0")
 
     // Google Play Service
-    implementation("com.google.android.gms:play-services-auth:19.2.0")
+    implementation("com.google.android.gms:play-services-auth:20.0.0")
 
     // Timber
-    implementation("com.jakewharton.timber:timber:4.7.1")
-
-    // Retrofit
-    val retrofitVersion = "2.9.0"
-    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation("com.jakewharton.timber:timber:5.0.1")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
     implementation("androidx.activity:activity-compose:1.4.0")
@@ -118,6 +115,7 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil-compose:1.4.0")
+
 }
 
 // Allow references to generated code

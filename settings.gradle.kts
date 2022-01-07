@@ -7,4 +7,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ReadKeeper"
 include(":app")
- 
+include(":common:basic")
+include(":common:uicomponent")
+include(":feature:reading")
+include(":feature:search")

@@ -12,9 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.github.tinkzhang.readkeeper.reading.ReadingViewModel
-import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
-
+import com.github.tinkzhang.basic.SCREEN_ROUTE
+import com.github.tinkzhang.reading.ReadingViewModel
 
 @Composable
 fun HomeScreen(

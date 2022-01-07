@@ -21,19 +21,20 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.github.tinkzhang.basic.SCREEN_ROUTE
+import com.github.tinkzhang.reading.ReadingViewModel
 import com.github.tinkzhang.readkeeper.common.RkScreen
 import com.github.tinkzhang.readkeeper.reading.ReadingListPage
-import com.github.tinkzhang.readkeeper.reading.ReadingViewModel
 import com.github.tinkzhang.readkeeper.reading.ReadingVip
-import com.github.tinkzhang.readkeeper.search.SearchScreen
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.github.tinkzhang.readkeeper.ui.MainScreenViewData
 import com.github.tinkzhang.readkeeper.ui.ROUTE_TO_SCREEN_MAP
-import com.github.tinkzhang.readkeeper.ui.SCREEN_ROUTE
 import com.github.tinkzhang.readkeeper.ui.components.RkMainTopBar
 import com.github.tinkzhang.readkeeper.ui.getBottomBarItemList
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
 import com.github.tinkzhang.readkeeper.user.UserViewModel
+import com.github.tinkzhang.search.SearchResultScreen
+import com.github.tinkzhang.search.SearchScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
