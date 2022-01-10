@@ -7,7 +7,7 @@ android {
     compileSdk = 31
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 21
         targetSdk = 31
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -30,17 +30,34 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = rootProject.extra["compose_version"] as String
+    }
 }
 
 dependencies {
 
-    // Firebase
-    implementation(libs.bundles.google.login)
-    implementation(libs.bundles.firestore)
+    implementation(project(mapOf("path" to ":common:basic")))
+    implementation(project(mapOf("path" to ":common:uicomponent")))
+
+    // Compose
+    implementation(libs.bundles.androidx.compose)
+    androidTestImplementation(libs.composeUiTestJunit)
+    debugImplementation(libs.composeUiTest)
 
     // Paging
     implementation(libs.bundles.paging)
 
-    // Timber
-    implementation(libs.timber)
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.bundles.testing)
+
+    // Accompanist
+    implementation(libs.accompanistSwiperefresh)
+
+    // Firebase
+    implementation(libs.firebaseFirestore)
 }

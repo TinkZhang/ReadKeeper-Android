@@ -3,12 +3,14 @@ package com.github.tinkzhang.basic
 import android.app.Activity
 import android.content.Context
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import com.github.tinkzhang.basic.model.EditableBook
 import com.github.tinkzhang.basic.model.ReadingBook
 import com.github.tinkzhang.basic.model.WishBook
 import com.github.tinkzhang.readkeeper.model.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
@@ -19,8 +21,8 @@ import java.util.*
 
 object UserRepository {
     val user = Firebase.auth.currentUser
-    lateinit var lastBook: ReadingBook
-    lateinit var firstPage: List<ReadingBook>
+    lateinit var lastBook: EditableBook
+
 
     private val userDocumentRef = if (user == null) {
         Timber.d("offline users")
@@ -30,8 +32,8 @@ object UserRepository {
         Firebase.firestore.document("user/${user.uid}")
     }
 
-    private val readingCollectionRef = userDocumentRef.collection("readings")
-    private val wishCollectionRef = userDocumentRef.collection("wishes")
+    val readingCollectionRef = userDocumentRef.collection("readings")
+    val wishCollectionRef = userDocumentRef.collection("wishes")
 
     fun addReadingBook(book: ReadingBook) {
         readingCollectionRef
@@ -43,6 +45,14 @@ object UserRepository {
             .addOnFailureListener {
                 Timber.e("The book ${book.bookInfo.title} failed to be added into the reading list")
             }
+    }
+
+    inline fun <reified T: EditableBook> addBook(book: T) {
+        when (T::class) {
+            ReadingBook::class -> readingCollectionRef.document(book.bookInfo.uuid).set(book)
+            WishBook::class -> wishCollectionRef.document(book.bookInfo.uuid).set(book)
+            else -> Unit
+        }
     }
 
     fun removeReadingBook(uuid: String) {
@@ -65,16 +75,19 @@ object UserRepository {
         wishCollectionRef.document(uuid).delete()
     }
 
-    suspend fun getReadingList(page: Int): List<ReadingBook> {
+    suspend inline fun <reified T : EditableBook> getList(
+        reference: CollectionReference,
+        page: Int
+    ): List<T> {
         Timber.d("Load Reading List for Page: $page")
         return when (page) {
             0 -> {
-                firstPage = readingCollectionRef
+                val firstPage = reference
                     .orderBy(FieldPath.of("timeInfo", "editedTime"), Query.Direction.DESCENDING)
                     .limit(PAGE_SIZE.toLong())
                     .get()
                     .await()
-                    .toObjects(ReadingBook::class.java)
+                    .toObjects(T::class.java)
                 if (firstPage.isNotEmpty()) {
                     lastBook = firstPage.last()
                     Timber.d("ReadingBook: ${firstPage.first()}")
@@ -82,15 +95,15 @@ object UserRepository {
                 firstPage
             }
             else -> {
-                val books = readingCollectionRef
+                val books = reference
                     .orderBy(FieldPath.of("timeInfo", "editedTime"), Query.Direction.DESCENDING)
                     .startAfter(lastBook)
                     .limit(PAGE_SIZE.toLong())
                     .get()
                     .await()
-                    .toObjects(ReadingBook::class.java)
+                    .toObjects(T::class.java)
                 if (books.isNotEmpty()) {
-                    lastBook = books.last()
+                    lastBook = books.last() as T
                 }
                 books
             }
@@ -112,4 +125,11 @@ object UserRepository {
         val signInIntent = googleSignInClient.signInIntent
         (context as Activity).startActivityForResult(signInIntent, 9001)
     }
+
+    suspend inline fun <reified T : EditableBook> getList(nextPage: Int): List<T> =
+        when (T::class) {
+            ReadingBook::class -> getList(readingCollectionRef, nextPage)
+            WishBook::class -> getList(wishCollectionRef, nextPage)
+            else -> listOf()
+        }
 }
