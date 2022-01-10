@@ -23,8 +23,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.reading.ReadingViewModel
+import com.github.tinkzhang.reading.ui.ReadingListPage
 import com.github.tinkzhang.readkeeper.common.RkScreen
-import com.github.tinkzhang.readkeeper.reading.ReadingListPage
 import com.github.tinkzhang.readkeeper.reading.ReadingVip
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.github.tinkzhang.readkeeper.ui.MainScreenViewData
@@ -35,6 +35,8 @@ import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
 import com.github.tinkzhang.readkeeper.user.UserViewModel
 import com.github.tinkzhang.search.SearchResultScreen
 import com.github.tinkzhang.search.SearchScreen
+import com.github.tinkzhang.wish.WishViewModel
+import com.github.tinkzhang.wish.ui.WishListPage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,6 +47,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val userViewModel: UserViewModel = viewModel()
             val readingViewModel: ReadingViewModel = viewModel()
+            val wishViewModel: WishViewModel = viewModel()
             ReadKeeperTheme {
                 val currentScreen by rememberSaveable { mutableStateOf(RkScreen.Home) }
                 val navController = rememberNavController()
@@ -76,7 +79,7 @@ class MainActivity : ComponentActivity() {
                             composable(SCREEN_ROUTE.HOME) {
                                 HomeScreen(
                                     navController = navController,
-                                    readingViewModel
+                                    wishViewModel
                                 )
                             }
                             composable(SCREEN_ROUTE.SEARCH) {
@@ -89,7 +92,9 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable(SCREEN_ROUTE.WISH_LIST) {
-                                WishListScreen()
+                                WishListPage(
+                                    wishViewModel = wishViewModel, navController
+                                )
                             }
                             composable(SCREEN_ROUTE.READING_LIST) {
                                 ReadingListPage(readingViewModel, navController = navController)

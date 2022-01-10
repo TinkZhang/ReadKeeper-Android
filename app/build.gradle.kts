@@ -55,6 +55,7 @@ dependencies {
     implementation(project(mapOf("path" to ":common:basic")))
     implementation(project(mapOf("path" to ":common:uicomponent")))
     implementation(project(mapOf("path" to ":feature:reading")))
+    implementation(project(mapOf("path" to ":feature:wish")))
     implementation(project(mapOf("path" to ":feature:search")))
 
     // Core

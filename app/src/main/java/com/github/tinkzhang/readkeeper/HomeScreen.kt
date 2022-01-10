@@ -13,12 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.tinkzhang.basic.SCREEN_ROUTE
-import com.github.tinkzhang.reading.ReadingViewModel
+import com.github.tinkzhang.basic.model.WishBookFactory
+import com.github.tinkzhang.wish.WishViewModel
 
 @Composable
 fun HomeScreen(
     navController: NavController,
-    readingViewModel: ReadingViewModel,
+    wishViewModel: WishViewModel
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
 
@@ -34,7 +35,7 @@ fun HomeScreen(
         }
 
         Button(onClick = {
-            readingViewModel.addBook()
+            wishViewModel.addBook(WishBookFactory.buildSample())
         }) {
             Text("Add Book")
         }

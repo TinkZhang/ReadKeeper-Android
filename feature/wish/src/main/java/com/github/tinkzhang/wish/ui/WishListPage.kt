@@ -1,59 +1,35 @@
-package com.github.tinkzhang.reading.ui
+package com.github.tinkzhang.wish.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
-import com.github.tinkzhang.reading.ReadingViewModel
-import com.github.tinkzhang.readkeeper.reading.ReadingListCard
+import com.github.tinkzhang.wish.WishViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ReadingListPage(readingViewModel: ReadingViewModel, navController: NavController) {
-    val selectedCategory = readingViewModel.selectedCategory.value
+fun WishListPage(
+    wishViewModel: WishViewModel,
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
     ) {
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-        ) {
-            val categories = readingViewModel.categories.value
-            if (categories != null) {
-                items(categories) { category ->
-//                    RkCategoryChip(
-//                        category = category,
-//                        isSelected = selectedCategory == category,
-//                        onSelectedCategoryChanged = {
-//                            readingViewModel.onSelectedCategoryChanged(category)
-//                            Timber.d("${readingViewModel.list.value?.size}")
-////                            viewModel.onChangeCategoryScrollPosition(scrollState)
-//                        },
-//                        onExecuteSearch = readingViewModel::newSearch,
-//                    )
-                }
-            }
-        }
-        val books = readingViewModel.flow.collectAsLazyPagingItems()
+        val books = wishViewModel.flow.collectAsLazyPagingItems()
         SwipeRefresh(
             state = rememberSwipeRefreshState(isRefreshing = books.loadState.refresh is LoadState.Loading),
             onRefresh = {
-                readingViewModel.resetLocalList()
+                wishViewModel.resetLocalList()
                 books.refresh()
             }) {
             LazyColumn(modifier = Modifier.fillMaxHeight()) {
@@ -76,8 +52,8 @@ fun ReadingListPage(readingViewModel: ReadingViewModel, navController: NavContro
                 }
                 itemsIndexed(books) { index, item ->
                     if (item != null) {
-                        readingViewModel.addLocalList(item)
-                        ReadingListCard(item, navController)
+                        wishViewModel.addLocalList(item)
+                        WishListCard(item, navController)
                     }
                 }
 
