@@ -24,7 +24,7 @@ fun WishListCard(
             WishCardEditBottom(onButtonClicked = onMoveToReadingClicked)
         },
         onCardClicked = {
-            navController?.navigate("reading_item/${book.bookInfo.uuid}")
+            navController?.navigate("wish_item/${book.bookInfo.uuid}")
         }
     )
 }
