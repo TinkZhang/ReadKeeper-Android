@@ -53,7 +53,9 @@ fun WishListPage(
                 itemsIndexed(books) { index, item ->
                     if (item != null) {
                         wishViewModel.addLocalList(item)
-                        WishListCard(item, navController)
+                        WishListCard(item, navController){
+                            wishViewModel.moveToReading(item)
+                        }
                     }
                 }
 

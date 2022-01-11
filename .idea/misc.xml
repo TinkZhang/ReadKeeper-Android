@@ -30,6 +30,8 @@
         <entry key="../../../../layout/compose-model-1640932441761.xml" value="0.4398148148148148" />
         <entry key="../../../../layout/compose-model-1641278378035.xml" value="0.38981481481481484" />
         <entry key="../../../../layout/compose-model-1641278445636.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1641874079702.xml" value="0.41388888888888886" />
+        <entry key="../../../../layout/compose-model-1641874736003.xml" value="0.41388888888888886" />
         <entry key="app/src/main/res/drawable/ic_kindle.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_pdf.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.18642785065590312" />
@@ -37,7 +39,7 @@
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

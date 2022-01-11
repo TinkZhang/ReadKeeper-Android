@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.tinkzhang.basic.model.WishBook
 import com.github.tinkzhang.basic.model.WishBookFactory
+import java.text.DateFormat
 
 @Composable
 fun WishCardMetadata(
@@ -35,6 +36,20 @@ fun WishCardMetadata(
                 "✍️   " + book.bookInfo.author,
                 style = MaterialTheme.typography.titleMedium,
                 maxLines = 2,
+                modifier = Modifier.padding(bottom = 8.dp),
+            )
+            Text(
+                "⭐   " + book.bookInfo.rating.toString(),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(bottom = 8.dp),
+            )
+            Text(
+
+                "Added on ${
+                    DateFormat.getDateInstance(DateFormat.MEDIUM)
+                        .format(book.timeInfo.addedTime.toDate())
+                }",
+                style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
 //            RkCategoryChip(category = book.category ?: "", isSelected = true)

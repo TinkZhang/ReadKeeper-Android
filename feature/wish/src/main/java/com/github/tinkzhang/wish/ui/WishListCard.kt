@@ -12,12 +12,16 @@ import com.github.tinkzhang.wish.ui.components.WishCardMetadata
 
 
 @Composable
-fun WishListCard(book: WishBook, navController: NavController? = null) {
+fun WishListCard(
+    book: WishBook,
+    navController: NavController? = null,
+    onMoveToReadingClicked: () -> Unit = {}
+) {
     BookListCard(
         left = { BookCardImage(book = book) },
         right = { WishCardMetadata(book = book) },
         bottom = {
-            WishCardEditBottom()
+            WishCardEditBottom(onButtonClicked = onMoveToReadingClicked)
         },
         onCardClicked = {
             navController?.navigate("reading_item/${book.bookInfo.uuid}")

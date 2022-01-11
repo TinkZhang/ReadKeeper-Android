@@ -82,7 +82,6 @@ class MainActivity : ComponentActivity() {
                             composable(SCREEN_ROUTE.HOME) {
                                 HomeScreen(
                                     navController = navController,
-                                    wishViewModel
                                 )
                             }
                             composable(SCREEN_ROUTE.SEARCH) {
