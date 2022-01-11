@@ -39,6 +39,7 @@ import com.github.tinkzhang.search.SearchResultScreen
 import com.github.tinkzhang.search.SearchScreen
 import com.github.tinkzhang.wish.WishViewModel
 import com.github.tinkzhang.wish.ui.WishListPage
+import com.github.tinkzhang.wish.ui.WishVip
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -96,6 +97,18 @@ class MainActivity : ComponentActivity() {
                             composable(SCREEN_ROUTE.WISH_LIST) {
                                 WishListPage(
                                     wishViewModel = wishViewModel, navController
+                                )
+                            }
+                            composable(
+                                SCREEN_ROUTE.WISH_ITEM,
+                                arguments = listOf(navArgument("uuid") {
+                                    type = NavType.StringType
+                                })
+                            ) {
+                                WishVip(
+                                    uuid = it.arguments?.getString("uuid") ?: "",
+                                    wishViewModel = wishViewModel,
+                                    navController = navController
                                 )
                             }
                             composable(SCREEN_ROUTE.READING_LIST) {

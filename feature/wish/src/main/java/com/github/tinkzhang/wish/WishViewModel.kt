@@ -11,4 +11,7 @@ class WishViewModel(override val localList: MutableSet<WishBook> = mutableSetOf(
         UserRepository.removeWishBook(book.bookInfo.uuid)
         UserRepository.addBook(book.convertToReadingBook())
     }
+    fun moveToReading(uuid: String) {
+        moveToReading(this.getBook(uuid))
+    }
 }
