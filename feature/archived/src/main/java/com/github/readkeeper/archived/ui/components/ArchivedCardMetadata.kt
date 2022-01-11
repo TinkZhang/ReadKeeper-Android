@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircleOutline
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.tinkzhang.basic.model.ArchivedBook
 import com.github.tinkzhang.basic.model.ArchivedBookFactory
+import java.text.DateFormat
 
 @Composable
 fun ArchivedCardMetadata(
@@ -32,11 +36,20 @@ fun ArchivedCardMetadata(
         )
         Column(verticalArrangement = Arrangement.Bottom) {
             Text(
-                "✍️   " + book.bookInfo.author,
+                "Archived on ${
+                    DateFormat.getDateInstance(DateFormat.MEDIUM)
+                        .format(book.timeInfo.addedTime.toDate())
+                }",
                 style = MaterialTheme.typography.titleMedium,
-                maxLines = 2,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
+            if (book.records.lastOrNull()?.endPage == book.bookInfo.pages) {
+                Icon(
+                    Icons.Default.CheckCircleOutline,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.tertiary
+                )
+            }
 //            RkCategoryChip(category = book.category ?: "", isSelected = true)
         }
     }

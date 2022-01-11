@@ -3,7 +3,6 @@ package com.github.readkeeper.archived.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import com.github.readkeeper.archived.ui.components.ArchivedCardEditBottom
 import com.github.readkeeper.archived.ui.components.ArchivedCardMetadata
 import com.github.tinkzhang.basic.model.ArchivedBook
 import com.github.tinkzhang.basic.model.ArchivedBookFactory
@@ -16,10 +15,9 @@ fun ArchivedListCard(book: ArchivedBook, navController: NavController? = null) {
         left = { BookCardImage(book = book) },
         right = { ArchivedCardMetadata(book = book) },
         bottom = {
-            ArchivedCardEditBottom()
         },
         onCardClicked = {
-            navController?.navigate("reading_item/${book.bookInfo.uuid}")
+            navController?.navigate("archived_item/${book.bookInfo.uuid}")
         }
     )
 }
