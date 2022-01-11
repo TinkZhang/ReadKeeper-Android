@@ -57,6 +57,7 @@ dependencies {
     implementation(project(mapOf("path" to ":feature:reading")))
     implementation(project(mapOf("path" to ":feature:wish")))
     implementation(project(mapOf("path" to ":feature:search")))
+    implementation(project(mapOf("path" to ":feature:archived")))
 
     // Core
     implementation(libs.androidCore)

@@ -3,6 +3,7 @@ package com.github.tinkzhang.basic
 import android.app.Activity
 import android.content.Context
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import com.github.tinkzhang.basic.model.ArchivedBook
 import com.github.tinkzhang.basic.model.EditableBook
 import com.github.tinkzhang.basic.model.ReadingBook
 import com.github.tinkzhang.basic.model.WishBook
@@ -23,7 +24,6 @@ object UserRepository {
     val user = Firebase.auth.currentUser
     lateinit var lastBook: EditableBook
 
-
     private val userDocumentRef = if (user == null) {
         Timber.d("offline users")
         Firebase.firestore.document("user/${UUID.randomUUID()}}")
@@ -34,23 +34,13 @@ object UserRepository {
 
     val readingCollectionRef = userDocumentRef.collection("readings")
     val wishCollectionRef = userDocumentRef.collection("wishes")
+    val archivedCollectionRef = userDocumentRef.collection("archived")
 
-    fun addReadingBook(book: ReadingBook) {
-        readingCollectionRef
-            .document(book.bookInfo.uuid)
-            .set(book)
-            .addOnSuccessListener {
-                Timber.d("Book ${book.bookInfo.title} has been added to reading lists")
-            }
-            .addOnFailureListener {
-                Timber.e("The book ${book.bookInfo.title} failed to be added into the reading list")
-            }
-    }
-
-    inline fun <reified T: EditableBook> addBook(book: T) {
+    inline fun <reified T : EditableBook> addBook(book: T) {
         when (T::class) {
             ReadingBook::class -> readingCollectionRef.document(book.bookInfo.uuid).set(book)
             WishBook::class -> wishCollectionRef.document(book.bookInfo.uuid).set(book)
+            ArchivedBook::class -> archivedCollectionRef.document(book.bookInfo.uuid).set(book)
             else -> Unit
         }
     }
@@ -59,27 +49,18 @@ object UserRepository {
         readingCollectionRef.document(uuid).delete()
     }
 
-    fun addWishBook(book: WishBook) {
-        wishCollectionRef
-            .document(book.bookInfo.uuid)
-            .set(book)
-            .addOnSuccessListener {
-                Timber.d("Book ${book.bookInfo.title} has been added to wish lists")
-            }
-            .addOnFailureListener {
-                Timber.e("The book ${book.bookInfo.title} failed to be added into the wish list")
-            }
-    }
-
     fun removeWishBook(uuid: String) {
         wishCollectionRef.document(uuid).delete()
+    }
+
+    fun removeArchiveBook(uuid: String) {
+        archivedCollectionRef.document(uuid).delete()
     }
 
     suspend inline fun <reified T : EditableBook> getList(
         reference: CollectionReference,
         page: Int
     ): List<T> {
-        Timber.d("Load Reading List for Page: $page")
         return when (page) {
             0 -> {
                 val firstPage = reference
@@ -110,6 +91,14 @@ object UserRepository {
         }
     }
 
+    suspend inline fun <reified T : EditableBook> getList(nextPage: Int): List<T> =
+        when (T::class) {
+            ReadingBook::class -> getList(readingCollectionRef, nextPage)
+            WishBook::class -> getList(wishCollectionRef, nextPage)
+            ArchivedBook::class -> getList(archivedCollectionRef, nextPage)
+            else -> listOf()
+        }
+
     fun signOutWithGoogle() {
         Firebase.auth.signOut()
     }
@@ -125,11 +114,4 @@ object UserRepository {
         val signInIntent = googleSignInClient.signInIntent
         (context as Activity).startActivityForResult(signInIntent, 9001)
     }
-
-    suspend inline fun <reified T : EditableBook> getList(nextPage: Int): List<T> =
-        when (T::class) {
-            ReadingBook::class -> getList(readingCollectionRef, nextPage)
-            WishBook::class -> getList(wishCollectionRef, nextPage)
-            else -> listOf()
-        }
 }

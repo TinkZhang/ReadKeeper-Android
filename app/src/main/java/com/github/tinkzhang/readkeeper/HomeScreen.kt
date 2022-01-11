@@ -13,7 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.tinkzhang.basic.SCREEN_ROUTE
-import com.github.tinkzhang.basic.model.WishBookFactory
+import com.github.tinkzhang.basic.UserRepository
+import com.github.tinkzhang.basic.model.ArchivedBookFactory
 import com.github.tinkzhang.wish.WishViewModel
 
 @Composable
@@ -35,7 +36,7 @@ fun HomeScreen(
         }
 
         Button(onClick = {
-            wishViewModel.addBook(WishBookFactory.buildSample())
+            UserRepository.addBook(ArchivedBookFactory.buildSample())
         }) {
             Text("Add Book")
         }
