@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.github.readkeeper.archived.ArchivedViewModel
 import com.github.readkeeper.archived.ui.ArchivedListPage
+import com.github.readkeeper.archived.ui.ArchivedVip
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.reading.ReadingViewModel
 import com.github.tinkzhang.reading.ui.ReadingListPage
@@ -136,6 +137,18 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(SCREEN_ROUTE.ARCHIVED_LIST) {
                                 ArchivedListPage(archivedViewModel, navController)
+                            }
+                            composable(
+                                SCREEN_ROUTE.ARCHIVED_ITEM,
+                                arguments = listOf(navArgument("uuid") {
+                                    type = NavType.StringType
+                                })
+                            ) {
+                                ArchivedVip(
+                                    uuid = it.arguments?.getString("uuid") ?: "",
+                                    archivedViewModel = archivedViewModel,
+                                    navController = navController
+                                )
                             }
                         }
                     }
