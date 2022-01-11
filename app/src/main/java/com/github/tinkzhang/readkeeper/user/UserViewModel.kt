@@ -45,6 +45,7 @@ class UserViewModel @Inject constructor(
             true -> {
                 syncUserInfo()
             }
+            else -> {}
         }
     }
 
