@@ -25,7 +25,7 @@ class SearchResultViewModel(private val keyword: String) : ViewModel() {
         .cachedIn(viewModelScope)
 
     fun addWish(book: WishBook) {
-        UserRepository.addWishBook(book)
+        UserRepository.addBook(book)
     }
 
     fun removeWish(uuid: String) {
@@ -33,7 +33,7 @@ class SearchResultViewModel(private val keyword: String) : ViewModel() {
     }
 
     fun addReading(book: ReadingBook) {
-        UserRepository.addReadingBook(book)
+        UserRepository.addBook(book)
     }
 
     fun removeReading(uuid: String) {

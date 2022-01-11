@@ -21,6 +21,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.github.readkeeper.archived.ArchivedViewModel
+import com.github.readkeeper.archived.ui.ArchivedListPage
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.reading.ReadingViewModel
 import com.github.tinkzhang.reading.ui.ReadingListPage
@@ -48,6 +50,7 @@ class MainActivity : ComponentActivity() {
             val userViewModel: UserViewModel = viewModel()
             val readingViewModel: ReadingViewModel = viewModel()
             val wishViewModel: WishViewModel = viewModel()
+            val archivedViewModel: ArchivedViewModel = viewModel()
             ReadKeeperTheme {
                 val currentScreen by rememberSaveable { mutableStateOf(RkScreen.Home) }
                 val navController = rememberNavController()
@@ -120,7 +123,7 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable(SCREEN_ROUTE.ARCHIVED_LIST) {
-                                WishListScreen()
+                                ArchivedListPage(archivedViewModel, navController)
                             }
                         }
                     }
@@ -173,4 +176,3 @@ fun RkNavigationBar(navController: NavHostController) {
         }
     }
 }
-

@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/common/basic" />
             <option value="$PROJECT_DIR$/common/uicomponent" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/archived" />
             <option value="$PROJECT_DIR$/feature/reading" />
             <option value="$PROJECT_DIR$/feature/search" />
             <option value="$PROJECT_DIR$/feature/wish" />
