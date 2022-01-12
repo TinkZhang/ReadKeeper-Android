@@ -4,8 +4,6 @@ import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -18,8 +16,11 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.github.tinkzhang.wish.R
 import com.github.tinkzhang.wish.WishViewModel
+import com.github.tinkzhang.wish.ui.components.GoogleAdView
 import com.github.tinkzhang.wish.ui.components.WishVipInfoSection
+import com.google.android.gms.ads.AdSize
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
@@ -72,7 +73,10 @@ fun WishVip(
         ) {
             WishVipInfoSection(book = book)
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
-            FilledTonalButton(onClick = {wishViewModel.moveToReading(uuid)}, Modifier.fillMaxWidth()) {
+            FilledTonalButton(
+                onClick = { wishViewModel.moveToReading(uuid) },
+                Modifier.fillMaxWidth()
+            ) {
                 androidx.compose.material3.Icon(
                     Icons.Default.ArrowForward,
                     contentDescription = null
@@ -84,6 +88,13 @@ fun WishVip(
                 Spacer(modifier = Modifier.width(4.dp))
                 Text("Move to Reading List")
             }
+            Spacer(modifier = Modifier.padding(vertical = 8.dp))
+            GoogleAdView(
+                adSize = AdSize.MEDIUM_RECTANGLE,
+                adUnitId = stringResource(id = R.string.google_ad_unit_id),
+                modifier = Modifier.fillMaxWidth()
+            )
+
             Spacer(modifier = Modifier.padding(vertical = 48.dp))
         }
 

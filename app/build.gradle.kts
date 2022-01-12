@@ -78,6 +78,9 @@ dependencies {
     // Instabug
     implementation(libs.instabug)
 
+    // Google Ad
+    implementation(libs.googleAd)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.bundles.testing)
