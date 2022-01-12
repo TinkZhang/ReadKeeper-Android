@@ -41,6 +41,7 @@ import com.github.tinkzhang.search.SearchScreen
 import com.github.tinkzhang.wish.WishViewModel
 import com.github.tinkzhang.wish.ui.WishListPage
 import com.github.tinkzhang.wish.ui.WishVip
+import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,6 +49,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MobileAds.initialize(this) {}
         setContent {
             val userViewModel: UserViewModel = viewModel()
             val readingViewModel: ReadingViewModel = viewModel()

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="google_sign_in_token_id">594810278400-tvviknir2uqc2qd95uts1l5s54309als.apps.googleusercontent.com</string>
+    <string name="google_ad_unit_id">ca-app-pub-7103431280118969/2576025470</string>
     <string name="add_wish">+Wish</string>
     <string name="wished">Added into the wish list</string>
     <string name="add_reading">+Reading</string>
