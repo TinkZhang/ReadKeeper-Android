@@ -29,6 +29,7 @@ coil = "1.4.0"
 firebase-auth = "21.0.1"
 firebase-firestore = "24.0.0"
 firebase-analytics = "20.0.2"
+firebase-remote-config = "21.0.1"
 play-auth = "20.0.0"
 play-service-coroutines = "1.5.2"
 
@@ -44,6 +45,8 @@ unit-test = "1.1.3"
 ui-test = "3.4.0"
 
 google-ad = "20.5.0"
+
+gson = "2.8.9"
 
 [libraries]
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -80,6 +83,7 @@ firebaseFirestore = { module = "com.google.firebase:firebase-firestore-ktx", ver
 play-services-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "play-service-coroutines" }
 firebaseAuth = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebase-auth" }
 playAuth = { module = "com.google.android.gms:play-services-auth", version.ref = "play-auth" }
+firebaseRemoteConfig = { module = "com.google.firebase:firebase-config-ktx", version.ref = "firebase-remote-config"}
 
 paging = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 pagingCompose = { module = "androidx.paging:paging-compose", version.ref = "paging-compose" }
@@ -91,6 +95,8 @@ unitTest = { module = "androidx.test.ext:junit", version.ref = "unit-test" }
 uiTest = { module = "androidx.test.espresso:espresso-core", version.ref = "ui-test" }
 
 googleAd = { module = "com.google.android.gms:play-services-ads", version.ref = "google-ad"}
+
+gson = { module = "com.google.code.gson:gson", version.ref = "gson"}
 
 [bundles]
 androidx-compose = ["composeUi", "coil", "composeMaterial", "composeUiTooling", "composeIcon", "composeMaterial3", "composeLiveData", "composeNavigation"]

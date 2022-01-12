@@ -37,6 +37,7 @@ dependencies {
     // Firebase
     implementation(libs.bundles.google.login)
     implementation(libs.bundles.firestore)
+    implementation(libs.firebaseRemoteConfig)
 
     // Paging
     implementation(libs.bundles.paging)
