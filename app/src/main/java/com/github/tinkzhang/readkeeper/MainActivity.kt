@@ -38,6 +38,7 @@ import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
 import com.github.tinkzhang.readkeeper.user.UserViewModel
 import com.github.tinkzhang.search.SearchResultScreen
 import com.github.tinkzhang.search.SearchScreen
+import com.github.tinkzhang.uicomponent.RkCustomTabClient
 import com.github.tinkzhang.wish.WishViewModel
 import com.github.tinkzhang.wish.ui.WishListPage
 import com.github.tinkzhang.wish.ui.WishVip
@@ -46,10 +47,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private var mCustomTabClient: RkCustomTabClient? = null
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MobileAds.initialize(this) {}
+        mCustomTabClient = RkCustomTabClient(this)
         setContent {
             val userViewModel: UserViewModel = viewModel()
             val readingViewModel: ReadingViewModel = viewModel()
@@ -111,7 +115,8 @@ class MainActivity : ComponentActivity() {
                                 WishVip(
                                     uuid = it.arguments?.getString("uuid") ?: "",
                                     wishViewModel = wishViewModel,
-                                    navController = navController
+                                    navController = navController,
+                                    client = mCustomTabClient,
                                 )
                             }
                             composable(SCREEN_ROUTE.READING_LIST) {
@@ -159,7 +164,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
+    override fun onDestroy() {
+        mCustomTabClient?.destroy()
+        mCustomTabClient = null
+        super.onDestroy()
+    }
 }
 
 @Composable

@@ -48,6 +48,8 @@ google-ad = "20.5.0"
 
 gson = "2.8.9"
 
+browser = "1.3.0"
+
 [libraries]
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
@@ -97,6 +99,8 @@ uiTest = { module = "androidx.test.espresso:espresso-core", version.ref = "ui-te
 googleAd = { module = "com.google.android.gms:play-services-ads", version.ref = "google-ad"}
 
 gson = { module = "com.google.code.gson:gson", version.ref = "gson"}
+
+browser = { module = "androidx.browser:browser", version.ref = "browser"}
 
 [bundles]
 androidx-compose = ["composeUi", "coil", "composeMaterial", "composeUiTooling", "composeIcon", "composeMaterial3", "composeLiveData", "composeNavigation"]
