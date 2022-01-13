@@ -17,6 +17,7 @@ object FirebaseRemoteConfigWrapper {
         Firebase.remoteConfig.apply {
             setConfigSettingsAsync(configSettings)
             setDefaultsAsync(remoteConfigMap)
+            fetchAndActivate()
         }
     }
 
@@ -30,5 +31,5 @@ object FirebaseRemoteConfigWrapper {
 
 private val remoteConfigMap: Map<String, Any> = mapOf(
     KeyIsWishVipSearchLinkEnabled to true,
-    KeyJsonSearchEngines to "{\"searchEngines\": [{\"name\": \"Hello\", \"link\": \"www.google.com\"},{\"name\": \"Hello\", \"link\": \"www.google.com\"}]}"
+    KeyJsonSearchEngines to "{\"searchEngines\": [{\"name\": \"Baidu\", \"link\": \"https://www.baidu.com/s?wd=\"},{\"name\": \"Google\", \"link\": \"https://www.google.com/search?q=\"}]}"
 )
