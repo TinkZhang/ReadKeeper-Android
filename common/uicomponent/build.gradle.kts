@@ -53,4 +53,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.bundles.testing)
 
+    // Browser
+    implementation(libs.browser)
+
 }

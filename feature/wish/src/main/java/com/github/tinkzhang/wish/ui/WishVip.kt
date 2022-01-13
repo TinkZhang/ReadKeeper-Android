@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
+import com.github.tinkzhang.uicomponent.RkCustomTabClient
 import com.github.tinkzhang.wish.R
 import com.github.tinkzhang.wish.WishViewModel
 import com.github.tinkzhang.wish.ui.components.GoogleAdView
@@ -29,7 +30,8 @@ import com.google.android.gms.ads.AdSize
 fun WishVip(
     uuid: String,
     wishViewModel: WishViewModel,
-    navController: NavController
+    navController: NavController,
+    client: RkCustomTabClient?
 ) {
     var book by remember {
         mutableStateOf(wishViewModel.getBook(uuid))
@@ -104,7 +106,8 @@ fun WishVip(
             ) {
                 VipSearchEngineSection(
                     book.bookInfo.title,
-                    FirebaseRemoteConfigWrapper.searchEngines!!.searchEngines
+                    FirebaseRemoteConfigWrapper.searchEngines!!.searchEngines,
+                    client,
                 )
             }
             Spacer(modifier = Modifier.padding(vertical = 48.dp))
