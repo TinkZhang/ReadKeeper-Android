@@ -1,0 +1,99 @@
+package com.github.tinkzhang.wish.ui.components
+
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Launch
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
+import com.github.tinkzhang.firebaseRemoteConfig.SearchEngine
+
+@Composable
+fun VipSearchEngineSection(title: String, searchEngines: List<SearchEngine>) {
+    Surface(tonalElevation = 4.dp) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            Text(
+                text = "Find the Book",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Divider(Modifier.padding(vertical = 4.dp), thickness = 2.dp)
+            searchEngines.forEach {
+                Spacer(modifier = Modifier.height(8.dp))
+                SearchEngineButton(title = title, searchEngine = it)
+            }
+        }
+    }
+}
+
+@Composable
+fun SearchEngineButton(title: String, searchEngine: SearchEngine) {
+    val content = LocalContext.current
+    val uri = Uri.parse(searchEngine.link + Uri.encode(title))
+    OutlinedButton(
+        onClick = {
+            startActivity(
+                content,
+                Intent(Intent.ACTION_VIEW, uri),
+                null
+            )
+        },
+        Modifier
+            .fillMaxWidth()
+            .requiredHeight(64.dp),
+        shape = RoundedCornerShape(8.dp),
+    ) {
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(Icons.Default.Search, contentDescription = null)
+                Spacer(modifier = Modifier.width(32.dp))
+                Text(searchEngine.name)
+            }
+
+            Icon(
+                Icons.Default.Launch,
+                contentDescription = null,
+                Modifier.align(Alignment.CenterVertically)
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun SearchEngineButtonPreview() {
+    SearchEngineButton(
+        title = "Hello",
+        searchEngine = SearchEngine("Google", "www.google.com")
+    )
+}
+
+@Preview
+@Composable
+private fun VipSearchEngineSectionPreview() {
+    VipSearchEngineSection(
+        title = "Hello", searchEngines = listOf(
+            SearchEngine("Google", "www.google.com"),
+            SearchEngine("Baidu", "www.baidu.com")
+        )
+    )
+}

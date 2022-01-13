@@ -8,7 +8,12 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 
 @Composable
-fun GoogleAdView(adSize: AdSize, adUnitId: String, modifier: Modifier = Modifier) {
+fun GoogleAdView(
+    adSize: AdSize,
+    adUnitId: String,
+    modifier: Modifier = Modifier,
+    keyword: String = "",
+) {
     AndroidView(modifier = modifier, factory = { content ->
         AdView(content).apply {
             this.adSize = adSize
@@ -16,6 +21,6 @@ fun GoogleAdView(adSize: AdSize, adUnitId: String, modifier: Modifier = Modifier
         }
     },
         update = { view ->
-            view.loadAd(AdRequest.Builder().build())
+            view.loadAd(AdRequest.Builder().addKeyword(keyword).build())
         })
 }
