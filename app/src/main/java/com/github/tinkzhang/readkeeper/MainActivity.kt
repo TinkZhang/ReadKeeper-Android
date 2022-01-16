@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -25,6 +26,7 @@ import com.github.readkeeper.archived.ArchivedViewModel
 import com.github.readkeeper.archived.ui.ArchivedListPage
 import com.github.readkeeper.archived.ui.ArchivedVip
 import com.github.tinkzhang.basic.SCREEN_ROUTE
+import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import com.github.tinkzhang.reading.ReadingViewModel
 import com.github.tinkzhang.reading.ui.ReadingListPage
 import com.github.tinkzhang.readkeeper.common.RkScreen
@@ -54,6 +56,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         MobileAds.initialize(this) {}
         mCustomTabClient = RkCustomTabClient(this)
+        installSplashScreen().apply {
+            setKeepVisibleCondition{
+                FirebaseRemoteConfigWrapper
+                false
+            }
+        }
         setContent {
             val userViewModel: UserViewModel = viewModel()
             val readingViewModel: ReadingViewModel = viewModel()

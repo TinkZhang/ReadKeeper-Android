@@ -50,6 +50,8 @@ gson = "2.8.9"
 
 browser = "1.3.0"
 
+splash-screen = "1.0.0-alpha02"
+
 [libraries]
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
@@ -101,6 +103,8 @@ googleAd = { module = "com.google.android.gms:play-services-ads", version.ref = 
 gson = { module = "com.google.code.gson:gson", version.ref = "gson"}
 
 browser = { module = "androidx.browser:browser", version.ref = "browser"}
+
+splashScreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen"}
 
 [bundles]
 androidx-compose = ["composeUi", "coil", "composeMaterial", "composeUiTooling", "composeIcon", "composeMaterial3", "composeLiveData", "composeNavigation"]
