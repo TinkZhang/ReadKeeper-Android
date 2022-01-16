@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ReadKeeper">
+        android:theme="@style/Theme.SplashScreen">
         <activity
             android:name="com.github.tinkzhang.readkeeper.settings.SettingsActivity"
             android:exported="true" />
@@ -19,7 +19,7 @@
             android:name="com.github.tinkzhang.readkeeper.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ReadKeeper.NoActionBar">
+            android:theme="@style/Theme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

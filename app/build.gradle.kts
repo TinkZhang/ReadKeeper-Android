@@ -53,6 +53,7 @@ dependencies {
 
     // Child-Modules
     implementation(project(mapOf("path" to ":common:basic")))
+    implementation(project(mapOf("path" to ":common:firebaseRemoteConfig")))
     implementation(project(mapOf("path" to ":common:uicomponent")))
     implementation(project(mapOf("path" to ":feature:reading")))
     implementation(project(mapOf("path" to ":feature:wish")))
@@ -80,6 +81,9 @@ dependencies {
 
     // Google Ad
     implementation(libs.googleAd)
+
+    // SplashScreen
+    implementation(libs.splashScreen)
 
     // Testing
     testImplementation(libs.junit)
