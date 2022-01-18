@@ -46,9 +46,9 @@ class RkCustomTabClient(context: Context) : CustomTabsServiceConnection() {
         if (mContext != null) {
             if (mCustomTabsSession != null) {
                 customTabsIntent.launchUrl(mContext!!, Uri.parse(urlString))
-                Log.d("CustomTabClient", "Launching custom tab client for " + (urlString ?: ""))
+                Log.d("CustomTabClient", "Launching custom tab client for $urlString")
             } else {
-                Log.d("CustomTabClient", "Launching external browser for " + (urlString ?: ""))
+                Log.d("CustomTabClient", "Launching external browser for $urlString")
                 val i = Intent(Intent.ACTION_VIEW)
                 i.data = Uri.parse(urlString)
                 i.flags = Intent.FLAG_ACTIVITY_NO_HISTORY

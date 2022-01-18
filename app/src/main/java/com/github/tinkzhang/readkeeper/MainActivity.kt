@@ -27,6 +27,7 @@ import com.github.readkeeper.archived.ui.ArchivedListPage
 import com.github.readkeeper.archived.ui.ArchivedVip
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
+import com.github.tinkzhang.homepage.Homepage
 import com.github.tinkzhang.reading.ReadingViewModel
 import com.github.tinkzhang.reading.ui.ReadingListPage
 import com.github.tinkzhang.readkeeper.common.RkScreen
@@ -96,7 +97,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
                             composable(SCREEN_ROUTE.HOME) {
-                                HomeScreen(
+                                Homepage(
                                     navController = navController,
                                 )
                             }
