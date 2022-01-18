@@ -3,18 +3,19 @@ package com.github.tinkzhang.homepage.quote
 import android.content.Context
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
+import kotlin.random.Random
 
 @Entity
 data class Quote(
     @PrimaryKey val uid: Int,
     @ColumnInfo val quote: String,
     @ColumnInfo val author: String?,
-    )
+)
 
 @Dao
 interface QuoteDao {
-    @Query("SELECT * FROM Quote WHERE uid == 2")
-    fun getRandom(): Flow<Quote>
+    @Query("SELECT * FROM Quote WHERE uid == :id")
+    fun getQuote(id: Int): Flow<Quote>
 }
 
 @Database(entities = [Quote::class], version = 1)
@@ -25,11 +26,9 @@ abstract class QuoteDatabase : RoomDatabase() {
 class QuoteRepository(context: Context) {
     private val db = Room
         .databaseBuilder(context, QuoteDatabase::class.java, "quote-database")
-//        .createFromAsset("quote.db")
+        .createFromAsset("quote.db")
         .build()
-    var quote: Flow<Quote> = db.quoteDao().getRandom()
+    private val randomId = Random.nextInt(from = 1, until = 106)
 
-    fun reset() {
-        quote = db.quoteDao().getRandom()
-    }
+    fun getQuote(id: Int): Flow<Quote> = db.quoteDao().getQuote(id)
 }
