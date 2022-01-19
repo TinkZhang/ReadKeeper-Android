@@ -114,9 +114,9 @@ object UserRepository {
         (context as Activity).startActivityForResult(signInIntent, 9001)
     }
 
-     fun getWeeklyBooks(type: NYBookType): List<NYTimesBook> {
-        return nytCollectionRef.document(type.name).collection("books")
-            .asFlow()
+     suspend fun getWeeklyBooks(type: NYBookType): List<NYTimesBook> {
+        return Firebase.firestore.collection(type.name)
+            .get().await()
             .toObjects(NYTimesBook::class.java)
     }
 }

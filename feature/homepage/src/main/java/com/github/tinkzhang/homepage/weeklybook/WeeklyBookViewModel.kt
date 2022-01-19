@@ -1,10 +1,26 @@
 package com.github.tinkzhang.homepage.weeklybook
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.github.tinkzhang.basic.UserRepository
 import com.github.tinkzhang.basic.model.NYBookType
+import com.github.tinkzhang.basic.model.NYTimesBook
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class WeeklyBookViewModel : ViewModel() {
-    val fictionBooks = UserRepository.getWeeklyBooks(NYBookType.Fiction)
-    val nonFictionBooks = UserRepository.getWeeklyBooks(NYBookType.NonFiction)
+
+    private val _fictionBooks = MutableStateFlow<List<NYTimesBook>>(listOf())
+    val fictionBooks: StateFlow<List<NYTimesBook>> = _fictionBooks
+
+    private val _nonFictionBooks = MutableStateFlow<List<NYTimesBook>>(listOf())
+    val nonFictionBooks: StateFlow<List<NYTimesBook>> = _nonFictionBooks
+
+    init {
+        viewModelScope.launch {
+            _fictionBooks.value = UserRepository.getWeeklyBooks(NYBookType.Fiction)
+            _nonFictionBooks.value = UserRepository.getWeeklyBooks(NYBookType.NonFiction)
+        }
+    }
 }
