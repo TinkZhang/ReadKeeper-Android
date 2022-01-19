@@ -3,10 +3,7 @@ package com.github.tinkzhang.basic
 import android.app.Activity
 import android.content.Context
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
-import com.github.tinkzhang.basic.model.ArchivedBook
-import com.github.tinkzhang.basic.model.EditableBook
-import com.github.tinkzhang.basic.model.ReadingBook
-import com.github.tinkzhang.basic.model.WishBook
+import com.github.tinkzhang.basic.model.*
 import com.github.tinkzhang.readkeeper.model.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -23,6 +20,8 @@ import java.util.*
 object UserRepository {
     val user = Firebase.auth.currentUser
     lateinit var lastBook: EditableBook
+
+    val nytCollectionRef = Firebase.firestore.collection("nytBestSellers")
 
     private val userDocumentRef = if (user == null) {
         Timber.d("offline users")
@@ -113,5 +112,11 @@ object UserRepository {
 
         val signInIntent = googleSignInClient.signInIntent
         (context as Activity).startActivityForResult(signInIntent, 9001)
+    }
+
+     fun getWeeklyBooks(type: NYBookType): List<NYTimesBook> {
+        return nytCollectionRef.document(type.name).collection("books")
+            .asFlow()
+            .toObjects(NYTimesBook::class.java)
     }
 }
