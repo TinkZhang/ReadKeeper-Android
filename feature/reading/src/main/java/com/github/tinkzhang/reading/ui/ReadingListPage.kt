@@ -15,7 +15,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.github.tinkzhang.reading.ReadingViewModel
-import com.github.tinkzhang.readkeeper.reading.ReadingListCard
+import com.github.tinkzhang.reading.ui.uicomponents.ReadingListCard
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
@@ -26,12 +26,11 @@ fun ReadingListPage(readingViewModel: ReadingViewModel, navController: NavContro
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp)
+            .padding(16.dp)
     ) {
         LazyRow(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
+                .fillMaxWidth(),
         ) {
             val categories = readingViewModel.categories.value
             if (categories != null) {

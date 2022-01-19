@@ -36,14 +36,14 @@ private fun QuoteStatelessCard(quote: Quote, onClicked: ()->Unit = {}) {
         onClick = onClicked,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(16.dp),
         elevation = 4.dp,
     ) {
         Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .padding(8.dp)
+                    .padding(16.dp)
             ) {
                 Text(
                     text = "Random Quote",

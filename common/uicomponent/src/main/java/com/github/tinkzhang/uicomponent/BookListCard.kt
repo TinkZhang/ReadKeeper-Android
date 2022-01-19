@@ -21,7 +21,7 @@ fun BookListCard(
 ) {
     Card(
         modifier = Modifier
-            .padding(8.dp)
+            .padding(bottom = 8.dp)
             .fillMaxWidth(),
     ) {
         Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
@@ -29,8 +29,8 @@ fun BookListCard(
                 Spacer(modifier = Modifier.width(8.dp))
                 Row(
                     modifier = Modifier
-                        .padding(8.dp)
                         .fillMaxWidth()
+                        .padding(16.dp)
                         .clickable { onCardClicked() },
                     verticalAlignment = Alignment.CenterVertically,
                 ) {

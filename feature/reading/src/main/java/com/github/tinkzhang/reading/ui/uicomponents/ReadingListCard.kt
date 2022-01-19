@@ -1,11 +1,8 @@
-package com.github.tinkzhang.readkeeper.reading
+package com.github.tinkzhang.reading.ui.uicomponents
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import com.github.tinkzhang.reading.ui.uicomponents.ReadingCardEditBottom
-import com.github.tinkzhang.reading.ui.uicomponents.ReadingCardMetadata
-import com.github.tinkzhang.reading.ui.uicomponents.ReadingCardProgressBottom
 import com.github.tinkzhang.basic.model.ReadingBook
 import com.github.tinkzhang.basic.model.ReadingBookFactory
 import com.github.tinkzhang.uicomponent.BookCardImage
