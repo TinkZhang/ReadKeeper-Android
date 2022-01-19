@@ -11,6 +11,7 @@ material = "1.4.0"
 compose = "1.1.0-rc01"
 compose-material3 = "1.0.0-alpha02"
 compose-navigation = "2.4.0-beta02"
+compose-viewmodel = "1.0.0-alpha07"
 
 accompanist-swiperefresh = "0.21.5-rc"
 
@@ -70,6 +71,7 @@ composeUiTestJunit = { module = "androidx.compose.ui:ui-test-junit4", version.re
 composeUiTest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 composeMaterial3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 composeNavigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
+composeViewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose-viewmodel"}
 
 accompanistSwiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist-swiperefresh" }
 
@@ -113,7 +115,7 @@ roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
 roomKotlin = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 [bundles]
-androidx-compose = ["composeUi", "coil", "composeMaterial", "composeUiTooling", "composeIcon", "composeMaterial3", "composeLiveData", "composeNavigation"]
+androidx-compose = ["composeUi", "coil", "composeMaterial", "composeUiTooling", "composeIcon", "composeMaterial3", "composeLiveData", "composeNavigation", "composeViewModel"]
 retrofit = ["retrofit", "retrofit-gson", "retrofit-logging"]
 google-login = ["firebaseAuth", "playAuth"]
 firestore = ["firebaseFirestore", "play-services-coroutines"]

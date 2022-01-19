@@ -35,8 +35,7 @@ private fun QuoteStatelessCard(quote: Quote, onClicked: ()->Unit = {}) {
     Card(
         onClick = onClicked,
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+            .fillMaxWidth(),
         elevation = 4.dp,
     ) {
         Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
