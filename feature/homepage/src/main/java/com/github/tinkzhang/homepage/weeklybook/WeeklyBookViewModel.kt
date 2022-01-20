@@ -23,4 +23,10 @@ class WeeklyBookViewModel : ViewModel() {
             _nonFictionBooks.value = UserRepository.getWeeklyBooks(NYBookType.NonFictions)
         }
     }
+
+    fun getBook(title: String, type: NYBookType): NYTimesBook = when (type) {
+        NYBookType.NonFictions -> _nonFictionBooks.value.first { it.title == title }
+        NYBookType.Fictions -> _fictionBooks.value.first { it.title == title }
+    }
+
 }

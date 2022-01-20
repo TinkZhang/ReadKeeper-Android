@@ -5,7 +5,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.github.tinkzhang.basic.model.WishBook
 import com.github.tinkzhang.basic.model.WishBookFactory
-import com.github.tinkzhang.uicomponent.BookCardImage
+import com.github.tinkzhang.uicomponent.BookCardImageSmall
 import com.github.tinkzhang.uicomponent.BookListCard
 import com.github.tinkzhang.wish.ui.components.WishCardEditBottom
 import com.github.tinkzhang.wish.ui.components.WishCardMetadata
@@ -18,7 +18,7 @@ fun WishListCard(
     onMoveToReadingClicked: () -> Unit = {}
 ) {
     BookListCard(
-        left = { BookCardImage(book = book) },
+        left = { BookCardImageSmall(url = book.bookInfo.imageUrl, title = book.bookInfo.title) },
         right = { WishCardMetadata(book = book) },
         bottom = {
             WishCardEditBottom(onButtonClicked = onMoveToReadingClicked)

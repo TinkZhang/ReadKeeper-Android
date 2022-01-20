@@ -1,37 +1,23 @@
 package com.github.tinkzhang.wish.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
 import com.github.tinkzhang.basic.model.WishBook
 import com.github.tinkzhang.basic.model.WishBookFactory
-import com.github.tinkzhang.wish.R
+import com.github.tinkzhang.uicomponent.BookCardImageLarge
 import java.text.DateFormat
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun WishVipInfoSection(book: WishBook) {
     Row(modifier = Modifier.fillMaxWidth()) {
-        Card(modifier = Modifier.weight(1.0f)) {
-            Image(
-                painter = rememberImagePainter(
-                    data = book.bookInfo.imageUrl,
-                    builder = {
-                        placeholder(R.drawable.book_sample)
-                    }),
-                contentDescription = null,
-                contentScale = ContentScale.FillWidth,
-            )
-        }
+        BookCardImageLarge(url = book.bookInfo.imageUrl, title = book.bookInfo.title)
         WishVipMetadata(book = book, modifier = Modifier.weight(2.0f))
     }
 }
