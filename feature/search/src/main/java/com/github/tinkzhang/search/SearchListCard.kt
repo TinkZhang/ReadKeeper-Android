@@ -4,15 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.tinkzhang.basic.model.SearchBook
 import com.github.tinkzhang.basic.model.SearchBookFactory
-import com.github.tinkzhang.uicomponent.BookListCard
 import com.github.tinkzhang.search.ui.components.SearchCardBottom
 import com.github.tinkzhang.search.ui.components.SearchCardMetadata
-import com.github.tinkzhang.uicomponent.BookCardImage
+import com.github.tinkzhang.uicomponent.BookCardImageSmall
+import com.github.tinkzhang.uicomponent.BookListCard
 
 @Composable
 fun SearchListCard(book: SearchBook, searchResultViewModel: SearchResultViewModel? = null) {
     BookListCard(
-        left = { BookCardImage(book = book) },
+        left = { BookCardImageSmall(url = book.bookInfo.imageUrl, title = book.bookInfo.title) },
         right = { SearchCardMetadata(book = book) },
         bottom = {
             SearchCardBottom(

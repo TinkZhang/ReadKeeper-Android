@@ -5,13 +5,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.github.tinkzhang.basic.model.ReadingBook
 import com.github.tinkzhang.basic.model.ReadingBookFactory
-import com.github.tinkzhang.uicomponent.BookCardImage
+import com.github.tinkzhang.uicomponent.BookCardImageSmall
 import com.github.tinkzhang.uicomponent.BookListCard
 
 @Composable
 fun ReadingListCard(book: ReadingBook, navController: NavController? = null) {
     BookListCard(
-        left = { BookCardImage(book = book) },
+        left = { BookCardImageSmall(url = book.bookInfo.imageUrl, title = book.bookInfo.title) },
         right = { ReadingCardMetadata(book = book) },
         bottom = {
             if (book.formatEdited) {

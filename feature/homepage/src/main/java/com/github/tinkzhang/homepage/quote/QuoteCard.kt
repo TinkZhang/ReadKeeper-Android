@@ -45,7 +45,7 @@ private fun QuoteStatelessCard(quote: Quote, onClicked: ()->Unit = {}) {
                     .padding(16.dp)
             ) {
                 Text(
-                    text = "Random Quote",
+                    text = "\uD83E\uDD89 Random Quote",
                     style = MaterialTheme.typography.titleMedium
                 )
                 Divider(Modifier.padding(vertical = 4.dp), thickness = 2.dp)
