@@ -10,21 +10,25 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.basic.UserRepository
 import com.github.tinkzhang.basic.model.NYBookType
 import com.github.tinkzhang.basic.model.WishBookFactory
 import com.github.tinkzhang.homepage.quote.QuoteCard
+import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
 import com.github.tinkzhang.homepage.weeklybook.ui.WeeklyBookCard
 
 @Composable
 fun Homepage(
     navController: NavController,
-) {
+    viewModel: WeeklyBookViewModel = viewModel(),
+    ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,10 +58,15 @@ fun Homepage(
         Spacer(modifier = Modifier.height(12.dp))
         QuoteCard()
         Spacer(modifier = Modifier.height(12.dp))
-        WeeklyBookCard(NYBookType.Fiction)
-        Spacer(modifier = Modifier.height(12.dp))
-        WeeklyBookCard(NYBookType.NonFiction)
-        Spacer(modifier = Modifier.height(12.dp))
+        if (viewModel.fictionBooks.collectAsState().value.isNotEmpty()){
+            WeeklyBookCard(NYBookType.Fictions)
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+        if (viewModel.nonFictionBooks.collectAsState().value.isNotEmpty()) {
+            WeeklyBookCard(NYBookType.NonFictions)
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+
 
         Button(onClick = {
             UserRepository.addBook(WishBookFactory.buildSample())

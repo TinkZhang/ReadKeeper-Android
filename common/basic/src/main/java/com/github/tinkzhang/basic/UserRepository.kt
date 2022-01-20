@@ -116,6 +116,7 @@ object UserRepository {
 
      suspend fun getWeeklyBooks(type: NYBookType): List<NYTimesBook> {
         return Firebase.firestore.collection(type.name)
+            .orderBy("rank")
             .get().await()
             .toObjects(NYTimesBook::class.java)
     }

@@ -19,8 +19,8 @@ class WeeklyBookViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _fictionBooks.value = UserRepository.getWeeklyBooks(NYBookType.Fiction)
-            _nonFictionBooks.value = UserRepository.getWeeklyBooks(NYBookType.NonFiction)
+            _fictionBooks.value = UserRepository.getWeeklyBooks(NYBookType.Fictions)
+            _nonFictionBooks.value = UserRepository.getWeeklyBooks(NYBookType.NonFictions)
         }
     }
 }
