@@ -1,21 +1,23 @@
 package com.github.tinkzhang.homepage.weeklybook.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -43,17 +45,23 @@ fun WeeklyBookCard(
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(start = 16.dp)
+                    .padding(vertical = 16.dp)
             ) {
+                Icon(
+                    painter = painterResource(id = com.github.tinkzhang.homepage.R.drawable.ic_newyorktimes),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
                 Text(
-                    text = "New York Times Weekly Best Seller - ${type.name}",
+                    text = "Weekly Best Seller - ${type.name}",
                     style = MaterialTheme.typography.titleMedium,
                 )
                 Divider(Modifier.padding(vertical = 8.dp), thickness = 2.dp)
                 val books by when (type) {
-                        NYBookType.Fiction -> viewModel.fictionBooks.collectAsState()
-                        NYBookType.NonFiction -> viewModel.nonFictionBooks.collectAsState()
-                    }
+                    NYBookType.Fictions -> viewModel.fictionBooks.collectAsState()
+                    NYBookType.NonFictions -> viewModel.nonFictionBooks.collectAsState()
+                }
                 LazyRow() {
                     items(books) { book: NYTimesBook ->
                         NYTimesBookCard(book)
@@ -69,7 +77,7 @@ fun WeeklyBookCard(
 @Composable
 private fun WeeklyBookCardPreview() {
     WeeklyBookCard(
-        NYBookType.Fiction
+        NYBookType.Fictions
     )
 }
 
@@ -79,7 +87,7 @@ fun NYTimesBookCard(book: NYTimesBook) {
         Modifier.padding(end = 8.dp),
         backgroundColor = MaterialTheme.colorScheme.background
     ) {
-        Column(Modifier.width(96.dp)) {
+        Box() {
             Image(
                 painter = rememberImagePainter(
                     data = book.bookImage,
@@ -95,12 +103,12 @@ fun NYTimesBookCard(book: NYTimesBook) {
                     .height(150.dp)
             )
             Text(
-                book.title,
+                "# ${book.rank}",
+                style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(8.dp),
-                maxLines = 3,
-                style = MaterialTheme.typography.titleSmall
+                    .background(MaterialTheme.colorScheme.tertiary)
+                    .padding(2.dp),
+                color = MaterialTheme.colorScheme.onTertiary
             )
         }
     }
