@@ -59,11 +59,11 @@ fun Homepage(
         QuoteCard()
         Spacer(modifier = Modifier.height(12.dp))
         if (viewModel.fictionBooks.collectAsState().value.isNotEmpty()){
-            WeeklyBookCard(NYBookType.Fictions)
+            WeeklyBookCard(NYBookType.Fictions, navController)
             Spacer(modifier = Modifier.height(12.dp))
         }
         if (viewModel.nonFictionBooks.collectAsState().value.isNotEmpty()) {
-            WeeklyBookCard(NYBookType.NonFictions)
+            WeeklyBookCard(NYBookType.NonFictions, navController)
             Spacer(modifier = Modifier.height(12.dp))
         }
 

@@ -2,6 +2,7 @@ package com.github.tinkzhang.basic
 
 object SCREEN_ROUTE {
     const val HOME = "home"
+    const val WEEKLY_ITEM = "weekly_item/{title}?type={type}"
     const val READING_LIST = "reading_list"
     const val READING_ITEM =
         "reading_item/{uuid}?open_progress_dialog={open_progress_dialog}&open_edit_dialog={open_edit_dialog}"

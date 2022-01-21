@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.github.tinkzhang.basic.model.NYBookType
 import com.github.tinkzhang.basic.model.NYTimesBook
 import com.github.tinkzhang.basic.model.NYTimesBookSample
@@ -32,11 +33,10 @@ import com.github.tinkzhang.uicomponent.BookCardImage
 @Composable
 fun WeeklyBookCard(
     type: NYBookType,
+    navController: NavController? = null,
     viewModel: WeeklyBookViewModel = viewModel(),
-    onClicked: () -> Unit = {}
 ) {
     Card(
-        onClick = onClicked,
         modifier = Modifier
             .fillMaxWidth(),
         elevation = 4.dp,
@@ -64,7 +64,7 @@ fun WeeklyBookCard(
                 }
                 LazyRow() {
                     items(books) { book: NYTimesBook ->
-                        NYTimesBookCard(book)
+                        NYTimesBookCard(book, type, navController)
                     }
                 }
             }
@@ -81,27 +81,21 @@ private fun WeeklyBookCardPreview() {
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun NYTimesBookCard(book: NYTimesBook) {
+fun NYTimesBookCard(
+    book: NYTimesBook,
+    type: NYBookType,
+    navController: NavController? = null
+) {
     Card(
-        Modifier.padding(end = 8.dp),
-        backgroundColor = MaterialTheme.colorScheme.background
+        onClick = {
+            navController?.navigate("weekly_item/${book.title}")
+        },
+        modifier = Modifier.padding(end = 8.dp),
+        backgroundColor = MaterialTheme.colorScheme.background,
     ) {
         Box() {
-//            Image(
-//                painter = rememberImagePainter(
-//                    data = book.bookImage,
-//                    builder = {
-//                        this.crossfade(true)
-//                        placeholder(drawableResId = R.drawable.ic_launcher_foreground)
-//                    }
-//                ),
-//                contentDescription = book.title,
-//                contentScale = ContentScale.Crop,
-//                modifier = Modifier
-//                    .width(100.dp)
-//                    .height(150.dp)
-//            )
             BookCardImage(url = book.bookImage, title = book.title)
             Text(
                 "# ${book.rank}",
@@ -118,6 +112,6 @@ fun NYTimesBookCard(book: NYTimesBook) {
 @Preview
 @Composable
 private fun NYTimesBookCardPreview() {
-    NYTimesBookCard(book = NYTimesBookSample())
+    NYTimesBookCard(book = NYTimesBookSample(), type = NYBookType.NonFictions)
 }
 

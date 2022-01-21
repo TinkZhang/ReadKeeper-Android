@@ -1,15 +1,15 @@
 package com.github.tinkzhang.homepage.weeklybook.ui
 
 import androidx.compose.animation.rememberSplineBasedDecay
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,19 +20,18 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.github.tinkzhang.basic.model.NYBookType
 import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
+import com.github.tinkzhang.uicomponent.BookCardImageLarge
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
 fun WeeklyBookVIP(
     title: String,
-    type: NYBookType,
     viewModel: WeeklyBookViewModel = viewModel(),
     navController: NavController
 ) {
     val book by remember {
-        mutableStateOf(viewModel.getBook(title, type))
+        mutableStateOf(viewModel.getBook(title))
     }
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
     val scrollBehavior = remember(decayAnimationSpec) {
@@ -62,8 +61,26 @@ fun WeeklyBookVIP(
                 .padding(horizontal = 16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-//            ReadingVipInfoSection(book = book)
-//            Spacer(modifier = Modifier.padding(vertical = 8.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BookCardImageLarge(url = book.bookImage, title = book.title)
+                WeeklyVipMetadata(book = book)
+            }
+            FilledTonalButton(
+                onClick = { viewModel.addToWish(book) },
+                Modifier.fillMaxWidth()
+            ) {
+                androidx.compose.material3.Icon(
+                    Icons.Default.ArrowForward,
+                    contentDescription = null
+                )
+                androidx.compose.material3.Icon(
+                    Icons.Default.Favorite,
+                    contentDescription = null
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text("Add to Wish List")
+            }
+        //            Spacer(modifier = Modifier.padding(vertical = 8.dp))
 //            ReadingVipProgressSection(
 //                lastRecord = book.records.lastOrNull(),
 //                pageFormat = book.pageFormat,

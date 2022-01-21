@@ -9,7 +9,15 @@ data class NYTimesBook(
     val rank: Int = 0,
     val rankLastWeek: Int = 0,
     val weeksOnList: Int = 0,
-)
+) {
+    fun toWish(): WishBook = WishBook(
+        bookInfo = BookInfo(
+            title = title,
+            imageUrl = bookImage,
+            author = author,
+        )
+    )
+}
 
 fun NYTimesBookSample() = NYTimesBook(
     title = "INVISIBLE",
