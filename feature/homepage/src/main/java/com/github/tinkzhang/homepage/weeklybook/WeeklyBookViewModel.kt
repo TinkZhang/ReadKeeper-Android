@@ -24,9 +24,8 @@ class WeeklyBookViewModel : ViewModel() {
         }
     }
 
-    fun getBook(title: String, type: NYBookType): NYTimesBook = when (type) {
-        NYBookType.NonFictions -> _nonFictionBooks.value.first { it.title == title }
-        NYBookType.Fictions -> _fictionBooks.value.first { it.title == title }
+    fun getBook(title: String) = UserRepository.findWeeklyBook(title)
+    fun addToWish(book: NYTimesBook) {
+        UserRepository.addBook(book.toWish())
     }
-
 }

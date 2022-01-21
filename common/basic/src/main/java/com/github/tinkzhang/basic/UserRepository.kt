@@ -13,6 +13,8 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.util.*
@@ -20,6 +22,11 @@ import java.util.*
 object UserRepository {
     val user = Firebase.auth.currentUser
     lateinit var lastBook: EditableBook
+
+    private val fictionsMutex = Mutex()
+    private var fictions: List<NYTimesBook> = listOf()
+    private val nonFictionsMutex = Mutex()
+    private var nonFictions: List<NYTimesBook> = listOf()
 
     val nytCollectionRef = Firebase.firestore.collection("nytBestSellers")
 
@@ -114,10 +121,25 @@ object UserRepository {
         (context as Activity).startActivityForResult(signInIntent, 9001)
     }
 
-     suspend fun getWeeklyBooks(type: NYBookType): List<NYTimesBook> {
-        return Firebase.firestore.collection(type.name)
+    suspend fun getWeeklyBooks(type: NYBookType): List<NYTimesBook> {
+        val books = Firebase.firestore.collection(type.name)
             .orderBy("rank")
             .get().await()
             .toObjects(NYTimesBook::class.java)
+        if (type == NYBookType.Fictions) {
+            fictionsMutex.withLock {
+                this.fictions = books
+            }
+            return fictionsMutex.withLock { this.fictions }
+        } else {
+            nonFictionsMutex.withLock {
+                this.nonFictions = books
+            }
+            return nonFictionsMutex.withLock { this.nonFictions }
+        }
+    }
+
+    fun findWeeklyBook(title: String): NYTimesBook {
+        return nonFictions.firstOrNull { it.title == title } ?: fictions.first { it.title == title }
     }
 }

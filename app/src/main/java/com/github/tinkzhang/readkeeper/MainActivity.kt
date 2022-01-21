@@ -28,6 +28,7 @@ import com.github.readkeeper.archived.ui.ArchivedVip
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import com.github.tinkzhang.homepage.Homepage
+import com.github.tinkzhang.homepage.weeklybook.ui.WeeklyBookVIP
 import com.github.tinkzhang.reading.ReadingViewModel
 import com.github.tinkzhang.reading.ui.ReadingListPage
 import com.github.tinkzhang.readkeeper.common.RkScreen
@@ -58,7 +59,7 @@ class MainActivity : ComponentActivity() {
         MobileAds.initialize(this) {}
         mCustomTabClient = RkCustomTabClient(this)
         installSplashScreen().apply {
-            setKeepVisibleCondition{
+            setKeepVisibleCondition {
                 FirebaseRemoteConfigWrapper
                 false
             }
@@ -98,6 +99,12 @@ class MainActivity : ComponentActivity() {
                         NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
                             composable(SCREEN_ROUTE.HOME) {
                                 Homepage(
+                                    navController = navController,
+                                )
+                            }
+                            composable(SCREEN_ROUTE.WEEKLY_ITEM) {
+                                WeeklyBookVIP(
+                                    title = it.arguments?.getString("title") ?: "",
                                     navController = navController,
                                 )
                             }
