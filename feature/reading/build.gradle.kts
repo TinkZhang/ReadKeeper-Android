@@ -61,4 +61,6 @@ dependencies {
     // Firebase
     implementation(libs.firebaseFirestore)
 
+    // Google Ad
+    implementation(libs.googleAd)
 }

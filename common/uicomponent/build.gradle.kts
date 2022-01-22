@@ -57,4 +57,6 @@ dependencies {
     // Browser
     implementation(libs.browser)
 
+    // Google Ad
+    implementation(libs.googleAd)
 }
