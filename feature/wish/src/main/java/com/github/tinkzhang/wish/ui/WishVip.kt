@@ -18,10 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import com.github.tinkzhang.uicomponent.DpBottomPadding
+import com.github.tinkzhang.uicomponent.GoogleAdView
 import com.github.tinkzhang.uicomponent.RkCustomTabClient
-import com.github.tinkzhang.wish.R
 import com.github.tinkzhang.wish.WishViewModel
-import com.github.tinkzhang.wish.ui.components.GoogleAdView
 import com.github.tinkzhang.wish.ui.components.VipSearchEngineSection
 import com.github.tinkzhang.wish.ui.components.WishVipInfoSection
 import com.google.android.gms.ads.AdSize
@@ -96,8 +95,6 @@ fun WishVip(
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
             GoogleAdView(
                 adSize = AdSize.MEDIUM_RECTANGLE,
-                adUnitId = stringResource(id = R.string.google_ad_unit_id),
-                modifier = Modifier.fillMaxWidth(),
                 keyword = book.bookInfo.title
             )
 

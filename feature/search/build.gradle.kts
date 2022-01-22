@@ -63,6 +63,9 @@ dependencies {
     // Retrofit
     implementation(libs.bundles.retrofit)
 
+    // Google Ad
+    implementation(libs.googleAd)
+    
     // Timber
     implementation(libs.timber)
 }

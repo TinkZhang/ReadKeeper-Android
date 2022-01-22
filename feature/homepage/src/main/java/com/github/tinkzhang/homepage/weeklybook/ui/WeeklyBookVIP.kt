@@ -24,6 +24,7 @@ import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
 import com.github.tinkzhang.uicomponent.*
 import com.github.tinkzhang.wish.ui.components.VipSearchEngineSection
+import com.google.android.gms.ads.AdSize
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
@@ -91,6 +92,10 @@ fun WeeklyBookVIP(
             }
             Spacer(modifier = Modifier.height(DpVipSectionPadding))
             AmazonLinkSection(book.amazonProductUrl, mCustomTabClient)
+            GoogleAdView(
+                adSize = AdSize.MEDIUM_RECTANGLE,
+                keyword = book.title
+            )
             if (FirebaseRemoteConfigWrapper.isWishVipSearchLinkEnabled
                 && !FirebaseRemoteConfigWrapper.searchEngines?.searchEngines.isNullOrEmpty()
             ) {
