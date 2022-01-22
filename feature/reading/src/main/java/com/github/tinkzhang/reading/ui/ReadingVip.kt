@@ -29,6 +29,7 @@ import com.github.tinkzhang.reading.ui.uicomponents.ReadingVipInfoSection
 import com.github.tinkzhang.reading.ui.uicomponents.ReadingVipNoteSection
 import com.github.tinkzhang.reading.ui.uicomponents.ReadingVipProgressSection
 import com.github.tinkzhang.uicomponent.AddProgressDialogContent
+import com.github.tinkzhang.uicomponent.DpBottomPadding
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
@@ -125,9 +126,8 @@ fun ReadingVip(
                 totalPages = book.bookInfo.pages,
                 platform = book.platform
             )
-            Spacer(modifier = Modifier.padding(vertical = 8.dp))
             ReadingVipNoteSection(book.records.reversed(), book.pageFormat, book.bookInfo.pages)
-            Spacer(modifier = Modifier.padding(vertical = 48.dp))
+            Spacer(modifier = Modifier.padding(DpBottomPadding))
         }
 
         if (showEditBookPageDialog) {

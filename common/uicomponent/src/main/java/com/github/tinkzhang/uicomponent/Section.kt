@@ -21,7 +21,12 @@ fun Section(
     title: String? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    Card(Modifier.fillMaxWidth(), elevation = DpCardElevation) {
+    Card(
+        Modifier
+            .fillMaxWidth()
+            .padding(bottom = DpVipSectionPadding),
+        elevation = DpCardElevation
+    ) {
         Column(
             Modifier
                 .fillMaxWidth()

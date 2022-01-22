@@ -18,14 +18,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
-import com.github.tinkzhang.uicomponent.AmazonLinkSection
-import com.github.tinkzhang.uicomponent.BookCardImageLarge
-import com.github.tinkzhang.uicomponent.DpVipSectionPadding
-import com.github.tinkzhang.uicomponent.RkCustomTabClient
+import com.github.tinkzhang.uicomponent.*
+import com.github.tinkzhang.wish.ui.components.VipSearchEngineSection
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
@@ -63,20 +61,22 @@ fun WeeklyBookVIP(
         val mCustomTabClient = RkCustomTabClient(context)
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .fillMaxSize()
+                .padding(horizontal = DpContentLargePadding)
                 .verticalScroll(rememberScrollState())
         ) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 BookCardImageLarge(url = book.bookImage, title = book.title)
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(DpContentLargePadding))
                 WeeklyVipMetadata(book = book)
             }
             Spacer(modifier = Modifier.height(DpVipSectionPadding))
+            DescriptionSection(description = book.description)
             FilledTonalButton(
                 onClick = { viewModel.addToWish(book) },
                 Modifier.fillMaxWidth()
             ) {
+                Spacer(modifier = Modifier.height(DpContentMediumPadding))
                 androidx.compose.material3.Icon(
                     Icons.Default.ArrowForward,
                     contentDescription = null
@@ -85,22 +85,21 @@ fun WeeklyBookVIP(
                     Icons.Default.Favorite,
                     contentDescription = null
                 )
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.width(DpContentMediumPadding))
                 Text("Add to Wish List")
+                Spacer(modifier = Modifier.height(DpContentMediumPadding))
             }
             Spacer(modifier = Modifier.height(DpVipSectionPadding))
             AmazonLinkSection(book.amazonProductUrl, mCustomTabClient)
-            Spacer(modifier = Modifier.height(DpVipSectionPadding))
-            //            Spacer(modifier = Modifier.padding(vertical = 8.dp))
-//            ReadingVipProgressSection(
-//                lastRecord = book.records.lastOrNull(),
-//                pageFormat = book.pageFormat,
-//                totalPages = book.bookInfo.pages,
-//                platform = book.platform
-//            )
-//            Spacer(modifier = Modifier.padding(vertical = 8.dp))
-//            ReadingVipNoteSection(book.records.reversed(), book.pageFormat, book.bookInfo.pages)
-//            Spacer(modifier = Modifier.padding(vertical = 48.dp))
+            if (FirebaseRemoteConfigWrapper.isWishVipSearchLinkEnabled
+                && !FirebaseRemoteConfigWrapper.searchEngines?.searchEngines.isNullOrEmpty()
+            ) {
+                VipSearchEngineSection(
+                    book.title,
+                    FirebaseRemoteConfigWrapper.searchEngines!!.searchEngines,
+                    mCustomTabClient,
+                )
+            }
         }
     }
 }

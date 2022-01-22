@@ -23,6 +23,8 @@ import com.github.tinkzhang.basic.model.WishBookFactory
 import com.github.tinkzhang.homepage.quote.QuoteCard
 import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
 import com.github.tinkzhang.homepage.weeklybook.ui.WeeklyBookCard
+import com.github.tinkzhang.uicomponent.DpBottomPadding
+import com.github.tinkzhang.uicomponent.DpVipSectionPadding
 
 @Composable
 fun Homepage(
@@ -55,19 +57,14 @@ fun Homepage(
                 Text("Search by Google Books™")
             }
         }
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(DpVipSectionPadding))
         QuoteCard()
-        Spacer(modifier = Modifier.height(12.dp))
         if (viewModel.fictionBooks.collectAsState().value.isNotEmpty()){
             WeeklyBookCard(NYBookType.Fictions, navController)
-            Spacer(modifier = Modifier.height(12.dp))
         }
         if (viewModel.nonFictionBooks.collectAsState().value.isNotEmpty()) {
             WeeklyBookCard(NYBookType.NonFictions, navController)
-            Spacer(modifier = Modifier.height(12.dp))
         }
-
-
         Button(onClick = {
             UserRepository.addBook(WishBookFactory.buildSample())
         }) {
@@ -78,6 +75,7 @@ fun Homepage(
         }) {
             Text("Get Book")
         }
+        Spacer(modifier = Modifier.height(DpBottomPadding))
     }
 
 }
