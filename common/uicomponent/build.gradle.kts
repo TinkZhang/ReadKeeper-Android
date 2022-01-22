@@ -40,6 +40,7 @@ android {
 
 dependencies {
     implementation(project(mapOf("path" to ":common:basic")))
+    implementation(project(mapOf("path" to ":common:firebaseRemoteConfig")))
 
     // Compose
     implementation(libs.bundles.androidx.compose)

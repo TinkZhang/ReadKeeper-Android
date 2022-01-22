@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
+import com.github.tinkzhang.uicomponent.DpBottomPadding
 import com.github.tinkzhang.uicomponent.RkCustomTabClient
 import com.github.tinkzhang.wish.R
 import com.github.tinkzhang.wish.WishViewModel
@@ -110,7 +111,7 @@ fun WishVip(
                     client,
                 )
             }
-            Spacer(modifier = Modifier.padding(vertical = 48.dp))
+            Spacer(modifier = Modifier.padding(DpBottomPadding))
         }
 
     }

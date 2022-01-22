@@ -24,6 +24,7 @@ import com.github.readkeeper.archived.R
 import com.github.readkeeper.archived.ui.components.ArchivedVipInfoSection
 import com.github.tinkzhang.reading.ui.uicomponents.ReadingVipNoteSection
 import com.github.tinkzhang.reading.ui.uicomponents.ReadingVipProgressSection
+import com.github.tinkzhang.uicomponent.DpBottomPadding
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
@@ -83,7 +84,7 @@ fun ArchivedVip(
             )
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
             ReadingVipNoteSection(book.records.reversed(), book.pageFormat, book.bookInfo.pages)
-            Spacer(modifier = Modifier.padding(vertical = 48.dp))
+            Spacer(modifier = Modifier.padding(DpBottomPadding))
         }
 
     }
