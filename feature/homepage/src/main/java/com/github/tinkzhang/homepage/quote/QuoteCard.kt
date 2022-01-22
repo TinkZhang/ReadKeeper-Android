@@ -1,18 +1,18 @@
 package com.github.tinkzhang.homepage.quote
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.github.tinkzhang.uicomponent.DpContentMediumPadding
+import com.github.tinkzhang.uicomponent.Section
 import kotlin.random.Random
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -20,7 +20,7 @@ import kotlin.random.Random
 fun QuoteCard() {
     val context = LocalContext.current
     val quoteRepository = remember { QuoteRepository(context) }
-    var randomId by remember { mutableStateOf(Random.nextInt(1,106)) }
+    var randomId by remember { mutableStateOf(Random.nextInt(1, 106)) }
     val randomQuote by quoteRepository.getQuote(randomId).collectAsState(null)
     if (randomQuote != null) {
         QuoteStatelessCard(quote = randomQuote!!) {
@@ -31,28 +31,12 @@ fun QuoteCard() {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun QuoteStatelessCard(quote: Quote, onClicked: ()->Unit = {}) {
-    Card(
-        onClick = onClicked,
-        modifier = Modifier
-            .fillMaxWidth(),
-        elevation = 4.dp,
-    ) {
-        Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(
-                    text = "\uD83E\uDD89 Random Quote",
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Divider(Modifier.padding(vertical = 4.dp), thickness = 2.dp)
-                Text(quote.quote)
-                Spacer(Modifier.height(8.dp))
-                Text(" --- ${quote.author}", Modifier.align(Alignment.End))
-            }
+private fun QuoteStatelessCard(quote: Quote, onClicked: () -> Unit = {}) {
+    Section(title = "\uD83E\uDD89 Random Quote") {
+        Column(modifier = Modifier.clickable { onClicked() }) {
+            Text(quote.quote)
+            Spacer(modifier = Modifier.height(DpContentMediumPadding))
+            Text(" --- ${quote.author}", Modifier.align(Alignment.End))
         }
     }
 }

@@ -3,16 +3,13 @@ package com.github.tinkzhang.homepage.weeklybook.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
-import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -28,6 +25,7 @@ import com.github.tinkzhang.basic.model.NYTimesBook
 import com.github.tinkzhang.basic.model.NYTimesBookSample
 import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
 import com.github.tinkzhang.uicomponent.BookCardImage
+import com.github.tinkzhang.uicomponent.Section
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -36,37 +34,26 @@ fun WeeklyBookCard(
     navController: NavController? = null,
     viewModel: WeeklyBookViewModel = viewModel(),
 ) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth(),
-        elevation = 4.dp,
-    ) {
-        Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp)
-                    .padding(vertical = 16.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = com.github.tinkzhang.homepage.R.drawable.ic_newyorktimes),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = "Weekly Best Seller - ${type.name}",
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Divider(Modifier.padding(vertical = 8.dp), thickness = 2.dp)
-                val books by when (type) {
-                    NYBookType.Fictions -> viewModel.fictionBooks.collectAsState()
-                    NYBookType.NonFictions -> viewModel.nonFictionBooks.collectAsState()
-                }
-                LazyRow() {
-                    items(books) { book: NYTimesBook ->
-                        NYTimesBookCard(book, type, navController)
-                    }
-                }
+    Section(header = {
+        Column() {
+            Icon(
+                painter = painterResource(id = com.github.tinkzhang.homepage.R.drawable.ic_newyorktimes),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Text(
+                text = "Weekly Best Seller - ${type.name}",
+                style = MaterialTheme.typography.titleMedium,
+            )
+        }
+    }) {
+        val books by when (type) {
+            NYBookType.Fictions -> viewModel.fictionBooks.collectAsState()
+            NYBookType.NonFictions -> viewModel.nonFictionBooks.collectAsState()
+        }
+        LazyRow() {
+            items(books) { book: NYTimesBook ->
+                NYTimesBookCard(book, navController)
             }
         }
     }
@@ -85,7 +72,6 @@ private fun WeeklyBookCardPreview() {
 @Composable
 fun NYTimesBookCard(
     book: NYTimesBook,
-    type: NYBookType,
     navController: NavController? = null
 ) {
     Card(
@@ -112,6 +98,6 @@ fun NYTimesBookCard(
 @Preview
 @Composable
 private fun NYTimesBookCardPreview() {
-    NYTimesBookCard(book = NYTimesBookSample(), type = NYBookType.NonFictions)
+    NYTimesBookCard(book = NYTimesBookSample())
 }
 
