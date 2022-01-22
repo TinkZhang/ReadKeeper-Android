@@ -17,11 +17,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
+import com.github.tinkzhang.uicomponent.AmazonLinkSection
 import com.github.tinkzhang.uicomponent.BookCardImageLarge
+import com.github.tinkzhang.uicomponent.DpVipSectionPadding
+import com.github.tinkzhang.uicomponent.RkCustomTabClient
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
@@ -55,6 +59,8 @@ fun WeeklyBookVIP(
             )
         },
     ) {
+        val context = LocalContext.current
+        val mCustomTabClient = RkCustomTabClient(context)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -63,8 +69,10 @@ fun WeeklyBookVIP(
         ) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 BookCardImageLarge(url = book.bookImage, title = book.title)
+                Spacer(modifier = Modifier.width(16.dp))
                 WeeklyVipMetadata(book = book)
             }
+            Spacer(modifier = Modifier.height(DpVipSectionPadding))
             FilledTonalButton(
                 onClick = { viewModel.addToWish(book) },
                 Modifier.fillMaxWidth()
@@ -80,7 +88,10 @@ fun WeeklyBookVIP(
                 Spacer(modifier = Modifier.width(4.dp))
                 Text("Add to Wish List")
             }
-        //            Spacer(modifier = Modifier.padding(vertical = 8.dp))
+            Spacer(modifier = Modifier.height(DpVipSectionPadding))
+            AmazonLinkSection(book.amazonProductUrl, mCustomTabClient)
+            Spacer(modifier = Modifier.height(DpVipSectionPadding))
+            //            Spacer(modifier = Modifier.padding(vertical = 8.dp))
 //            ReadingVipProgressSection(
 //                lastRecord = book.records.lastOrNull(),
 //                pageFormat = book.pageFormat,

@@ -49,7 +49,11 @@ private fun RankStat(book: NYTimesBook) {
             text = "# ${book.rank}",
             style = MaterialTheme.typography.titleLarge,
         )
-        val change = book.rankLastWeek - book.rank
+        val change = if (book.rankLastWeek != 0) {
+            book.rankLastWeek - book.rank
+        } else {
+            15 - book.rank
+        }
         when {
             change < 0 -> {
                 Row {
@@ -76,7 +80,7 @@ private fun RankStat(book: NYTimesBook) {
                     )
                     Spacer(modifier = Modifier.width(2.dp))
                     Text(
-                        " $change",
+                        " +$change",
                         style = MaterialTheme.typography.titleLarge,
                     )
                 }
