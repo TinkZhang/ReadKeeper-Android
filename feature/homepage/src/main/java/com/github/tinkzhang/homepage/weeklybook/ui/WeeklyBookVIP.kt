@@ -6,15 +6,16 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarResult
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -25,6 +26,7 @@ import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
 import com.github.tinkzhang.uicomponent.*
 import com.github.tinkzhang.wish.ui.components.VipSearchEngineSection
 import com.google.android.gms.ads.AdSize
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
@@ -40,7 +42,10 @@ fun WeeklyBookVIP(
     val scrollBehavior = remember(decayAnimationSpec) {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
     }
+    val scope = rememberCoroutineScope()
+    val scaffoldState = rememberScaffoldState()
     Scaffold(
+        snackbarHost = { SnackbarHost(hostState = scaffoldState.snackbarHostState) },
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
@@ -74,7 +79,18 @@ fun WeeklyBookVIP(
             Spacer(modifier = Modifier.height(DpVipSectionPadding))
             DescriptionSection(description = book.description)
             FilledTonalButton(
-                onClick = { viewModel.addToWish(book) },
+                onClick = {
+                    scope.launch {
+                        val result = scaffoldState.snackbarHostState.showSnackbar(
+                            "Added into Wish List",
+                            "Undo"
+                        )
+                        when (result) {
+                            SnackbarResult.Dismissed -> {}
+                            SnackbarResult.ActionPerformed -> viewModel.addToWish(book)
+                        }
+                    }
+                },
                 Modifier.fillMaxWidth()
             ) {
                 Spacer(modifier = Modifier.height(DpContentMediumPadding))
