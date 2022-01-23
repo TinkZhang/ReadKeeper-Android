@@ -10,7 +10,8 @@ data class BookInfo(
     var author: String = "",
     var pages: Int = 0,
     var rating: Double = 0.0,
-    var pubYear: Int = 0
+    var pubYear: Int = 0,
+    val amazonLink: String? = null,
 )
 
 data class TimeInfo(
