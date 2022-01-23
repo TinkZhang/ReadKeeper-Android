@@ -17,9 +17,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
+import com.github.tinkzhang.uicomponent.AmazonLinkSection
 import com.github.tinkzhang.uicomponent.DpBottomPadding
 import com.github.tinkzhang.uicomponent.GoogleAdView
 import com.github.tinkzhang.uicomponent.RkCustomTabClient
+import com.github.tinkzhang.wish.R
 import com.github.tinkzhang.wish.WishViewModel
 import com.github.tinkzhang.wish.ui.components.VipSearchEngineSection
 import com.github.tinkzhang.wish.ui.components.WishVipInfoSection
@@ -93,6 +95,11 @@ fun WishVip(
                 Text("Move to Reading List")
             }
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
+            AmazonLinkSection(
+                url = book.bookInfo.amazonLink
+                    ?: stringResource(id = R.string.amazonlink) + book.bookInfo.title,
+                mCustomTabClient = client
+            )
             GoogleAdView(
                 adSize = AdSize.MEDIUM_RECTANGLE,
                 keyword = book.bookInfo.title
