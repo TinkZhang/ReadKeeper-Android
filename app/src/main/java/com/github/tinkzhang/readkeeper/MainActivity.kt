@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
         MobileAds.initialize(this) {}
         mCustomTabClient = RkCustomTabClient(this)
         installSplashScreen().apply {
-            setKeepVisibleCondition {
+            setKeepOnScreenCondition {
                 FirebaseRemoteConfigWrapper
                 false
             }
