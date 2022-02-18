@@ -126,16 +126,17 @@ object UserRepository {
             .orderBy("rank")
             .get().await()
             .toObjects(NYTimesBook::class.java)
-        if (type == NYBookType.Fictions) {
+        Timber.d("Fetch NYBook from Firebase")
+        return if (type == NYBookType.Fictions) {
             fictionsMutex.withLock {
                 this.fictions = books
             }
-            return fictionsMutex.withLock { this.fictions }
+            fictionsMutex.withLock { this.fictions }
         } else {
             nonFictionsMutex.withLock {
                 this.nonFictions = books
             }
-            return nonFictionsMutex.withLock { this.nonFictions }
+            nonFictionsMutex.withLock { this.nonFictions }
         }
     }
 

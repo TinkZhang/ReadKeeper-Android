@@ -14,7 +14,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.basic.UserRepository
@@ -29,8 +28,8 @@ import com.github.tinkzhang.uicomponent.DpVipSectionPadding
 @Composable
 fun Homepage(
     navController: NavController,
-    viewModel: WeeklyBookViewModel = viewModel(),
-    ) {
+    viewModel: WeeklyBookViewModel,
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

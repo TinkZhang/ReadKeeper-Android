@@ -63,4 +63,11 @@ dependencies {
 
     // Google Ad
     implementation(libs.googleAd)
+
+    // Datastore
+    implementation(libs.datastore)
+
+    // Hilt
+    implementation(libs.bundles.hilt)
+    kapt(libs.bundles.hiltComplier)
 }

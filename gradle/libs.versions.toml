@@ -65,6 +65,11 @@ splash-screen = "1.0.0-beta01"
 
 room = "2.4.1"
 
+hilt-android = "2.38.1"
+hilt-lifecycle-viewmodel = "1.0.0-alpha03"
+hilt-compiler = "1.0.0"
+hilt-navigation-compose = "1.0.0"
+
 [libraries]
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
@@ -81,7 +86,7 @@ composeUiTestJunit = { module = "androidx.compose.ui:ui-test-junit4", version.re
 composeUiTest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 composeMaterial3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 composeNavigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
-composeViewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose-viewmodel"}
+composeViewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose-viewmodel" }
 
 accompanistSwiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist-swiperefresh" }
 
@@ -124,6 +129,13 @@ room = { module = "androidx.room:room-runtime", version.ref = "room" }
 roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
 roomKotlin = { module = "androidx.room:room-compiler", version.ref = "room" }
 
+#https://developer.android.com/training/dependency-injection/hilt-android#setup
+hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
+hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt-android" }
+hiltLifecycleViewmodel = { module = "androidx.hilt:hilt-lifecycle-viewmodel", version.ref = "hilt-lifecycle-viewmodel" }
+hiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-compiler" }
+hiltNavigationCompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
+
 [bundles]
 androidx-compose = ["composeUi", "coil", "composeMaterial", "composeUiTooling", "composeIcon", "composeMaterial3", "composeLiveData", "composeNavigation", "composeViewModel"]
 retrofit = ["retrofit", "retrofit-gson", "retrofit-logging"]
@@ -131,3 +143,5 @@ google-login = ["firebaseAuth", "playAuth"]
 firestore = ["firebaseFirestore", "play-services-coroutines"]
 paging = ["paging", "pagingCompose"]
 testing = ["unitTest", "uiTest"]
+hilt = ["hiltAndroid", "hiltLifecycleViewmodel", "hiltNavigationCompose"]
+hiltComplier = ["hiltAndroidCompiler", "hiltCompiler"]
