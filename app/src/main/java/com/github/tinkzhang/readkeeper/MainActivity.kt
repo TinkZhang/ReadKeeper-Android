@@ -12,6 +12,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -100,6 +101,7 @@ class MainActivity : ComponentActivity() {
                             composable(SCREEN_ROUTE.HOME) {
                                 Homepage(
                                     navController = navController,
+                                    viewModel = hiltViewModel()
                                 )
                             }
                             composable(SCREEN_ROUTE.WEEKLY_ITEM) {

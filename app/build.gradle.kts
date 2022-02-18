@@ -91,11 +91,16 @@ dependencies {
     androidTestImplementation(libs.bundles.testing)
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.38.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
-    implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
-    kapt ("androidx.hilt:hilt-compiler:1.0.0")
+    implementation(libs.bundles.hilt)
+    kapt(libs.bundles.hiltComplier)
 
+    // Room
+    implementation(libs.room)
+    implementation(libs.roomKtx)
+    kapt(libs.roomKotlin)
+
+    // Datastore
+    implementation(libs.datastore)
 }
 
 // Allow references to generated code

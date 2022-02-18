@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -41,6 +42,11 @@ dependencies {
 
     // Paging
     implementation(libs.bundles.paging)
+
+    // Room
+    implementation(libs.room)
+    implementation(libs.roomKtx)
+    kapt(libs.roomKotlin)
 
     // Timber
     implementation(libs.timber)

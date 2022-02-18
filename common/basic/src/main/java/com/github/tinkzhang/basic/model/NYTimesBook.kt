@@ -1,14 +1,29 @@
 package com.github.tinkzhang.basic.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "nytimesbook")
 data class NYTimesBook(
+    @PrimaryKey
     val title: String = "",
+    @ColumnInfo
     val author: String = "",
+    @ColumnInfo
     val bookImage: String = "",
+    @ColumnInfo
     val amazonProductUrl: String? = null,
+    @ColumnInfo
     val description: String? = null,
+    @ColumnInfo
     val rank: Int = 0,
+    @ColumnInfo
     val rankLastWeek: Int = 0,
+    @ColumnInfo
     val weeksOnList: Int = 0,
+    @ColumnInfo
+    val type: NYBookType = NYBookType.Fictions
 ) {
     fun toWish(): WishBook = WishBook(
         bookInfo = BookInfo(
