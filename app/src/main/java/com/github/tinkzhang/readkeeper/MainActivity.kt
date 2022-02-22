@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -29,6 +30,7 @@ import com.github.readkeeper.archived.ui.ArchivedVip
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import com.github.tinkzhang.homepage.Homepage
+import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
 import com.github.tinkzhang.homepage.weeklybook.ui.WeeklyBookVIP
 import com.github.tinkzhang.reading.ReadingViewModel
 import com.github.tinkzhang.reading.ui.ReadingListPage
@@ -105,8 +107,13 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable(SCREEN_ROUTE.WEEKLY_ITEM) {
+                                val parentEntry = remember {
+                                    navController.getBackStackEntry(SCREEN_ROUTE.HOME)
+                                }
+                                val parentViewModel = hiltViewModel<WeeklyBookViewModel>(parentEntry)
                                 WeeklyBookVIP(
                                     title = it.arguments?.getString("title") ?: "",
+                                    viewModel = parentViewModel,
                                     navController = navController,
                                 )
                             }

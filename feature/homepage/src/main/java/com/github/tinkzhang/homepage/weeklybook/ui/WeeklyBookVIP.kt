@@ -19,7 +19,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
@@ -32,7 +31,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun WeeklyBookVIP(
     title: String,
-    viewModel: WeeklyBookViewModel = viewModel(),
+    viewModel: WeeklyBookViewModel,
     navController: NavController
 ) {
     val book by remember {

@@ -19,4 +19,7 @@ interface WeeklyBookDao {
 
     @Query("SELECT * FROM nytimesbook WHERE type = :type")
     fun getAllBooks(type: NYBookType): Flow<List<NYTimesBook>>
+
+    @Query("SELECT * FROM nytimesbook WHERE title = :title")
+    fun getBook(title: String): Flow<NYTimesBook>
 }

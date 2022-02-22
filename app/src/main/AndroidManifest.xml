@@ -20,7 +20,7 @@
             android:name="com.github.tinkzhang.readkeeper.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.SplashScreen">
+            android:theme="@style/Theme.ReadKeeper.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -54,4 +54,6 @@ class WeeklyBookRepository @Inject constructor(
             timeDiff > 7 * 24 * 60 * 60 * 1000
         }
     )
+
+    fun findWeeklyBook(title: String) = weeklyBookDao.getBook(title)
 }

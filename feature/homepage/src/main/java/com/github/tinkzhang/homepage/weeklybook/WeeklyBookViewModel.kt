@@ -40,7 +40,12 @@ class WeeklyBookViewModel @Inject constructor(
         }
     }
 
-    fun getBook(title: String) = UserRepository.findWeeklyBook(title)
+    fun getBook(title: String) =
+        _fictionBooks.value.firstOrNull { it.title == title }
+            ?: _nonFictionBooks.value.first {
+                it.title == title
+            }
+
     fun addToWish(book: NYTimesBook) {
         UserRepository.addBook(book.toWish())
     }
