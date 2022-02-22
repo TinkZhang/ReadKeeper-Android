@@ -2,7 +2,9 @@ package com.github.tinkzhang.search
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,6 +17,7 @@ import com.github.tinkzhang.basic.model.SearchBook
 import com.github.tinkzhang.readkeeper.ui.components.ReadingIconToggleButton
 import com.github.tinkzhang.readkeeper.ui.components.WishIconToggleButton
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBookItem(book: SearchBook) {
     Card(
@@ -63,7 +66,7 @@ fun SearchBookItemMetadata(
     ) {
         Text(
             book.bookInfo.title,
-            style = MaterialTheme.typography.h6,
+            style = MaterialTheme.typography.headlineSmall,
             maxLines = 3,
             modifier = Modifier.padding(bottom = 8.dp),
         )
@@ -71,7 +74,7 @@ fun SearchBookItemMetadata(
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                 Text(
                     "✍️   " + book.bookInfo.author,
-                    style = MaterialTheme.typography.subtitle1,
+                    style = MaterialTheme.typography.labelMedium,
                     maxLines = 2,
                     modifier = Modifier.padding(bottom = 8.dp),
                 )
@@ -79,7 +82,7 @@ fun SearchBookItemMetadata(
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                 Text(
                     "\uD83D\uDCC5   " + book.bookInfo.pubYear.toString(),
-                    style = MaterialTheme.typography.subtitle1,
+                    style = MaterialTheme.typography.labelMedium,
                     modifier = Modifier.padding(bottom = 8.dp),
                 )
             }
@@ -103,7 +106,7 @@ private fun SearchBookItemActionBar(
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
             Text(
                 "Add this book into: ",
-                style = MaterialTheme.typography.caption,
+                style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier
                     .weight(0.5f)
                     .align(Alignment.CenterVertically)

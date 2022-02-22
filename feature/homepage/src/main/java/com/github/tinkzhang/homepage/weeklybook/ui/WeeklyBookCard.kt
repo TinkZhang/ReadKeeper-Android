@@ -1,13 +1,14 @@
 package com.github.tinkzhang.homepage.weeklybook.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,7 +28,7 @@ import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
 import com.github.tinkzhang.uicomponent.BookCardImage
 import com.github.tinkzhang.uicomponent.Section
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun WeeklyBookCard(
     type: NYBookType,
@@ -68,18 +69,18 @@ private fun WeeklyBookCardPreview() {
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun NYTimesBookCard(
     book: NYTimesBook,
     navController: NavController? = null
 ) {
-    Card(
-        onClick = {
-            navController?.navigate("weekly_item/${book.title}")
-        },
-        modifier = Modifier.padding(end = 8.dp),
-        backgroundColor = MaterialTheme.colorScheme.background,
+    ElevatedCard(
+        modifier = Modifier
+            .padding(end = 8.dp)
+            .clickable {
+                navController?.navigate("weekly_item/${book.title}")
+            },
     ) {
         Box() {
             BookCardImage(url = book.bookImage, title = book.title)
