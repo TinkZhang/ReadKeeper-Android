@@ -50,4 +50,11 @@ dependencies {
 
     // Timber
     implementation(libs.timber)
+
+    // Hilt
+    implementation(libs.bundles.hilt)
+    kapt(libs.bundles.hiltComplier)
+
+    // Datastore
+    implementation(libs.datastore)
 }

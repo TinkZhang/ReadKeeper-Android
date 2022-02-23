@@ -43,8 +43,8 @@ import com.github.tinkzhang.readkeeper.ui.components.RkMainTopBar
 import com.github.tinkzhang.readkeeper.ui.getBottomBarItemList
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
 import com.github.tinkzhang.readkeeper.user.UserViewModel
+import com.github.tinkzhang.search.SearchPage
 import com.github.tinkzhang.search.SearchResultScreen
-import com.github.tinkzhang.search.SearchScreen
 import com.github.tinkzhang.uicomponent.RkCustomTabClient
 import com.github.tinkzhang.wish.WishViewModel
 import com.github.tinkzhang.wish.ui.WishListPage
@@ -110,7 +110,8 @@ class MainActivity : ComponentActivity() {
                                 val parentEntry = remember {
                                     navController.getBackStackEntry(SCREEN_ROUTE.HOME)
                                 }
-                                val parentViewModel = hiltViewModel<WeeklyBookViewModel>(parentEntry)
+                                val parentViewModel =
+                                    hiltViewModel<WeeklyBookViewModel>(parentEntry)
                                 WeeklyBookVIP(
                                     title = it.arguments?.getString("title") ?: "",
                                     viewModel = parentViewModel,
@@ -118,7 +119,10 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable(SCREEN_ROUTE.SEARCH) {
-                                SearchScreen(navController = navController)
+                                SearchPage(
+                                    navController = navController,
+                                    searchViewModel = hiltViewModel()
+                                )
                             }
                             composable(SCREEN_ROUTE.SEARCH_RESUTL) {
                                 SearchResultScreen(
