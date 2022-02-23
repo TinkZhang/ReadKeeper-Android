@@ -19,7 +19,7 @@ import com.github.tinkzhang.readkeeper.ui.components.WishIconToggleButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBookItem(book: SearchBook) {
+fun SearchVip(book: SearchBook) {
     Card(
         modifier = Modifier
             .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)

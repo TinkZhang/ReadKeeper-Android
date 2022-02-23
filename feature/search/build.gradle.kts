@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -48,7 +49,11 @@ dependencies {
     debugImplementation(libs.composeUiTest)
 
     // DataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation(libs.datastore)
+
+    // Hilt
+    implementation(libs.bundles.hilt)
+    kapt(libs.bundles.hiltComplier)
 
     // Paging
     implementation(libs.bundles.paging)
