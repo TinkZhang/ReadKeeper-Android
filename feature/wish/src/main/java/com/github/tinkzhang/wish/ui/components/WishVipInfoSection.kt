@@ -13,7 +13,6 @@ import com.github.tinkzhang.basic.model.WishBookFactory
 import com.github.tinkzhang.uicomponent.BookCardImageLarge
 import java.text.DateFormat
 
-@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun WishVipInfoSection(book: WishBook) {
     Row(modifier = Modifier.fillMaxWidth()) {

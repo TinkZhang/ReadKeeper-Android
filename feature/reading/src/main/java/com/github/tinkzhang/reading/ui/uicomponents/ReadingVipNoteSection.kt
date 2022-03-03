@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -17,6 +18,7 @@ import com.github.tinkzhang.basic.model.ReadingRecord
 import com.github.tinkzhang.uicomponent.Section
 import com.google.firebase.Timestamp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReadingVipNoteSection(records: List<ReadingRecord>, pageFormat: PageFormat, pages: Int) {
     Section(title = "Reading Notes") {

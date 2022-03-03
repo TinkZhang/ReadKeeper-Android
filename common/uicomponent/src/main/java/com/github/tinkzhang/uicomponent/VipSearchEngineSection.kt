@@ -1,4 +1,4 @@
-package com.github.tinkzhang.wish.ui.components
+package com.github.tinkzhang.uicomponent
 
 import android.net.Uri
 import androidx.compose.foundation.layout.*
@@ -6,6 +6,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Launch
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -16,9 +17,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.tinkzhang.firebaseRemoteConfig.SearchEngine
-import com.github.tinkzhang.uicomponent.RkCustomTabClient
-import com.github.tinkzhang.uicomponent.Section
 
+@ExperimentalMaterial3Api
 @Composable
 fun VipSearchEngineSection(
     title: String,
@@ -83,6 +83,7 @@ private fun SearchEngineButtonPreview() {
     )
 }
 
+@ExperimentalMaterial3Api
 @Preview
 @Composable
 private fun VipSearchEngineSectionPreview() {
