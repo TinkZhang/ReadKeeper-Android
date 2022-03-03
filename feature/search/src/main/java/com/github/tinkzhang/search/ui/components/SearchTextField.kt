@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -30,34 +31,40 @@ fun SearchTextField(
         onDispose { }
     }
     // TODO: replace to M3 when it's available
-    OutlinedTextField(
-        value = keyword,
-        onValueChange = {
-            keyword = it
-        },
-        singleLine = true,
-        keyboardActions = KeyboardActions(
-            onSearch = {
-                onSearch(keyword)
-            }
-        ),
-        trailingIcon = {
-            IconButton(onClick = { onSearch(keyword) }) {
-                Icon(
-                    Icons.Default.Search,
-                    contentDescription = null
-                )
-            }
-        },
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        modifier = Modifier
-            .fillMaxWidth()
-            .focusRequester(focusRequester),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Transparent,
-            unfocusedBorderColor = Color.Transparent
+    androidx.compose.material3.Surface {
+        OutlinedTextField(
+            value = keyword,
+            onValueChange = {
+                keyword = it
+            },
+            singleLine = true,
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    onSearch(keyword)
+                }
+            ),
+            textStyle = MaterialTheme.typography.titleLarge,
+            trailingIcon = {
+                IconButton(onClick = { onSearch(keyword) }) {
+                    Icon(
+                        Icons.Default.Search,
+                        contentDescription = null
+                    )
+                }
+            },
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            modifier = Modifier
+                .fillMaxWidth()
+                .focusRequester(focusRequester),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.primary
+            )
         )
-    )
+    }
+
 }
 
 @Preview
