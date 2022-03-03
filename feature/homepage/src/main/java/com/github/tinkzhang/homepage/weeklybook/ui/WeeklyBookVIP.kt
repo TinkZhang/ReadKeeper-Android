@@ -23,7 +23,7 @@ import androidx.navigation.NavController
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
 import com.github.tinkzhang.uicomponent.*
-import com.github.tinkzhang.wish.ui.components.VipSearchEngineSection
+import com.github.tinkzhang.uicomponent.VipSearchEngineSection
 import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.launch
 

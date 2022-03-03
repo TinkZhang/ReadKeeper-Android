@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
+import com.github.tinkzhang.basic.DataStoreRepository
 import com.github.tinkzhang.basic.UserRepository
 import com.github.tinkzhang.homepage.weeklybook.db.WeeklyBookDatabase
 import dagger.Module
@@ -23,6 +24,12 @@ object AppModule {
     @Singleton
     @Provides
     fun provideUserRepository(): UserRepository = UserRepository
+
+    @Singleton
+    @Provides
+    fun provideDataStoreRepository(
+        @ApplicationContext context: Context
+    ): DataStoreRepository = DataStoreRepository(context)
 
     @Provides
     @Singleton
