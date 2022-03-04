@@ -46,7 +46,6 @@ fun RkBackTopBar(title: String) {
 @Composable
 fun RkMainTopBar(
     userViewModel: UserViewModel,
-    modifier: Modifier = Modifier,
     onProfileClickAction: () -> Unit = {}
 ) {
     CenterAlignedTopAppBar(

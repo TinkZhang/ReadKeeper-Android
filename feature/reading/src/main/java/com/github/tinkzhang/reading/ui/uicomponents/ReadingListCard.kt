@@ -1,5 +1,6 @@
 package com.github.tinkzhang.reading.ui.uicomponents
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
@@ -8,6 +9,7 @@ import com.github.tinkzhang.basic.model.ReadingBookFactory
 import com.github.tinkzhang.uicomponent.BookCardImageSmall
 import com.github.tinkzhang.uicomponent.BookListCard
 
+@ExperimentalMaterial3Api
 @Composable
 fun ReadingListCard(book: ReadingBook, navController: NavController? = null) {
     BookListCard(
@@ -30,6 +32,7 @@ fun ReadingListCard(book: ReadingBook, navController: NavController? = null) {
     )
 }
 
+@ExperimentalMaterial3Api
 @Preview
 @Composable
 private fun ReadingCard() {

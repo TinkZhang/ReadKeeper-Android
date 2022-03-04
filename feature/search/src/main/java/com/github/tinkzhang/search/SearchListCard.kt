@@ -12,26 +12,18 @@ import com.github.tinkzhang.uicomponent.BookListCard
 
 @ExperimentalMaterial3Api
 @Composable
-fun SearchListCard(book: SearchBook, searchResultViewModel: SearchResultViewModel? = null) {
+fun SearchListCard(
+    book: SearchBook,
+    onAddWishClick: (Boolean) -> Unit = {},
+    onAddReadingClick: (Boolean) -> Unit = {},
+) {
     BookListCard(
         left = { BookCardImageSmall(url = book.bookInfo.imageUrl, title = book.bookInfo.title) },
         right = { SearchCardMetadata(book = book) },
         bottom = {
             SearchCardBottom(
-                onWishButtonClicked = { checked ->
-                    if (checked) {
-                        searchResultViewModel?.addWish(book.convertToWishBook())
-                    } else {
-                        searchResultViewModel?.removeWish(book.bookInfo.uuid)
-                    }
-                },
-                onReadingButtonClicked = { checked ->
-                    if (checked) {
-                        searchResultViewModel?.addReading(book.convertToReadingBook())
-                    } else {
-                        searchResultViewModel?.removeReading(book.bookInfo.uuid)
-                    }
-                }
+                onWishButtonClicked = onAddWishClick,
+                onReadingButtonClicked = onAddReadingClick
             )
         },
     )

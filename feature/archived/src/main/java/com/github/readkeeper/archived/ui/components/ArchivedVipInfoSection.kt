@@ -7,13 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.annotation.ExperimentalCoilApi
 import com.github.tinkzhang.basic.model.ArchivedBook
 import com.github.tinkzhang.basic.model.ArchivedBookFactory
 import com.github.tinkzhang.uicomponent.BookCardImageLarge
 import java.text.DateFormat
 
-@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun ArchivedVipInfoSection(book: ArchivedBook) {
     Row(modifier = Modifier.fillMaxWidth()) {

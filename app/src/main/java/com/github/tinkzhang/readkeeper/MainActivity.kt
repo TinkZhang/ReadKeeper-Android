@@ -7,9 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -34,7 +32,6 @@ import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
 import com.github.tinkzhang.homepage.weeklybook.ui.WeeklyBookVIP
 import com.github.tinkzhang.reading.ReadingViewModel
 import com.github.tinkzhang.reading.ui.ReadingListPage
-import com.github.tinkzhang.readkeeper.common.RkScreen
 import com.github.tinkzhang.readkeeper.reading.ReadingVip
 import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.github.tinkzhang.readkeeper.ui.MainScreenViewData
@@ -52,11 +49,11 @@ import com.github.tinkzhang.wish.ui.WishVip
 import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalMaterial3Api
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private var mCustomTabClient: RkCustomTabClient? = null
 
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MobileAds.initialize(this) {}
@@ -73,7 +70,6 @@ class MainActivity : ComponentActivity() {
             val wishViewModel: WishViewModel = viewModel()
             val archivedViewModel: ArchivedViewModel = viewModel()
             ReadKeeperTheme {
-                val currentScreen by rememberSaveable { mutableStateOf(RkScreen.Home) }
                 val navController = rememberNavController()
                 val context = LocalContext.current
                 // A surface container using the 'background' color from the theme
