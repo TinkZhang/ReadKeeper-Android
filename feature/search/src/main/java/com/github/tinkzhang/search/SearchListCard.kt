@@ -1,5 +1,6 @@
 package com.github.tinkzhang.search
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.tinkzhang.basic.model.SearchBook
@@ -9,6 +10,7 @@ import com.github.tinkzhang.search.ui.components.SearchCardMetadata
 import com.github.tinkzhang.uicomponent.BookCardImageSmall
 import com.github.tinkzhang.uicomponent.BookListCard
 
+@ExperimentalMaterial3Api
 @Composable
 fun SearchListCard(book: SearchBook, searchResultViewModel: SearchResultViewModel? = null) {
     BookListCard(
@@ -35,6 +37,7 @@ fun SearchListCard(book: SearchBook, searchResultViewModel: SearchResultViewMode
     )
 }
 
+@ExperimentalMaterial3Api
 @Preview
 @Composable
 private fun SearchListCard() {
