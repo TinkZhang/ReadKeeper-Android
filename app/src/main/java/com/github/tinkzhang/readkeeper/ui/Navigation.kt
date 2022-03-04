@@ -20,7 +20,7 @@ val ROUTE_TO_SCREEN_MAP = mapOf(
 )
 
 interface ScreenViewData {
-    open val route: String
+    val route: String
 }
 
 open class SubScreenViewData(

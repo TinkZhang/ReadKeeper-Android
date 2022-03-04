@@ -81,9 +81,23 @@ fun SearchResultPage(
                     }
                 }
             }
-            itemsIndexed(books) { index, item ->
+            itemsIndexed(books) { _, item ->
                 if (item != null) {
-                    SearchListCard(book = item, searchResultViewModel)
+                    SearchListCard(book = item,
+                        onAddWishClick = { checked ->
+                            if (checked) {
+                                searchResultViewModel.addWish(item.convertToWishBook())
+                            } else {
+                                searchResultViewModel.removeWish(item.bookInfo.uuid)
+                            }
+                        },
+                        onAddReadingClick = { checked ->
+                            if (checked) {
+                                searchResultViewModel.addReading(item.convertToReadingBook())
+                            } else {
+                                searchResultViewModel.removeReading(item.bookInfo.uuid)
+                            }
+                        })
                 }
             }
 

@@ -2,12 +2,12 @@ package com.github.tinkzhang.readkeeper.ui.components
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconToggleButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BookmarkAdded
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -38,13 +38,13 @@ fun RkIconToggleButton(
             Icon(
                 checkedIcon,
                 contentDescription = checkedIconDescription,
-                tint = MaterialTheme.colors.secondary,
+                tint = MaterialTheme.colorScheme.tertiary
             )
         } else {
             Icon(
                 uncheckedIcon,
                 contentDescription = uncheckedIconDescription,
-                tint = MaterialTheme.colors.secondary.copy(alpha = 0.8f)
+                tint = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.8f)
             )
         }
     }

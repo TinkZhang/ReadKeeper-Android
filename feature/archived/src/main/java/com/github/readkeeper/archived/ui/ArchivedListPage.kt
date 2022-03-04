@@ -3,6 +3,7 @@ package com.github.readkeeper.archived.ui
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,6 +16,7 @@ import com.github.readkeeper.archived.ArchivedViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
+@ExperimentalMaterial3Api
 @Composable
 fun ArchivedListPage(
     archivedViewModel: ArchivedViewModel,
