@@ -1,7 +1,7 @@
 package com.github.tinkzhang.search
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -13,10 +13,25 @@ import com.github.tinkzhang.basic.model.ReadingBook
 import com.github.tinkzhang.basic.model.SearchBook
 import com.github.tinkzhang.basic.model.WishBook
 import com.github.tinkzhang.search.network.SIZE
+import dagger.hilt.android.lifecycle.HiltViewModel
 import github.tinkzhang.readkeeper.search.model.googlebook.Item
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
+import javax.inject.Inject
 
-class SearchResultViewModel(private val keyword: String) : ViewModel() {
+const val KEYWORD = "keyword"
+
+@HiltViewModel
+class SearchResultViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle
+) : ViewModel() {
+
+    private val keyword: String = savedStateHandle[KEYWORD] ?: ""
+
+    init {
+        Timber.d("Create Search Result ViewModel for keyword $keyword")
+    }
+
     val flow = Pager(
         PagingConfig(pageSize = SIZE)
     ) {
@@ -52,10 +67,4 @@ private fun Item.convertToSearchBook(): SearchBook {
             pubYear = this.volumeInfo.publishedDate?.split('-')?.first()?.toInt() ?: 0
         )
     )
-}
-
-class SearchResultViewModelFactory(private val keyword: String) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return SearchResultViewModel(keyword) as T
-    }
 }

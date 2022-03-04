@@ -44,7 +44,7 @@ import com.github.tinkzhang.readkeeper.ui.getBottomBarItemList
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
 import com.github.tinkzhang.readkeeper.user.UserViewModel
 import com.github.tinkzhang.search.SearchPage
-import com.github.tinkzhang.search.SearchResultScreen
+import com.github.tinkzhang.search.SearchResultPage
 import com.github.tinkzhang.uicomponent.RkCustomTabClient
 import com.github.tinkzhang.wish.WishViewModel
 import com.github.tinkzhang.wish.ui.WishListPage
@@ -125,8 +125,9 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable(SCREEN_ROUTE.SEARCH_RESUTL) {
-                                SearchResultScreen(
+                                SearchResultPage(
                                     it.arguments?.getString("keyword") ?: "",
+                                    searchResultViewModel = hiltViewModel(),
                                     navController = navController
                                 )
                             }

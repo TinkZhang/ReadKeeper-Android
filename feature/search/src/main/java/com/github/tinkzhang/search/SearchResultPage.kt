@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -21,12 +20,13 @@ import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.search.ui.components.RkSearchErrorItem
 import com.github.tinkzhang.search.ui.components.RkSearchTipItem
 
-@OptIn(ExperimentalMaterial3Api::class)
+@ExperimentalMaterial3Api
 @Composable
-fun SearchResultScreen(keyword: String, navController: NavController? = null) {
-    val searchResultViewModel: SearchResultViewModel = viewModel(
-        factory = SearchResultViewModelFactory(keyword)
-    )
+fun SearchResultPage(
+    keyword: String,
+    searchResultViewModel: SearchResultViewModel,
+    navController: NavController? = null
+) {
     Scaffold(
         topBar = {
             SmallTopAppBar(
