@@ -63,7 +63,7 @@ private fun Item.convertToSearchBook(): SearchBook {
             imageUrl = this.volumeInfo.imageLinks?.thumbnail?.replace("http:", "https:") ?: "",
             author = this.volumeInfo.authors?.joinToString() ?: "",
             rating = this.volumeInfo.averageRating,
-            pages = this.volumeInfo.pageCount ?: 999,
+            pages = this.volumeInfo.pageCount,
             pubYear = this.volumeInfo.publishedDate?.split('-')?.first()?.toInt() ?: 0
         )
     )
