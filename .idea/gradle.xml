@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/feature/homepage" />
             <option value="$PROJECT_DIR$/feature/reading" />
             <option value="$PROJECT_DIR$/feature/search" />
+            <option value="$PROJECT_DIR$/feature/settings" />
             <option value="$PROJECT_DIR$/feature/wish" />
           </set>
         </option>
