@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -41,6 +42,7 @@ android {
 dependencies {
 
     implementation(project(mapOf("path" to ":common:basic")))
+    implementation(project(mapOf("path" to ":common:uicomponent")))
 
     // Compose
     implementation(libs.bundles.androidx.compose)
@@ -54,4 +56,11 @@ dependencies {
     // Firebase
     implementation(libs.firebaseFirestore)
     implementation(libs.bundles.google.login)
+
+    // DataStore
+    implementation(libs.datastore)
+
+    // Hilt
+    implementation(libs.bundles.hilt)
+    kapt(libs.bundles.hiltComplier)
 }

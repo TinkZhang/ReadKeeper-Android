@@ -1,6 +1,5 @@
 package com.github.tinkzhang.readkeeper
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -33,7 +32,6 @@ import com.github.tinkzhang.homepage.weeklybook.ui.WeeklyBookVIP
 import com.github.tinkzhang.reading.ReadingViewModel
 import com.github.tinkzhang.reading.ui.ReadingListPage
 import com.github.tinkzhang.readkeeper.reading.ReadingVip
-import com.github.tinkzhang.readkeeper.settings.SettingsActivity
 import com.github.tinkzhang.readkeeper.ui.MainScreenViewData
 import com.github.tinkzhang.readkeeper.ui.ROUTE_TO_SCREEN_MAP
 import com.github.tinkzhang.readkeeper.ui.components.RkMainTopBar
@@ -42,6 +40,7 @@ import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
 import com.github.tinkzhang.readkeeper.user.UserViewModel
 import com.github.tinkzhang.search.SearchPage
 import com.github.tinkzhang.search.SearchResultPage
+import com.github.tinkzhang.settings.SettingsPage
 import com.github.tinkzhang.uicomponent.RkCustomTabClient
 import com.github.tinkzhang.wish.WishViewModel
 import com.github.tinkzhang.wish.ui.WishListPage
@@ -83,9 +82,10 @@ class MainActivity : ComponentActivity() {
                                 RkMainTopBar(
                                     userViewModel = userViewModel,
                                     onProfileClickAction = {
-                                        context.startActivity(
-                                            Intent(context, SettingsActivity::class.java)
-                                        )
+//                                        context.startActivity(
+//                                            Intent(context, SettingsActivity::class.java)
+//                                        )
+                                        navController.navigate(SCREEN_ROUTE.SETTINGS)
                                     })
                             }
                         },
@@ -180,6 +180,12 @@ class MainActivity : ComponentActivity() {
                                 ArchivedVip(
                                     uuid = it.arguments?.getString("uuid") ?: "",
                                     archivedViewModel = archivedViewModel,
+                                    navController = navController
+                                )
+                            }
+                            composable(SCREEN_ROUTE.SETTINGS) {
+                                SettingsPage(
+                                    settingsViewModel = hiltViewModel(),
                                     navController = navController
                                 )
                             }
