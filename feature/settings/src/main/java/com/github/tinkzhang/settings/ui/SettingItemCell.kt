@@ -1,9 +1,12 @@
 package com.github.tinkzhang.settings.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -14,10 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.github.tinkzhang.settings.model.OpenPageItem
-import com.github.tinkzhang.settings.model.SettingItem
-import com.github.tinkzhang.settings.model.SingleSelectionItem
-import com.github.tinkzhang.settings.model.StaticItem
+import com.github.tinkzhang.settings.model.*
 
 @Composable
 fun SettingItemCell(
@@ -42,9 +42,23 @@ fun SettingItemCell(
             subtitle = label,
             icon = item.commonAttribute.icon,
             onClick = { onClick(item) },
-            right = { Icon(Icons.Default.ChevronRight, contentDescription = "") }
+            right = { Icon(Icons.Default.ChevronRight, contentDescription = null) }
+        )
+        is ExternalPageItem -> SettingItemCell(
+            title = item.commonAttribute.title,
+            subtitle = label,
+            icon = item.commonAttribute.icon,
+            onClick = { onClick(item) },
+            right = { Icon(Icons.Default.OpenInNew, contentDescription = null) }
         )
     }
+}
+
+private fun launchLink(url: String) {
+    val intent = Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(url)
+    }
+
 }
 
 @Composable
@@ -58,6 +72,7 @@ fun SettingItemCell(
     Row(
         Modifier
             .fillMaxWidth()
+            .padding(vertical = 4.dp)
             .clickable {
                 onClick()
             }

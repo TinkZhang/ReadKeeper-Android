@@ -1,23 +1,21 @@
 package com.github.tinkzhang.settings
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.BugReport
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Palette
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.github.readkeeper.instabug.InstabugWrapper
 import com.github.tinkzhang.basic.SCREEN_ROUTE
-import com.github.tinkzhang.settings.model.OpenPageItem
-import com.github.tinkzhang.settings.model.SettingAttribute
-import com.github.tinkzhang.settings.model.SingleSelectionItem
-import com.github.tinkzhang.settings.model.StaticItem
+import com.github.tinkzhang.settings.model.*
 import com.github.tinkzhang.settings.ui.RadioSettingDialog
 import com.github.tinkzhang.settings.ui.SettingItemCell
 import kotlinx.coroutines.launch
@@ -47,6 +45,7 @@ fun SettingsPage(
         )
     }) {
         val scope = rememberCoroutineScope()
+        val context = LocalContext.current
 
         val theme by settingsViewModel.themeStatus.collectAsState(initial = ThemeStatus.DEFAULT)
         var shouldShowThemeDialog by remember { mutableStateOf(false) }
@@ -78,6 +77,7 @@ fun SettingsPage(
                         shouldShowThemeDialog = true
                     }
                 )
+                Divider(Modifier.padding(4.dp))
                 // Feedback
                 Text(
                     "Feedback",
@@ -93,6 +93,23 @@ fun SettingsPage(
                     ),
                     onClick = { InstabugWrapper.show() }
                 )
+                SettingItemCell(
+                    item = ExternalPageItem(
+                        commonAttribute = SettingAttribute(
+                            title = "Rate on Play Store",
+                            icon = Icons.Default.ThumbUp
+                        ),
+                    ),
+                    label = "Please give me 5 stars. \uD83D\uDE18",
+                    onClick = {
+                        val intent = Intent(Intent.ACTION_VIEW).apply {
+                            data =
+                                Uri.parse("https://play.google.com/store/apps/details?id=com.ebay.gumtree.au")
+                        }
+                        startActivity(context, intent, null)
+                    }
+                )
+                Divider(Modifier.padding(4.dp))
 
                 // About
                 Text(
