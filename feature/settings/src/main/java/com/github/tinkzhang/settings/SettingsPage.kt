@@ -1,25 +1,22 @@
 package com.github.tinkzhang.settings
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.tinkzhang.basic.SCREEN_ROUTE
-import com.github.tinkzhang.settings.model.SettingType
+import com.github.tinkzhang.settings.model.SettingAttribute
+import com.github.tinkzhang.settings.model.SingleSelectionItem
+import com.github.tinkzhang.settings.model.StaticItem
 import com.github.tinkzhang.settings.ui.RadioSettingDialog
-import com.github.tinkzhang.settings.ui.SettingSummary
+import com.github.tinkzhang.settings.ui.SettingItemCell
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
@@ -46,48 +43,80 @@ fun SettingsPage(
             },
         )
     }) {
-        val items = settingsViewModel.settingSummaryItems
         val scope = rememberCoroutineScope()
+
         val theme by settingsViewModel.themeStatus.collectAsState(initial = ThemeStatus.DEFAULT)
+        var shouldShowThemeDialog by remember { mutableStateOf(false) }
+        val themeSetting = SingleSelectionItem(
+            commonAttribute = SettingAttribute(
+                title = "Theme",
+                key = "theme",
+                icon = Icons.Default.Palette,
+            ),
+            options = ThemeStatus.values().map { it.label },
+        )
+
         Box(Modifier.fillMaxSize()) {
             Column(
                 Modifier
                     .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
             ) {
-                LazyColumn(Modifier.fillMaxWidth()) {
-                    items(items) { item ->
-                        SettingSummary(
-                            item,
-                            label = theme.label,
-                            onSettingItemClick = { settingsViewModel.displayedDialogKey = it })
+                // General
+                Text(
+                    "General",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+                SettingItemCell(
+                    item = themeSetting,
+                    label = theme.label,
+                    onClick = {
+                        shouldShowThemeDialog = true
                     }
-                }
+                )
+                // Feedback
+                Text(
+                    "Feedback",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+
+                // About
+                Text(
+                    "About",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+                SettingItemCell(
+                    item = StaticItem(
+                        commonAttribute = SettingAttribute(
+                            title = "App version",
+                            key = "version",
+                            icon = Icons.Default.Info
+                        ),
+                    ),
+                    label = "1.0.0"
+                )
+                Spacer(Modifier.height(16.dp))
+
             }
-            if (settingsViewModel.displayedDialogKey.isNotEmpty()) {
-                val displayedSettingItem =
-                    settingsViewModel.getSettingItem(settingsViewModel.displayedDialogKey)
-                displayedSettingItem?.let {
-                    when (it.type) {
-                        is SettingType.MultipleSelection -> TODO()
-                        is SettingType.NewPage -> TODO()
-                        is SettingType.SingleSelection -> RadioSettingDialog(
-                            options = ThemeStatus.values(),
-                            title = it.title,
-                            selectedItem = theme,
-                            onItemSelect = { value ->
-                                scope.launch {
-                                    settingsViewModel.saveSetting(
-                                        it.key,
-                                        value.name.uppercase()
-                                    )
-                                }
-                                settingsViewModel.displayedDialogKey = ""
-                            },
-                            onDismiss = { settingsViewModel.displayedDialogKey = "" })
-                        is SettingType.Toggle -> TODO()
-                        is SettingType.WebLink -> TODO()
-                    }
-                }
+
+            if (shouldShowThemeDialog) {
+                RadioSettingDialog(
+                    options = ThemeStatus.values(),
+                    title = themeSetting.commonAttribute.title,
+                    selectedItem = theme,
+                    onItemSelect = { value ->
+                        scope.launch {
+                            settingsViewModel.saveSetting(
+                                themeSetting.commonAttribute.key,
+                                value.name.uppercase()
+                            )
+                        }
+                        shouldShowThemeDialog = false
+                    },
+                    onDismiss = { shouldShowThemeDialog = false })
             }
         }
     }
