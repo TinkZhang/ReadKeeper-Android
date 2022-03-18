@@ -2,6 +2,8 @@ package com.github.tinkzhang.settings.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -12,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.github.tinkzhang.settings.model.OpenPageItem
 import com.github.tinkzhang.settings.model.SettingItem
 import com.github.tinkzhang.settings.model.SingleSelectionItem
 import com.github.tinkzhang.settings.model.StaticItem
@@ -19,7 +22,7 @@ import com.github.tinkzhang.settings.model.StaticItem
 @Composable
 fun SettingItemCell(
     item: SettingItem,
-    label: String,
+    label: String? = null,
     onClick: (SettingItem) -> Unit = {},
     right: @Composable () -> Unit = {}
 ) {
@@ -33,6 +36,13 @@ fun SettingItemCell(
             title = item.commonAttribute.title,
             subtitle = label,
             icon = item.commonAttribute.icon
+        )
+        is OpenPageItem -> SettingItemCell(
+            title = item.commonAttribute.title,
+            subtitle = label,
+            icon = item.commonAttribute.icon,
+            onClick = { onClick(item) },
+            right = { Icon(Icons.Default.ChevronRight, contentDescription = "") }
         )
     }
 }
@@ -52,24 +62,28 @@ fun SettingItemCell(
                 onClick()
             }
             .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Icon(
-            icon,
-            null,
-            tint = LocalContentColor.current.copy(alpha = 0.7f)
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Column() {
-            Text(text = title, style = MaterialTheme.typography.titleMedium)
-            if (!subtitle.isNullOrEmpty()) {
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = subtitle,
-                    style = MaterialTheme.typography.labelMedium,
-                    fontWeight = FontWeight.W400
-                )
+        Row() {
+            Icon(
+                icon,
+                null,
+                tint = LocalContentColor.current.copy(alpha = 0.7f)
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Column() {
+                Text(text = title, style = MaterialTheme.typography.titleMedium)
+                if (!subtitle.isNullOrEmpty()) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.W400
+                    )
+                }
             }
         }
+        right()
     }
 }
