@@ -18,6 +18,10 @@ data class OpenPageItem(
     override val commonAttribute: SettingAttribute,
 ): SettingItem()
 
+data class ExternalPageItem(
+    override val commonAttribute: SettingAttribute,
+): SettingItem()
+
 data class SettingAttribute(
     val title: String,
     val key: String = title,
