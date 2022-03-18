@@ -118,6 +118,36 @@ fun SettingsPage(
                     modifier = Modifier.padding(top = 8.dp)
                 )
                 SettingItemCell(
+                    item = ExternalPageItem(
+                        commonAttribute = SettingAttribute(
+                            title = "Release notes",
+                            icon = Icons.Default.RssFeed
+                        ),
+                    ),
+                    onClick = {
+                        val intent = Intent(Intent.ACTION_VIEW).apply {
+                            data =
+                                Uri.parse("https://github.com/TinkZhang/ReadKeeper-Android/releases")
+                        }
+                        startActivity(context, intent, null)
+                    }
+                )
+                SettingItemCell(
+                    item = ExternalPageItem(
+                        commonAttribute = SettingAttribute(
+                            title = "App code on Github",
+                            icon = Icons.Default.Code
+                        ),
+                    ),
+                    onClick = {
+                        val intent = Intent(Intent.ACTION_VIEW).apply {
+                            data =
+                                Uri.parse("https://github.com/TinkZhang/ReadKeeper-Android")
+                        }
+                        startActivity(context, intent, null)
+                    }
+                )
+                SettingItemCell(
                     item = StaticItem(
                         commonAttribute = SettingAttribute(
                             title = "App version",
