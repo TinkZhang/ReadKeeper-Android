@@ -1,21 +1,21 @@
 package com.github.tinkzhang.settings
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
-import com.github.readkeeper.instabug.InstabugWrapper
 import com.github.tinkzhang.basic.SCREEN_ROUTE
-import com.github.tinkzhang.settings.model.*
+import com.github.tinkzhang.settings.model.SettingAttribute
+import com.github.tinkzhang.settings.model.SingleSelectionItem
+import com.github.tinkzhang.settings.section.AboutContent
+import com.github.tinkzhang.settings.section.FeedbackContent
 import com.github.tinkzhang.settings.ui.RadioSettingDialog
 import com.github.tinkzhang.settings.ui.SettingItemCell
 import kotlinx.coroutines.launch
@@ -78,85 +78,9 @@ fun SettingsPage(
                     }
                 )
                 Divider(Modifier.padding(4.dp))
-                // Feedback
-                Text(
-                    "Feedback",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
-                SettingItemCell(
-                    item = OpenPageItem(
-                        commonAttribute = SettingAttribute(
-                            title = "Bug report & Suggestion",
-                            icon = Icons.Default.BugReport
-                        ),
-                    ),
-                    onClick = { InstabugWrapper.show() }
-                )
-                SettingItemCell(
-                    item = ExternalPageItem(
-                        commonAttribute = SettingAttribute(
-                            title = "Rate on Play Store",
-                            icon = Icons.Default.ThumbUp
-                        ),
-                    ),
-                    label = "Please give me 5 stars. \uD83D\uDE18",
-                    onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW).apply {
-                            data =
-                                Uri.parse("https://play.google.com/store/apps/details?id=com.ebay.gumtree.au")
-                        }
-                        startActivity(context, intent, null)
-                    }
-                )
-                Divider(Modifier.padding(4.dp))
+                FeedbackContent(context = context)
+                AboutContent(context = context)
 
-                // About
-                Text(
-                    "About",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
-                SettingItemCell(
-                    item = ExternalPageItem(
-                        commonAttribute = SettingAttribute(
-                            title = "Release notes",
-                            icon = Icons.Default.RssFeed
-                        ),
-                    ),
-                    onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW).apply {
-                            data =
-                                Uri.parse("https://github.com/TinkZhang/ReadKeeper-Android/releases")
-                        }
-                        startActivity(context, intent, null)
-                    }
-                )
-                SettingItemCell(
-                    item = ExternalPageItem(
-                        commonAttribute = SettingAttribute(
-                            title = "App code on Github",
-                            icon = Icons.Default.Code
-                        ),
-                    ),
-                    onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW).apply {
-                            data =
-                                Uri.parse("https://github.com/TinkZhang/ReadKeeper-Android")
-                        }
-                        startActivity(context, intent, null)
-                    }
-                )
-                SettingItemCell(
-                    item = StaticItem(
-                        commonAttribute = SettingAttribute(
-                            title = "App version",
-                            key = "version",
-                            icon = Icons.Default.Info
-                        ),
-                    ),
-                    label = "1.0.0"
-                )
                 Spacer(Modifier.height(16.dp))
 
             }
