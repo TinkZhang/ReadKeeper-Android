@@ -1,9 +1,8 @@
 package com.github.tinkzhang.settings.ui
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Switch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.OpenInNew
@@ -23,8 +22,7 @@ import com.github.tinkzhang.settings.model.*
 fun SettingItemCell(
     item: SettingItem,
     label: String? = null,
-    onClick: (SettingItem) -> Unit = {},
-    right: @Composable () -> Unit = {}
+    onClick: (SettingItem) -> Unit = {}
 ) {
     when (item) {
         is SingleSelectionItem -> SettingItemCell(
@@ -51,21 +49,19 @@ fun SettingItemCell(
             onClick = { onClick(item) },
             right = { Icon(Icons.Default.OpenInNew, contentDescription = null) }
         )
+        is ToggleItem -> SettingItemCell(
+            title = item.commonAttribute.title,
+            onClick = { onClick(item) },
+            right = { Switch(checked = item.value, onCheckedChange = { onClick(item)}) }
+        )
     }
-}
-
-private fun launchLink(url: String) {
-    val intent = Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse(url)
-    }
-
 }
 
 @Composable
 fun SettingItemCell(
     title: String,
     subtitle: String? = null,
-    icon: ImageVector,
+    icon: ImageVector? = null,
     onClick: () -> Unit = {},
     right: @Composable () -> Unit = {}
 ) {
@@ -80,14 +76,16 @@ fun SettingItemCell(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Row() {
-            Icon(
-                icon,
-                null,
-                tint = LocalContentColor.current.copy(alpha = 0.7f)
-            )
+        Row {
+            if (icon != null) {
+                Icon(
+                    icon,
+                    null,
+                    tint = LocalContentColor.current.copy(alpha = 0.7f)
+                )
+            }
             Spacer(modifier = Modifier.width(16.dp))
-            Column() {
+            Column {
                 Text(text = title, style = MaterialTheme.typography.titleMedium)
                 if (!subtitle.isNullOrEmpty()) {
                     Spacer(modifier = Modifier.height(4.dp))

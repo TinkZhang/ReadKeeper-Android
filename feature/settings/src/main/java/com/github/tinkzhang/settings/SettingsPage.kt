@@ -11,23 +11,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.github.tinkzhang.basic.DataStoreKey
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.settings.model.SettingAttribute
 import com.github.tinkzhang.settings.model.SingleSelectionItem
 import com.github.tinkzhang.settings.section.AboutContent
 import com.github.tinkzhang.settings.section.FeedbackContent
 import com.github.tinkzhang.settings.section.GeneralContent
+import com.github.tinkzhang.settings.section.HomepageContent
 import com.github.tinkzhang.settings.ui.RadioSettingDialog
 import kotlinx.coroutines.launch
-
-val themeSetting = SingleSelectionItem(
-    commonAttribute = SettingAttribute(
-        title = "Theme",
-        key = "theme",
-        icon = Icons.Default.Palette,
-    ),
-    options = ThemeStatus.values().map { it.label },
-)
 
 @ExperimentalMaterial3Api
 @Composable
@@ -58,6 +51,16 @@ fun SettingsPage(
 
         val theme by settingsViewModel.themeStatus.collectAsState(initial = ThemeStatus.DEFAULT)
         var shouldShowThemeDialog by remember { mutableStateOf(false) }
+        val themeSetting = SingleSelectionItem(
+            commonAttribute = SettingAttribute(
+                title = stringResource(id = R.string.theme),
+                key = DataStoreKey.THEME,
+                icon = Icons.Default.Palette,
+            ),
+            options = ThemeStatus.values().map { it.label },
+        )
+
+        val isQuoteEnable by settingsViewModel.isQuoteEnabled.collectAsState(initial = true)
 
         Box(Modifier.fillMaxSize()) {
             Column(
@@ -66,8 +69,20 @@ fun SettingsPage(
                     .padding(horizontal = 16.dp)
             ) {
                 GeneralContent(
-                    theme,
+                    themeSetting = themeSetting,
+                    theme = theme,
                     onThemeSettingClick = { shouldShowThemeDialog = true }
+                )
+                HomepageContent(
+                    isQuoteEnabled = isQuoteEnable,
+                    onQuoteSettingClick = {
+                        scope.launch {
+                            settingsViewModel.saveSetting(
+                                DataStoreKey.IS_QUOTE_ENABLE,
+                                !isQuoteEnable
+                            )
+                        }
+                    }
                 )
                 FeedbackContent(context = context)
                 AboutContent(context = context)

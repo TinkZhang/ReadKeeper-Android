@@ -14,10 +14,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import com.github.tinkzhang.settings.R
 import com.github.tinkzhang.settings.model.ExternalPageItem
 import com.github.tinkzhang.settings.model.SettingAttribute
 import com.github.tinkzhang.settings.model.StaticItem
@@ -41,12 +43,12 @@ fun AboutContent(isExpanded: Boolean = false, context: Context? = null) {
         ) {
             Column {
                 Text(
-                    "About",
+                    text = stringResource(id = R.string.about_setting_title),
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(top = 8.dp)
                 )
                 Text(
-                    text = "Version, release notes, source code",
+                    text = stringResource(id = R.string.about_setting_subtitle),
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.W400
                 )
@@ -64,7 +66,7 @@ fun AboutContent(isExpanded: Boolean = false, context: Context? = null) {
             ) {
                 Column {
                     Text(
-                        "About",
+                        text = stringResource(id = R.string.about_setting_title),
                         style = MaterialTheme.typography.titleLarge,
                         modifier = Modifier.padding(top = 8.dp)
                     )
@@ -79,7 +81,7 @@ fun AboutContent(isExpanded: Boolean = false, context: Context? = null) {
             SettingItemCell(
                 item = ExternalPageItem(
                     commonAttribute = SettingAttribute(
-                        title = "Release notes",
+                        title = stringResource(R.string.release_notes_setting_title),
                         icon = Icons.Default.RssFeed
                     ),
                 ),
@@ -96,7 +98,7 @@ fun AboutContent(isExpanded: Boolean = false, context: Context? = null) {
             SettingItemCell(
                 item = ExternalPageItem(
                     commonAttribute = SettingAttribute(
-                        title = "App code on Github",
+                        title = stringResource(id = R.string.source_code_setting_title),
                         icon = Icons.Default.Code
                     ),
                 ),
@@ -113,8 +115,7 @@ fun AboutContent(isExpanded: Boolean = false, context: Context? = null) {
             SettingItemCell(
                 item = StaticItem(
                     commonAttribute = SettingAttribute(
-                        title = "App version",
-                        key = "version",
+                        title = stringResource(id = R.string.app_version_setting_title),
                         icon = Icons.Default.Info
                     ),
                 ),

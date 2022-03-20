@@ -18,6 +18,11 @@ data class OpenPageItem(
     override val commonAttribute: SettingAttribute,
 ): SettingItem()
 
+data class ToggleItem(
+    override val commonAttribute: SettingAttribute,
+    var value: Boolean
+): SettingItem()
+
 data class ExternalPageItem(
     override val commonAttribute: SettingAttribute,
 ): SettingItem()

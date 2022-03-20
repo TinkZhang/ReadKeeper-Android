@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme">Theme</string>
+    <string name="homepage_setting_title">Homepage content</string>
+    <string name="homepage_setting_subtitle">Cumsomize content on homepage</string>
+    <string name="quote_setting_title">Show reading quotes</string>
+    <string name="general_setting_title">General</string>
+    <string name="about_setting_title">About</string>
+    <string name="about_setting_subtitle">Version, release notes, source code</string>
+    <string name="release_notes_setting_title">Release notes</string>
+    <string name="source_code_setting_title">App code on Github</string>
+    <string name="app_version_setting_title">App version</string>
+</resources>
