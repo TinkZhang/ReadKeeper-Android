@@ -16,9 +16,18 @@ import com.github.tinkzhang.settings.model.SettingAttribute
 import com.github.tinkzhang.settings.model.SingleSelectionItem
 import com.github.tinkzhang.settings.section.AboutContent
 import com.github.tinkzhang.settings.section.FeedbackContent
+import com.github.tinkzhang.settings.section.GeneralContent
 import com.github.tinkzhang.settings.ui.RadioSettingDialog
-import com.github.tinkzhang.settings.ui.SettingItemCell
 import kotlinx.coroutines.launch
+
+val themeSetting = SingleSelectionItem(
+    commonAttribute = SettingAttribute(
+        title = "Theme",
+        key = "theme",
+        icon = Icons.Default.Palette,
+    ),
+    options = ThemeStatus.values().map { it.label },
+)
 
 @ExperimentalMaterial3Api
 @Composable
@@ -49,14 +58,6 @@ fun SettingsPage(
 
         val theme by settingsViewModel.themeStatus.collectAsState(initial = ThemeStatus.DEFAULT)
         var shouldShowThemeDialog by remember { mutableStateOf(false) }
-        val themeSetting = SingleSelectionItem(
-            commonAttribute = SettingAttribute(
-                title = "Theme",
-                key = "theme",
-                icon = Icons.Default.Palette,
-            ),
-            options = ThemeStatus.values().map { it.label },
-        )
 
         Box(Modifier.fillMaxSize()) {
             Column(
@@ -64,25 +65,13 @@ fun SettingsPage(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
-                // General
-                Text(
-                    "General",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(top = 8.dp)
+                GeneralContent(
+                    theme,
+                    onThemeSettingClick = { shouldShowThemeDialog = true }
                 )
-                SettingItemCell(
-                    item = themeSetting,
-                    label = theme.label,
-                    onClick = {
-                        shouldShowThemeDialog = true
-                    }
-                )
-                Divider(Modifier.padding(4.dp))
                 FeedbackContent(context = context)
                 AboutContent(context = context)
-
                 Spacer(Modifier.height(16.dp))
-
             }
 
             if (shouldShowThemeDialog) {
