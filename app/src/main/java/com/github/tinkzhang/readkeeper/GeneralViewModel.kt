@@ -1,6 +1,7 @@
 package com.github.tinkzhang.readkeeper
 
 import androidx.lifecycle.ViewModel
+import com.github.tinkzhang.basic.DataStoreKey
 import com.github.tinkzhang.basic.DataStoreRepository
 import com.github.tinkzhang.settings.ThemeStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class GeneralViewModel @Inject constructor(
     dataStoreRepository: DataStoreRepository
 ): ViewModel(){
-    var isDark: Flow<Boolean?> = dataStoreRepository.getString("theme").map {
+    var isDark: Flow<Boolean?> = dataStoreRepository.getString(DataStoreKey.THEME).map {
         Timber.d("Get theme as $it")
         when(it){
             ThemeStatus.LIGHT.name.uppercase() -> false
