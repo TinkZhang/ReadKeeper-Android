@@ -8,7 +8,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -19,13 +18,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import com.github.tinkzhang.readkeeper.R
-import com.github.tinkzhang.readkeeper.user.UserViewModel
 import com.github.tinkzhang.uicomponent.RkProfileImage
 
 
 @Composable
 fun RkMainTopBar(
-    userViewModel: UserViewModel,
+    isLogged: Boolean,
+    profileUrl: String = "",
     onProfileClickAction: () -> Unit = {}
 ) {
     CenterAlignedTopAppBar(
@@ -37,9 +36,9 @@ fun RkMainTopBar(
             )
         },
         actions = {
-            if (userViewModel.isSignedIn.observeAsState(false).value) {
+            if (isLogged) {
                 IconButton(onClick = onProfileClickAction) {
-                    RkProfileImage(profileUrl = userViewModel.userProfileImageUrl.value)
+                    RkProfileImage(profileUrl = profileUrl)
                 }
             } else {
                 IconButton(onClick = onProfileClickAction) {

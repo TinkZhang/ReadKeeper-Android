@@ -10,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -42,7 +43,6 @@ import com.github.tinkzhang.readkeeper.ui.ROUTE_TO_SCREEN_MAP
 import com.github.tinkzhang.readkeeper.ui.components.RkMainTopBar
 import com.github.tinkzhang.readkeeper.ui.getBottomBarItemList
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
-import com.github.tinkzhang.readkeeper.user.UserViewModel
 import com.github.tinkzhang.search.SearchPage
 import com.github.tinkzhang.search.SearchResultPage
 import com.github.tinkzhang.settings.SettingsPage
@@ -73,7 +73,6 @@ class MainActivity : ComponentActivity() {
             }
         }
         setContent {
-            val userViewModel: UserViewModel = viewModel()
             val readingViewModel: ReadingViewModel = viewModel()
             val wishViewModel: WishViewModel = viewModel()
             val archivedViewModel: ArchivedViewModel = viewModel()
@@ -90,7 +89,8 @@ class MainActivity : ComponentActivity() {
                         topBar = {
                             if (screen is MainScreenViewData) {
                                 RkMainTopBar(
-                                    userViewModel = userViewModel,
+                                    isLogged = UserRepository.isLogged.observeAsState(false).value,
+                                    profileUrl = UserRepository.user?.photoUrl.toString(),
                                     onProfileClickAction = {
                                         navController.navigate(SCREEN_ROUTE.SETTINGS)
                                     })
