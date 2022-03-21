@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -15,10 +16,7 @@ import com.github.tinkzhang.basic.DataStoreKey
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.settings.model.SettingAttribute
 import com.github.tinkzhang.settings.model.SingleSelectionItem
-import com.github.tinkzhang.settings.section.AboutContent
-import com.github.tinkzhang.settings.section.FeedbackContent
-import com.github.tinkzhang.settings.section.GeneralContent
-import com.github.tinkzhang.settings.section.HomepageContent
+import com.github.tinkzhang.settings.section.*
 import com.github.tinkzhang.settings.ui.RadioSettingDialog
 import kotlinx.coroutines.launch
 
@@ -62,12 +60,25 @@ fun SettingsPage(
 
         val isQuoteEnable by settingsViewModel.isQuoteEnabled.collectAsState(initial = true)
 
+        val isLogged by settingsViewModel.isLogged.observeAsState()
+
         Box(Modifier.fillMaxSize()) {
             Column(
                 Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
+                if (isLogged == true) {
+                    ProfileAndLogoutSection(
+                        profileImageUrl = settingsViewModel.profileImageUrl,
+                        username = settingsViewModel.username,
+                        userEmail = settingsViewModel.userEmail,
+                        onLogoutClick = settingsViewModel::signOut
+                    )
+                } else {
+                    LoginContent(onLoginClick = { settingsViewModel.signIn(context) })
+                }
+                Divider(Modifier.padding(top = 16.dp))
                 GeneralContent(
                     themeSetting = themeSetting,
                     theme = theme,

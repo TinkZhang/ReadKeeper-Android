@@ -1,5 +1,6 @@
 package com.github.tinkzhang.settings
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.github.tinkzhang.basic.DataStoreKey
@@ -13,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
-    val userRepository: UserRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     var themeStatus: Flow<ThemeStatus> = dataStoreRepository.getString(DataStoreKey.THEME).map {
@@ -24,6 +25,23 @@ class SettingsViewModel @Inject constructor(
         dataStoreRepository.getBoolean(DataStoreKey.IS_QUOTE_ENABLE).map {
             it ?: true
         }
+
+    val isLogged = userRepository.isLogged
+
+    val profileImageUrl
+        get() = userRepository.user?.photoUrl.toString()
+    val username
+        get() = userRepository.user?.displayName ?: ""
+    val userEmail
+        get() = userRepository.user?.email ?: ""
+
+    fun signOut() {
+        userRepository.signOutWithGoogle()
+    }
+
+    fun signIn(context: Context) {
+        userRepository.signInWithGoogle(context)
+    }
 
     suspend fun saveSetting(key: String, value: String) {
         Log.d("", "Update $key with $value")

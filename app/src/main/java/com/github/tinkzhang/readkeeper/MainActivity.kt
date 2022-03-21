@@ -1,5 +1,6 @@
 package com.github.tinkzhang.readkeeper
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,6 +29,7 @@ import com.github.readkeeper.archived.ArchivedViewModel
 import com.github.readkeeper.archived.ui.ArchivedListPage
 import com.github.readkeeper.archived.ui.ArchivedVip
 import com.github.tinkzhang.basic.SCREEN_ROUTE
+import com.github.tinkzhang.basic.UserRepository
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import com.github.tinkzhang.homepage.Homepage
 import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
@@ -49,7 +51,10 @@ import com.github.tinkzhang.wish.WishViewModel
 import com.github.tinkzhang.wish.ui.WishListPage
 import com.github.tinkzhang.wish.ui.WishVip
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @ExperimentalMaterial3Api
 @AndroidEntryPoint
@@ -87,9 +92,6 @@ class MainActivity : ComponentActivity() {
                                 RkMainTopBar(
                                     userViewModel = userViewModel,
                                     onProfileClickAction = {
-//                                        context.startActivity(
-//                                            Intent(context, SettingsActivity::class.java)
-//                                        )
                                         navController.navigate(SCREEN_ROUTE.SETTINGS)
                                     })
                             }
@@ -199,6 +201,25 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                UserRepository.firebaseAuthWithGoogle(account.idToken!!, this)
+                Timber.d("Google Sign in succeed: \n ${account.email}")
+            } catch (e: Exception) {
+                Timber.w("Google Sign in failed: \n $e")
+            }
+        }
+    }
+
+    companion object {
+        const val RC_SIGN_IN = 9001
     }
 
     override fun onDestroy() {
