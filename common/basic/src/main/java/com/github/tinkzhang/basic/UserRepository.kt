@@ -28,6 +28,10 @@ object UserRepository {
         MutableLiveData<Boolean>()
     }
 
+    val isLogInProgress: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+
     val isLoginError: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
@@ -44,6 +48,7 @@ object UserRepository {
     init {
         isLoginError.value = false
         isLogged.value = user != null
+        isLogInProgress.value = false
     }
 
     private val userDocumentRef = if (user == null) {
@@ -127,6 +132,7 @@ object UserRepository {
     }
 
     fun signInWithGoogle(context: Context) {
+        isLogInProgress.value = true
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(context.getString(R.string.google_sign_in_token_id))
             .requestEmail()
@@ -174,6 +180,7 @@ object UserRepository {
                     isLoginError.value = true
                     Timber.e("Failed to sign in!!!")
                 }
+                isLogInProgress.value = false
             }
     }
 }
