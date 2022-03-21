@@ -10,4 +10,5 @@
     <string name="release_notes_setting_title">Release notes</string>
     <string name="source_code_setting_title">App code on Github</string>
     <string name="app_version_setting_title">App version</string>
+    <string name="logout">Log out</string>
 </resources>

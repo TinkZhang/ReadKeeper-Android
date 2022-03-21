@@ -1,16 +1,15 @@
 package com.github.tinkzhang.readkeeper.ui.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.*
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -18,13 +17,10 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
-import coil.transform.CircleCropTransformation
 import com.github.tinkzhang.readkeeper.R
 import com.github.tinkzhang.readkeeper.user.UserViewModel
+import com.github.tinkzhang.uicomponent.RkProfileImage
 
 
 @Composable
@@ -73,26 +69,5 @@ fun RkTopBarTitleText() {
         },
         fontSize = 22.sp,
         modifier = Modifier.clearAndSetSemantics { }
-    )
-}
-
-@Composable
-fun RkProfileImage(
-    modifier: Modifier = Modifier,
-    profileUrl: String?,
-    size: Dp = 36.dp,
-) {
-    Image(
-        painter = rememberImagePainter(
-            data = profileUrl,
-            builder = {
-                transformations(CircleCropTransformation())
-                placeholder(R.drawable.ic_profile_24)
-            }
-        ),
-        contentDescription = "User Profile",
-        modifier = modifier
-            .size(size)
-            .clip(CircleShape)
     )
 }

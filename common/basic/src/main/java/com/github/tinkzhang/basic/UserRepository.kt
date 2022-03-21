@@ -3,10 +3,12 @@ package com.github.tinkzhang.basic
 import android.app.Activity
 import android.content.Context
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import androidx.lifecycle.MutableLiveData
 import com.github.tinkzhang.basic.model.*
 import com.github.tinkzhang.readkeeper.model.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldPath
@@ -20,7 +22,16 @@ import timber.log.Timber
 import java.util.*
 
 object UserRepository {
-    val user = Firebase.auth.currentUser
+    var user = Firebase.auth.currentUser
+
+    val isLogged: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+
+    val isLoginError: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+
     lateinit var lastBook: EditableBook
 
     private val fictionsMutex = Mutex()
@@ -30,12 +41,17 @@ object UserRepository {
 
     val nytCollectionRef = Firebase.firestore.collection("nytBestSellers")
 
+    init {
+        isLoginError.value = false
+        isLogged.value = user != null
+    }
+
     private val userDocumentRef = if (user == null) {
         Timber.d("offline users")
         Firebase.firestore.document("user/${UUID.randomUUID()}}")
     } else {
-        Timber.d("Signed in user with id: ${user.uid}")
-        Firebase.firestore.document("user/${user.uid}")
+        Timber.d("Signed in user with id: ${user!!.uid}")
+        Firebase.firestore.document("user/${user!!.uid}")
     }
 
     val readingCollectionRef = userDocumentRef.collection("readings")
@@ -107,6 +123,7 @@ object UserRepository {
 
     fun signOutWithGoogle() {
         Firebase.auth.signOut()
+        isLogged.value = false
     }
 
     fun signInWithGoogle(context: Context) {
@@ -142,5 +159,21 @@ object UserRepository {
 
     fun findWeeklyBook(title: String): NYTimesBook {
         return nonFictions.firstOrNull { it.title == title } ?: fictions.first { it.title == title }
+    }
+
+    fun firebaseAuthWithGoogle(idToken: String, activity: Activity) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        Firebase.auth.signInWithCredential(credential)
+            .addOnCompleteListener(activity) { task ->
+                if (task.isSuccessful) {
+                    user = Firebase.auth.currentUser
+                    isLogged.value = true
+                    isLoginError.value = false
+                    Timber.d("Google Sign in succeed !!!")
+                } else {
+                    isLoginError.value = true
+                    Timber.e("Failed to sign in!!!")
+                }
+            }
     }
 }
