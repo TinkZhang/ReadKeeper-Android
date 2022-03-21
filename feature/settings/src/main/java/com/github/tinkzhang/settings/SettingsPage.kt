@@ -61,6 +61,7 @@ fun SettingsPage(
         val isQuoteEnable by settingsViewModel.isQuoteEnabled.collectAsState(initial = true)
 
         val isLogged by settingsViewModel.isLogged.observeAsState()
+        val isLogInProgress by settingsViewModel.isLogInProgress.observeAsState()
 
         Box(Modifier.fillMaxSize()) {
             Column(
@@ -75,6 +76,8 @@ fun SettingsPage(
                         userEmail = settingsViewModel.userEmail,
                         onLogoutClick = settingsViewModel::signOut
                     )
+                } else if (isLogInProgress == true){
+                    LoginLoadingContent()
                 } else {
                     LoginContent(onLoginClick = { settingsViewModel.signIn(context) })
                 }
