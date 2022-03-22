@@ -23,16 +23,11 @@ import java.util.*
 
 object UserRepository {
     var user = Firebase.auth.currentUser
+    val loginStatus: MutableLiveData<LoginStatus> by lazy {
+        MutableLiveData<LoginStatus>()
+    }
 
     val isLogged: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
-    }
-
-    val isLogInProgress: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
-    }
-
-    val isLoginError: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
 
@@ -46,9 +41,11 @@ object UserRepository {
     val nytCollectionRef = Firebase.firestore.collection("nytBestSellers")
 
     init {
-        isLoginError.value = false
-        isLogged.value = user != null
-        isLogInProgress.value = false
+        if (user == null) {
+            loginStatus.value = LoginStatus.Logout
+        } else {
+            loginStatus.value = LoginStatus.Login
+        }
     }
 
     private val userDocumentRef = if (user == null) {
@@ -128,11 +125,11 @@ object UserRepository {
 
     fun signOutWithGoogle() {
         Firebase.auth.signOut()
-        isLogged.value = false
+        loginStatus.value = LoginStatus.Logout
     }
 
     fun signInWithGoogle(context: Context) {
-        isLogInProgress.value = true
+        loginStatus.value = LoginStatus.Logging
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(context.getString(R.string.google_sign_in_token_id))
             .requestEmail()
@@ -173,14 +170,16 @@ object UserRepository {
             .addOnCompleteListener(activity) { task ->
                 if (task.isSuccessful) {
                     user = Firebase.auth.currentUser
-                    isLogged.value = true
-                    isLoginError.value = false
+                    loginStatus.value = LoginStatus.Login
                     Timber.d("Google Sign in succeed !!!")
                 } else {
-                    isLoginError.value = true
+                    loginStatus.value = LoginStatus.Error
                     Timber.e("Failed to sign in!!!")
                 }
-                isLogInProgress.value = false
             }
     }
+}
+
+enum class LoginStatus {
+    Login, Logout, Logging, Error
 }

@@ -26,8 +26,7 @@ class SettingsViewModel @Inject constructor(
             it ?: true
         }
 
-    val isLogged = userRepository.isLogged
-    val isLogInProgress = userRepository.isLogInProgress
+    val loginStatus = userRepository.loginStatus
 
     val profileImageUrl
         get() = userRepository.user?.photoUrl.toString()

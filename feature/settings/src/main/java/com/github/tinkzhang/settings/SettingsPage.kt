@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.tinkzhang.basic.DataStoreKey
+import com.github.tinkzhang.basic.LoginStatus
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.settings.model.SettingAttribute
 import com.github.tinkzhang.settings.model.SingleSelectionItem
@@ -60,8 +61,7 @@ fun SettingsPage(
 
         val isQuoteEnable by settingsViewModel.isQuoteEnabled.collectAsState(initial = true)
 
-        val isLogged by settingsViewModel.isLogged.observeAsState()
-        val isLogInProgress by settingsViewModel.isLogInProgress.observeAsState()
+        val loginStatus by settingsViewModel.loginStatus.observeAsState()
 
         Box(Modifier.fillMaxSize()) {
             Column(
@@ -69,17 +69,20 @@ fun SettingsPage(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
-                if (isLogged == true) {
-                    ProfileAndLogoutSection(
+                when (loginStatus) {
+                    LoginStatus.Login -> ProfileAndLogoutSection(
                         profileImageUrl = settingsViewModel.profileImageUrl,
                         username = settingsViewModel.username,
                         userEmail = settingsViewModel.userEmail,
                         onLogoutClick = settingsViewModel::signOut
                     )
-                } else if (isLogInProgress == true){
-                    LoginLoadingContent()
-                } else {
-                    LoginContent(onLoginClick = { settingsViewModel.signIn(context) })
+                    LoginStatus.Logging -> LoginLoadingContent()
+                    LoginStatus.Error -> LoginErrorContent(onLoginClick = {
+                        settingsViewModel.signIn(
+                            context
+                        )
+                    })
+                    else -> LoginContent(onLoginClick = { settingsViewModel.signIn(context) })
                 }
                 Divider(Modifier.padding(top = 16.dp))
                 GeneralContent(

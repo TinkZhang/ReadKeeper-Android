@@ -40,3 +40,34 @@ fun LoginContent(onLoginClick: () -> Unit = {}) {
         }
     }
 }
+
+@ExperimentalMaterial3Api
+@Composable
+fun LoginErrorContent(onLoginClick: () -> Unit = {}) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                "Failed to Login with Google. \nPlease try again.",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.error
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            AndroidView(factory = { context ->
+                SignInButton(context).apply {
+                    setSize(SignInButton.SIZE_WIDE)
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                    setOnClickListener { onLoginClick() }
+                }
+            })
+        }
+    }
+}
