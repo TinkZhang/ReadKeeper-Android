@@ -29,6 +29,7 @@ import androidx.navigation.navArgument
 import com.github.readkeeper.archived.ArchivedViewModel
 import com.github.readkeeper.archived.ui.ArchivedListPage
 import com.github.readkeeper.archived.ui.ArchivedVip
+import com.github.tinkzhang.basic.LoginStatus
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.basic.UserRepository
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
@@ -89,7 +90,7 @@ class MainActivity : ComponentActivity() {
                         topBar = {
                             if (screen is MainScreenViewData) {
                                 RkMainTopBar(
-                                    isLogged = UserRepository.isLogged.observeAsState(false).value,
+                                    isLogged = UserRepository.loginStatus.observeAsState().value == LoginStatus.Login,
                                     profileUrl = UserRepository.user?.photoUrl.toString(),
                                     onProfileClickAction = {
                                         navController.navigate(SCREEN_ROUTE.SETTINGS)
