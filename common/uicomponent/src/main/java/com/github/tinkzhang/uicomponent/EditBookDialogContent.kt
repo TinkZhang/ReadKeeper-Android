@@ -6,12 +6,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +23,7 @@ import com.github.tinkzhang.basic.model.ReadingBook
 import com.github.tinkzhang.basic.model.ReadingBookFactory
 import com.github.tinkzhang.basic.model.ReadingPlatform
 
+@ExperimentalMaterial3Api
 @Composable
 fun EditBookDialogContent(
     book: ReadingBook,
@@ -78,6 +76,7 @@ fun EditBookDialogContent(
     }
 }
 
+@ExperimentalMaterial3Api
 @Composable
 private fun PlatformSelectionSection(
     platformState: ReadingPlatform,
@@ -110,6 +109,7 @@ private fun PlatformSelectionSection(
     }
 }
 
+@ExperimentalMaterial3Api
 @Composable
 private fun BookPageFormatSection(
     pageFormatState: PageFormat,
@@ -235,6 +235,7 @@ private fun BookPageFormatSection(
     }
 }
 
+@ExperimentalMaterial3Api
 @Preview
 @Composable
 private fun EditBookPageContentPreview() {
@@ -243,6 +244,7 @@ private fun EditBookPageContentPreview() {
     )
 }
 
+@ExperimentalMaterial3Api
 @Preview
 @Composable
 private fun EditBookPageContentPercentPreview() {
