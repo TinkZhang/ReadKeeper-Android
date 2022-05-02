@@ -1,8 +1,10 @@
 package com.github.tinkzhang.homepage.quote
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -33,7 +35,10 @@ fun QuoteCard() {
 @Composable
 private fun QuoteStatelessCard(quote: Quote, onClicked: () -> Unit = {}) {
     Section(title = "\uD83E\uDD89 Random Quote") {
-        Column(modifier = Modifier.clickable { onClicked() }) {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClicked() }
+            .animateContentSize()) {
             Text(quote.quote)
             Spacer(modifier = Modifier.height(DpContentMediumPadding))
             Text(" --- ${quote.author}", Modifier.align(Alignment.End))
