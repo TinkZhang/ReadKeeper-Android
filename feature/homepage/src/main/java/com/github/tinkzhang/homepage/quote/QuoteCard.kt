@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -16,7 +15,7 @@ import com.github.tinkzhang.uicomponent.DpContentMediumPadding
 import com.github.tinkzhang.uicomponent.Section
 import kotlin.random.Random
 
-@OptIn(ExperimentalMaterialApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
+@ExperimentalMaterial3Api
 @Composable
 fun QuoteCard() {
     val context = LocalContext.current
@@ -31,7 +30,6 @@ fun QuoteCard() {
 }
 
 @ExperimentalMaterial3Api
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun QuoteStatelessCard(quote: Quote, onClicked: () -> Unit = {}) {
     Section(title = "\uD83E\uDD89 Random Quote") {
