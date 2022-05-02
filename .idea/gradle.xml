@@ -27,7 +27,6 @@
             <option value="$PROJECT_DIR$/third-party/instabug" />
           </set>
         </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
