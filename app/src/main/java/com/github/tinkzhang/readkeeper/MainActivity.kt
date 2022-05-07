@@ -11,46 +11,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.github.readkeeper.archived.ArchivedViewModel
-import com.github.readkeeper.archived.ui.ArchivedListPage
-import com.github.readkeeper.archived.ui.ArchivedVip
 import com.github.tinkzhang.basic.LoginStatus
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.basic.UserRepository
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
-import com.github.tinkzhang.homepage.Homepage
-import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
-import com.github.tinkzhang.homepage.weeklybook.ui.WeeklyBookVIP
 import com.github.tinkzhang.reading.ReadingViewModel
-import com.github.tinkzhang.reading.ui.ReadingListPage
-import com.github.tinkzhang.readkeeper.reading.ReadingVip
 import com.github.tinkzhang.readkeeper.ui.MainScreenViewData
 import com.github.tinkzhang.readkeeper.ui.ROUTE_TO_SCREEN_MAP
 import com.github.tinkzhang.readkeeper.ui.components.RkMainTopBar
 import com.github.tinkzhang.readkeeper.ui.getBottomBarItemList
 import com.github.tinkzhang.readkeeper.ui.theme.ReadKeeperTheme
-import com.github.tinkzhang.search.SearchPage
-import com.github.tinkzhang.search.SearchResultPage
-import com.github.tinkzhang.settings.SettingsPage
 import com.github.tinkzhang.uicomponent.RkCustomTabClient
 import com.github.tinkzhang.wish.WishViewModel
-import com.github.tinkzhang.wish.ui.WishListPage
-import com.github.tinkzhang.wish.ui.WishVip
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
@@ -103,101 +85,103 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                     ) {
-                        NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
-                            composable(SCREEN_ROUTE.HOME) {
-                                Homepage(
-                                    navController = navController,
-                                    viewModel = hiltViewModel()
-                                )
-                            }
-                            composable(SCREEN_ROUTE.WEEKLY_ITEM) {
-                                val parentEntry = remember {
-                                    navController.getBackStackEntry(SCREEN_ROUTE.HOME)
-                                }
-                                val parentViewModel =
-                                    hiltViewModel<WeeklyBookViewModel>(parentEntry)
-                                WeeklyBookVIP(
-                                    title = it.arguments?.getString("title") ?: "",
-                                    viewModel = parentViewModel,
-                                    navController = navController,
-                                )
-                            }
-                            composable(SCREEN_ROUTE.SEARCH) {
-                                SearchPage(
-                                    navController = navController,
-                                    searchViewModel = hiltViewModel()
-                                )
-                            }
-                            composable(SCREEN_ROUTE.SEARCH_RESUTL) {
-                                SearchResultPage(
-                                    it.arguments?.getString("keyword") ?: "",
-                                    searchResultViewModel = hiltViewModel(),
-                                    navController = navController
-                                )
-                            }
-                            composable(SCREEN_ROUTE.WISH_LIST) {
-                                WishListPage(
-                                    wishViewModel = wishViewModel, navController
-                                )
-                            }
-                            composable(
-                                SCREEN_ROUTE.WISH_ITEM,
-                                arguments = listOf(navArgument("uuid") {
-                                    type = NavType.StringType
-                                })
-                            ) {
-                                WishVip(
-                                    uuid = it.arguments?.getString("uuid") ?: "",
-                                    wishViewModel = wishViewModel,
-                                    navController = navController,
-                                    client = mCustomTabClient,
-                                )
-                            }
-                            composable(SCREEN_ROUTE.READING_LIST) {
-                                ReadingListPage(readingViewModel, navController = navController)
-                            }
-                            composable(SCREEN_ROUTE.READING_ITEM,
-                                arguments = listOf(
-                                    navArgument("uuid") { type = NavType.StringType },
-                                    navArgument("open_progress_dialog") {
-                                        type = NavType.BoolType
-                                        defaultValue = false
-                                    },
-                                    navArgument("open_edit_dialog") {
-                                        type = NavType.BoolType
-                                        defaultValue = false
-                                    }
-                                )) {
-                                ReadingVip(
-                                    it.arguments?.getString("uuid") ?: "",
-                                    it.arguments?.getBoolean("open_progress_dialog") ?: false,
-                                    it.arguments?.getBoolean("open_edit_dialog") ?: false,
-                                    readingViewModel,
-                                    navController = navController
-                                )
-                            }
-                            composable(SCREEN_ROUTE.ARCHIVED_LIST) {
-                                ArchivedListPage(archivedViewModel, navController)
-                            }
-                            composable(
-                                SCREEN_ROUTE.ARCHIVED_ITEM,
-                                arguments = listOf(navArgument("uuid") {
-                                    type = NavType.StringType
-                                })
-                            ) {
-                                ArchivedVip(
-                                    uuid = it.arguments?.getString("uuid") ?: "",
-                                    archivedViewModel = archivedViewModel,
-                                    navController = navController
-                                )
-                            }
-                            composable(SCREEN_ROUTE.SETTINGS) {
-                                SettingsPage(
-                                    settingsViewModel = hiltViewModel(),
-                                    navController = navController
-                                )
-                            }
-                        }
+//                        DestinationsNavHost(navController = navController, navGraph = NavGraphs.)
+
+//                        NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
+//                            composable(SCREEN_ROUTE.HOME) {
+//                                Homepage(
+//                                    navController = navController,
+//                                    viewModel = hiltViewModel()
+//                                )
+//                            }
+//                            composable(SCREEN_ROUTE.WEEKLY_ITEM) {
+//                                val parentEntry = remember {
+//                                    navController.getBackStackEntry(SCREEN_ROUTE.HOME)
+//                                }
+//                                val parentViewModel =
+//                                    hiltViewModel<WeeklyBookViewModel>(parentEntry)
+//                                WeeklyBookVIP(
+//                                    title = it.arguments?.getString("title") ?: "",
+//                                    viewModel = parentViewModel,
+//                                    navController = navController,
+//                                )
+//                            }
+//                            composable(SCREEN_ROUTE.SEARCH) {
+//                                SearchPage(
+//                                    navController = navController,
+//                                    searchViewModel = hiltViewModel()
+//                                )
+//                            }
+//                            composable(SCREEN_ROUTE.SEARCH_RESUTL) {
+//                                SearchResultPage(
+//                                    it.arguments?.getString("keyword") ?: "",
+//                                    searchResultViewModel = hiltViewModel(),
+//                                    navController = navController
+//                                )
+//                            }
+//                            composable(SCREEN_ROUTE.WISH_LIST) {
+//                                WishListPage(
+//                                    wishViewModel = wishViewModel, navController
+//                                )
+//                            }
+//                            composable(
+//                                SCREEN_ROUTE.WISH_ITEM,
+//                                arguments = listOf(navArgument("uuid") {
+//                                    type = NavType.StringType
+//                                })
+//                            ) {
+//                                WishVip(
+//                                    uuid = it.arguments?.getString("uuid") ?: "",
+//                                    wishViewModel = wishViewModel,
+//                                    navController = navController,
+//                                    client = mCustomTabClient,
+//                                )
+//                            }
+//                            composable(SCREEN_ROUTE.READING_LIST) {
+//                                ReadingListPage(readingViewModel, navController = navController)
+//                            }
+//                            composable(SCREEN_ROUTE.READING_ITEM,
+//                                arguments = listOf(
+//                                    navArgument("uuid") { type = NavType.StringType },
+//                                    navArgument("open_progress_dialog") {
+//                                        type = NavType.BoolType
+//                                        defaultValue = false
+//                                    },
+//                                    navArgument("open_edit_dialog") {
+//                                        type = NavType.BoolType
+//                                        defaultValue = false
+//                                    }
+//                                )) {
+//                                ReadingVip(
+//                                    it.arguments?.getString("uuid") ?: "",
+//                                    it.arguments?.getBoolean("open_progress_dialog") ?: false,
+//                                    it.arguments?.getBoolean("open_edit_dialog") ?: false,
+//                                    readingViewModel,
+//                                    navController = navController
+//                                )
+//                            }
+//                            composable(SCREEN_ROUTE.ARCHIVED_LIST) {
+//                                ArchivedListPage(archivedViewModel, navController)
+//                            }
+//                            composable(
+//                                SCREEN_ROUTE.ARCHIVED_ITEM,
+//                                arguments = listOf(navArgument("uuid") {
+//                                    type = NavType.StringType
+//                                })
+//                            ) {
+//                                ArchivedVip(
+//                                    uuid = it.arguments?.getString("uuid") ?: "",
+//                                    archivedViewModel = archivedViewModel,
+//                                    navController = navController
+//                                )
+//                            }
+//                            composable(SCREEN_ROUTE.SETTINGS) {
+//                                SettingsPage(
+//                                    settingsViewModel = hiltViewModel(),
+//                                    navController = navController
+//                                )
+//                            }
+//                        }
                     }
                 }
             }

@@ -13,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.basic.UserRepository
@@ -23,11 +24,16 @@ import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
 import com.github.tinkzhang.homepage.weeklybook.ui.WeeklyBookCard
 import com.github.tinkzhang.uicomponent.DpBottomPadding
 import com.github.tinkzhang.uicomponent.DpVipSectionPadding
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 
+@RootNavGraph(start = true)
+@Destination(start = true)
 @Composable
 fun Homepage(
+    id: Int,
     navController: NavController,
-    viewModel: WeeklyBookViewModel,
+    viewModel: WeeklyBookViewModel = hiltViewModel(),
 ) {
     Column(
         modifier = Modifier

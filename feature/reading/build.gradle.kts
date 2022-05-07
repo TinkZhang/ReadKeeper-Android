@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
     id("com.google.devtools.ksp") version libs.versions.ksp.get()
 }
 
@@ -37,6 +40,13 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.asProvider().get()
     }
+    libraryVariants.all {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("build/generated/ksp/$name/kotlin")
+            }
+        }
+    }
 }
 
 dependencies {
@@ -51,6 +61,10 @@ dependencies {
 
     // Paging
     implementation(libs.bundles.paging)
+
+    // Hilt
+    implementation(libs.bundles.hilt)
+    kapt(libs.bundles.hiltComplier)
 
     // Testing
     testImplementation(libs.junit)

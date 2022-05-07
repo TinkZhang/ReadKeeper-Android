@@ -38,6 +38,13 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.asProvider().get()
     }
+    libraryVariants.all {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("build/generated/ksp/$name/kotlin")
+            }
+        }
+    }
 }
 
 dependencies {
