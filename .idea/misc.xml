@@ -105,6 +105,8 @@
         <entry key="app/src/main/res/drawable/ic_pdf.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_profile_24.xml" value="0.202" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.18642785065590312" />
+        <entry key="feature/homepage/src/main/java/com/github/tinkzhang/homepage/quote/QuoteCard.kt" value="0.15648148148148147" />
+        <entry key="feature/search/src/main/java/com/github/tinkzhang/search/SearchVip.kt" value="0.13240740740740742" />
       </map>
     </option>
   </component>

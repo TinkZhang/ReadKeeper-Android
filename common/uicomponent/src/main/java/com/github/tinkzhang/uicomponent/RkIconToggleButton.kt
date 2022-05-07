@@ -1,5 +1,7 @@
-package com.github.tinkzhang.readkeeper.ui.components
+package com.github.tinkzhang.uicomponent
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.material.Icon
 import androidx.compose.material.IconToggleButton
 import androidx.compose.material.icons.Icons
@@ -19,6 +21,7 @@ import com.github.tinkzhang.readkeeper.model.R
  * An [IconToggleButton] with on and off state, and use different icons
  * for different states
  */
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun RkIconToggleButton(
     checkedIcon: ImageVector,
@@ -34,18 +37,24 @@ fun RkIconToggleButton(
         onCheckedChange = onCheckedChange,
         modifier = modifier,
     ) {
-        if (checked) {
-            Icon(
-                checkedIcon,
-                contentDescription = checkedIconDescription,
-                tint = MaterialTheme.colorScheme.tertiary
-            )
-        } else {
-            Icon(
-                uncheckedIcon,
-                contentDescription = uncheckedIconDescription,
-                tint = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.8f)
-            )
+        AnimatedContent(targetState = checked, transitionSpec = {
+            fadeIn(animationSpec = tween(320, delayMillis = 90)) +
+                    scaleIn(initialScale = 1.5f, animationSpec = tween(320, delayMillis = 90)) with
+                    fadeOut(animationSpec = tween(90))
+        }) { checked ->
+            if (checked) {
+                Icon(
+                    checkedIcon,
+                    contentDescription = checkedIconDescription,
+                    tint = MaterialTheme.colorScheme.tertiary
+                )
+            } else {
+                Icon(
+                    uncheckedIcon,
+                    contentDescription = uncheckedIconDescription,
+                    tint = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.8f)
+                )
+            }
         }
     }
 }
