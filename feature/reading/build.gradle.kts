@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp") version libs.versions.ksp.get()
 }
 
 android {
@@ -63,4 +64,8 @@ dependencies {
 
     // Google Ad
     implementation(libs.googleAd)
+
+    // Compose Destination
+    implementation(libs.composeDestination)
+    ksp(libs.composeDestinationKsp)
 }

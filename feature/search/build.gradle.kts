@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("com.google.devtools.ksp") version libs.versions.ksp.get()
 }
 
 android {
@@ -73,4 +74,8 @@ dependencies {
     
     // Timber
     implementation(libs.timber)
+
+    // Compose Destination
+    implementation(libs.composeDestination)
+    ksp(libs.composeDestinationKsp)
 }

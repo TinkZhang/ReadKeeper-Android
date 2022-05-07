@@ -70,6 +70,10 @@ hilt-lifecycle-viewmodel = "1.0.0-alpha03"
 hilt-compiler = "1.0.0"
 hilt-navigation-compose = "1.0.0"
 
+#https://github.com/raamcosta/compose-destinations
+ksp = "1.6.10-1.0.4"
+compose-destination  = "1.5.2-beta"
+
 [libraries]
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
@@ -135,6 +139,9 @@ hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", vers
 hiltLifecycleViewmodel = { module = "androidx.hilt:hilt-lifecycle-viewmodel", version.ref = "hilt-lifecycle-viewmodel" }
 hiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-compiler" }
 hiltNavigationCompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
+
+composeDestination = { module = "io.github.raamcosta.compose-destinations:core", version.ref = "compose-destination"}
+composeDestinationKsp = { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "compose-destination"}
 
 [bundles]
 androidx-compose = ["composeUi", "coil", "composeMaterial", "composeUiTooling", "composeIcon", "composeMaterial3", "composeLiveData", "composeNavigation", "composeViewModel"]

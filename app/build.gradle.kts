@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("com.google.devtools.ksp") version libs.versions.ksp.get()
 }
 
 android {
@@ -103,6 +104,10 @@ dependencies {
 
     // Datastore
     implementation(libs.datastore)
+
+    // Compose Destination
+    implementation(libs.composeDestination)
+    ksp(libs.composeDestinationKsp)
 }
 
 // Allow references to generated code
