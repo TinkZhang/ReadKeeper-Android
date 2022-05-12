@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.github.tinkzhang.settings.model.ExternalPageItem
-import com.github.tinkzhang.settings.model.OpenPageItem
 import com.github.tinkzhang.settings.model.SettingAttribute
 import com.github.tinkzhang.settings.ui.SettingItemCell
 
@@ -80,14 +79,19 @@ fun FeedbackContent(isExpanded: Boolean = false, context: Context? = null) {
                 Icon(Icons.Default.ExpandLess, null)
             }
             SettingItemCell(
-                item = OpenPageItem(
+                item = ExternalPageItem(
                     commonAttribute = SettingAttribute(
                         title = "Bug report & Suggestion",
                         icon = Icons.Default.BugReport
                     ),
                 ),
                 onClick = {
-                    TODO()
+                    val intent = Intent(Intent.ACTION_SENDTO).apply {
+                        data = Uri.parse("mailto:tink.readkeeper@gmail.com?subject=Feedback for ReadKeeper")
+                    }
+                    if (context!= null) {
+                        ContextCompat.startActivity(context, intent, null)
+                    }
                 }
             )
             SettingItemCell(
