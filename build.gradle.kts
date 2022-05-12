@@ -7,7 +7,8 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:7.4.0-alpha01")
         classpath(libs.kotlin.gradlePlugin)
-        classpath("com.google.gms:google-services:4.3.10")
+        // Downgrade it to workaround the bug https://issuetracker.google.com/issues/223240936
+        classpath("com.google.gms:google-services:4.3.5")
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.40.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
 
