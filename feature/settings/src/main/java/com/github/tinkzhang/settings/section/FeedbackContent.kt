@@ -21,7 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import com.github.readkeeper.instabug.InstabugWrapper
 import com.github.tinkzhang.settings.model.ExternalPageItem
 import com.github.tinkzhang.settings.model.OpenPageItem
 import com.github.tinkzhang.settings.model.SettingAttribute
@@ -87,7 +86,9 @@ fun FeedbackContent(isExpanded: Boolean = false, context: Context? = null) {
                         icon = Icons.Default.BugReport
                     ),
                 ),
-                onClick = { InstabugWrapper.show() }
+                onClick = {
+                    TODO()
+                }
             )
             SettingItemCell(
                 item = ExternalPageItem(
