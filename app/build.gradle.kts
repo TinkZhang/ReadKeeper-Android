@@ -61,7 +61,6 @@ dependencies {
     implementation(project(mapOf("path" to ":feature:search")))
     implementation(project(mapOf("path" to ":feature:archived")))
     implementation(project(mapOf("path" to ":feature:settings")))
-    implementation(project(mapOf("path" to ":third-party:instabug")))
 
     // Core
     implementation(libs.androidCore)

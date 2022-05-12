@@ -23,8 +23,6 @@
             <option value="$PROJECT_DIR$/feature/search" />
             <option value="$PROJECT_DIR$/feature/settings" />
             <option value="$PROJECT_DIR$/feature/wish" />
-            <option value="$PROJECT_DIR$/third-party" />
-            <option value="$PROJECT_DIR$/third-party/instabug" />
           </set>
         </option>
       </GradleProjectSettings>

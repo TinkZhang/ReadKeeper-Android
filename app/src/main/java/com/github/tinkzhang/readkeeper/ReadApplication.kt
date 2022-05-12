@@ -2,7 +2,6 @@ package com.github.tinkzhang.readkeeper
 
 import android.app.Application
 import android.util.Log
-import com.github.readkeeper.instabug.InstabugWrapper
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -10,7 +9,6 @@ import timber.log.Timber
 class ReadApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        InstabugWrapper.init(this, getString(R.string.instabug_token))
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         } else {

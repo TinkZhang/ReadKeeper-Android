@@ -43,7 +43,6 @@ dependencies {
 
     implementation(project(mapOf("path" to ":common:basic")))
     implementation(project(mapOf("path" to ":common:uicomponent")))
-    implementation(project(mapOf("path" to ":third-party:instabug")))
 
     // Compose
     implementation(libs.bundles.androidx.compose)
