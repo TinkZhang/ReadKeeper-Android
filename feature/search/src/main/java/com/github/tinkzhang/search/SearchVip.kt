@@ -14,8 +14,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import com.github.tinkzhang.basic.model.SearchBook
-import com.github.tinkzhang.readkeeper.ui.components.ReadingIconToggleButton
-import com.github.tinkzhang.readkeeper.ui.components.WishIconToggleButton
+import com.github.tinkzhang.uicomponent.ReadingIconToggleButton
+import com.github.tinkzhang.uicomponent.WishIconToggleButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

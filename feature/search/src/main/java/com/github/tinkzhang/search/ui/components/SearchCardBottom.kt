@@ -8,8 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.tinkzhang.readkeeper.ui.components.ReadingIconToggleButton
-import com.github.tinkzhang.readkeeper.ui.components.WishIconToggleButton
+import com.github.tinkzhang.uicomponent.ReadingIconToggleButton
+import com.github.tinkzhang.uicomponent.WishIconToggleButton
 
 @Composable
 fun SearchCardBottom(
