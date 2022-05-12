@@ -8,7 +8,6 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -21,9 +20,11 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @ExperimentalMaterial3Api
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ReadingListPage(readingViewModel: ReadingViewModel, navController: NavController) {
+fun ReadingListPage(
+    readingViewModel: ReadingViewModel,
+    navController: NavController
+) {
     val selectedCategory = readingViewModel.selectedCategory.value
     Column(
         modifier = Modifier
