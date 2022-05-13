@@ -14,7 +14,7 @@ material = "1.5.0"
 #https://developer.android.com/jetpack/androidx/releases/compose-ui
 compose = "1.1.1"
 #https://developer.android.com/jetpack/androidx/releases/compose-material3
-compose-material3 = "1.0.0-alpha09"
+compose-material3 = "1.0.0-alpha11"
 #https://developer.android.com/jetpack/compose/navigation?hl=zh-cn
 compose-navigation = "2.4.2"
 #https://developer.android.com/jetpack/androidx/releases/lifecycle
