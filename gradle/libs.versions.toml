@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.6.10"
+kotlin = "1.6.21"
 minSdk = "24"
 targetSdk = "31"
 compileSdk = "31"
@@ -12,7 +12,7 @@ androidx-appcompat = "1.4.1"
 material = "1.5.0"
 
 #https://developer.android.com/jetpack/androidx/releases/compose-ui
-compose = "1.1.1"
+compose = "1.2.0-beta01"
 #https://developer.android.com/jetpack/androidx/releases/compose-material3
 compose-material3 = "1.0.0-alpha11"
 #https://developer.android.com/jetpack/compose/navigation?hl=zh-cn
