@@ -6,12 +6,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.NorthWest
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.tinkzhang.uicomponent.PreviewAnnotation
+import com.github.tinkzhang.uicomponent.theme.ReadKeeperTheme
 
 @Composable
 fun SearchResultItem(
@@ -27,21 +31,31 @@ fun SearchResultItem(
             .padding(start = 32.dp, end = 32.dp, top = 16.dp, bottom = 16.dp)
             .fillMaxWidth()
     ) {
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(image, contentDescription = null)
             Spacer(Modifier.width(16.dp))
-            Text(text, maxLines = 1)
+            Text(
+                text,
+                maxLines = 1,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
         Icon(
             Icons.Default.NorthWest,
             contentDescription = null,
-            Modifier.padding(start = 32.dp)
+            modifier = Modifier.padding(start = 32.dp)
         )
     }
 }
 
-@Preview
+@PreviewAnnotation
 @Composable
-fun SearchResultItemPreview() {
-    SearchResultItem(text = "Hello World", image = Icons.Default.History)
+private fun SearchResultItemPreview() {
+    ReadKeeperTheme {
+        Surface {
+            SearchResultItem(
+                text = "Hello World", image = Icons.Default.History
+            )
+        }
+    }
 }
