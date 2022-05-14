@@ -104,9 +104,11 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                     ) { innerPadding ->
-                        Box(modifier = Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding)) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(innerPadding)
+                        ) {
                             NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
                                 composable(SCREEN_ROUTE.HOME) {
                                     Homepage(
