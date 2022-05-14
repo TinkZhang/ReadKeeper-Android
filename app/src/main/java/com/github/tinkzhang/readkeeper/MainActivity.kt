@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -87,17 +89,24 @@ class MainActivity : ComponentActivity() {
                     val route =
                         navController.currentBackStackEntryAsState().value?.destination?.route
                     val screen = ROUTE_TO_SCREEN_MAP[route]
+                    val scrollBehavior = remember {
+                        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec = exponentialDecay())
+                    }
                     Scaffold(
+                        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                         topBar = {
                             if (screen is MainScreenViewData) {
-                                RkMainTopBar(isLogged = UserRepository.loginStatus.observeAsState().value == LoginStatus.Login,
+                                RkMainTopBar(
+                                    isLogged = UserRepository.loginStatus.observeAsState().value == LoginStatus.Login,
                                     profileUrl = UserRepository.user?.photoUrl.toString(),
                                     onProfileClick = {
                                         navController.navigate(SCREEN_ROUTE.SETTINGS)
                                     },
                                     onSearchClick = {
                                         navController.navigate(SCREEN_ROUTE.SEARCH)
-                                    })
+                                    },
+                                    scrollBehavior = scrollBehavior
+                                )
                             }
                         },
                         bottomBar = {
