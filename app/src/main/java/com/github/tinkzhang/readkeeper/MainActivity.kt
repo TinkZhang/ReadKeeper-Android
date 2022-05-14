@@ -90,11 +90,13 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         topBar = {
                             if (screen is MainScreenViewData) {
-                                RkMainTopBar(
-                                    isLogged = UserRepository.loginStatus.observeAsState().value == LoginStatus.Login,
+                                RkMainTopBar(isLogged = UserRepository.loginStatus.observeAsState().value == LoginStatus.Login,
                                     profileUrl = UserRepository.user?.photoUrl.toString(),
                                     onProfileClick = {
                                         navController.navigate(SCREEN_ROUTE.SETTINGS)
+                                    },
+                                    onSearchClick = {
+                                        navController.navigate(SCREEN_ROUTE.SEARCH)
                                     })
                             }
                         },
@@ -112,8 +114,7 @@ class MainActivity : ComponentActivity() {
                             NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
                                 composable(SCREEN_ROUTE.HOME) {
                                     Homepage(
-                                        navController = navController,
-                                        viewModel = hiltViewModel()
+                                        navController = navController, viewModel = hiltViewModel()
                                     )
                                 }
                                 composable(SCREEN_ROUTE.WEEKLY_ITEM) {
@@ -147,8 +148,7 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                                 composable(
-                                    SCREEN_ROUTE.WISH_ITEM,
-                                    arguments = listOf(navArgument("uuid") {
+                                    SCREEN_ROUTE.WISH_ITEM, arguments = listOf(navArgument("uuid") {
                                         type = NavType.StringType
                                     })
                                 ) {
@@ -162,18 +162,18 @@ class MainActivity : ComponentActivity() {
                                 composable(SCREEN_ROUTE.READING_LIST) {
                                     ReadingListPage(readingViewModel, navController = navController)
                                 }
-                                composable(SCREEN_ROUTE.READING_ITEM,
-                                    arguments = listOf(
-                                        navArgument("uuid") { type = NavType.StringType },
-                                        navArgument("open_progress_dialog") {
-                                            type = NavType.BoolType
-                                            defaultValue = false
-                                        },
-                                        navArgument("open_edit_dialog") {
-                                            type = NavType.BoolType
-                                            defaultValue = false
-                                        }
-                                    )) {
+                                composable(
+                                    SCREEN_ROUTE.READING_ITEM,
+                                    arguments = listOf(navArgument("uuid") {
+                                        type = NavType.StringType
+                                    }, navArgument("open_progress_dialog") {
+                                        type = NavType.BoolType
+                                        defaultValue = false
+                                    }, navArgument("open_edit_dialog") {
+                                        type = NavType.BoolType
+                                        defaultValue = false
+                                    })
+                                ) {
                                     ReadingVip(
                                         it.arguments?.getString("uuid") ?: "",
                                         it.arguments?.getBoolean("open_progress_dialog") ?: false,
