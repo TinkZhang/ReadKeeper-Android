@@ -141,7 +141,6 @@ class MainActivity : ComponentActivity() {
                                 composable(SCREEN_ROUTE.SEARCH) {
                                     SearchPage(
                                         navController = navController,
-                                        searchViewModel = hiltViewModel()
                                     )
                                 }
                                 composable(SCREEN_ROUTE.SEARCH_RESUTL) {
