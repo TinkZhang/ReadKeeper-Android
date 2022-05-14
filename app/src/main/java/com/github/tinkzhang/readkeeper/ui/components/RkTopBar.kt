@@ -25,11 +25,12 @@ import com.github.tinkzhang.uicomponent.RkProfileImage
 import com.github.tinkzhang.uicomponent.SearchBar
 import com.github.tinkzhang.uicomponent.theme.ReadKeeperTheme
 
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun RkMainTopBar(
     isLogged: Boolean,
     profileUrl: String = "",
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     onProfileClick: () -> Unit = {},
     onSearchClick: () -> Unit = {}
 ) {
@@ -79,7 +80,8 @@ fun RkMainTopBar(
                 )
             }
         }
-    })
+    },
+    scrollBehavior = scrollBehavior)
 }
 
 @Composable
