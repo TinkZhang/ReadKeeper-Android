@@ -101,11 +101,13 @@
         <entry key="../../../../layout/compose-model-1650196863573.xml" value="0.17462221156152555" />
         <entry key="../../../../layout/compose-model-1650900569602.xml" value="0.18733509234828497" />
         <entry key="../../../../layout/compose-model-1651240278821.xml" value="0.1" />
+        <entry key="app/src/main/java/com/github/tinkzhang/readkeeper/ui/components/RkTopBar.kt" value="0.45" />
         <entry key="app/src/main/res/drawable/ic_kindle.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_pdf.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_profile_24.xml" value="0.202" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.18642785065590312" />
         <entry key="common/uicomponent/src/main/java/com/github/tinkzhang/uicomponent/EditBookDialogContent.kt" value="0.1" />
+        <entry key="common/uicomponent/src/main/java/com/github/tinkzhang/uicomponent/SearchBar.kt" value="0.42407407407407405" />
         <entry key="feature/homepage/src/main/java/com/github/tinkzhang/homepage/quote/QuoteCard.kt" value="0.15648148148148147" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/SearchVip.kt" value="0.13240740740740742" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/ui/components/RkSearchErrorItem.kt" value="0.8739255014326648" />

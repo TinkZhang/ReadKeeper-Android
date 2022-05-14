@@ -2,4 +2,6 @@
 <resources>
     <string name="page">page</string>
     <string name="back">Back</string>
+    <string name="home_search_bar">Search by Google Books™</string>
+    <string name="settings">Settings</string>
 </resources>
