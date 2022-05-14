@@ -1,5 +1,6 @@
 package com.github.tinkzhang.uicomponent
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -13,17 +14,13 @@ import androidx.compose.ui.unit.dp
 import com.github.tinkzhang.uicomponent.theme.ReadKeeperTheme
 
 @Composable
-fun HomepageSearchBar(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
+fun SearchBar(
+    @StringRes text: Int, modifier: Modifier = Modifier, onClick: () -> Unit = {}
 ) {
     FilledTonalButton(
-        modifier = modifier.fillMaxWidth(),
-        colors = ButtonDefaults.filledTonalButtonColors(
+        modifier = modifier.fillMaxWidth(), colors = ButtonDefaults.filledTonalButtonColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f)
-        ),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-        onClick = onClick
+        ), contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp), onClick = onClick
     ) {
         Row(
             modifier = Modifier
@@ -37,8 +34,7 @@ fun HomepageSearchBar(
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
-                stringResource(id = R.string.home_search_bar),
-                style = MaterialTheme.typography.bodyLarge
+                stringResource(id = text), style = MaterialTheme.typography.bodyLarge
             )
         }
     }
@@ -49,7 +45,7 @@ fun HomepageSearchBar(
 private fun HomepageSearchBarPreview() {
     ReadKeeperTheme() {
         Surface() {
-            HomepageSearchBar()
+            SearchBar(text = R.string.home_search_bar)
         }
     }
 }

@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
                                 RkMainTopBar(
                                     isLogged = UserRepository.loginStatus.observeAsState().value == LoginStatus.Login,
                                     profileUrl = UserRepository.user?.photoUrl.toString(),
-                                    onProfileClickAction = {
+                                    onProfileClick = {
                                         navController.navigate(SCREEN_ROUTE.SETTINGS)
                                     })
                             }
