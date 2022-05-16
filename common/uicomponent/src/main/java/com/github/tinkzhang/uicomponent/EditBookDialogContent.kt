@@ -169,7 +169,7 @@ private fun BookPageFormatSection(
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         textColor = MaterialTheme.colorScheme.onSurface,
-                        backgroundColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f),
+                        containerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f),
                     )
                 )
                 Spacer(Modifier.height(16.dp))

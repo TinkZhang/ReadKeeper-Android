@@ -102,7 +102,7 @@ private fun ProgressEditSection(
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = MaterialTheme.colorScheme.onSurface,
-                backgroundColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f),
+                containerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f),
             ),
         )
     }
@@ -125,7 +125,7 @@ private fun NoteEditSection(
             shape = androidx.compose.material.MaterialTheme.shapes.large,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = MaterialTheme.colorScheme.onSurface,
-                backgroundColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f),
+                containerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f),
             ),
         )
     }

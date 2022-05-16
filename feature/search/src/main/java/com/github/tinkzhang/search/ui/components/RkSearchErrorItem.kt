@@ -35,7 +35,7 @@ fun RkSearchErrorItem(
         modifier = modifier
             .padding(32.dp)
             .fillMaxWidth(),
-        containerColor = MaterialTheme.colorScheme.errorContainer
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
     ) {
         Column(
             modifier

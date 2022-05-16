@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.6.10"
+kotlin = "1.6.21"
 minSdk = "24"
 targetSdk = "31"
 compileSdk = "31"
@@ -12,16 +12,16 @@ androidx-appcompat = "1.4.1"
 material = "1.5.0"
 
 #https://developer.android.com/jetpack/androidx/releases/compose-ui
-compose = "1.1.1"
+compose = "1.2.0-beta01"
 #https://developer.android.com/jetpack/androidx/releases/compose-material3
-compose-material3 = "1.0.0-alpha09"
+compose-material3 = "1.0.0-alpha11"
 #https://developer.android.com/jetpack/compose/navigation?hl=zh-cn
 compose-navigation = "2.4.2"
 #https://developer.android.com/jetpack/androidx/releases/lifecycle
 compose-viewmodel = "2.4.1"
 
 #https://search.maven.org/search?q=g:com.google.accompanist
-accompanist-swiperefresh = "0.24.2-alpha"
+accompanist-swiperefresh = "0.24.8-beta"
 
 #https://developer.android.com/jetpack/androidx/releases/activity
 activity-compose = "1.4.0"

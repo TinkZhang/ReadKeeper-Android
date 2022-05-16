@@ -6,13 +6,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -80,8 +83,6 @@ class MainActivity : ComponentActivity() {
             val isDark by generalViewModel.isDark.collectAsState(initial = true)
             ReadKeeperTheme(darkTheme = isDark ?: isSystemInDarkTheme()) {
                 val navController = rememberNavController()
-                val context = LocalContext.current
-                // A surface container using the 'background' color from the theme
                 Surface {
                     val route =
                         navController.currentBackStackEntryAsState().value?.destination?.route
@@ -102,100 +103,104 @@ class MainActivity : ComponentActivity() {
                                 RkNavigationBar(navController = navController)
                             }
                         },
-                    ) {
-                        NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
-                            composable(SCREEN_ROUTE.HOME) {
-                                Homepage(
-                                    navController = navController,
-                                    viewModel = hiltViewModel()
-                                )
-                            }
-                            composable(SCREEN_ROUTE.WEEKLY_ITEM) {
-                                val parentEntry = remember {
-                                    navController.getBackStackEntry(SCREEN_ROUTE.HOME)
+                    ) { innerPadding ->
+                        Box(modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)) {
+                            NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
+                                composable(SCREEN_ROUTE.HOME) {
+                                    Homepage(
+                                        navController = navController,
+                                        viewModel = hiltViewModel()
+                                    )
                                 }
-                                val parentViewModel =
-                                    hiltViewModel<WeeklyBookViewModel>(parentEntry)
-                                WeeklyBookVIP(
-                                    title = it.arguments?.getString("title") ?: "",
-                                    viewModel = parentViewModel,
-                                    navController = navController,
-                                )
-                            }
-                            composable(SCREEN_ROUTE.SEARCH) {
-                                SearchPage(
-                                    navController = navController,
-                                    searchViewModel = hiltViewModel()
-                                )
-                            }
-                            composable(SCREEN_ROUTE.SEARCH_RESUTL) {
-                                SearchResultPage(
-                                    it.arguments?.getString("keyword") ?: "",
-                                    searchResultViewModel = hiltViewModel(),
-                                    navController = navController
-                                )
-                            }
-                            composable(SCREEN_ROUTE.WISH_LIST) {
-                                WishListPage(
-                                    wishViewModel = wishViewModel, navController
-                                )
-                            }
-                            composable(
-                                SCREEN_ROUTE.WISH_ITEM,
-                                arguments = listOf(navArgument("uuid") {
-                                    type = NavType.StringType
-                                })
-                            ) {
-                                WishVip(
-                                    uuid = it.arguments?.getString("uuid") ?: "",
-                                    wishViewModel = wishViewModel,
-                                    navController = navController,
-                                    client = mCustomTabClient,
-                                )
-                            }
-                            composable(SCREEN_ROUTE.READING_LIST) {
-                                ReadingListPage(readingViewModel, navController = navController)
-                            }
-                            composable(SCREEN_ROUTE.READING_ITEM,
-                                arguments = listOf(
-                                    navArgument("uuid") { type = NavType.StringType },
-                                    navArgument("open_progress_dialog") {
-                                        type = NavType.BoolType
-                                        defaultValue = false
-                                    },
-                                    navArgument("open_edit_dialog") {
-                                        type = NavType.BoolType
-                                        defaultValue = false
+                                composable(SCREEN_ROUTE.WEEKLY_ITEM) {
+                                    val parentEntry = remember {
+                                        navController.getBackStackEntry(SCREEN_ROUTE.HOME)
                                     }
-                                )) {
-                                ReadingVip(
-                                    it.arguments?.getString("uuid") ?: "",
-                                    it.arguments?.getBoolean("open_progress_dialog") ?: false,
-                                    it.arguments?.getBoolean("open_edit_dialog") ?: false,
-                                    readingViewModel,
-                                    navController = navController
-                                )
-                            }
-                            composable(SCREEN_ROUTE.ARCHIVED_LIST) {
-                                ArchivedListPage(archivedViewModel, navController)
-                            }
-                            composable(
-                                SCREEN_ROUTE.ARCHIVED_ITEM,
-                                arguments = listOf(navArgument("uuid") {
-                                    type = NavType.StringType
-                                })
-                            ) {
-                                ArchivedVip(
-                                    uuid = it.arguments?.getString("uuid") ?: "",
-                                    archivedViewModel = archivedViewModel,
-                                    navController = navController
-                                )
-                            }
-                            composable(SCREEN_ROUTE.SETTINGS) {
-                                SettingsPage(
-                                    settingsViewModel = hiltViewModel(),
-                                    navController = navController
-                                )
+                                    val parentViewModel =
+                                        hiltViewModel<WeeklyBookViewModel>(parentEntry)
+                                    WeeklyBookVIP(
+                                        title = it.arguments?.getString("title") ?: "",
+                                        viewModel = parentViewModel,
+                                        navController = navController,
+                                    )
+                                }
+                                composable(SCREEN_ROUTE.SEARCH) {
+                                    SearchPage(
+                                        navController = navController,
+                                        searchViewModel = hiltViewModel()
+                                    )
+                                }
+                                composable(SCREEN_ROUTE.SEARCH_RESUTL) {
+                                    SearchResultPage(
+                                        it.arguments?.getString("keyword") ?: "",
+                                        searchResultViewModel = hiltViewModel(),
+                                        navController = navController
+                                    )
+                                }
+                                composable(SCREEN_ROUTE.WISH_LIST) {
+                                    WishListPage(
+                                        wishViewModel = wishViewModel, navController
+                                    )
+                                }
+                                composable(
+                                    SCREEN_ROUTE.WISH_ITEM,
+                                    arguments = listOf(navArgument("uuid") {
+                                        type = NavType.StringType
+                                    })
+                                ) {
+                                    WishVip(
+                                        uuid = it.arguments?.getString("uuid") ?: "",
+                                        wishViewModel = wishViewModel,
+                                        navController = navController,
+                                        client = mCustomTabClient,
+                                    )
+                                }
+                                composable(SCREEN_ROUTE.READING_LIST) {
+                                    ReadingListPage(readingViewModel, navController = navController)
+                                }
+                                composable(SCREEN_ROUTE.READING_ITEM,
+                                    arguments = listOf(
+                                        navArgument("uuid") { type = NavType.StringType },
+                                        navArgument("open_progress_dialog") {
+                                            type = NavType.BoolType
+                                            defaultValue = false
+                                        },
+                                        navArgument("open_edit_dialog") {
+                                            type = NavType.BoolType
+                                            defaultValue = false
+                                        }
+                                    )) {
+                                    ReadingVip(
+                                        it.arguments?.getString("uuid") ?: "",
+                                        it.arguments?.getBoolean("open_progress_dialog") ?: false,
+                                        it.arguments?.getBoolean("open_edit_dialog") ?: false,
+                                        readingViewModel,
+                                        navController = navController
+                                    )
+                                }
+                                composable(SCREEN_ROUTE.ARCHIVED_LIST) {
+                                    ArchivedListPage(archivedViewModel, navController)
+                                }
+                                composable(
+                                    SCREEN_ROUTE.ARCHIVED_ITEM,
+                                    arguments = listOf(navArgument("uuid") {
+                                        type = NavType.StringType
+                                    })
+                                ) {
+                                    ArchivedVip(
+                                        uuid = it.arguments?.getString("uuid") ?: "",
+                                        archivedViewModel = archivedViewModel,
+                                        navController = navController
+                                    )
+                                }
+                                composable(SCREEN_ROUTE.SETTINGS) {
+                                    SettingsPage(
+                                        settingsViewModel = hiltViewModel(),
+                                        navController = navController
+                                    )
+                                }
                             }
                         }
                     }
