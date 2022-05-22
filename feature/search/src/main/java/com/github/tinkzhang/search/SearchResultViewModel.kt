@@ -14,7 +14,7 @@ import com.github.tinkzhang.basic.model.SearchBook
 import com.github.tinkzhang.basic.model.WishBook
 import com.github.tinkzhang.search.network.SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
-import github.tinkzhang.readkeeper.search.model.googlebook.Item
+import com.github.tinkzhang.search.network.googlebook.Item
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import javax.inject.Inject

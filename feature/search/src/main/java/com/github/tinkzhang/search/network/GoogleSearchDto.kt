@@ -1,6 +1,6 @@
 package com.github.tinkzhang.search.network
 
-import github.tinkzhang.readkeeper.search.model.googlebook.Item
+import com.github.tinkzhang.search.network.googlebook.Item
 
 data class GoogleBookDto(
     val items: List<Item>,

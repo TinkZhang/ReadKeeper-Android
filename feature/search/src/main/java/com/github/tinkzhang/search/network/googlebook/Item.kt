@@ -1,11 +1,11 @@
-package github.tinkzhang.readkeeper.search.model.googlebook
+package com.github.tinkzhang.search.network.googlebook
 
 data class Item(
     val accessInfo: AccessInfo,
     val etag: String,
     val id: String,
     val kind: String,
-    val saleInfo: SaleInfo,
+//    val saleInfo: SaleInfo,
     val searchInfo: SearchInfo,
     val selfLink: String,
     val volumeInfo: VolumeInfo
