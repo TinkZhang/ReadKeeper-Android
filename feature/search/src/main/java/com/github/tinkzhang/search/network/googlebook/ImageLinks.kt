@@ -1,4 +1,4 @@
-package github.tinkzhang.readkeeper.search.model.googlebook
+package com.github.tinkzhang.search.network.googlebook
 
 data class ImageLinks(
     val smallThumbnail: String,
