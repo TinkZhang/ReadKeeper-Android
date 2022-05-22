@@ -6,16 +6,16 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.github.tinkzhang.uicomponent.PreviewAnnotation
+import com.github.tinkzhang.uicomponent.theme.ReadKeeperTheme
 
 @ExperimentalMaterial3Api
 @Composable
 fun RkSearchTipItem(
-    itemCount: Int,
-    modifier: Modifier = Modifier
+    itemCount: Int, modifier: Modifier = Modifier
 ) {
     val message = when (itemCount) {
         0 -> "No book is found on Google, please try to search with book title"
@@ -41,15 +41,19 @@ fun RkSearchTipItem(
 }
 
 @ExperimentalMaterial3Api
-@Preview
+@PreviewAnnotation
 @Composable
 private fun RkSearchTipItemPreview(
     @PreviewParameter(SearchItemNumberProvider::class) itemCount: Int
 ) {
-    RkSearchTipItem(itemCount)
+    ReadKeeperTheme() {
+        Surface() {
+            RkSearchTipItem(itemCount)
+        }
+    }
 }
 
-class SearchItemNumberProvider : PreviewParameterProvider<Int> {
+private class SearchItemNumberProvider : PreviewParameterProvider<Int> {
     override val values: Sequence<Int>
         get() = sequenceOf(0, 1, 12)
 }

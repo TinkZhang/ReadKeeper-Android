@@ -146,7 +146,6 @@ class MainActivity : ComponentActivity() {
                                 composable(SCREEN_ROUTE.SEARCH_RESUTL) {
                                     SearchResultPage(
                                         it.arguments?.getString("keyword") ?: "",
-                                        searchResultViewModel = hiltViewModel(),
                                         navController = navController
                                     )
                                 }

@@ -7,8 +7,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.tinkzhang.uicomponent.PreviewAnnotation
+import com.github.tinkzhang.uicomponent.theme.ReadKeeperTheme
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -59,9 +60,13 @@ fun RkSearchErrorItem(
     }
 }
 
-@ExperimentalMaterial3Api
-@Preview
+@OptIn(ExperimentalMaterial3Api::class)
+@PreviewAnnotation
 @Composable
 private fun RkSearchErrorItemPreview() {
-    RkSearchErrorItem(error = IOException(""))
+    ReadKeeperTheme {
+        Surface {
+            RkSearchErrorItem(error = IOException(""))
+        }
+    }
 }
