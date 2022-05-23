@@ -1,6 +1,7 @@
 package com.github.tinkzhang.search
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.LoadState
@@ -57,7 +59,10 @@ fun SearchResultPage(
         },
     ) { innerPadding ->
         val books = searchResultViewModel.flow.collectAsLazyPagingItems()
-        LazyColumn(Modifier.padding(innerPadding)) {
+        LazyColumn(
+            Modifier.padding(innerPadding),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             when {
                 books.loadState.refresh is LoadState.Loading -> {
                     item {
@@ -98,7 +103,7 @@ fun SearchResultPage(
             }
             itemsIndexed(books) { index, item ->
                 if (item != null) {
-                    SearchListCard(book = item,
+                    SearchListItem(book = item,
                         onAddWishClick = { checked ->
                             if (checked) {
                                 searchResultViewModel.addWish(item.convertToWishBook())

@@ -26,7 +26,7 @@ fun SearchCardBottom(
         Spacer(modifier = Modifier.width(8.dp))
         Text(
             "Add this book into: ",
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.labelMedium,
             modifier = Modifier
                 .weight(0.5f)
                 .align(Alignment.CenterVertically)
