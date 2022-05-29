@@ -15,11 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
-import com.github.tinkzhang.basic.SCREEN_ROUTE
 import com.github.tinkzhang.search.ui.components.RkSearchErrorItem
 import com.github.tinkzhang.search.ui.components.RkSearchTipItem
 import com.github.tinkzhang.uicomponent.GoogleAdView
@@ -28,7 +26,8 @@ import com.google.android.gms.ads.AdSize
 @ExperimentalMaterial3Api
 @Composable
 fun SearchResultPage(
-    navController: NavController? = null
+    onTitleClick: () -> Unit = {},
+    onBackClick: () -> Unit = {}
 ) {
     val viewModel: SearchResultViewModel = hiltViewModel()
     val keyword = viewModel.keyword
@@ -40,15 +39,10 @@ fun SearchResultPage(
                         keyword,
                         Modifier
                             .fillMaxWidth()
-                            .clickable { navController?.popBackStack() })
+                            .clickable { onTitleClick() })
                 },
                 navigationIcon = {
-                    IconButton(onClick = {
-                        navController?.popBackStack(
-                            SCREEN_ROUTE.HOME,
-                            false
-                        )
-                    }) {
+                    IconButton(onClick = onBackClick) {
                         Icon(
                             Icons.Default.ArrowBack,
                             contentDescription = stringResource(id = R.string.back)
