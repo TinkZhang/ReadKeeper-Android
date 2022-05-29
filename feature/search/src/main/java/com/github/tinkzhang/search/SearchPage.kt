@@ -10,10 +10,8 @@ import androidx.compose.material.icons.filled.History
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.github.tinkzhang.search.ui.components.SearchResultItem
 import com.github.tinkzhang.search.ui.components.SearchTextField
 import com.github.tinkzhang.uicomponent.PreviewAnnotation
@@ -24,15 +22,20 @@ val testSearchItems = listOf("Kotlin in action", "Jetpack Compose", "Thinking in
 @ExperimentalMaterial3Api
 @Composable
 fun SearchPage(
-    navController: NavController, searchViewModel: SearchViewModel = hiltViewModel()
+    onHistoryItemClick: (String) -> Unit = {},
+    onSearch: (String) -> Unit = {},
+    onBackClick: () -> Unit = {},
 ) {
-    val historyItems by searchViewModel.searchHistory.collectAsState(initial = listOf())
-    SearchPage(historyItems = historyItems, onSearch = { keyword ->
-        navController.navigate("search_result/${keyword}")
-        searchViewModel.addSearchHistory(keyword)
-    }, onHistoryItemClick = { item ->
-        navController.navigate("search_result/${item}")
-    }, onBackClick = { navController.popBackStack() })
+    val viewModel: SearchViewModel = hiltViewModel()
+    SearchPage(
+        historyItems = viewModel.searchHistory.collectAsState(initial = emptyList()).value,
+        onHistoryItemClick = onHistoryItemClick,
+        onSearch = {
+            onSearch(it)
+            viewModel.addSearchHistory(it)
+        },
+        onBackClick = onBackClick
+    )
 }
 
 @ExperimentalMaterial3Api

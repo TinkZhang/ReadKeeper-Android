@@ -28,10 +28,10 @@ import com.google.android.gms.ads.AdSize
 @ExperimentalMaterial3Api
 @Composable
 fun SearchResultPage(
-    keyword: String,
-    searchResultViewModel: SearchResultViewModel = hiltViewModel(),
     navController: NavController? = null
 ) {
+    val viewModel: SearchResultViewModel = hiltViewModel()
+    val keyword = viewModel.keyword
     Scaffold(
         topBar = {
             SmallTopAppBar(
@@ -58,7 +58,7 @@ fun SearchResultPage(
             )
         },
     ) { innerPadding ->
-        val books = searchResultViewModel.flow.collectAsLazyPagingItems()
+        val books = viewModel.flow.collectAsLazyPagingItems()
         LazyColumn(
             Modifier.padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -106,16 +106,16 @@ fun SearchResultPage(
                     SearchListItem(book = item,
                         onAddWishClick = { checked ->
                             if (checked) {
-                                searchResultViewModel.addWish(item.convertToWishBook())
+                                viewModel.addWish(item.convertToWishBook())
                             } else {
-                                searchResultViewModel.removeWish(item.bookInfo.uuid)
+                                viewModel.removeWish(item.bookInfo.uuid)
                             }
                         },
                         onAddReadingClick = { checked ->
                             if (checked) {
-                                searchResultViewModel.addReading(item.convertToReadingBook())
+                                viewModel.addReading(item.convertToReadingBook())
                             } else {
-                                searchResultViewModel.removeReading(item.bookInfo.uuid)
+                                viewModel.removeReading(item.bookInfo.uuid)
                             }
                         })
                 }
