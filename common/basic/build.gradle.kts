@@ -41,7 +41,7 @@ dependencies {
     implementation(libs.firebaseRemoteConfig)
 
     // Paging
-    implementation(libs.bundles.paging)
+    implementation(libs.pagingCompose)
 
     // Room
     implementation(libs.room)
