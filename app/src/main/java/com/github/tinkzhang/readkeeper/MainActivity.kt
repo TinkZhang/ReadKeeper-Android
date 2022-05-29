@@ -152,7 +152,13 @@ class MainActivity : ComponentActivity() {
                                     })
                                 ) {
                                     SearchResultPage(
-                                        navController = navController
+                                        onTitleClick = { navController.popBackStack() },
+                                        onBackClick = {
+                                            navController.popBackStack(
+                                                SCREEN_ROUTE.HOME,
+                                                false
+                                            )
+                                        }
                                     )
                                 }
                                 composable(SCREEN_ROUTE.WISH_LIST) {
