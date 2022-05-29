@@ -140,12 +140,18 @@ class MainActivity : ComponentActivity() {
                                 }
                                 composable(SCREEN_ROUTE.SEARCH) {
                                     SearchPage(
-                                        navController = navController,
+                                        onSearch = { navController.navigate("search_result/${it}") },
+                                        onHistoryItemClick = { navController.navigate("search_result/${it}") },
+                                        onBackClick = { navController.popBackStack() }
                                     )
                                 }
-                                composable(SCREEN_ROUTE.SEARCH_RESUTL) {
+                                composable(
+                                    route = SCREEN_ROUTE.SEARCH_RESUTL,
+                                    arguments = listOf(navArgument("keyword") {
+                                        type = NavType.StringType
+                                    })
+                                ) {
                                     SearchResultPage(
-                                        it.arguments?.getString("keyword") ?: "",
                                         navController = navController
                                     )
                                 }

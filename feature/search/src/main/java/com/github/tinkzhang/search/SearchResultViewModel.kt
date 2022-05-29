@@ -13,8 +13,8 @@ import com.github.tinkzhang.basic.model.ReadingBook
 import com.github.tinkzhang.basic.model.SearchBook
 import com.github.tinkzhang.basic.model.WishBook
 import com.github.tinkzhang.search.network.SIZE
-import dagger.hilt.android.lifecycle.HiltViewModel
 import com.github.tinkzhang.search.network.googlebook.Item
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,8 +25,7 @@ const val KEYWORD = "keyword"
 class SearchResultViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
-    private val keyword: String = savedStateHandle[KEYWORD] ?: ""
+    val keyword: String = savedStateHandle[KEYWORD] ?: ""
 
     init {
         Timber.d("Create Search Result ViewModel for keyword $keyword")
