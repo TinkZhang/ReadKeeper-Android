@@ -45,7 +45,7 @@ play-service-coroutines = "1.5.2"
 
 instabug = "10.8.1"
 
-paging = "3.1.0"
+#https://developer.android.com/jetpack/androidx/releases/paging
 paging-compose = "1.0.0-alpha14"
 
 datastore = "1.0.0"
@@ -108,7 +108,6 @@ firebaseAuth = { module = "com.google.firebase:firebase-auth-ktx", version.ref =
 playAuth = { module = "com.google.android.gms:play-services-auth", version.ref = "play-auth" }
 firebaseRemoteConfig = { module = "com.google.firebase:firebase-config-ktx", version.ref = "firebase-remote-config" }
 
-paging = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 pagingCompose = { module = "androidx.paging:paging-compose", version.ref = "paging-compose" }
 
 datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
@@ -141,7 +140,6 @@ androidx-compose = ["composeUi", "coil", "composeMaterial", "composeUiTooling", 
 retrofit = ["retrofit", "retrofit-gson", "retrofit-logging"]
 google-login = ["firebaseAuth", "playAuth"]
 firestore = ["firebaseFirestore", "play-services-coroutines"]
-paging = ["paging", "pagingCompose"]
 testing = ["unitTest", "uiTest"]
 hilt = ["hiltAndroid", "hiltLifecycleViewmodel", "hiltNavigationCompose"]
 hiltComplier = ["hiltAndroidCompiler", "hiltCompiler"]

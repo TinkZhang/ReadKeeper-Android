@@ -50,7 +50,7 @@ dependencies {
     debugImplementation(libs.composeUiTest)
 
     // Paging
-    implementation(libs.bundles.paging)
+    implementation(libs.pagingCompose)
 
     // Testing
     testImplementation(libs.junit)

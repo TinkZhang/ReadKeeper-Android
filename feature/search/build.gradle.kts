@@ -56,7 +56,7 @@ dependencies {
     kapt(libs.bundles.hiltComplier)
 
     // Paging
-    implementation(libs.bundles.paging)
+    implementation(libs.pagingCompose)
 
     // Testing
     testImplementation(libs.junit)
