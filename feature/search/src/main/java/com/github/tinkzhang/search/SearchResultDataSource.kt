@@ -38,10 +38,10 @@ class SearchResultDataSource(
                 nextKey = if (totalItems < SIZE) null else nextPage + 1
             )
         } catch (exception: IOException) {
-            Timber.e("Search failed: ${exception.localizedMessage}")
+            Timber.d("Search failed: ${exception.localizedMessage}")
             return LoadResult.Error(exception)
         } catch (exception: HttpException) {
-            Timber.e("Search failed: ${exception.code()}")
+            Timber.d("Search failed: ${exception.code()}")
             return LoadResult.Error(exception)
         }
     }

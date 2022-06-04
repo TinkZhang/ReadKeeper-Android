@@ -5,6 +5,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.tinkzhang.basic.model.SearchBook
@@ -22,6 +26,8 @@ fun SearchCardMetadata(
     onReadingButtonClicked: (Boolean) -> Unit = {},
     onWishButtonClicked: (Boolean) -> Unit = {},
 ) {
+    var isInReading: Boolean by remember { mutableStateOf(false) }
+    var isInWish: Boolean by remember { mutableStateOf(false) }
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -50,14 +56,14 @@ fun SearchCardMetadata(
                 modifier = Modifier.padding(bottom = 8.dp),
             )
             Row() {
-                ReadingIconToggleButton(
-                    checked = book.isInReading
-                ) {
+                ReadingIconToggleButton(checked = isInReading) {
                     onReadingButtonClicked(it)
+                    isInReading = !isInReading
                 }
                 Spacer(modifier = Modifier.width(16.dp))
-                WishIconToggleButton(checked = book.isInWish) {
+                WishIconToggleButton(checked = isInWish) {
                     onWishButtonClicked(it)
+                    isInWish = !isInWish
                 }
             }
         }

@@ -4,7 +4,6 @@ import com.google.firebase.Timestamp
 import java.util.*
 
 data class BookInfo(
-    val uuid: String = UUID.randomUUID().toString(),
     var title: String = "",
     var imageUrl: String = "",
     var author: String = "",
@@ -12,6 +11,8 @@ data class BookInfo(
     var rating: Double = 0.0,
     var pubYear: Int = 0,
     val amazonLink: String? = null,
+    val isbn: String? = null,
+    val uuid: String = isbn ?: UUID.randomUUID().toString(),
 )
 
 data class TimeInfo(
