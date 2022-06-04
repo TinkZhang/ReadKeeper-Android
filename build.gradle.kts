@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.4.0-alpha01")
+        classpath("com.android.tools.build:gradle:7.4.0-alpha02")
         classpath(libs.kotlin.gradlePlugin)
         // Downgrade it to workaround the bug https://issuetracker.google.com/issues/223240936
         classpath("com.google.gms:google-services:4.3.5")

@@ -4,8 +4,6 @@ import kotlin.random.Random
 
 data class SearchBook(
     override val bookInfo: BookInfo,
-    var isInReading: Boolean = false,
-    var isInWish: Boolean = false
 ) : Book {
     fun convertToWishBook() = WishBook(bookInfo = bookInfo)
     fun convertToReadingBook() = ReadingBook(bookInfo = bookInfo)

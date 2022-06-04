@@ -58,6 +58,7 @@ class SearchResultViewModel @Inject constructor(
 private fun Item.convertToSearchBook(): SearchBook {
     return SearchBook(
         bookInfo = BookInfo(
+            isbn = this.volumeInfo.industryIdentifiers?.lastOrNull()?.identifier,
             title = this.volumeInfo.title,
             imageUrl = this.volumeInfo.imageLinks?.thumbnail?.replace("http:", "https:") ?: "",
             author = this.volumeInfo.authors?.joinToString() ?: "",
