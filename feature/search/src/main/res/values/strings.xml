@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="back">Back</string>
+    <string name="remove_from_reading">%s is removed from reading list.</string>
+    <string name="added_into_reading">%s is added into reading list.</string>
+    <string name="remove_from_wish">%s is removed from wish list.</string>
+    <string name="added_into_wish">%s is added into wish list.</string>
+    <string name="undo">Undo</string>
 </resources>

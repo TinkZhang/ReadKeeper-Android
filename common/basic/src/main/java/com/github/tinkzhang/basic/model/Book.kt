@@ -12,7 +12,7 @@ data class BookInfo(
     var pubYear: Int = 0,
     val amazonLink: String? = null,
     val isbn: String? = null,
-    val uuid: String = isbn ?: UUID.randomUUID().toString(),
+    val uuid: String = isbn + UUID.randomUUID().toString(),
 )
 
 data class TimeInfo(
