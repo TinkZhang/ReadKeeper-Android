@@ -1,6 +1,5 @@
 package com.github.tinkzhang.search
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -25,9 +25,9 @@ import com.github.tinkzhang.search.ui.components.RkSearchErrorItem
 import com.github.tinkzhang.search.ui.components.RkSearchTipItem
 import com.github.tinkzhang.uicomponent.GoogleAdView
 import com.google.android.gms.ads.AdSize
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun SearchResultPage(
@@ -38,6 +38,7 @@ fun SearchResultPage(
     val keyword = viewModel.keyword
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             SmallTopAppBar(
@@ -58,7 +59,7 @@ fun SearchResultPage(
                 },
             )
         },
-        snackbarHost = { SnackbarHost(hostState =snackbarHostState)}
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
         val books = viewModel.flow.collectAsLazyPagingItems()
         LazyColumn(
@@ -103,46 +104,46 @@ fun SearchResultPage(
                     }
                 }
             }
-            itemsIndexed(items = books,key = {_, item -> item.bookInfo.uuid},) { index, item ->
+            itemsIndexed(items = books, key = { _, item -> item.bookInfo.uuid }) { index, item ->
                 if (item != null) {
                     SearchListItem(
                         book = item,
                         onAddWishClick = { checked ->
                             if (checked) {
-                                viewModel.addWish(item.convertToWishBook())
-                                scope.launch {
-                                    snackbarHostState.showSnackbar(
-                                        message = "${item.bookInfo.title} is added into wish list.",
-                                        actionLabel = "Undo",
-                                    )
-                                }
+                                showSnackbar(
+                                    message = context.getString(R.string.added_into_wish, item.bookInfo.title),
+                                    scope = scope,
+                                    snackbarHostState = snackbarHostState,
+                                    actionLabel = context.getString(R.string.undo),
+                                    dismissAction = { viewModel.addWish(item.convertToWishBook()) }
+                                )
                             } else {
-                                viewModel.removeWish(item.bookInfo.uuid)
-                                scope.launch {
-                                    snackbarHostState.showSnackbar(
-                                        message = "${item.bookInfo.title} is removed from wish list.",
-                                        actionLabel = "Undo",
-                                    )
-                                }
+                                showSnackbar(
+                                    message = context.getString(R.string.remove_from_wish, item.bookInfo.title),
+                                    scope = scope,
+                                    snackbarHostState = snackbarHostState,
+                                    actionLabel = context.getString(R.string.undo),
+                                    dismissAction = { viewModel.removeWish(item.bookInfo.uuid) }
+                                )
                             }
                         },
                         onAddReadingClick = { checked ->
                             if (checked) {
-                                viewModel.addReading(item.convertToReadingBook())
-                                scope.launch {
-                                    snackbarHostState.showSnackbar(
-                                        message = "${item.bookInfo.title} is added into reading list.",
-                                        actionLabel = "Undo",
-                                    )
-                                }
+                                showSnackbar(
+                                    message = context.getString(R.string.added_into_reading, item.bookInfo.title),
+                                    scope = scope,
+                                    snackbarHostState = snackbarHostState,
+                                    actionLabel = context.getString(R.string.undo),
+                                    dismissAction = { viewModel.addReading(item.convertToReadingBook()) }
+                                )
                             } else {
-                                viewModel.removeReading(item.bookInfo.uuid)
-                                scope.launch {
-                                    snackbarHostState.showSnackbar(
-                                        message = "${item.bookInfo.title} is removed from reading list.",
-                                        actionLabel = "Undo",
-                                    )
-                                }
+                                showSnackbar(
+                                    message = context.getString(R.string.remove_from_reading, item.bookInfo.title),
+                                    scope = scope,
+                                    snackbarHostState = snackbarHostState,
+                                    actionLabel = context.getString(R.string.undo),
+                                    dismissAction = { viewModel.removeReading(item.bookInfo.uuid) }
+                                )
                             }
                         })
                 }
@@ -160,6 +161,25 @@ fun SearchResultPage(
                     )
                 }
             }
+        }
+    }
+}
+
+private fun showSnackbar(
+    message: String,
+    scope: CoroutineScope,
+    snackbarHostState: SnackbarHostState,
+    actionLabel: String,
+    dismissAction: () -> Unit
+) {
+    scope.launch {
+        when (snackbarHostState.showSnackbar(
+            message = message,
+            actionLabel = actionLabel,
+            duration = SnackbarDuration.Short
+        )) {
+            SnackbarResult.Dismissed -> dismissAction()
+            SnackbarResult.ActionPerformed -> Unit
         }
     }
 }
