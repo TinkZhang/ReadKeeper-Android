@@ -1,26 +1,28 @@
 package com.github.tinkzhang.search.network.googlebook
 
+import com.google.gson.annotations.SerializedName
+
 data class VolumeInfo(
-    val allowAnonLogging: Boolean,
+    @SerializedName("authors")
     val authors: List<String>?,
+    @SerializedName("averageRating")
     val averageRating: Double,
-    val canonicalVolumeLink: String,
-    val categories: List<String>,
-    val contentVersion: String,
+    @SerializedName("description")
     val description: String,
+    @SerializedName("imageLinks")
     val imageLinks: ImageLinks?,
+    @SerializedName("industryIdentifiers")
     val industryIdentifiers: List<IndustryIdentifier>?,
-    val infoLink: String,
-    val language: String,
-    val maturityRating: String,
+    @SerializedName("pageCount")
     val pageCount: Int,
-    val panelizationSummary: PanelizationSummary,
-    val previewLink: String,
-    val printType: String,
+    @SerializedName("publishedDate")
     val publishedDate: String?,
+    @SerializedName("publisher")
     val publisher: String,
+    @SerializedName("ratingsCount")
     val ratingsCount: Int,
-    val readingModes: ReadingModes,
+    @SerializedName("subtitle")
     val subtitle: String,
+    @SerializedName("title")
     val title: String
 )
