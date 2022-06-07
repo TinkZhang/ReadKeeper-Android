@@ -13,7 +13,7 @@ import com.github.tinkzhang.basic.model.ReadingBook
 import com.github.tinkzhang.basic.model.SearchBook
 import com.github.tinkzhang.basic.model.WishBook
 import com.github.tinkzhang.search.network.SIZE
-import com.github.tinkzhang.search.network.googlebook.Item
+import com.github.tinkzhang.search.network.googlebook.GoogleBookItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
@@ -55,7 +55,7 @@ class SearchResultViewModel @Inject constructor(
     }
 }
 
-private fun Item.convertToSearchBook(): SearchBook {
+private fun GoogleBookItem.convertToSearchBook(): SearchBook {
     return SearchBook(
         bookInfo = BookInfo(
             isbn = this.volumeInfo.industryIdentifiers?.lastOrNull()?.identifier,

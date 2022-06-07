@@ -111,7 +111,10 @@ fun SearchResultPage(
                         onAddWishClick = { checked ->
                             if (checked) {
                                 showSnackbar(
-                                    message = context.getString(R.string.added_into_wish, item.bookInfo.title),
+                                    message = context.getString(
+                                        R.string.added_into_wish,
+                                        item.bookInfo.title
+                                    ),
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
@@ -119,7 +122,10 @@ fun SearchResultPage(
                                 )
                             } else {
                                 showSnackbar(
-                                    message = context.getString(R.string.remove_from_wish, item.bookInfo.title),
+                                    message = context.getString(
+                                        R.string.remove_from_wish,
+                                        item.bookInfo.title
+                                    ),
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
@@ -130,7 +136,10 @@ fun SearchResultPage(
                         onAddReadingClick = { checked ->
                             if (checked) {
                                 showSnackbar(
-                                    message = context.getString(R.string.added_into_reading, item.bookInfo.title),
+                                    message = context.getString(
+                                        R.string.added_into_reading,
+                                        item.bookInfo.title
+                                    ),
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
@@ -138,7 +147,10 @@ fun SearchResultPage(
                                 )
                             } else {
                                 showSnackbar(
-                                    message = context.getString(R.string.remove_from_reading, item.bookInfo.title),
+                                    message = context.getString(
+                                        R.string.remove_from_reading,
+                                        item.bookInfo.title
+                                    ),
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
@@ -175,7 +187,8 @@ private fun showSnackbar(
     scope.launch {
         when (snackbarHostState.showSnackbar(
             message = message,
-            actionLabel = actionLabel,
+            // TODO: tap the snackbar action button won't change the toggle button status, disable it now
+//            actionLabel = actionLabel,
             duration = SnackbarDuration.Short
         )) {
             SnackbarResult.Dismissed -> dismissAction()
