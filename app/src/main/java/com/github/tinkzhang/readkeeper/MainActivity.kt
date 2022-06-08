@@ -11,11 +11,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
@@ -56,6 +53,7 @@ import com.github.tinkzhang.uicomponent.RkCustomTabClient
 import com.github.tinkzhang.wish.WishViewModel
 import com.github.tinkzhang.wish.ui.WishListPage
 import com.github.tinkzhang.wish.ui.WishVip
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
@@ -85,6 +83,7 @@ class MainActivity : ComponentActivity() {
             val isDark by generalViewModel.isDark.collectAsState(initial = true)
             ReadKeeperTheme(darkTheme = isDark ?: isSystemInDarkTheme()) {
                 val navController = rememberNavController()
+                setStatusBar(isDark)
                 Surface {
                     val route =
                         navController.currentBackStackEntryAsState().value?.destination?.route
@@ -227,6 +226,19 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+        }
+    }
+
+    @Composable
+    private fun setStatusBar(isDark: Boolean?) {
+        val systemUiController = rememberSystemUiController()
+        val color = MaterialTheme.colorScheme.background
+        val isDarkBar = isDark ?: isSystemInDarkTheme()
+        SideEffect {
+            systemUiController.setSystemBarsColor(
+                color = color,
+                darkIcons = !isDarkBar
+            )
         }
     }
 

@@ -78,9 +78,6 @@ dependencies {
     // Timber
     implementation(libs.timber)
 
-    // Instabug
-    implementation(libs.instabug)
-
     // Google Ad
     implementation(libs.googleAd)
 
@@ -102,6 +99,9 @@ dependencies {
 
     // Datastore
     implementation(libs.datastore)
+
+    // Accompanist SystemUI Controller
+    implementation(libs.accompanistSystemUiController)
 }
 
 // Allow references to generated code

@@ -1,8 +1,8 @@
 [versions]
 kotlin = "1.6.21"
 minSdk = "24"
-targetSdk = "31"
-compileSdk = "31"
+targetSdk = "32"
+compileSdk = "32"
 
 #https://developer.android.com/jetpack/androidx/releases/core
 androidx-core = "1.7.0"
@@ -12,7 +12,7 @@ androidx-appcompat = "1.4.1"
 material = "1.5.0"
 
 #https://developer.android.com/jetpack/androidx/releases/compose-ui
-compose = "1.2.0-beta01"
+compose = "1.2.0-beta03"
 #https://developer.android.com/jetpack/androidx/releases/compose-material3
 compose-material3 = "1.0.0-alpha11"
 #https://developer.android.com/jetpack/compose/navigation?hl=zh-cn
@@ -21,7 +21,7 @@ compose-navigation = "2.4.2"
 compose-viewmodel = "2.4.1"
 
 #https://search.maven.org/search?q=g:com.google.accompanist
-accompanist-swiperefresh = "0.24.8-beta"
+accompanist = "0.24.10-beta"
 
 #https://developer.android.com/jetpack/androidx/releases/activity
 activity-compose = "1.4.0"
@@ -88,7 +88,8 @@ composeMaterial3 = { module = "androidx.compose.material3:material3", version.re
 composeNavigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
 composeViewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose-viewmodel" }
 
-accompanistSwiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist-swiperefresh" }
+accompanistSwiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
+accompanistSystemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 
 activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 

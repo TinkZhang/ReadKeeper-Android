@@ -23,7 +23,6 @@ import androidx.navigation.NavController
 import com.github.tinkzhang.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import com.github.tinkzhang.homepage.weeklybook.WeeklyBookViewModel
 import com.github.tinkzhang.uicomponent.*
-import com.github.tinkzhang.uicomponent.VipSearchEngineSection
 import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.launch
 
@@ -67,7 +66,7 @@ fun WeeklyBookVIP(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = DpContentLargePadding)
+                .padding(it)
                 .verticalScroll(rememberScrollState())
         ) {
             Row(modifier = Modifier.fillMaxWidth()) {
