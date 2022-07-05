@@ -19,9 +19,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
-import app.github.tinkzhang.uicomponent.PreviewAnnotation
-import app.github.tinkzhang.uicomponent.RkProfileImage
-import app.github.tinkzhang.uicomponent.SearchBar
+import app.tinks.readkeeper.uicomponent.PreviewAnnotation
+import app.tinks.readkeeper.uicomponent.RkProfileImage
+import app.tinks.readkeeper.uicomponent.SearchBar
 import app.tinks.readkeeper.R
 import app.tinks.readkeeper.readkeeper.ui.theme.ReadKeeperTheme
 

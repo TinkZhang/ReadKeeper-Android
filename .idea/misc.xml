@@ -108,9 +108,12 @@
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.18642785065590312" />
         <entry key="common/uicomponent/src/main/java/app/github/tinkzhang/uicomponent/AmazonLinkSection.kt" value="0.225" />
         <entry key="common/uicomponent/src/main/java/app/github/tinkzhang/uicomponent/EditBookDialogContent.kt" value="0.19839142091152814" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/EditBookDialogContent.kt" value="0.20163030448333732" />
         <entry key="common/uicomponent/src/main/java/com/github/tinkzhang/uicomponent/EditBookDialogContent.kt" value="0.1" />
         <entry key="common/uicomponent/src/main/java/com/github/tinkzhang/uicomponent/SearchBar.kt" value="0.42407407407407405" />
+        <entry key="feature/homepage/src/main/java/app/tinks/readkeeper/homepage/weeklybook/ui/WeeklyBookCard.kt" value="0.8114478114478114" />
         <entry key="feature/homepage/src/main/java/com/github/tinkzhang/homepage/quote/QuoteCard.kt" value="0.15648148148148147" />
+        <entry key="feature/search/src/main/java/app/tinks/readkeeper/search/SearchVip.kt" value="0.22314814814814815" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/SearchListItem.kt" value="0.335" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/SearchPage.kt" value="0.25925925925925924" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/SearchVip.kt" value="0.13240740740740742" />
