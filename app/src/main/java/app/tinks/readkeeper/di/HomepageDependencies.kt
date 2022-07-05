@@ -1,6 +1,6 @@
 package app.tinks.readkeeper.readkeeper.di
 
-import app.github.tinkzhang.homepage.weeklybook.db.WeeklyBookDatabase
+import app.tinks.readkeeper.homepage.weeklybook.db.WeeklyBookDatabase
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent

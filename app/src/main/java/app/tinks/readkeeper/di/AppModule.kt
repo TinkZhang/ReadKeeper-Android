@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
-import app.github.tinkzhang.homepage.weeklybook.db.WeeklyBookDatabase
+import app.tinks.readkeeper.homepage.weeklybook.db.WeeklyBookDatabase
 import app.tinks.readkeeper.basic.DataStoreRepository
 import app.tinks.readkeeper.basic.UserRepository
 import dagger.Module

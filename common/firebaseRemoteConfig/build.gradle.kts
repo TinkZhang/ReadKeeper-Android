@@ -42,4 +42,8 @@ dependencies {
 
     // Timber
     implementation(libs.timber)
+
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.bundles.testing)
 }

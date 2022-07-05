@@ -57,4 +57,8 @@ dependencies {
 
     // Datastore
     implementation(libs.datastore)
+
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.bundles.testing)
 }

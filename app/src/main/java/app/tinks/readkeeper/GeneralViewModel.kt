@@ -1,7 +1,7 @@
 package app.tinks.readkeeper
 
 import androidx.lifecycle.ViewModel
-import app.github.tinkzhang.settings.ThemeStatus
+import app.tinks.readkeeper.settings.ThemeStatus
 import app.tinks.readkeeper.basic.DataStoreKey
 import app.tinks.readkeeper.basic.DataStoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
