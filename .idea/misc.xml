@@ -106,6 +106,8 @@
         <entry key="app/src/main/res/drawable/ic_pdf.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_profile_24.xml" value="0.202" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.18642785065590312" />
+        <entry key="common/uicomponent/src/main/java/app/github/tinkzhang/uicomponent/AmazonLinkSection.kt" value="0.225" />
+        <entry key="common/uicomponent/src/main/java/app/github/tinkzhang/uicomponent/EditBookDialogContent.kt" value="0.19839142091152814" />
         <entry key="common/uicomponent/src/main/java/com/github/tinkzhang/uicomponent/EditBookDialogContent.kt" value="0.1" />
         <entry key="common/uicomponent/src/main/java/com/github/tinkzhang/uicomponent/SearchBar.kt" value="0.42407407407407405" />
         <entry key="feature/homepage/src/main/java/com/github/tinkzhang/homepage/quote/QuoteCard.kt" value="0.15648148148148147" />

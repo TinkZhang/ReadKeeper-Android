@@ -71,3 +71,8 @@ dependencies {
     implementation(libs.bundles.hilt)
     kapt(libs.bundles.hiltComplier)
 }
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
+}

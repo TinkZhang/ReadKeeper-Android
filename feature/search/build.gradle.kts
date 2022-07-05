@@ -74,3 +74,7 @@ dependencies {
     // Timber
     implementation(libs.timber)
 }
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
+}
