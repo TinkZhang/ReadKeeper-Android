@@ -15,7 +15,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.github.tinkzhang.readkeeper"
+        applicationId = "app.tinks.readkeeper"
         minSdk = 24
         targetSdk = 31
         versionCode = 1

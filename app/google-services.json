@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:594810278400:android:cf4580b0b75875e72cbee5",
+        "android_client_info": {
+          "package_name": "app.tinks.readkeeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594810278400-1difkt9h1ac9vclat21gdgkm7h8jpj1s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.tinks.readkeeper",
+            "certificate_hash": "2de362e521c39eb081515f7135ff172dd94e01a2"
+          }
+        },
+        {
+          "client_id": "594810278400-ajdesa7lble6v7th11uufc0m355cajer.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI9hcM-sKAvBd5EOO78ZNzSliHd8OoFCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594810278400-ajdesa7lble6v7th11uufc0m355cajer.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:594810278400:android:5a2d113969c41f352cbee5",
         "android_client_info": {
           "package_name": "com.github.tinkzhang.readkeeper"
