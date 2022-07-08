@@ -12,13 +12,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import app.tinks.readkeeper.basic.DataStoreKey
+import app.tinks.readkeeper.basic.LoginStatus
+import app.tinks.readkeeper.basic.SCREEN_ROUTE
 import app.tinks.readkeeper.settings.model.SettingAttribute
 import app.tinks.readkeeper.settings.model.SingleSelectionItem
 import app.tinks.readkeeper.settings.section.*
 import app.tinks.readkeeper.settings.ui.RadioSettingDialog
-import app.tinks.readkeeper.basic.DataStoreKey
-import app.tinks.readkeeper.basic.LoginStatus
-import app.tinks.readkeeper.basic.SCREEN_ROUTE
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
@@ -44,7 +44,7 @@ fun SettingsPage(
                 }
             },
         )
-    }) {
+    }) { padding ->
         val scope = rememberCoroutineScope()
         val context = LocalContext.current
 
@@ -63,7 +63,7 @@ fun SettingsPage(
 
         val loginStatus by settingsViewModel.loginStatus.observeAsState()
 
-        Box(Modifier.fillMaxSize()) {
+        Box(Modifier.padding(padding).fillMaxSize()) {
             Column(
                 Modifier
                     .fillMaxWidth()

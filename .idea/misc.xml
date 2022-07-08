@@ -113,6 +113,7 @@
         <entry key="common/uicomponent/src/main/java/com/github/tinkzhang/uicomponent/SearchBar.kt" value="0.42407407407407405" />
         <entry key="feature/homepage/src/main/java/app/tinks/readkeeper/homepage/weeklybook/ui/WeeklyBookCard.kt" value="0.8114478114478114" />
         <entry key="feature/homepage/src/main/java/com/github/tinkzhang/homepage/quote/QuoteCard.kt" value="0.15648148148148147" />
+        <entry key="feature/search/src/main/java/app/tinks/readkeeper/search/SearchPage.kt" value="0.1692339716902581" />
         <entry key="feature/search/src/main/java/app/tinks/readkeeper/search/SearchVip.kt" value="0.22314814814814815" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/SearchListItem.kt" value="0.335" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/SearchPage.kt" value="0.25925925925925924" />
@@ -123,6 +124,7 @@
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/ui/components/SearchCardBottom.kt" value="0.3037037037037037" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/ui/components/SearchCardMetadata.kt" value="0.3037037037037037" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/ui/components/SearchTextField.kt" value="0.30185185185185187" />
+        <entry key="feature/settings/src/main/java/app/tinks/readkeeper/settings/section/UserContent.kt" value="0.8962536023054755" />
       </map>
     </option>
   </component>

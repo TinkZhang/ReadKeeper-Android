@@ -1,4 +1,4 @@
-package app.tinks.readkeeper.readkeeper.di
+package app.tinks.readkeeper.di
 
 import android.app.Application
 import android.content.Context
@@ -7,9 +7,10 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
-import app.tinks.readkeeper.homepage.weeklybook.db.WeeklyBookDatabase
 import app.tinks.readkeeper.basic.DataStoreRepository
 import app.tinks.readkeeper.basic.UserRepository
+import app.tinks.readkeeper.basic.database.BookDatabase
+import app.tinks.readkeeper.homepage.weeklybook.db.WeeklyBookDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,6 +36,12 @@ object AppModule {
     @Singleton
     fun provideWeeklyBookDatabase(app: Application): WeeklyBookDatabase =
         Room.databaseBuilder(app, WeeklyBookDatabase::class.java, "weekly_book_database")
+            .build()
+
+    @Provides
+    @Singleton
+    fun provideBookDatabase(app: Application): BookDatabase =
+        Room.databaseBuilder(app, BookDatabase::class.java, "book_database")
             .build()
 
     @Provides

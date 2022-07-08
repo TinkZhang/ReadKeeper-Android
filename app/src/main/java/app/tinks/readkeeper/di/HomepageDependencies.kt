@@ -1,4 +1,4 @@
-package app.tinks.readkeeper.readkeeper.di
+package app.tinks.readkeeper.di
 
 import app.tinks.readkeeper.homepage.weeklybook.db.WeeklyBookDatabase
 import dagger.hilt.EntryPoint

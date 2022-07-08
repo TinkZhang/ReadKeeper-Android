@@ -46,6 +46,7 @@ dependencies {
     // Room
     implementation(libs.room)
     implementation(libs.roomKtx)
+    implementation(libs.roomPaging)
     kapt(libs.roomKotlin)
 
     // Timber

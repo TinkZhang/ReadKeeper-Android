@@ -126,6 +126,7 @@ browser = { module = "androidx.browser:browser", version.ref = "browser" }
 splashScreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
 
 room = { module = "androidx.room:room-runtime", version.ref = "room" }
+roomPaging = { module = "androidx.room:room-paging", version.ref = "room"}
 roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
 roomKotlin = { module = "androidx.room:room-compiler", version.ref = "room" }
 

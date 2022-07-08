@@ -55,7 +55,7 @@ fun ReadingListPage(
         SwipeRefresh(
             state = rememberSwipeRefreshState(isRefreshing = books.loadState.refresh is LoadState.Loading),
             onRefresh = {
-                readingViewModel.resetLocalList()
+//                readingViewModel.resetLocalList()
                 books.refresh()
             }) {
             LazyColumn(modifier = Modifier.fillMaxHeight()) {
@@ -78,7 +78,6 @@ fun ReadingListPage(
                 }
                 itemsIndexed(books) { index, item ->
                     if (item != null) {
-                        readingViewModel.addLocalList(item)
                         ReadingListCard(item, navController)
                     }
                 }

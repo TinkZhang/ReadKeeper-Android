@@ -18,7 +18,7 @@ abstract class BaseViewModel<T: EditableBook>(pagingSource: PagingSource<Int, T>
         pagingSource
     }.flow.cachedIn(viewModelScope)
 
-    inline fun <reified T: EditableBook> addBook(book: T) {
+    inline fun <reified T : EditableBook> addBook(book: T) {
         UserRepository.addBook(book)
     }
 

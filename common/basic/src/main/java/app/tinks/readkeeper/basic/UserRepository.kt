@@ -5,7 +5,6 @@ import android.content.Context
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.lifecycle.MutableLiveData
 import app.tinks.readkeeper.basic.model.*
-import app.tinks.readkeeper.basic.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.GoogleAuthProvider
@@ -115,11 +114,50 @@ object UserRepository {
         }
     }
 
+    suspend inline fun <reified T : EditableBook> getAfter(
+        reference: CollectionReference,
+        uuid: String?
+    ): List<T> {
+        return when (uuid) {
+            null -> {
+                val firstPage = reference
+                    .orderBy(FieldPath.of("timeInfo", "editedTime"), Query.Direction.DESCENDING)
+                    .limit(PAGE_SIZE.toLong())
+                    .get()
+                    .await()
+                    .toObjects(T::class.java)
+                if (firstPage.isNotEmpty()) {
+                    lastBook = firstPage.last()
+                    Timber.d("ReadingBook: ${firstPage.first()}")
+                }
+                firstPage
+            }
+            else -> {
+                val lastVisible = reference.document(uuid)
+                reference
+                    .orderBy(FieldPath.of("timeInfo", "editedTime"), Query.Direction.DESCENDING)
+                    .startAfter(lastVisible)
+                    .limit(PAGE_SIZE.toLong())
+                    .get()
+                    .await()
+                    .toObjects(T::class.java)
+            }
+        }
+    }
+
     suspend inline fun <reified T : EditableBook> getList(nextPage: Int): List<T> =
         when (T::class) {
             ReadingBook::class -> getList(readingCollectionRef, nextPage)
             WishBook::class -> getList(wishCollectionRef, nextPage)
             ArchivedBook::class -> getList(archivedCollectionRef, nextPage)
+            else -> listOf()
+        }
+
+    suspend inline fun <reified T : EditableBook> getAfter(uuid: String?): List<T> =
+        when (T::class) {
+            ReadingBook::class -> getAfter(readingCollectionRef, uuid)
+            WishBook::class -> getAfter(wishCollectionRef, uuid)
+            ArchivedBook::class -> getAfter(archivedCollectionRef, uuid)
             else -> listOf()
         }
 
