@@ -10,20 +10,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.tinks.readkeeper.basic.model.PageFormat
+import app.tinks.readkeeper.basic.model.Platform
+import app.tinks.readkeeper.basic.model.Record
 import app.tinks.readkeeper.uicomponent.ReadingProgressCircle
 import app.tinks.readkeeper.uicomponent.ReadingProgressText
 import app.tinks.readkeeper.uicomponent.Section
-import app.tinks.readkeeper.basic.model.PageFormat
-import app.tinks.readkeeper.basic.model.ReadingPlatform
-import app.tinks.readkeeper.basic.model.ReadingRecord
+import com.google.firebase.Timestamp
 
 @ExperimentalMaterial3Api
 @Composable
 fun ReadingVipProgressSection(
-    lastRecord: ReadingRecord?,
+    lastRecord: Record?,
     pageFormat: PageFormat,
     totalPages: Int,
-    platform: ReadingPlatform
+    platform: Platform?
 ) {
     Section(title = "Reading Progress") {
         Box(
@@ -36,10 +37,12 @@ fun ReadingVipProgressSection(
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    painter = painterResource(id = platform.icon),
-                    contentDescription = platform.label
-                )
+                platform?.let {
+                    Image(
+                        painter = painterResource(id = platform.icon),
+                        contentDescription = platform.label
+                    )
+                }
                 Spacer(modifier = Modifier.height(4.dp))
                 ReadingProgressText(
                     format = pageFormat,
@@ -61,9 +64,9 @@ fun ReadingVipProgressSection(
 @Composable
 private fun ReadingVipProgressSectionPreview() {
     ReadingVipProgressSection(
-        ReadingRecord(12, 34),
+        Record(uuid = "hello", startPage = 34, endPage = 55, timestamp = Timestamp.now()),
         pageFormat = PageFormat.PAGE,
-        platform = ReadingPlatform.KINDLE,
+        platform = Platform.KINDLE,
         totalPages = 123
     )
 }

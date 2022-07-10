@@ -2,7 +2,7 @@ package app.tinks.readkeeper.homepage.weeklybook
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.tinks.readkeeper.basic.UserRepository
+import app.tinks.readkeeper.basic.BookRepository
 import app.tinks.readkeeper.basic.model.NYBookType
 import app.tinks.readkeeper.basic.model.NYTimesBook
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WeeklyBookViewModel @Inject constructor(
-    private val repository: WeeklyBookRepository
+    private val repository: WeeklyBookRepository,
+    private val bookRepository: BookRepository
 ) : ViewModel() {
     private val _fictionBooks = MutableStateFlow<List<NYTimesBook>>(listOf())
     val fictionBooks: StateFlow<List<NYTimesBook>> = _fictionBooks
@@ -46,6 +47,8 @@ class WeeklyBookViewModel @Inject constructor(
             }
 
     fun addToWish(book: NYTimesBook) {
-        UserRepository.addBook(book.toWish())
+        viewModelScope.launch {
+            bookRepository.add(book.convertToBook())
+        }
     }
 }

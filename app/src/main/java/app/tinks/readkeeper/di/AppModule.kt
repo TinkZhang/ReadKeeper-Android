@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
+import app.tinks.readkeeper.basic.BookRepository
 import app.tinks.readkeeper.basic.DataStoreRepository
 import app.tinks.readkeeper.basic.UserRepository
 import app.tinks.readkeeper.basic.database.BookDatabase
@@ -31,6 +32,13 @@ object AppModule {
     fun provideDataStoreRepository(
         @ApplicationContext context: Context
     ): DataStoreRepository = DataStoreRepository(context)
+
+    @Singleton
+    @Provides
+    fun provideBookRepository(
+        bookDatabase: BookDatabase,
+        userRepository: UserRepository
+    ): BookRepository = BookRepository(bookDatabase, userRepository)
 
     @Provides
     @Singleton

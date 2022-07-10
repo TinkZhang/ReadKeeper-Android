@@ -1,26 +1,23 @@
 package app.tinks.readkeeper.basic.data
 
+import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
-import app.tinks.readkeeper.basic.PAGE_SIZE
 import app.tinks.readkeeper.basic.UserRepository
-import app.tinks.readkeeper.basic.convertors.map
 import app.tinks.readkeeper.basic.database.BookDatabase
-import app.tinks.readkeeper.basic.database.ReadingBookEntity
-import app.tinks.readkeeper.basic.model.ReadingBook
+import app.tinks.readkeeper.basic.database.BookEntity
 import timber.log.Timber
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class ReadingBookRemoteMediator @Inject constructor(
+class BookRemoteMediator @Inject constructor(
     private val database: BookDatabase,
-    private val userRepository: UserRepository
-) : RemoteMediator<Int, ReadingBookEntity>() {
+    private val userRepository: UserRepository,
+) : RemoteMediator<Int, BookEntity>() {
 
     // Add condition to decide whether need to invalidate local data
     override suspend fun initialize(): InitializeAction {
@@ -34,7 +31,7 @@ class ReadingBookRemoteMediator @Inject constructor(
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, ReadingBookEntity>
+        state: PagingState<Int, BookEntity>
     ): MediatorResult {
         return try {
             val loadKey = when (loadType) {
@@ -48,15 +45,15 @@ class ReadingBookRemoteMediator @Inject constructor(
                     lastItem.uuid
                 }
             }
-            val response = userRepository.getAfter<ReadingBook>(loadKey)
-            database.withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    database.readingBookDao().clearAll()
-                }
-                val books = response.map { it.map(ReadingBookEntity::class) }
-                database.readingBookDao().insert(books)
-            }
-            MediatorResult.Success(endOfPaginationReached = response.isEmpty())
+//            val response = userRepository.getAfter<Book>(loadKey)
+//            database.withTransaction {
+//                if (loadType == LoadType.REFRESH) {
+//                    database.bookDao().clearAll()
+//                }
+//                val books = response.map {  }
+//                database.bookDao().insert(books)
+//            }
+            MediatorResult.Success(endOfPaginationReached = true)
         } catch (e: IOException) {
             Timber.e(e.localizedMessage)
             MediatorResult.Error(e)

@@ -7,17 +7,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import app.tinks.readkeeper.basic.model.Book
+import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.uicomponent.PreviewAnnotation
 import app.tinks.readkeeper.uicomponent.ReadingIconToggleButton
 import app.tinks.readkeeper.uicomponent.WishIconToggleButton
 import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
-import app.tinks.readkeeper.basic.model.SearchBook
-import app.tinks.readkeeper.basic.model.SearchBookFactory
 
 
 @Composable
 fun SearchCardMetadata(
-    book: SearchBook,
+    book: Book,
     modifier: Modifier = Modifier,
     onReadingButtonClicked: (Boolean) -> Unit = {},
     onWishButtonClicked: (Boolean) -> Unit = {},
@@ -32,14 +32,14 @@ fun SearchCardMetadata(
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
-                book.bookInfo.title,
+                book.basicInfo.title,
                 style = MaterialTheme.typography.titleMedium,
                 maxLines = 3,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                "✍️   " + book.bookInfo.author,
+                "✍️   " + book.basicInfo.author,
                 style = MaterialTheme.typography.bodyMedium,
                 maxLines = 2,
                 modifier = Modifier.padding(bottom = 8.dp),
@@ -47,7 +47,7 @@ fun SearchCardMetadata(
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
-                "\uD83D\uDCC5   " + book.bookInfo.pubYear.toString(),
+                "\uD83D\uDCC5   " + book.basicInfo.pubYear.toString(),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
@@ -71,7 +71,7 @@ fun SearchCardMetadata(
 private fun SearchCardMetadataPreview() {
     ReadKeeperTheme {
         Surface {
-            SearchCardMetadata(book = SearchBookFactory.buildSample())
+            SearchCardMetadata(book = BookFactory.buildSearchSample())
         }
     }
 }

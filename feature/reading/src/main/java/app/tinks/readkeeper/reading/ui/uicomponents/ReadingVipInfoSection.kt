@@ -7,23 +7,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.tinks.readkeeper.basic.model.BasicInfo
+import app.tinks.readkeeper.basic.model.Book
+import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.uicomponent.BookCardImageLarge
-import app.tinks.readkeeper.basic.model.BookInfo
-import app.tinks.readkeeper.basic.model.ReadingBook
-import app.tinks.readkeeper.basic.model.ReadingBookFactory
-import coil.annotation.ExperimentalCoilApi
 
-@OptIn(ExperimentalCoilApi::class)
 @Composable
-fun ReadingVipInfoSection(book: ReadingBook) {
+fun ReadingVipInfoSection(book: Book) {
     Row(modifier = Modifier.fillMaxWidth()) {
-        BookCardImageLarge(url = book.bookInfo.imageUrl, title = book.bookInfo.title)
-        ReadingVipMetadata(book = book.bookInfo, modifier = Modifier.weight(2.0f))
+        BookCardImageLarge(url = book.basicInfo.imageUrl, title = book.basicInfo.title)
+        ReadingVipMetadata(book = book.basicInfo, modifier = Modifier.weight(2.0f))
     }
 }
 
 @Composable
-fun ReadingVipMetadata(book: BookInfo, modifier: Modifier = Modifier) {
+fun ReadingVipMetadata(book: BasicInfo, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -64,5 +62,5 @@ fun ReadingVipMetadata(book: BookInfo, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun BookVipInfoSectionPreview() {
-    ReadingVipInfoSection(book = ReadingBookFactory.buildSample())
+    ReadingVipInfoSection(book = BookFactory.buildSearchSample())
 }
