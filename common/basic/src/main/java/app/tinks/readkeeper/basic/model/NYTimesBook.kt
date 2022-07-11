@@ -25,12 +25,14 @@ data class NYTimesBook(
     @ColumnInfo
     val type: NYBookType = NYBookType.Fictions
 ) {
-    fun toWish(): WishBook = WishBook(
-        bookInfo = BookInfo(
-            title = title,
-            imageUrl = bookImage,
-            author = author,
-        )
+    fun convertToBook(): Book = Book(
+        basicInfo = BasicInfo(
+            title = this.title,
+            imageUrl = this.bookImage,
+            author = this.author,
+            amazonLink = this.amazonProductUrl,
+        ),
+        status = Status.WISH
     )
 }
 

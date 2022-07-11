@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -61,6 +62,15 @@ dependencies {
     // Firebase
     implementation(libs.firebaseFirestore)
 
+    // Room
+    implementation(libs.room)
+    implementation(libs.roomKtx)
+    kapt(libs.roomKotlin)
+
     // Google Ad
     implementation(libs.googleAd)
+
+    // Hilt
+    implementation(libs.bundles.hilt)
+    kapt(libs.bundles.hiltComplier)
 }

@@ -22,8 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
+import app.tinks.readkeeper.basic.BookViewModel
+import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.reading.R
-import app.tinks.readkeeper.reading.ReadingViewModel
 import app.tinks.readkeeper.reading.ui.uicomponents.ReadingVipInfoSection
 import app.tinks.readkeeper.reading.ui.uicomponents.ReadingVipNoteSection
 import app.tinks.readkeeper.reading.ui.uicomponents.ReadingVipProgressSection
@@ -33,16 +34,16 @@ import app.tinks.readkeeper.uicomponent.EditBookDialogContent
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
-fun ReadingVip(
+fun BookItemPage(
     uuid: String,
-    openAddProgressDialog: Boolean,
-    openEditDialog: Boolean,
-    readingViewModel: ReadingViewModel,
+    openAddProgressDialog: Boolean = false,
+    openEditDialog: Boolean = false,
+    bookViewModel: BookViewModel,
     navController: NavController
 ) {
-    var book by remember {
-        mutableStateOf(readingViewModel.getBook(uuid))
-    }
+    val book by bookViewModel.getBook(uuid)
+        .collectAsState(initial = BookFactory.buildEmptyBook())
+    val records by bookViewModel.getRecords(uuid).collectAsState(initial = emptyList())
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
     val scrollBehavior = remember(decayAnimationSpec) {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
@@ -53,7 +54,7 @@ fun ReadingVip(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
-                title = { Text(book.bookInfo.title) },
+                title = { Text(book.basicInfo.title) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
@@ -77,7 +78,7 @@ fun ReadingVip(
                 scrollBehavior = scrollBehavior
             )
         }, floatingActionButton = {
-            if (book.formatEdited) {
+            if (book.platform != null) {
                 ExtendedFloatingActionButton(
                     text = {
                         Text(
@@ -97,7 +98,12 @@ fun ReadingVip(
                     })
             } else {
                 ExtendedFloatingActionButton(
-                    text = { Text("Edit", color = MaterialTheme.colorScheme.onPrimaryContainer) },
+                    text = {
+                        Text(
+                            "Edit",
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    },
                     onClick = {
                         showEditBookPageDialog = true
                     },
@@ -111,22 +117,22 @@ fun ReadingVip(
                     })
             }
 
-        }) {
+        }) { paddingValue ->
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .padding(paddingValue)
                 .verticalScroll(rememberScrollState())
         ) {
             ReadingVipInfoSection(book = book)
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
             ReadingVipProgressSection(
-                lastRecord = book.records.lastOrNull(),
+                lastRecord = records.lastOrNull(),
                 pageFormat = book.pageFormat,
-                totalPages = book.bookInfo.pages,
+                totalPages = book.basicInfo.pages,
                 platform = book.platform
             )
-            ReadingVipNoteSection(book.records.reversed(), book.pageFormat, book.bookInfo.pages)
+            ReadingVipNoteSection(records.reversed(), book.pageFormat, book.basicInfo.pages)
             Spacer(modifier = Modifier.padding(DpBottomPadding))
         }
 
@@ -143,9 +149,7 @@ fun ReadingVip(
                     book = book,
                     onCancelClicked = { showEditBookPageDialog = false },
                     onSaveClicked = {
-                        readingViewModel.addBook(it)
-                        readingViewModel.updateLocalList(it)
-                        book = it
+                        bookViewModel.add(it)
                         showEditBookPageDialog = false
                     })
             }
@@ -163,13 +167,12 @@ fun ReadingVip(
             ) {
                 AddProgressDialogContent(
                     book = book,
+                    lastPage = records.firstOrNull()?.endPage ?: 0,
                     onCancelClicked = {
                         showAddProgressDialog = false
                     },
                     onSaveClicked = {
-                        readingViewModel.addBook(it)
-                        readingViewModel.updateLocalList(it)
-                        book = it
+                        bookViewModel.add(it)
                         showAddProgressDialog = false
                     }
                 )

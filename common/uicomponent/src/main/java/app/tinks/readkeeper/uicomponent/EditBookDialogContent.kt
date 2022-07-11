@@ -18,21 +18,21 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.tinks.readkeeper.basic.model.Book
+import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.basic.model.PageFormat
-import app.tinks.readkeeper.basic.model.ReadingBook
-import app.tinks.readkeeper.basic.model.ReadingBookFactory
-import app.tinks.readkeeper.basic.model.ReadingPlatform
+import app.tinks.readkeeper.basic.model.Platform
 
 @ExperimentalMaterial3Api
 @Composable
 fun EditBookDialogContent(
-    book: ReadingBook,
+    book: Book,
     onCancelClicked: () -> Unit = {},
-    onSaveClicked: (ReadingBook) -> Unit = {},
+    onSaveClicked: (Book) -> Unit = {},
 ) {
     var platformState by remember { mutableStateOf(book.platform) }
     var pageFormatState by remember { mutableStateOf(book.pageFormat) }
-    var pageState by remember { mutableStateOf(book.bookInfo.pages.toString()) }
+    var pageState by remember { mutableStateOf(book.basicInfo.pages.toString()) }
 
     Surface(color = MaterialTheme.colorScheme.surface) {
         Column(
@@ -63,9 +63,8 @@ fun EditBookDialogContent(
                     onSaveClicked(
                         book.update(
                             platform = platformState,
-                            pages = pages,
+                            realPages = pages,
                             pageFormat = pageFormatState,
-                            formatEdited = true
                         )
                     )
                 }) {
@@ -79,13 +78,13 @@ fun EditBookDialogContent(
 @ExperimentalMaterial3Api
 @Composable
 private fun PlatformSelectionSection(
-    platformState: ReadingPlatform,
-    onPlatformSelect: (ReadingPlatform) -> Unit = {}
+    platformState: Platform?,
+    onPlatformSelect: (Platform) -> Unit = {}
 ) {
     Column(Modifier.fillMaxWidth()) {
         Text("Read Platform", style = MaterialTheme.typography.titleLarge)
         Spacer(modifier = Modifier.height(4.dp))
-        ReadingPlatform.values().forEach {
+        Platform.values().forEach {
             Row(
                 Modifier
                     .fillMaxWidth()
@@ -93,7 +92,7 @@ private fun PlatformSelectionSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
-                    selected = platformState.name == it.name,
+                    selected = if (platformState == null) false else platformState.name == it.name,
                     onClick = { onPlatformSelect(it) },
                     modifier = Modifier.padding(4.dp)
                 )
@@ -240,7 +239,7 @@ private fun BookPageFormatSection(
 @Composable
 private fun EditBookPageContentPreview() {
     EditBookDialogContent(
-        book = ReadingBookFactory.buildSample()
+        book = BookFactory.buildReadingSample()
     )
 }
 
@@ -249,6 +248,6 @@ private fun EditBookPageContentPreview() {
 @Composable
 private fun EditBookPageContentPercentPreview() {
     EditBookDialogContent(
-        book = ReadingBookFactory.buildSample().copy(pageFormat = PageFormat.PERCENT_1000)
+        book = BookFactory.buildReadingSample().copy(pageFormat = PageFormat.PERCENT_1000)
     )
 }

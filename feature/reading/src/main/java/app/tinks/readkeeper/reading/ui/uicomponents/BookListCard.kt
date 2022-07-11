@@ -4,30 +4,30 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import app.tinks.readkeeper.basic.model.Book
+import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.uicomponent.BookCardImageSmall
 import app.tinks.readkeeper.uicomponent.BookListCard
-import app.tinks.readkeeper.basic.model.ReadingBook
-import app.tinks.readkeeper.basic.model.ReadingBookFactory
 
 @ExperimentalMaterial3Api
 @Composable
-fun ReadingListCard(book: ReadingBook, navController: NavController? = null) {
+fun BookListCard(book: Book, navController: NavController? = null) {
     BookListCard(
-        left = { BookCardImageSmall(url = book.bookInfo.imageUrl, title = book.bookInfo.title) },
+        left = { BookCardImageSmall(url = book.basicInfo.imageUrl, title = book.basicInfo.title) },
         right = { ReadingCardMetadata(book = book) },
         bottom = {
-            if (book.formatEdited) {
+            if (book.platform != null) {
                 ReadingCardProgressBottom(book = book) {
-                    navController?.navigate("reading_item/${book.bookInfo.uuid}?open_progress_dialog=${true}")
+                    navController?.navigate("reading_item/${book.basicInfo.uuid}?open_progress_dialog=${true}")
                 }
             } else {
                 ReadingCardEditBottom() {
-                    navController?.navigate("reading_item/${book.bookInfo.uuid}?open_edit_dialog=${true}")
+                    navController?.navigate("reading_item/${book.basicInfo.uuid}?open_edit_dialog=${true}")
                 }
             }
         },
         onCardClicked = {
-            navController?.navigate("reading_item/${book.bookInfo.uuid}")
+            navController?.navigate("reading_item/${book.basicInfo.uuid}")
         }
     )
 }
@@ -36,5 +36,5 @@ fun ReadingListCard(book: ReadingBook, navController: NavController? = null) {
 @Preview
 @Composable
 private fun ReadingCard() {
-    ReadingListCard(book = ReadingBookFactory.buildSample())
+    BookListCard(book = BookFactory.buildReadingSample())
 }

@@ -13,14 +13,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.tinks.readkeeper.basic.model.Book
+import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.uicomponent.ReadingProgressBar
 import app.tinks.readkeeper.uicomponent.ReadingProgressText
-import app.tinks.readkeeper.basic.model.ReadingBook
-import app.tinks.readkeeper.basic.model.ReadingBookFactory
 
 @Composable
 fun ReadingCardProgressBottom(
-    book: ReadingBook,
+    book: Book,
     modifier: Modifier = Modifier,
     onButtonClicked: () -> Unit = {}
 ) {
@@ -32,24 +32,26 @@ fun ReadingCardProgressBottom(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row(Modifier.weight(4.0f)) {
-            Icon(
-                painterResource(id = book.platform.icon),
-                contentDescription = book.platform.label,
-                tint = Color.Unspecified
-            )
+            book.platform?.let {
+                Icon(
+                    painterResource(id = it.icon),
+                    contentDescription = it.label,
+                    tint = Color.Unspecified
+                )
+            }
             Spacer(modifier = Modifier.width(16.dp))
             Column(Modifier.fillMaxWidth()) {
                 ReadingProgressText(
                     format = book.pageFormat,
-                    position = book.records.lastOrNull()?.endPage ?: 0,
+                    position = book.progress,
                     textStyle = MaterialTheme.typography.titleMedium,
                 )
                 ReadingProgressBar(
                     Modifier
                         .fillMaxWidth()
                         .height(16.dp),
-                    progress = book.records.lastOrNull()?.endPage?.toFloat()
-                        ?.div(book.bookInfo.pages.toFloat()) ?: 0.0f
+                    progress = book.progress.toFloat()
+                        .div(book.basicInfo.pages.toFloat())
                 )
             }
         }
@@ -64,5 +66,5 @@ fun ReadingCardProgressBottom(
 @Preview
 @Composable
 private fun ReadingCardBottomPreview() {
-    ReadingCardProgressBottom(book = ReadingBookFactory.buildSample())
+    ReadingCardProgressBottom(book = BookFactory.buildReadingSample())
 }

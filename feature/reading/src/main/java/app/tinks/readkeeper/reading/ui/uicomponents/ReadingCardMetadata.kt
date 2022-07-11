@@ -10,12 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.tinks.readkeeper.basic.model.ReadingBook
-import app.tinks.readkeeper.basic.model.ReadingBookFactory
+import app.tinks.readkeeper.basic.model.Book
+import app.tinks.readkeeper.basic.model.BookFactory
 
 @Composable
 fun ReadingCardMetadata(
-    book: ReadingBook,
+    book: Book,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -25,14 +25,14 @@ fun ReadingCardMetadata(
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(
-            book.bookInfo.title,
+            book.basicInfo.title,
             style = MaterialTheme.typography.titleLarge,
             maxLines = 3,
             modifier = Modifier.padding(bottom = 8.dp),
         )
         Column(verticalArrangement = Arrangement.Bottom) {
             Text(
-                "✍️   " + book.bookInfo.author,
+                "✍️   " + book.basicInfo.author,
                 style = MaterialTheme.typography.titleMedium,
                 maxLines = 2,
                 modifier = Modifier.padding(bottom = 8.dp),
@@ -45,5 +45,5 @@ fun ReadingCardMetadata(
 @Preview
 @Composable
 private fun ReadingCardMetadataPreview() {
-    ReadingCardMetadata(book = ReadingBookFactory.buildSample())
+    ReadingCardMetadata(book = BookFactory.buildReadingSample())
 }

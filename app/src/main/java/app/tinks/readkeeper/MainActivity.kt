@@ -28,31 +28,26 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import app.tinks.readkeeper.archived.ArchivedViewModel
-import app.tinks.readkeeper.archived.ui.ArchivedListPage
-import app.tinks.readkeeper.archived.ui.ArchivedVip
+import app.tinks.readkeeper.basic.BookViewModel
+import app.tinks.readkeeper.basic.LoginStatus
+import app.tinks.readkeeper.basic.SCREEN_ROUTE
+import app.tinks.readkeeper.basic.UserRepository
+import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import app.tinks.readkeeper.homepage.Homepage
 import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
 import app.tinks.readkeeper.homepage.weeklybook.ui.WeeklyBookVIP
-import app.tinks.readkeeper.reading.ReadingViewModel
-import app.tinks.readkeeper.reading.ui.ReadingListPage
+import app.tinks.readkeeper.reading.ui.BookItemPage
+import app.tinks.readkeeper.reading.ui.BookListPage
+import app.tinks.readkeeper.readkeeper.ui.theme.ReadKeeperTheme
 import app.tinks.readkeeper.search.SearchPage
 import app.tinks.readkeeper.search.SearchResultPage
 import app.tinks.readkeeper.settings.SettingsPage
-import app.tinks.readkeeper.uicomponent.RkCustomTabClient
-import app.tinks.readkeeper.wish.WishViewModel
-import app.tinks.readkeeper.wish.ui.WishListPage
-import app.tinks.readkeeper.wish.ui.WishVip
-import app.tinks.readkeeper.basic.LoginStatus
-import app.tinks.readkeeper.basic.SCREEN_ROUTE
-import app.tinks.readkeeper.basic.UserRepository
 import app.tinks.readkeeper.ui.MainScreenViewData
 import app.tinks.readkeeper.ui.ROUTE_TO_SCREEN_MAP
 import app.tinks.readkeeper.ui.components.RkMainTopBar
 import app.tinks.readkeeper.ui.getBottomBarItemList
-import app.tinks.readkeeper.readkeeper.ui.theme.ReadKeeperTheme
-import app.tinks.readkeeper.reading.ui.ReadingVip
+import app.tinks.readkeeper.uicomponent.RkCustomTabClient
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -77,9 +72,7 @@ class MainActivity : ComponentActivity() {
             }
         }
         setContent {
-            val readingViewModel: ReadingViewModel = viewModel()
-            val wishViewModel: WishViewModel = viewModel()
-            val archivedViewModel: ArchivedViewModel = viewModel()
+            val bookViewModel: BookViewModel = viewModel()
             val isDark by generalViewModel.isDark.collectAsState(initial = true)
             ReadKeeperTheme(darkTheme = isDark ?: isSystemInDarkTheme()) {
                 val navController = rememberNavController()
@@ -161,24 +154,30 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                                 composable(SCREEN_ROUTE.WISH_LIST) {
-                                    WishListPage(
-                                        wishViewModel = wishViewModel, navController
+                                    BookListPage(
+                                        bookViewModel = bookViewModel,
+                                        status = Status.WISH,
+                                        navController = navController
                                     )
                                 }
                                 composable(
-                                    SCREEN_ROUTE.WISH_ITEM, arguments = listOf(navArgument("uuid") {
+                                    SCREEN_ROUTE.WISH_ITEM,
+                                    arguments = listOf(navArgument("uuid") {
                                         type = NavType.StringType
                                     })
                                 ) {
-                                    WishVip(
+                                    BookItemPage(
                                         uuid = it.arguments?.getString("uuid") ?: "",
-                                        wishViewModel = wishViewModel,
-                                        navController = navController,
-                                        client = mCustomTabClient,
+                                        bookViewModel = bookViewModel,
+                                        navController = navController
                                     )
                                 }
                                 composable(SCREEN_ROUTE.READING_LIST) {
-                                    ReadingListPage(readingViewModel, navController = navController)
+                                    BookListPage(
+                                        bookViewModel,
+                                        status = Status.READING,
+                                        navController = navController
+                                    )
                                 }
                                 composable(
                                     SCREEN_ROUTE.READING_ITEM,
@@ -192,16 +191,20 @@ class MainActivity : ComponentActivity() {
                                         defaultValue = false
                                     })
                                 ) {
-                                    ReadingVip(
+                                    BookItemPage(
                                         it.arguments?.getString("uuid") ?: "",
                                         it.arguments?.getBoolean("open_progress_dialog") ?: false,
                                         it.arguments?.getBoolean("open_edit_dialog") ?: false,
-                                        readingViewModel,
+                                        bookViewModel,
                                         navController = navController
                                     )
                                 }
                                 composable(SCREEN_ROUTE.ARCHIVED_LIST) {
-                                    ArchivedListPage(archivedViewModel, navController)
+                                    BookListPage(
+                                        bookViewModel = bookViewModel,
+                                        status = Status.ARCHIVED,
+                                        navController = navController
+                                    )
                                 }
                                 composable(
                                     SCREEN_ROUTE.ARCHIVED_ITEM,
@@ -209,9 +212,9 @@ class MainActivity : ComponentActivity() {
                                         type = NavType.StringType
                                     })
                                 ) {
-                                    ArchivedVip(
+                                    BookItemPage(
                                         uuid = it.arguments?.getString("uuid") ?: "",
-                                        archivedViewModel = archivedViewModel,
+                                        bookViewModel = bookViewModel,
                                         navController = navController
                                     )
                                 }

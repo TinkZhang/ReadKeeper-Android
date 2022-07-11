@@ -108,11 +108,27 @@
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.18642785065590312" />
         <entry key="common/uicomponent/src/main/java/app/github/tinkzhang/uicomponent/AmazonLinkSection.kt" value="0.225" />
         <entry key="common/uicomponent/src/main/java/app/github/tinkzhang/uicomponent/EditBookDialogContent.kt" value="0.19839142091152814" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/AddProgressDialogContent.kt" value="0.20555555555555555" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/BookCardImage.kt" value="0.9818181818181818" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/EditBookDialogContent.kt" value="0.20163030448333732" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/ReadingProgressCircle.kt" value="0.5606060606060606" />
         <entry key="common/uicomponent/src/main/java/com/github/tinkzhang/uicomponent/EditBookDialogContent.kt" value="0.1" />
         <entry key="common/uicomponent/src/main/java/com/github/tinkzhang/uicomponent/SearchBar.kt" value="0.42407407407407405" />
+        <entry key="feature/archived/src/main/java/app/tinks/readkeeper/archived/ui/ArchivedListCard.kt" value="0.1685185185185185" />
+        <entry key="feature/archived/src/main/java/app/tinks/readkeeper/archived/ui/components/ArchivedCardMetadata.kt" value="0.19907407407407407" />
+        <entry key="feature/archived/src/main/java/app/tinks/readkeeper/archived/ui/components/ArchivedVipInfoSection.kt" value="0.19907407407407407" />
         <entry key="feature/homepage/src/main/java/app/tinks/readkeeper/homepage/weeklybook/ui/WeeklyBookCard.kt" value="0.8114478114478114" />
         <entry key="feature/homepage/src/main/java/com/github/tinkzhang/homepage/quote/QuoteCard.kt" value="0.15648148148148147" />
+        <entry key="feature/reading/src/main/java/app/tinks/readkeeper/reading/ui/uicomponents/ReadingCardEditBottom.kt" value="0.20555555555555555" />
+        <entry key="feature/reading/src/main/java/app/tinks/readkeeper/reading/ui/uicomponents/ReadingCardMetadata.kt" value="0.20555555555555555" />
+        <entry key="feature/reading/src/main/java/app/tinks/readkeeper/reading/ui/uicomponents/ReadingCardProgressBottom.kt" value="0.20555555555555555" />
+        <entry key="feature/reading/src/main/java/app/tinks/readkeeper/reading/ui/uicomponents/ReadingListCard.kt" value="0.20555555555555555" />
+        <entry key="feature/reading/src/main/java/app/tinks/readkeeper/reading/ui/uicomponents/ReadingVipInfoSection.kt" value="0.20555555555555555" />
+        <entry key="feature/reading/src/main/java/app/tinks/readkeeper/reading/ui/uicomponents/ReadingVipNoteSection.kt" value="0.20150768338648883" />
+        <entry key="feature/reading/src/main/java/app/tinks/readkeeper/reading/ui/uicomponents/ReadingVipProgressSection.kt" value="0.20555555555555555" />
+        <entry key="feature/reading/src/main/java/app/tinks/readkeeper/reading/ui/uicomponents/TextStyle.kt" value="0.19907407407407407" />
+        <entry key="feature/search/src/main/java/app/tinks/readkeeper/search/SearchListItem.kt" value="0.35555555555555557" />
+        <entry key="feature/search/src/main/java/app/tinks/readkeeper/search/SearchPage.kt" value="0.1692339716902581" />
         <entry key="feature/search/src/main/java/app/tinks/readkeeper/search/SearchVip.kt" value="0.22314814814814815" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/SearchListItem.kt" value="0.335" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/SearchPage.kt" value="0.25925925925925924" />
@@ -123,6 +139,11 @@
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/ui/components/SearchCardBottom.kt" value="0.3037037037037037" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/ui/components/SearchCardMetadata.kt" value="0.3037037037037037" />
         <entry key="feature/search/src/main/java/com/github/tinkzhang/search/ui/components/SearchTextField.kt" value="0.30185185185185187" />
+        <entry key="feature/settings/src/main/java/app/tinks/readkeeper/settings/section/UserContent.kt" value="0.8962536023054755" />
+        <entry key="feature/wish/src/main/java/app/tinks/readkeeper/wish/ui/WishListCard.kt" value="0.1685185185185185" />
+        <entry key="feature/wish/src/main/java/app/tinks/readkeeper/wish/ui/components/WishCardEditBottom.kt" value="0.19907407407407407" />
+        <entry key="feature/wish/src/main/java/app/tinks/readkeeper/wish/ui/components/WishCardMetadata.kt" value="0.1685185185185185" />
+        <entry key="feature/wish/src/main/java/app/tinks/readkeeper/wish/ui/components/WishVipInfoSection.kt" value="0.1685185185185185" />
       </map>
     </option>
   </component>

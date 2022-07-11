@@ -15,16 +15,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.tinks.readkeeper.basic.model.Book
+import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.basic.model.PageFormat
-import app.tinks.readkeeper.basic.model.ReadingBook
-import app.tinks.readkeeper.basic.model.ReadingBookFactory
-import app.tinks.readkeeper.basic.model.ReadingRecord
+import app.tinks.readkeeper.basic.model.Record
 
 @Composable
 fun AddProgressDialogContent(
-    book: ReadingBook,
+    book: Book,
+    lastPage: Int = 0,
     onCancelClicked: () -> Unit = {},
-    onSaveClicked: (ReadingBook) -> Unit = {},
+    onSaveClicked: (Record) -> Unit = {},
 ) {
     var progressTextState by remember { mutableStateOf("") }
     var noteTextState by remember {
@@ -36,7 +37,7 @@ fun AddProgressDialogContent(
                 .verticalScroll(rememberScrollState())
                 .padding(8.dp)
         ) {
-            ProgressEditSection(book, progressTextState) { progressTextState = it }
+            ProgressEditSection(book, lastPage, progressTextState) { progressTextState = it }
             Spacer(Modifier.height(16.dp))
             Divider()
             Spacer(Modifier.height(16.dp))
@@ -47,17 +48,15 @@ fun AddProgressDialogContent(
                 }
                 TextButton(onClick = {
                     onSaveClicked(
-                        book.update(
-                            records = book.records + ReadingRecord(
-                                startPage = book.records.lastOrNull()?.endPage ?: 0,
-                                endPage = when (book.pageFormat) {
-                                    PageFormat.PAGE -> progressTextState.toInt()
-                                    PageFormat.PERCENT_100 -> progressTextState.toInt()
-                                    PageFormat.PERCENT_1000 -> (progressTextState.toDouble() * 10).toInt()
-                                    PageFormat.PERCENT_10000 -> (progressTextState.toDouble() * 100).toInt()
-                                },
-                                note = noteTextState
-                            )
+                        Record(
+                            startPage = lastPage,
+                            endPage = when (book.pageFormat) {
+                                PageFormat.PAGE -> progressTextState.toInt()
+                                PageFormat.PERCENT_100 -> progressTextState.toInt()
+                                PageFormat.PERCENT_1000 -> (progressTextState.toDouble() * 10).toInt()
+                                PageFormat.PERCENT_10000 -> (progressTextState.toDouble() * 100).toInt()
+                            },
+                            note = noteTextState
                         )
                     )
                 }
@@ -71,11 +70,11 @@ fun AddProgressDialogContent(
 
 @Composable
 private fun ProgressEditSection(
-    book: ReadingBook,
+    book: Book,
+    lastPage: Int,
     value: String,
     onProgressValueChange: (String) -> Unit = {},
 ) {
-    val lastPage = book.records.lastOrNull()?.endPage ?: 0
     val progressTextState = "Last position: ${
         when (book.pageFormat) {
             PageFormat.PAGE -> lastPage
@@ -134,5 +133,5 @@ private fun NoteEditSection(
 @Preview
 @Composable
 private fun ProgressDialogPreview() {
-    AddProgressDialogContent(ReadingBookFactory.buildSample())
+    AddProgressDialogContent(BookFactory.buildReadingSample())
 }

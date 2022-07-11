@@ -21,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
+import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.search.ui.components.RkSearchErrorItem
 import app.tinks.readkeeper.search.ui.components.RkSearchTipItem
 import app.tinks.readkeeper.uicomponent.GoogleAdView
@@ -104,7 +105,7 @@ fun SearchResultPage(
                     }
                 }
             }
-            itemsIndexed(items = books, key = { _, item -> item.bookInfo.uuid }) { index, item ->
+            itemsIndexed(items = books, key = { _, item -> item.basicInfo.uuid }) { index, item ->
                 if (item != null) {
                     SearchListItem(
                         book = item,
@@ -113,23 +114,23 @@ fun SearchResultPage(
                                 showSnackbar(
                                     message = context.getString(
                                         R.string.added_into_wish,
-                                        item.bookInfo.title
+                                        item.basicInfo.title
                                     ),
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
-                                    dismissAction = { viewModel.addWish(item.convertToWishBook()) }
+                                    dismissAction = { viewModel.add(item.update(status = Status.WISH)) }
                                 )
                             } else {
                                 showSnackbar(
                                     message = context.getString(
                                         R.string.remove_from_wish,
-                                        item.bookInfo.title
+                                        item.basicInfo.title
                                     ),
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
-                                    dismissAction = { viewModel.removeWish(item.bookInfo.uuid) }
+                                    dismissAction = { viewModel.remove(item.basicInfo.uuid) }
                                 )
                             }
                         },
@@ -138,23 +139,23 @@ fun SearchResultPage(
                                 showSnackbar(
                                     message = context.getString(
                                         R.string.added_into_reading,
-                                        item.bookInfo.title
+                                        item.basicInfo.title
                                     ),
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
-                                    dismissAction = { viewModel.addReading(item.convertToReadingBook()) }
+                                    dismissAction = { viewModel.add(item.update(status = Status.READING)) }
                                 )
                             } else {
                                 showSnackbar(
                                     message = context.getString(
                                         R.string.remove_from_reading,
-                                        item.bookInfo.title
+                                        item.basicInfo.title
                                     ),
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
-                                    dismissAction = { viewModel.removeReading(item.bookInfo.uuid) }
+                                    dismissAction = { viewModel.remove(item.basicInfo.uuid) }
                                 )
                             }
                         })

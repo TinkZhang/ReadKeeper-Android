@@ -3,24 +3,24 @@ package app.tinks.readkeeper.search
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import app.tinks.readkeeper.basic.model.Book
+import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.search.ui.components.SearchCardMetadata
 import app.tinks.readkeeper.uicomponent.BookCardImageSmall
 import app.tinks.readkeeper.uicomponent.BookListItem
 import app.tinks.readkeeper.uicomponent.PreviewAnnotation
 import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
-import app.tinks.readkeeper.basic.model.SearchBook
-import app.tinks.readkeeper.basic.model.SearchBookFactory
 
 @Composable
 fun SearchListItem(
-    book: SearchBook,
+    book: Book,
     modifier: Modifier = Modifier,
     onAddWishClick: (Boolean) -> Unit = {},
     onAddReadingClick: (Boolean) -> Unit = {},
 ) {
     BookListItem(
         modifier = modifier,
-        left = { BookCardImageSmall(url = book.bookInfo.imageUrl, title = book.bookInfo.title) },
+        left = { BookCardImageSmall(url = book.basicInfo.imageUrl, title = book.basicInfo.title) },
         right = {
             SearchCardMetadata(
                 book = book,
@@ -36,7 +36,7 @@ fun SearchListItem(
 private fun SearchListItemPreview() {
     ReadKeeperTheme {
         Surface {
-            SearchListItem(book = SearchBookFactory.buildSample())
+            SearchListItem(book = BookFactory.buildSearchSample())
         }
     }
 }
