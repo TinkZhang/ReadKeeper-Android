@@ -16,7 +16,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import app.tinks.readkeeper.basic.BookViewModel
 import app.tinks.readkeeper.basic.model.Status
-import app.tinks.readkeeper.reading.ui.uicomponents.ReadingListCard
+import app.tinks.readkeeper.reading.ui.uicomponents.BookListCard
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
@@ -81,7 +81,7 @@ fun BookListPage(
                 }
                 itemsIndexed(books) { index, item ->
                     if (item != null) {
-                        ReadingListCard(item, navController)
+                        BookListCard(item, navController)
                     }
                 }
 

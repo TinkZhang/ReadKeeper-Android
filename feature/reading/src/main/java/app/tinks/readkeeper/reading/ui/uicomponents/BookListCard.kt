@@ -11,7 +11,7 @@ import app.tinks.readkeeper.uicomponent.BookListCard
 
 @ExperimentalMaterial3Api
 @Composable
-fun ReadingListCard(book: Book, navController: NavController? = null) {
+fun BookListCard(book: Book, navController: NavController? = null) {
     BookListCard(
         left = { BookCardImageSmall(url = book.basicInfo.imageUrl, title = book.basicInfo.title) },
         right = { ReadingCardMetadata(book = book) },
@@ -36,5 +36,5 @@ fun ReadingListCard(book: Book, navController: NavController? = null) {
 @Preview
 @Composable
 private fun ReadingCard() {
-    ReadingListCard(book = BookFactory.buildReadingSample())
+    BookListCard(book = BookFactory.buildReadingSample())
 }
