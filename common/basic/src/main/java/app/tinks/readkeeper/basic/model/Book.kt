@@ -9,7 +9,7 @@ data class Book(
     val timeInfo: TimeInfo = TimeInfo(),
     val status: Status = Status.READING,
     val pageFormat: PageFormat = PageFormat.PAGE,
-    val realPages: Int = 0,
+    val realPages: Int = basicInfo.pages,
     val platform: Platform? = null,
     val progress: Int = 0,
 ) {

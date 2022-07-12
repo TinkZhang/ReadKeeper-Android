@@ -1,5 +1,6 @@
-package app.tinks.readkeeper.reading.ui
+package app.tinks.readkeeper.uicomponent.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -16,7 +17,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import app.tinks.readkeeper.basic.BookViewModel
 import app.tinks.readkeeper.basic.model.Status
-import app.tinks.readkeeper.reading.ui.uicomponents.BookListCard
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
@@ -61,7 +61,10 @@ fun BookListPage(
                 bookViewModel.sync()
                 books.refresh()
             }) {
-            LazyColumn(modifier = Modifier.fillMaxHeight()) {
+            LazyColumn(
+                modifier = Modifier.fillMaxHeight(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 when {
                     books.loadState.refresh is LoadState.Error -> {
                         item {
@@ -81,7 +84,18 @@ fun BookListPage(
                 }
                 itemsIndexed(books) { index, item ->
                     if (item != null) {
-                        BookListCard(item, navController)
+                        BookListCard(
+                            book = item,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    navController.navigate("reading_item/${item.basicInfo.uuid}")
+                                },
+                            onAddProgressClicked = {
+                                navController
+                                    .navigate("reading_item/${item.basicInfo.uuid}?open_progress_dialog=${true}")
+                            },
+                        )
                     }
                 }
 

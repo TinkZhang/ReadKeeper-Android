@@ -18,14 +18,28 @@ class BookFactory {
             )
         }
 
+        fun buildArchivedSample(): Book {
+            return Book(
+                basicInfo = buildBasicInfo(),
+                status = Status.ARCHIVED
+            )
+        }
+
+        fun buildWishSample(): Book {
+            return Book(
+                basicInfo = buildBasicInfo(),
+                status = Status.WISH
+            )
+        }
+
         fun buildEmptyBook() = Book(status = Status.READING)
 
         private fun buildBasicInfo() = BasicInfo(
             title = "Book Title ${Random.nextInt()}",
             imageUrl = "https://img2.doubanio.com/view/subject/s/public/s34039232.jpg",
-            author = "Tink",
+            author = "Tink Zhang",
             pages = 1688,
-            rating = 5.0,
+            rating = 4.3,
             pubYear = 2022,
         )
     }

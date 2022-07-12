@@ -37,6 +37,9 @@ fun BookEntity.convertToBook() = Book(
         isbn = this.isbn
     ),
     status = this.status,
+    realPages = this.realPages,
+    progress = this.progress,
+    pageFormat = this.pageFormat,
     timeInfo = TimeInfo(
         addedTime = Timestamp(this.addedTime, 0),
         editedTime = Timestamp(this.editedTime, 0)

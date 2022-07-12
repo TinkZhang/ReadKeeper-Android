@@ -1,4 +1,4 @@
-package app.tinks.readkeeper.reading.ui.uicomponents
+package app.tinks.readkeeper.uicomponent.detail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import app.tinks.readkeeper.basic.model.BasicInfo
 import app.tinks.readkeeper.basic.model.Book
 import app.tinks.readkeeper.basic.model.BookFactory
-import app.tinks.readkeeper.uicomponent.BookCardImageLarge
+import app.tinks.readkeeper.uicomponent.cellview.BookCardImageLarge
 
 @Composable
 fun ReadingVipInfoSection(book: Book) {

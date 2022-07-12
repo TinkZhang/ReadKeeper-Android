@@ -26,7 +26,7 @@ import app.tinks.readkeeper.basic.model.NYTimesBook
 import app.tinks.readkeeper.basic.model.NYTimesBookSample
 import app.tinks.readkeeper.homepage.R
 import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
-import app.tinks.readkeeper.uicomponent.BookCardImage
+import app.tinks.readkeeper.uicomponent.cellview.BookCardImage
 import app.tinks.readkeeper.uicomponent.Section
 
 @OptIn(ExperimentalMaterialApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)

@@ -1,4 +1,4 @@
-package app.tinks.readkeeper.reading.ui.uicomponents
+package app.tinks.readkeeper.uicomponent.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.dp
 import app.tinks.readkeeper.basic.model.PageFormat
 import app.tinks.readkeeper.basic.model.Platform
 import app.tinks.readkeeper.basic.model.Record
-import app.tinks.readkeeper.uicomponent.ReadingProgressCircle
-import app.tinks.readkeeper.uicomponent.ReadingProgressText
 import app.tinks.readkeeper.uicomponent.Section
+import app.tinks.readkeeper.uicomponent.cellview.ReadingProgressCircle
+import app.tinks.readkeeper.uicomponent.cellview.ReadingProgressText
 import com.google.firebase.Timestamp
 
 @ExperimentalMaterial3Api
@@ -47,7 +47,7 @@ fun ReadingVipProgressSection(
                 ReadingProgressText(
                     format = pageFormat,
                     position = lastRecord?.endPage ?: 0,
-                    textStyle = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleMedium,
                 )
             }
 

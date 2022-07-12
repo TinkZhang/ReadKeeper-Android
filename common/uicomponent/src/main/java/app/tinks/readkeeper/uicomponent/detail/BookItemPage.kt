@@ -1,4 +1,4 @@
-package app.tinks.readkeeper.reading.ui
+package app.tinks.readkeeper.uicomponent.detail
 
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.layout.Column
@@ -24,13 +24,10 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import app.tinks.readkeeper.basic.BookViewModel
 import app.tinks.readkeeper.basic.model.BookFactory
-import app.tinks.readkeeper.reading.R
-import app.tinks.readkeeper.reading.ui.uicomponents.ReadingVipInfoSection
-import app.tinks.readkeeper.reading.ui.uicomponents.ReadingVipNoteSection
-import app.tinks.readkeeper.reading.ui.uicomponents.ReadingVipProgressSection
 import app.tinks.readkeeper.uicomponent.AddProgressDialogContent
 import app.tinks.readkeeper.uicomponent.DpBottomPadding
 import app.tinks.readkeeper.uicomponent.EditBookDialogContent
+import app.tinks.readkeeper.uicomponent.R
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable

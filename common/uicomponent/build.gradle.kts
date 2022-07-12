@@ -50,6 +50,12 @@ dependencies {
     // Firebase
     implementation(libs.firebaseFirestore)
 
+    // Paging
+    implementation(libs.pagingCompose)
+
+    // Accompanist
+    implementation(libs.accompanistSwiperefresh)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.bundles.testing)

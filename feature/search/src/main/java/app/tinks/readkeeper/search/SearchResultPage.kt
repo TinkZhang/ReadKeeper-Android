@@ -25,6 +25,7 @@ import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.search.ui.components.RkSearchErrorItem
 import app.tinks.readkeeper.search.ui.components.RkSearchTipItem
 import app.tinks.readkeeper.uicomponent.GoogleAdView
+import app.tinks.readkeeper.uicomponent.list.BookListCard
 import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -107,9 +108,9 @@ fun SearchResultPage(
             }
             itemsIndexed(items = books, key = { _, item -> item.basicInfo.uuid }) { index, item ->
                 if (item != null) {
-                    SearchListItem(
+                    BookListCard(
                         book = item,
-                        onAddWishClick = { checked ->
+                        onWishButtonClicked = { checked ->
                             if (checked) {
                                 showSnackbar(
                                     message = context.getString(
@@ -134,7 +135,7 @@ fun SearchResultPage(
                                 )
                             }
                         },
-                        onAddReadingClick = { checked ->
+                        onReadingButtonClicked = { checked ->
                             if (checked) {
                                 showSnackbar(
                                     message = context.getString(
@@ -158,7 +159,8 @@ fun SearchResultPage(
                                     dismissAction = { viewModel.remove(item.basicInfo.uuid) }
                                 )
                             }
-                        })
+                        }
+                    )
                 }
                 if (index == 4) {
                     GoogleAdView(adSize = AdSize.BANNER, keyword = keyword)

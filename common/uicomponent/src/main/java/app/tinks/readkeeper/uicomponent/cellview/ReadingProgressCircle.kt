@@ -1,4 +1,4 @@
-package app.tinks.readkeeper.uicomponent
+package app.tinks.readkeeper.uicomponent.cellview
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Column
@@ -25,7 +25,7 @@ fun ReadingProgressCircleWithText(
     position: Int,
     totalPages: Int,
     size: Dp = 64.dp,
-    textStyle: TextStyle = MaterialTheme.typography.titleMedium
+    style: TextStyle = MaterialTheme.typography.titleMedium
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         ReadingProgressCircle(
@@ -33,7 +33,7 @@ fun ReadingProgressCircleWithText(
             modifier = Modifier.size(size)
         )
         Spacer(modifier = Modifier.height(8.dp))
-        ReadingProgressText(format = format, position = position, textStyle = textStyle)
+        ReadingProgressText(format = format, position = position, style = style)
     }
 }
 

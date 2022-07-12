@@ -1,4 +1,4 @@
-package app.tinks.readkeeper.reading.ui.uicomponents
+package app.tinks.readkeeper.uicomponent.detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,8 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.tinks.readkeeper.basic.model.PageFormat
 import app.tinks.readkeeper.basic.model.Record
-import app.tinks.readkeeper.uicomponent.ReadingProgressCircleWithText
 import app.tinks.readkeeper.uicomponent.Section
+import app.tinks.readkeeper.uicomponent.cellview.ReadingProgressCircleWithText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

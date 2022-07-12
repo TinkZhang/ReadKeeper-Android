@@ -1,13 +1,13 @@
-package app.tinks.readkeeper.uicomponent
+package app.tinks.readkeeper.uicomponent.cellview
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.material.Icon
 import androidx.compose.material.IconToggleButton
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BookmarkAdd
 import androidx.compose.material.icons.filled.BookmarkAdded
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import app.tinks.readkeeper.uicomponent.R
 
 /**
  * An [IconToggleButton] with on and off state, and use different icons
@@ -67,7 +68,7 @@ fun ReadingIconToggleButton(
     RkIconToggleButton(
         checkedIcon = Icons.Filled.BookmarkAdded,
         checkedIconDescription = stringResource(id = R.string.reading_added),
-        uncheckedIcon = Icons.Outlined.BookmarkBorder,
+        uncheckedIcon = Icons.Filled.BookmarkAdd,
         uncheckedIconDescription = stringResource(id = R.string.add_reading),
         checked = checked,
         modifier = modifier,
