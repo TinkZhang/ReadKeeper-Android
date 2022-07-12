@@ -19,11 +19,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
+import app.tinks.readkeeper.R
+import app.tinks.readkeeper.readkeeper.ui.theme.ReadKeeperTheme
 import app.tinks.readkeeper.uicomponent.PreviewAnnotation
 import app.tinks.readkeeper.uicomponent.RkProfileImage
 import app.tinks.readkeeper.uicomponent.SearchBar
-import app.tinks.readkeeper.R
-import app.tinks.readkeeper.readkeeper.ui.theme.ReadKeeperTheme
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -37,51 +37,55 @@ fun RkMainTopBar(
     var showSearch: Boolean by remember {
         mutableStateOf(false)
     }
-    CenterAlignedTopAppBar(navigationIcon = {
-        Image(
-            painter = painterResource(id = R.drawable.ic_readkeeperlogo),
-            contentDescription = "",
-        )
-    }, title = {
-        LaunchedEffect(Unit) {
-            showSearch = true
-        }
-        AnimatedContent(targetState = showSearch, transitionSpec = {
-            fadeIn(
-                animationSpec = tween(
-                    durationMillis = 300, delayMillis = 700
-                )
-            ) with fadeOut(animationSpec = tween(durationMillis = 300, delayMillis = 500))
-        }) { showSearch ->
-            if (showSearch) {
-                SearchBar(
-                    text = R.string.home_search_bar, onClick = onSearchClick
-                )
+    CenterAlignedTopAppBar(
+        navigationIcon = {
+            Image(
+                painter = painterResource(id = R.drawable.ic_readkeeperlogo),
+                contentDescription = "",
+            )
+        },
+        title = {
+            LaunchedEffect(Unit) {
+                showSearch = true
+            }
+            AnimatedContent(targetState = showSearch, transitionSpec = {
+                fadeIn(
+                    animationSpec = tween(
+                        durationMillis = 300, delayMillis = 700
+                    )
+                ) with fadeOut(animationSpec = tween(durationMillis = 300, delayMillis = 500))
+            }) { showSearch ->
+                if (showSearch) {
+                    SearchBar(
+                        text = R.string.home_search_bar, onClick = onSearchClick
+                    )
+                } else {
+                    RkTopBarTitleText(
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+        },
+        actions = {
+            if (isLogged) {
+                IconButton(
+                    onClick = onProfileClick
+                ) {
+                    RkProfileImage(profileUrl = profileUrl)
+                }
             } else {
-                RkTopBarTitleText(
-                    modifier = Modifier.fillMaxWidth()
-                )
+                IconButton(
+                    onClick = onProfileClick
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = stringResource(id = R.string.settings)
+                    )
+                }
             }
-        }
-    }, actions = {
-        if (isLogged) {
-            IconButton(
-                onClick = onProfileClick
-            ) {
-                RkProfileImage(profileUrl = profileUrl)
-            }
-        } else {
-            IconButton(
-                onClick = onProfileClick
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = stringResource(id = R.string.settings)
-                )
-            }
-        }
-    },
-    scrollBehavior = scrollBehavior)
+        },
+        scrollBehavior = scrollBehavior
+    )
 }
 
 @Composable

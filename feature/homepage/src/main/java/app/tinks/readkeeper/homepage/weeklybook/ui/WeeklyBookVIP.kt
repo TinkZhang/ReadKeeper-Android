@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
 import app.tinks.readkeeper.uicomponent.*
+import app.tinks.readkeeper.uicomponent.cellview.BookCardImageLarge
 import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.launch
 

@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +13,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -37,8 +35,8 @@ import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import app.tinks.readkeeper.homepage.Homepage
 import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
 import app.tinks.readkeeper.homepage.weeklybook.ui.WeeklyBookVIP
-import app.tinks.readkeeper.reading.ui.BookItemPage
-import app.tinks.readkeeper.reading.ui.BookListPage
+import app.tinks.readkeeper.uicomponent.detail.BookItemPage
+import app.tinks.readkeeper.uicomponent.list.BookListPage
 import app.tinks.readkeeper.readkeeper.ui.theme.ReadKeeperTheme
 import app.tinks.readkeeper.search.SearchPage
 import app.tinks.readkeeper.search.SearchResultPage
@@ -81,11 +79,7 @@ class MainActivity : ComponentActivity() {
                     val route =
                         navController.currentBackStackEntryAsState().value?.destination?.route
                     val screen = ROUTE_TO_SCREEN_MAP[route]
-                    val scrollBehavior = remember {
-                        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec = exponentialDecay())
-                    }
                     Scaffold(
-                        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                         topBar = {
                             if (screen is MainScreenViewData) {
                                 RkMainTopBar(
@@ -97,7 +91,6 @@ class MainActivity : ComponentActivity() {
                                     onSearchClick = {
                                         navController.navigate(SCREEN_ROUTE.SEARCH)
                                     },
-                                    scrollBehavior = scrollBehavior
                                 )
                             }
                         },
