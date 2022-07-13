@@ -58,7 +58,6 @@ dependencies {
     implementation(project(mapOf("path" to ":feature:wish")))
     implementation(project(mapOf("path" to ":feature:homepage")))
     implementation(project(mapOf("path" to ":feature:search")))
-    implementation(project(mapOf("path" to ":feature:archived")))
     implementation(project(mapOf("path" to ":feature:settings")))
 
     // Core
