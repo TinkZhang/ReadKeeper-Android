@@ -41,6 +41,7 @@ class BookFactory {
             pages = 1688,
             rating = 4.3,
             pubYear = 2022,
+            isbn = "1234567890123"
         )
     }
 }

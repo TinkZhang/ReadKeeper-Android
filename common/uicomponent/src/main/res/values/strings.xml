@@ -10,4 +10,22 @@
     <string name="hour">%dh</string>
     <string name="day">%dd</string>
     <string name="start_reading">Start reading now</string>
+    <string name="isbn">ISBN</string>
+    <string name="added_time">Added on %s</string>
+    <plurals name="added_second_ago">
+        <item quantity="one">Added %d second ago</item>
+        <item quantity="other">Added %d seconds ago</item>
+    </plurals>
+    <plurals name="added_minute_ago">
+        <item quantity="one">Added %d minute ago</item>
+        <item quantity="other">Added %d minutes ago</item>
+    </plurals>
+    <plurals name="added_hour_ago">
+        <item quantity="one">Added %d hour ago</item>
+        <item quantity="other">Added %d hours ago</item>
+    </plurals>
+    <plurals name="added_day_ago">
+        <item quantity="one">Added %d day ago</item>
+        <item quantity="other">Added %d days ago</item>
+    </plurals>
 </resources>

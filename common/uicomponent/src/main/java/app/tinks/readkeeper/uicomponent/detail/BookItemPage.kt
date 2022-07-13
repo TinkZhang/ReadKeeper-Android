@@ -1,10 +1,7 @@
 package app.tinks.readkeeper.uicomponent.detail
 
 import androidx.compose.animation.rememberSplineBasedDecay
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
@@ -119,10 +116,10 @@ fun BookItemPage(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(paddingValue)
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            ReadingVipInfoSection(book = book)
-            Spacer(modifier = Modifier.padding(vertical = 8.dp))
+            InfoSection(book = book)
             ReadingVipProgressSection(
                 lastRecord = records.lastOrNull(),
                 pageFormat = book.pageFormat,
