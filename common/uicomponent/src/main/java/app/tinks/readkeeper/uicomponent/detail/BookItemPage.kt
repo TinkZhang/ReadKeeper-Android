@@ -5,11 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.DataSaverOn
-import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -48,6 +45,7 @@ fun BookItemPage(
     }
     var showAddProgressDialog by remember { mutableStateOf(openAddProgressDialog) }
     var showEditBookPageDialog by remember { mutableStateOf(openEditDialog) }
+    var showDeleteBookDialog by remember { mutableStateOf(false) }
     Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
         LargeTopAppBar(title = { Text(book.basicInfo.title) }, navigationIcon = {
             IconButton(onClick = { navController.popBackStack() }) {
@@ -137,14 +135,10 @@ fun BookItemPage(
             DescriptionSection(description = book.basicInfo.description)
             if ((FirebaseRemoteConfigWrapper.isDetailPagBannerEnabled)) {
                 GoogleAdView(
-                    adSize = AdSize.MEDIUM_RECTANGLE,
-                    keyword = book.basicInfo.title
+                    adSize = AdSize.MEDIUM_RECTANGLE, keyword = book.basicInfo.title
                 )
             }
-            if ((FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled
-                        && !FirebaseRemoteConfigWrapper.searchEngines?.searchEngines.isNullOrEmpty())
-                || !book.basicInfo.amazonLink.isNullOrEmpty()
-            ) {
+            if ((FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled && !FirebaseRemoteConfigWrapper.searchEngines?.searchEngines.isNullOrEmpty()) || !book.basicInfo.amazonLink.isNullOrEmpty()) {
                 GetBookSection(
                     title = book.basicInfo.title,
                     searchEngines = if (FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled) {
@@ -155,19 +149,76 @@ fun BookItemPage(
                     amazonLink = book.basicInfo.amazonLink
                 )
             }
+            if (book.status == Status.READING || book.status == Status.WISH) {
+                OutlinedButton(
+                    onClick = { bookViewModel.move(book, Status.ARCHIVED) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = stringResource(id = R.string.add_achived))
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Icon(
+                        Icons.Filled.Archive,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.secondary
+                    )
+                }
+            }
+            if (book.status == Status.READING
+                || book.status == Status.WISH
+                || book.status == Status.ARCHIVED
+            ) {
+                OutlinedButton(
+                    onClick = { showDeleteBookDialog = true },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.delete_book),
+                        color = MaterialTheme.colorScheme.error
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Icon(
+                        Icons.Filled.Delete,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
             Spacer(modifier = Modifier.padding(DpBottomPadding))
         }
     }
 
+    if (showDeleteBookDialog) {
+        AlertDialog(onDismissRequest = { showDeleteBookDialog = false }, confirmButton = {
+            FilledTonalButton(onClick = {
+                bookViewModel.delete(book)
+                showDeleteBookDialog = false
+            }) {
+                Text(stringResource(id = R.string.confirm))
+            }
+        }, dismissButton = {
+            TextButton(onClick = { showDeleteBookDialog = false }) {
+                Text(stringResource(id = R.string.cancel))
+            }
+        }, icon = {
+            Icon(
+                Icons.Filled.Delete,
+                contentDescription = stringResource(id = R.string.delete),
+                tint = MaterialTheme.colorScheme.secondary
+            )
+        }, text = { Text(stringResource(id = R.string.delete_book_confirmation)) })
+    }
+
     if (showEditBookPageDialog) {
         Dialog(
-            onDismissRequest = { showEditBookPageDialog = false }, properties = DialogProperties(
+            onDismissRequest = { showEditBookPageDialog = false },
+            properties = DialogProperties(
                 dismissOnClickOutside = false,
                 usePlatformDefaultWidth = true,
                 dismissOnBackPress = true,
             )
         ) {
-            EditBookDialogContent(book = book,
+            EditBookDialogContent(
+                book = book,
                 onCancelClicked = { showEditBookPageDialog = false },
                 onSaveClicked = {
                     bookViewModel.add(it)

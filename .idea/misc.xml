@@ -123,6 +123,7 @@
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/ActionSection.kt" value="0.335" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/DescriptionSection.kt" value="0.5857908847184986" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/InfoSection.kt" value="0.38333333333333336" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/NoteSection.kt" value="0.9289544235924933" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/ReadingVipInfoSection.kt" value="0.3175925925925926" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/ReadingVipNoteSection.kt" value="0.20081135902636918" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/ReadingVipProgressSection.kt" value="0.337037037037037" />

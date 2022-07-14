@@ -26,6 +26,7 @@ fun NoteSection(
     modifier: Modifier = Modifier,
     onShowAllNotesClick: () -> Unit = {},
 ) {
+    if (records.isEmpty()) return
     DetailTitleSection(
         modifier = modifier,
         title = stringResource(id = R.string.note_section_title)

@@ -33,5 +33,6 @@ object FirebaseRemoteConfigWrapper {
 
 private val remoteConfigMap: Map<String, Any> = mapOf(
     KeyIsDetailPageSearchLinkEnabled to true,
+    KeyIsDetailPageBannerEnabled to true,
     KeyJsonSearchEngines to "{\"searchEngines\": [{\"name\": \"Baidu\", \"link\": \"https://www.baidu.com/s?wd=\"},{\"name\": \"Google\", \"link\": \"https://www.google.com/search?q=\"}]}"
 )
