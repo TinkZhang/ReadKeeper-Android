@@ -5,7 +5,7 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.google.gson.Gson
 
-const val KeyIsWishVipSearchLinkEnabled = "isWishVipSearchLinkEnabled"
+const val KeyIsDetailPageSerachLinkEnabled = "isDetailPageSearchLinkEnabled"
 const val KeyJsonSearchEngines = "jsonSearchEngines"
 
 object FirebaseRemoteConfigWrapper {
@@ -21,7 +21,7 @@ object FirebaseRemoteConfigWrapper {
         }
     }
 
-    val isWishVipSearchLinkEnabled = Firebase.remoteConfig.getBoolean(KeyIsWishVipSearchLinkEnabled)
+    val isDetailPageSearchLinkEnabled = Firebase.remoteConfig.getBoolean(KeyIsDetailPageSerachLinkEnabled)
     val searchEngines: SearchEngines? = Gson().fromJson(
         Firebase.remoteConfig.getString(KeyJsonSearchEngines),
         SearchEngines::class.java
@@ -30,6 +30,6 @@ object FirebaseRemoteConfigWrapper {
 }
 
 private val remoteConfigMap: Map<String, Any> = mapOf(
-    KeyIsWishVipSearchLinkEnabled to true,
+    KeyIsDetailPageSerachLinkEnabled to true,
     KeyJsonSearchEngines to "{\"searchEngines\": [{\"name\": \"Baidu\", \"link\": \"https://www.baidu.com/s?wd=\"},{\"name\": \"Google\", \"link\": \"https://www.google.com/search?q=\"}]}"
 )

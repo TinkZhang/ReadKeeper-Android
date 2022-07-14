@@ -22,8 +22,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
-import app.tinks.readkeeper.uicomponent.*
+import app.tinks.readkeeper.uicomponent.DpContentLargePadding
+import app.tinks.readkeeper.uicomponent.DpContentMediumPadding
+import app.tinks.readkeeper.uicomponent.DpVipSectionPadding
+import app.tinks.readkeeper.uicomponent.RkCustomTabClient
 import app.tinks.readkeeper.uicomponent.cellview.BookCardImageLarge
+import app.tinks.readkeeper.uicomponent.cellview.GoogleAdView
+import app.tinks.readkeeper.uicomponent.detail.GetBookSection
 import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.launch
 
@@ -106,15 +111,14 @@ fun WeeklyBookVIP(
                 Spacer(modifier = Modifier.height(DpContentMediumPadding))
             }
             Spacer(modifier = Modifier.height(DpVipSectionPadding))
-            AmazonLinkSection(book.amazonProductUrl, mCustomTabClient)
             GoogleAdView(
                 adSize = AdSize.MEDIUM_RECTANGLE,
                 keyword = book.title
             )
-            if (FirebaseRemoteConfigWrapper.isWishVipSearchLinkEnabled
+            if (FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled
                 && !FirebaseRemoteConfigWrapper.searchEngines?.searchEngines.isNullOrEmpty()
             ) {
-                VipSearchEngineSection(
+                GetBookSection(
                     book.title,
                     FirebaseRemoteConfigWrapper.searchEngines!!.searchEngines,
                     mCustomTabClient,

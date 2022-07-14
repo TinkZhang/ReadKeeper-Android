@@ -1,4 +1,4 @@
-package app.tinks.readkeeper.uicomponent
+package app.tinks.readkeeper.uicomponent.cellview
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.height

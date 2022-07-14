@@ -15,7 +15,7 @@ import app.tinks.readkeeper.basic.model.Book
 import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.uicomponent.PreviewAnnotation
 import app.tinks.readkeeper.uicomponent.R
-import app.tinks.readkeeper.uicomponent.ReadingProgressBar
+import app.tinks.readkeeper.uicomponent.cellview.ReadingProgressBar
 import app.tinks.readkeeper.uicomponent.cellview.ReadingProgressText
 import app.tinks.readkeeper.uicomponent.cellview.TimeText
 import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme

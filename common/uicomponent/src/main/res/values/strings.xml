@@ -16,6 +16,9 @@
     <string name="add_progress">+ Progress</string>
     <string name="progress_section_title">Progress</string>
     <string name="note_section_title">Notes</string>
+    <string name="get_book_section_title">Get the book</string>
+    <string name="buy_it_from_amazon">Buy it from Amazon</string>
+    <string name="amazon">Amazon</string>
     <plurals name="added_second_ago">
         <item quantity="one">Added %d second ago</item>
         <item quantity="other">Added %d seconds ago</item>
