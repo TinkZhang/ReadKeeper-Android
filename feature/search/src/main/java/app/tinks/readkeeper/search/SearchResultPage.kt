@@ -24,7 +24,7 @@ import androidx.paging.compose.itemsIndexed
 import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.search.ui.components.RkSearchErrorItem
 import app.tinks.readkeeper.search.ui.components.RkSearchTipItem
-import app.tinks.readkeeper.uicomponent.GoogleAdView
+import app.tinks.readkeeper.uicomponent.cellview.GoogleAdView
 import app.tinks.readkeeper.uicomponent.list.BookListCard
 import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.CoroutineScope

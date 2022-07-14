@@ -42,6 +42,9 @@ interface BookDao {
     @Query("SELECT * FROM bookEntity")
     suspend fun getAllBooks(): List<BookEntity>
 
+    @Update
+    suspend fun update(book: BookEntity)
+
 }
 
 @Dao
@@ -60,6 +63,7 @@ interface RecordDao {
 data class BookEntity(
     @PrimaryKey val uuid: String,
     @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "author") val author: String,
     @ColumnInfo(name = "amazonLink") val amazonLink: String?,
     @ColumnInfo(name = "imageUrl") val imageUrl: String,

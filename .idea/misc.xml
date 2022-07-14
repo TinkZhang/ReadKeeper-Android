@@ -109,12 +109,26 @@
         <entry key="common/uicomponent/src/main/java/app/github/tinkzhang/uicomponent/AmazonLinkSection.kt" value="0.225" />
         <entry key="common/uicomponent/src/main/java/app/github/tinkzhang/uicomponent/EditBookDialogContent.kt" value="0.19839142091152814" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/AddProgressDialogContent.kt" value="0.20555555555555555" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/AmazonLinkSection.kt" value="0.4101851851851852" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/BookCardImage.kt" value="0.9818181818181818" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/EditBookDialogContent.kt" value="0.20163030448333732" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/PageText.kt" value="0.8784933171324423" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/ReadingProgressCircle.kt" value="0.5606060606060606" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/SearchBar.kt" value="0.3175925925925926" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/VipSearchEngineSection.kt" value="0.4101851851851852" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/cellview/IsbnText.kt" value="2.0" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/cellview/ReadingProgressCircle.kt" value="0.64375" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/cellview/SearchEngineButton.kt" value="0.9316353887399463" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/cellview/TimeText.kt" value="0.5070323488045007" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/ActionSection.kt" value="0.335" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/DescriptionSection.kt" value="0.5857908847184986" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/InfoSection.kt" value="0.38333333333333336" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/NoteSection.kt" value="0.9289544235924933" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/ReadingVipInfoSection.kt" value="0.3175925925925926" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/ReadingVipNoteSection.kt" value="0.20081135902636918" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/ReadingVipProgressSection.kt" value="0.337037037037037" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/actionsection/ReadingActionSection.kt" value="0.45" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/actionsection/SearchActionSection.kt" value="0.3990740740740741" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/list/ListBookInfo.kt" value="0.25" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/list/bookinfo/ArchivedBookListInfo.kt" value="0.5268518518518519" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/list/bookinfo/ReadingBookListInfo.kt" value="0.25" />
@@ -125,6 +139,7 @@
         <entry key="feature/archived/src/main/java/app/tinks/readkeeper/archived/ui/components/ArchivedCardMetadata.kt" value="0.19907407407407407" />
         <entry key="feature/archived/src/main/java/app/tinks/readkeeper/archived/ui/components/ArchivedVipInfoSection.kt" value="0.19907407407407407" />
         <entry key="feature/homepage/src/main/java/app/tinks/readkeeper/homepage/weeklybook/ui/WeeklyBookCard.kt" value="0.8114478114478114" />
+        <entry key="feature/homepage/src/main/java/app/tinks/readkeeper/homepage/weeklybook/ui/WeeklyBookMetadata.kt" value="0.3731481481481482" />
         <entry key="feature/homepage/src/main/java/com/github/tinkzhang/homepage/quote/QuoteCard.kt" value="0.15648148148148147" />
         <entry key="feature/reading/src/main/java/app/tinks/readkeeper/reading/ui/uicomponents/BookListCard.kt" value="0.19907407407407407" />
         <entry key="feature/reading/src/main/java/app/tinks/readkeeper/reading/ui/uicomponents/BookListItem.kt" value="0.25" />

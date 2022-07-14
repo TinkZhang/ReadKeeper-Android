@@ -16,11 +16,9 @@
             <option value="$PROJECT_DIR$/common/firebaseRemoteConfig" />
             <option value="$PROJECT_DIR$/common/uicomponent" />
             <option value="$PROJECT_DIR$/feature" />
-            <option value="$PROJECT_DIR$/feature/archived" />
             <option value="$PROJECT_DIR$/feature/homepage" />
             <option value="$PROJECT_DIR$/feature/search" />
             <option value="$PROJECT_DIR$/feature/settings" />
-            <option value="$PROJECT_DIR$/feature/wish" />
           </set>
         </option>
       </GradleProjectSettings>

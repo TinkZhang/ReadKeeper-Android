@@ -8,6 +8,8 @@ import app.tinks.readkeeper.basic.database.BookEntity
 import app.tinks.readkeeper.basic.database.RecordEntity
 import app.tinks.readkeeper.basic.model.Book
 import app.tinks.readkeeper.basic.model.Record
+import app.tinks.readkeeper.basic.model.Status
+import com.google.firebase.Timestamp
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 import javax.inject.Inject
@@ -40,6 +42,15 @@ class BookRepository @Inject constructor(
     suspend fun add(record: Record) {
         recordDao.insert(record.convertToRecordEntity())
         userRepository.add(record)
+    }
+
+    suspend fun move(book: Book, status: Status) {
+        bookDao.update(
+            book.convertToBookEntity().copy(
+                status = status,
+                addedTime = Timestamp.now().seconds
+            )
+        )
     }
 
     suspend fun delete(uuid: String) {

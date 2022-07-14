@@ -85,6 +85,18 @@ class BookViewModel @Inject constructor(
         }
     }
 
+    fun delete(book: Book) {
+        viewModelScope.launch {
+            repository.delete(book.basicInfo.uuid)
+        }
+    }
+
+    fun move(book: Book, status: Status) {
+        viewModelScope.launch {
+            repository.move(book, status)
+        }
+    }
+
     fun add(record: Record) {
         viewModelScope.launch {
             repository.add(record)

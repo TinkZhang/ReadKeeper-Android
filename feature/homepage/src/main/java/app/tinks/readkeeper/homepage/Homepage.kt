@@ -16,8 +16,8 @@ import app.tinks.readkeeper.homepage.quote.QuoteCard
 import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
 import app.tinks.readkeeper.homepage.weeklybook.ui.WeeklyBookCard
 import app.tinks.readkeeper.uicomponent.DpBottomPadding
-import app.tinks.readkeeper.uicomponent.DpVipSectionPadding
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Homepage(
     navController: NavController,
@@ -27,10 +27,10 @@ fun Homepage(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 //        HomepageSearchBar(onClick = { navController.navigate(SCREEN_ROUTE.SEARCH) })
-        Spacer(modifier = Modifier.height(DpVipSectionPadding))
         QuoteCard()
         if (viewModel.fictionBooks.collectAsState().value.isNotEmpty()) {
             WeeklyBookCard(NYBookType.Fictions, navController)

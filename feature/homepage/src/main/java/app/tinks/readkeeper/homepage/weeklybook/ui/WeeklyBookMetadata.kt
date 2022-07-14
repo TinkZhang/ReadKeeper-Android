@@ -20,34 +20,37 @@ import app.tinks.readkeeper.basic.model.NYTimesBookSample
 
 @Composable
 fun WeeklyVipMetadata(
-    book: NYTimesBook
+    book: NYTimesBook,
+    modifier: Modifier = Modifier
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
         RankStat(book)
-        Spacer(modifier = Modifier.height(16.dp))
         if (book.author.isNotEmpty()) {
             Text(
                 "✍️  " + book.author,
                 style = if (book.author.length > 40) {
                     MaterialTheme.typography.titleSmall
                 } else {
-                    MaterialTheme.typography.titleMedium
+                    MaterialTheme.typography.bodyMedium
                 },
                 maxLines = 3,
-                modifier = Modifier.padding(bottom = 8.dp)
             )
-            Spacer(modifier = Modifier.height(16.dp))
         }
-
     }
 }
 
 @Composable
 private fun RankStat(book: NYTimesBook) {
-    Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        modifier = Modifier.fillMaxWidth()
+    ) {
         Text(
             text = "# ${book.rank}",
-            style = MaterialTheme.typography.titleLarge,
+            style = MaterialTheme.typography.titleMedium,
         )
         val change = if (book.rankLastWeek != 0) {
             book.rankLastWeek - book.rank
@@ -66,7 +69,7 @@ private fun RankStat(book: NYTimesBook) {
                     Spacer(modifier = Modifier.width(2.dp))
                     Text(
                         " $change",
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleMedium,
                     )
                 }
             }
@@ -81,7 +84,7 @@ private fun RankStat(book: NYTimesBook) {
                     Spacer(modifier = Modifier.width(2.dp))
                     Text(
                         " +$change",
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleMedium,
                     )
                 }
             }
@@ -105,7 +108,7 @@ private fun RankStat(book: NYTimesBook) {
                 Spacer(modifier = Modifier.width(2.dp))
                 Text(
                     "${book.weeksOnList} weeks",
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium,
                 )
             }
         }

@@ -4,14 +4,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 
 @Composable
 fun InfoText(
     text: String?,
     modifier: Modifier = Modifier,
     maxLine: Int = 1,
-    color: Color = MaterialTheme.colorScheme.onBackground
+    colorAlpha: Float = 0.8f
 ) {
     if (!text.isNullOrEmpty()) {
         Text(
@@ -19,7 +18,7 @@ fun InfoText(
             style = MaterialTheme.typography.bodyMedium,
             modifier = modifier,
             maxLines = maxLine,
-            color = color.copy(alpha = 0.8f)
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = colorAlpha)
         )
     }
 }
