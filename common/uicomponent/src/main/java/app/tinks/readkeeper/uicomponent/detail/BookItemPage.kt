@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.DataSaverOn
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -26,7 +27,9 @@ import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import app.tinks.readkeeper.uicomponent.*
 import app.tinks.readkeeper.uicomponent.R
+import app.tinks.readkeeper.uicomponent.cellview.GoogleAdView
 import app.tinks.readkeeper.uicomponent.detail.actionsection.ActionSection
+import com.google.android.gms.ads.AdSize
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
@@ -108,7 +111,8 @@ fun BookItemPage(
                 .padding(paddingValue)
                 .padding(horizontal = 16.dp)
                 .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             InfoSection(book = book)
             ActionSection(book = book,
@@ -130,6 +134,12 @@ fun BookItemPage(
                 onShowAllNotesClick = {
                     //TODO: open all notes list page
                 })
+            if ((FirebaseRemoteConfigWrapper.isDetailPagBannerEnabled)) {
+                GoogleAdView(
+                    adSize = AdSize.MEDIUM_RECTANGLE,
+                    keyword = book.basicInfo.title
+                )
+            }
             if ((FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled
                         && !FirebaseRemoteConfigWrapper.searchEngines?.searchEngines.isNullOrEmpty())
                 || !book.basicInfo.amazonLink.isNullOrEmpty()

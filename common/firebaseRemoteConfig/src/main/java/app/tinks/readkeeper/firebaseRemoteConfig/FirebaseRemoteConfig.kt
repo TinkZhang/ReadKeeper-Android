@@ -5,7 +5,8 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.google.gson.Gson
 
-const val KeyIsDetailPageSerachLinkEnabled = "isDetailPageSearchLinkEnabled"
+const val KeyIsDetailPageSearchLinkEnabled = "bDetailPageSearchLinkEnabled"
+const val KeyIsDetailPageBannerEnabled = "bDetailPageBannerEnabled"
 const val KeyJsonSearchEngines = "jsonSearchEngines"
 
 object FirebaseRemoteConfigWrapper {
@@ -21,7 +22,8 @@ object FirebaseRemoteConfigWrapper {
         }
     }
 
-    val isDetailPageSearchLinkEnabled = Firebase.remoteConfig.getBoolean(KeyIsDetailPageSerachLinkEnabled)
+    val isDetailPageSearchLinkEnabled = Firebase.remoteConfig.getBoolean(KeyIsDetailPageSearchLinkEnabled)
+    val isDetailPagBannerEnabled = Firebase.remoteConfig.getBoolean(KeyIsDetailPageBannerEnabled)
     val searchEngines: SearchEngines? = Gson().fromJson(
         Firebase.remoteConfig.getString(KeyJsonSearchEngines),
         SearchEngines::class.java
@@ -30,6 +32,6 @@ object FirebaseRemoteConfigWrapper {
 }
 
 private val remoteConfigMap: Map<String, Any> = mapOf(
-    KeyIsDetailPageSerachLinkEnabled to true,
+    KeyIsDetailPageSearchLinkEnabled to true,
     KeyJsonSearchEngines to "{\"searchEngines\": [{\"name\": \"Baidu\", \"link\": \"https://www.baidu.com/s?wd=\"},{\"name\": \"Google\", \"link\": \"https://www.google.com/search?q=\"}]}"
 )
