@@ -15,10 +15,10 @@ import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DescriptionSection(
-    description: String,
+    description: String?,
     modifier: Modifier = Modifier,
 ) {
-    if (description.isNotEmpty()) {
+    if (!description.isNullOrEmpty()) {
         OutlinedCard(
             onClick = {}, modifier = modifier,
         ) {

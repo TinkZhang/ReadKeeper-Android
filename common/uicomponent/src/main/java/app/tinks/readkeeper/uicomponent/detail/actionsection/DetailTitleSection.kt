@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import app.tinks.readkeeper.uicomponent.DpContentMediumPadding
@@ -29,8 +30,9 @@ fun DetailTitleSection(
                 text = title,
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.W500
+                    fontWeight = FontWeight.W500,
                 ),
+                modifier = Modifier.alpha(0.85f)
             )
         }
         Divider(

@@ -31,8 +31,7 @@ data class NYTimesBook(
             imageUrl = this.bookImage,
             author = this.author,
             amazonLink = this.amazonProductUrl,
-        ),
-        status = Status.WISH
+        )
     )
 }
 

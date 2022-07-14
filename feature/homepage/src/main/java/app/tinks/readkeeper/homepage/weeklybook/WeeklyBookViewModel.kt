@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import app.tinks.readkeeper.basic.BookRepository
 import app.tinks.readkeeper.basic.model.NYBookType
 import app.tinks.readkeeper.basic.model.NYTimesBook
+import app.tinks.readkeeper.basic.model.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -46,9 +47,9 @@ class WeeklyBookViewModel @Inject constructor(
                 it.title == title
             }
 
-    fun addToWish(book: NYTimesBook) {
+    fun addTo(book: NYTimesBook, status: Status) {
         viewModelScope.launch {
-            bookRepository.add(book.convertToBook())
+            bookRepository.add(book.convertToBook().copy(status = status))
         }
     }
 }
