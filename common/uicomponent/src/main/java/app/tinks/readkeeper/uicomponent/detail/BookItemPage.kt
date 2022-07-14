@@ -21,10 +21,12 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import app.tinks.readkeeper.basic.BookViewModel
 import app.tinks.readkeeper.basic.model.BookFactory
+import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.uicomponent.AddProgressDialogContent
 import app.tinks.readkeeper.uicomponent.DpBottomPadding
 import app.tinks.readkeeper.uicomponent.EditBookDialogContent
 import app.tinks.readkeeper.uicomponent.R
+import app.tinks.readkeeper.uicomponent.detail.actionsection.ActionSection
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
@@ -120,6 +122,14 @@ fun BookItemPage(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             InfoSection(book = book)
+            ActionSection(book = book,
+                modifier = Modifier.fillMaxWidth(),
+                onAddToWishClick = { bookViewModel.add(book.copy(status = Status.WISH)) },
+                onAddToReadingClick =  { bookViewModel.add(book.copy(status = Status.READING)) },
+                onMoveToReadingClick = { bookViewModel.move(book = book, status = Status.READING)},
+                onEditBookClick = { showEditBookPageDialog = true },
+                onAddProgressClick = { showAddProgressDialog = true}
+            )
             ReadingVipProgressSection(
                 lastRecord = records.lastOrNull(),
                 pageFormat = book.pageFormat,

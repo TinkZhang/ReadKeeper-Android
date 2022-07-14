@@ -42,6 +42,9 @@ interface BookDao {
     @Query("SELECT * FROM bookEntity")
     suspend fun getAllBooks(): List<BookEntity>
 
+    @Update
+    suspend fun update(book: BookEntity)
+
 }
 
 @Dao

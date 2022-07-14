@@ -12,6 +12,8 @@
     <string name="start_reading">Start reading now</string>
     <string name="isbn">ISBN</string>
     <string name="added_time">Added on %s</string>
+    <string name="edit_book">Edit Book</string>
+    <string name="add_progress">+ Progress</string>
     <plurals name="added_second_ago">
         <item quantity="one">Added %d second ago</item>
         <item quantity="other">Added %d seconds ago</item>

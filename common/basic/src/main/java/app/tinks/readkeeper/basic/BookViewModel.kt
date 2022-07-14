@@ -85,6 +85,12 @@ class BookViewModel @Inject constructor(
         }
     }
 
+    fun move(book: Book, status: Status) {
+        viewModelScope.launch {
+            repository.move(book, status)
+        }
+    }
+
     fun add(record: Record) {
         viewModelScope.launch {
             repository.add(record)
