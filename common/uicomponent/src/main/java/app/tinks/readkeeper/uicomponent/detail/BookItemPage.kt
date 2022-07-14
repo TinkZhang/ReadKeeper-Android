@@ -118,25 +118,31 @@ fun BookItemPage(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(paddingValue)
+                .padding(horizontal = 16.dp)
                 .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             InfoSection(book = book)
             ActionSection(book = book,
                 modifier = Modifier.fillMaxWidth(),
                 onAddToWishClick = { bookViewModel.add(book.copy(status = Status.WISH)) },
-                onAddToReadingClick =  { bookViewModel.add(book.copy(status = Status.READING)) },
-                onMoveToReadingClick = { bookViewModel.move(book = book, status = Status.READING)},
+                onAddToReadingClick = { bookViewModel.add(book.copy(status = Status.READING)) },
+                onMoveToReadingClick = { bookViewModel.move(book = book, status = Status.READING) },
                 onEditBookClick = { showEditBookPageDialog = true },
-                onAddProgressClick = { showAddProgressDialog = true}
+                onAddProgressClick = { showAddProgressDialog = true }
             )
-            ReadingVipProgressSection(
+            ProgressSection(
                 lastRecord = records.lastOrNull(),
                 pageFormat = book.pageFormat,
                 totalPages = book.basicInfo.pages,
                 platform = book.platform
             )
-            ReadingVipNoteSection(records.reversed(), book.pageFormat, book.basicInfo.pages)
+            NoteSection(
+                records.reversed(),
+                pageFormat = book.pageFormat,
+                realPages = book.realPages,
+                onShowAllNotesClick = { //TODO: open all notes list page
+                })
             Spacer(modifier = Modifier.padding(DpBottomPadding))
         }
 

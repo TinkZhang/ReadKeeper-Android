@@ -14,6 +14,8 @@
     <string name="added_time">Added on %s</string>
     <string name="edit_book">Edit Book</string>
     <string name="add_progress">+ Progress</string>
+    <string name="progress_section_title">Progress</string>
+    <string name="note_section_title">Notes</string>
     <plurals name="added_second_ago">
         <item quantity="one">Added %d second ago</item>
         <item quantity="other">Added %d seconds ago</item>
