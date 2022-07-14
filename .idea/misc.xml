@@ -121,6 +121,7 @@
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/cellview/SearchEngineButton.kt" value="0.9316353887399463" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/cellview/TimeText.kt" value="0.5070323488045007" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/ActionSection.kt" value="0.335" />
+        <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/DescriptionSection.kt" value="0.5857908847184986" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/InfoSection.kt" value="0.38333333333333336" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/ReadingVipInfoSection.kt" value="0.3175925925925926" />
         <entry key="common/uicomponent/src/main/java/app/tinks/readkeeper/uicomponent/detail/ReadingVipNoteSection.kt" value="0.20081135902636918" />

@@ -134,6 +134,7 @@ fun BookItemPage(
                 onShowAllNotesClick = {
                     //TODO: open all notes list page
                 })
+            DescriptionSection(description = book.basicInfo.description)
             if ((FirebaseRemoteConfigWrapper.isDetailPagBannerEnabled)) {
                 GoogleAdView(
                     adSize = AdSize.MEDIUM_RECTANGLE,

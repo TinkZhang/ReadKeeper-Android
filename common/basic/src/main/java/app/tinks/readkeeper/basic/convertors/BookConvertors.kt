@@ -9,6 +9,7 @@ import com.google.firebase.Timestamp
 fun Book.convertToBookEntity() = BookEntity(
     uuid = this.basicInfo.uuid,
     title = this.basicInfo.title,
+    description = this.basicInfo.description,
     author = this.basicInfo.author,
     amazonLink = this.basicInfo.amazonLink,
     imageUrl = this.basicInfo.imageUrl,
@@ -28,6 +29,7 @@ fun BookEntity.convertToBook() = Book(
     basicInfo = BasicInfo(
         uuid = this.uuid,
         title = this.title,
+        description = this.description,
         imageUrl = this.imageUrl,
         author = this.author,
         pages = this.pages,

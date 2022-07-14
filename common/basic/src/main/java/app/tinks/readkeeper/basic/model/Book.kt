@@ -68,4 +68,5 @@ data class BasicInfo(
     val amazonLink: String? = null,
     val isbn: String? = null,
     val uuid: String = isbn + UUID.randomUUID().toString(),
+    val description: String = "",
 )
