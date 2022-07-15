@@ -48,7 +48,7 @@ private fun RankStat(book: NYTimesBook) {
         horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(
+         Text(
             text = "# ${book.rank}",
             style = MaterialTheme.typography.titleMedium,
         )

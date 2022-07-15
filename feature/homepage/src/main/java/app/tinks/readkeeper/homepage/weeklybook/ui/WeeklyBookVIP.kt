@@ -42,8 +42,12 @@ fun WeeklyBookVIP(
         mutableStateOf(viewModel.getBook(title))
     }
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
+    val topBarScrollState = rememberTopAppBarScrollState()
     val scrollBehavior = remember(decayAnimationSpec) {
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+            decayAnimationSpec,
+            state = topBarScrollState
+        )
     }
     val scaffoldState = rememberScaffoldState()
     Scaffold(

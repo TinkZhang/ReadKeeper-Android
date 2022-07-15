@@ -40,8 +40,12 @@ fun BookItemPage(
     val book by bookViewModel.getBook(uuid).collectAsState(initial = BookFactory.buildEmptyBook())
     val records by bookViewModel.getRecords(uuid).collectAsState(initial = emptyList())
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
+    val topBarScrollState = rememberTopAppBarScrollState()
     val scrollBehavior = remember(decayAnimationSpec) {
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+            decayAnimationSpec,
+            state = topBarScrollState
+        )
     }
     var showAddProgressDialog by remember { mutableStateOf(openAddProgressDialog) }
     var showEditBookPageDialog by remember { mutableStateOf(openEditDialog) }
