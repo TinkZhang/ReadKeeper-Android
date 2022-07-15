@@ -25,6 +25,16 @@
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="delete_book_confirmation">Do you confirm to delete this book?</string>
+    <string name="save">Save</string>
+    <string name="discard">Discard</string>
+    <string name="keep">Keep</string>
+    <string name="discard_edit_book_confirmation">Discard all the change?</string>
+    <string name="title">Title</string>
+    <string name="page_format">Page Format</string>
+    <string name="percent">Percent %</string>
+    <string name="percent_100">100% e.g. 12%</string>
+    <string name="percent_1000">100.0% e.g. 12.3%</string>
+    <string name="percent_10000">100.00% e.g. 12.34%</string>
     <plurals name="added_second_ago">
         <item quantity="one">Added %d second ago</item>
         <item quantity="other">Added %d seconds ago</item>

@@ -41,5 +41,3 @@ fun Homepage(
         Spacer(modifier = Modifier.height(DpBottomPadding))
     }
 }
-
-

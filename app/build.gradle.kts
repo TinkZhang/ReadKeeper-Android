@@ -16,8 +16,8 @@ android {
 
     defaultConfig {
         applicationId = "app.tinks.readkeeper"
-        minSdk = 24
-        targetSdk = 31
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
