@@ -24,9 +24,9 @@ import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditPageField(
-    pageFormat: PageFormat = PageFormat.PAGE,
     pages: Int,
     modifier: Modifier = Modifier,
+    pageFormat: PageFormat = PageFormat.PAGE,
     onPageFormatChange: (PageFormat) -> Unit = {},
     onPageNumberChange: (String) -> Unit = {},
 ) {

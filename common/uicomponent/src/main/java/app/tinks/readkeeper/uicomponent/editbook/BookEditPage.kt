@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
@@ -13,19 +12,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import app.tinks.readkeeper.basic.model.Book
+import app.tinks.readkeeper.basic.BookEditViewModel
+import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.uicomponent.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditBookPage(
-    book: Book,
-    navController: NavController,
+fun BookEditPage(
+    uuid: String?,
+    bookEditViewModel: BookEditViewModel,
+    navController: NavController
 ) {
+    if (uuid.isNullOrEmpty()) return
     var showDiscardConfirmationDialog by remember { mutableStateOf(false) }
+    val book by bookEditViewModel.getBook(uuid)
+        .collectAsState(initial = BookFactory.buildEmptyBook())
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = { Text(text = stringResource(id = R.string.edit_book)) },
                 modifier = Modifier.fillMaxWidth(),
                 navigationIcon = {
@@ -40,17 +44,20 @@ fun EditBookPage(
             )
         },
         bottomBar = {
-            FilledTonalIconButton(onClick = { /*TODO*/ }) {
+            FilledTonalIconButton(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
                 Text(text = stringResource(id = R.string.save))
             }
         }
     ) { it ->
         Column(
-            modifier = Modifier.padding(it),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            modifier = Modifier
+                .padding(it)
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             var title by remember { mutableStateOf(book.basicInfo.title) }
-            EditTitleField(bookTitle = title) {
+            EditTitleField(bookTitle = title, modifier = Modifier.fillMaxWidth()) {
                 title = it
             }
 
@@ -63,8 +70,8 @@ fun EditBookPage(
                 onPageNumberChange = { page = it.toIntOrNull() ?: 0 }
             )
 
-            var platform by remember{ mutableStateOf(book.platform) }
-            PlatformField(platform = platform) {
+            var platform by remember { mutableStateOf(book.platform) }
+            PlatformField(platform = platform, modifier = Modifier.fillMaxWidth()) {
                 platform = it
             }
         }

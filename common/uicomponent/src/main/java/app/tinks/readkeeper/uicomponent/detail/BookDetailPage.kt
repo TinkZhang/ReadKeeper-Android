@@ -22,15 +22,17 @@ import app.tinks.readkeeper.basic.BookViewModel
 import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
-import app.tinks.readkeeper.uicomponent.*
+import app.tinks.readkeeper.uicomponent.AddProgressDialogContent
+import app.tinks.readkeeper.uicomponent.DpBottomPadding
 import app.tinks.readkeeper.uicomponent.R
+import app.tinks.readkeeper.uicomponent.RkCustomTabClient
 import app.tinks.readkeeper.uicomponent.cellview.GoogleAdView
 import app.tinks.readkeeper.uicomponent.detail.actionsection.ActionSection
 import com.google.android.gms.ads.AdSize
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
-fun BookItemPage(
+fun BookDetailPage(
     uuid: String,
     openAddProgressDialog: Boolean = false,
     openEditDialog: Boolean = false,
@@ -48,7 +50,6 @@ fun BookItemPage(
         )
     }
     var showAddProgressDialog by remember { mutableStateOf(openAddProgressDialog) }
-    var showEditBookPageDialog by remember { mutableStateOf(openEditDialog) }
     var showDeleteBookDialog by remember { mutableStateOf(false) }
     Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
         LargeTopAppBar(title = { Text(book.basicInfo.title) }, navigationIcon = {
@@ -61,7 +62,7 @@ fun BookItemPage(
             }
         }, actions = {
             IconButton(onClick = {
-                showEditBookPageDialog = true
+                navController.navigate("edit_book/${book.basicInfo.uuid}")
             }) {
                 Icon(
                     Icons.Default.Edit,
@@ -92,9 +93,8 @@ fun BookItemPage(
                     "Edit", color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }, onClick = {
-                showEditBookPageDialog = true
+                navController.navigate("edit_book/${book.basicInfo.uuid}")
             },
-
                 icon = {
                     Icon(
                         Icons.Default.Edit,
@@ -122,8 +122,7 @@ fun BookItemPage(
                 onAddToWishClick = { bookViewModel.add(book.copy(status = Status.WISH)) },
                 onAddToReadingClick = { bookViewModel.add(book.copy(status = Status.READING)) },
                 onMoveToReadingClick = { bookViewModel.move(book = book, status = Status.READING) },
-                onEditBookClick = { showEditBookPageDialog = true },
-                onAddProgressClick = { showAddProgressDialog = true })
+            )
             ProgressSection(
                 lastRecord = records.lastOrNull(),
                 pageFormat = book.pageFormat,
@@ -210,25 +209,6 @@ fun BookItemPage(
                 tint = MaterialTheme.colorScheme.secondary
             )
         }, text = { Text(stringResource(id = R.string.delete_book_confirmation)) })
-    }
-
-    if (showEditBookPageDialog) {
-        Dialog(
-            onDismissRequest = { showEditBookPageDialog = false },
-            properties = DialogProperties(
-                dismissOnClickOutside = false,
-                usePlatformDefaultWidth = true,
-                dismissOnBackPress = true,
-            )
-        ) {
-            EditBookDialogContent(
-                book = book,
-                onCancelClicked = { showEditBookPageDialog = false },
-                onSaveClicked = {
-                    bookViewModel.add(it)
-                    showEditBookPageDialog = false
-                })
-        }
     }
 
     if (showAddProgressDialog) {

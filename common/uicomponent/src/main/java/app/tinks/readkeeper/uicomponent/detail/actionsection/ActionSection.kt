@@ -15,22 +15,14 @@ fun ActionSection(
     onAddToReadingClick: () -> Unit = {},
     onAddToWishClick: () -> Unit = {},
     onMoveToReadingClick: () -> Unit = {},
-    onEditBookClick: () -> Unit = {},
-    onAddProgressClick: () -> Unit = {},
 ) {
     AnimatedContent(targetState = book.status) {
         when (book.status) {
-            Status.READING -> ReadingActionSection(
-                book = book,
-                modifier = modifier,
-                onEditBookClick = onEditBookClick,
-                onAddProgressClick = onAddProgressClick,
-            )
+            Status.READING, Status.ARCHIVED -> Unit
             Status.WISH -> WishActionSection(
                 modifier = modifier,
                 onMoveToReadingClick = onMoveToReadingClick,
             )
-            Status.ARCHIVED -> Unit
             Status.SEARCH -> SearchActionSection(
                 modifier = modifier,
                 onAddToReadingClick = onAddToReadingClick,

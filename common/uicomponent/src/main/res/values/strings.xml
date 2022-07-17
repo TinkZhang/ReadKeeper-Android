@@ -35,6 +35,9 @@
     <string name="percent_100">100% e.g. 12%</string>
     <string name="percent_1000">100.0% e.g. 12.3%</string>
     <string name="percent_10000">100.00% e.g. 12.34%</string>
+    <string name="book_platform">Choose Platform</string>
+    <string name="select_platform">Select platform</string>
+    <string name="platform">Platform</string>
     <plurals name="added_second_ago">
         <item quantity="one">Added %d second ago</item>
         <item quantity="other">Added %d seconds ago</item>
