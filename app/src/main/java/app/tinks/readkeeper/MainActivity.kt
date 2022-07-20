@@ -26,17 +26,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import app.tinks.readkeeper.basic.BookViewModel
-import app.tinks.readkeeper.basic.LoginStatus
-import app.tinks.readkeeper.basic.SCREEN_ROUTE
-import app.tinks.readkeeper.basic.UserRepository
+import app.tinks.readkeeper.basic.*
 import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import app.tinks.readkeeper.homepage.Homepage
 import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
 import app.tinks.readkeeper.homepage.weeklybook.ui.WeeklyBookVIP
-import app.tinks.readkeeper.uicomponent.detail.BookItemPage
-import app.tinks.readkeeper.uicomponent.list.BookListPage
 import app.tinks.readkeeper.readkeeper.ui.theme.ReadKeeperTheme
 import app.tinks.readkeeper.search.SearchPage
 import app.tinks.readkeeper.search.SearchResultPage
@@ -46,6 +41,9 @@ import app.tinks.readkeeper.ui.ROUTE_TO_SCREEN_MAP
 import app.tinks.readkeeper.ui.components.RkMainTopBar
 import app.tinks.readkeeper.ui.getBottomBarItemList
 import app.tinks.readkeeper.uicomponent.RkCustomTabClient
+import app.tinks.readkeeper.uicomponent.detail.BookDetailPage
+import app.tinks.readkeeper.uicomponent.editbook.BookEditPage
+import app.tinks.readkeeper.uicomponent.list.BookListPage
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -159,7 +157,7 @@ class MainActivity : ComponentActivity() {
                                         type = NavType.StringType
                                     })
                                 ) {
-                                    BookItemPage(
+                                    BookDetailPage(
                                         uuid = it.arguments?.getString("uuid") ?: "",
                                         bookViewModel = bookViewModel,
                                         navController = navController
@@ -184,7 +182,7 @@ class MainActivity : ComponentActivity() {
                                         defaultValue = false
                                     })
                                 ) {
-                                    BookItemPage(
+                                    BookDetailPage(
                                         it.arguments?.getString("uuid") ?: "",
                                         it.arguments?.getBoolean("open_progress_dialog") ?: false,
                                         it.arguments?.getBoolean("open_edit_dialog") ?: false,
@@ -200,12 +198,25 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                                 composable(
+                                    SCREEN_ROUTE.EDIT_BOOK,
+                                    arguments = listOf(navArgument("uuid") {
+                                        type = NavType.StringType
+                                    })
+                                ) {
+                                    val viewModel = hiltViewModel<BookEditViewModel>()
+                                    BookEditPage(
+                                        uuid = it.arguments?.getString("uuid"),
+                                        bookEditViewModel = viewModel,
+                                        navController = navController
+                                    )
+                                }
+                                composable(
                                     SCREEN_ROUTE.ARCHIVED_ITEM,
                                     arguments = listOf(navArgument("uuid") {
                                         type = NavType.StringType
                                     })
                                 ) {
-                                    BookItemPage(
+                                    BookDetailPage(
                                         uuid = it.arguments?.getString("uuid") ?: "",
                                         bookViewModel = bookViewModel,
                                         navController = navController

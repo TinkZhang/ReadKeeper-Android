@@ -1,14 +1,11 @@
 package app.tinks.readkeeper.basic
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 // https://www.youtube.com/watch?v=h9XKb4iGM-4
-@OptIn(ExperimentalCoroutinesApi::class)
 inline fun <ResultType, RequestType> networkBoundResource(
     crossinline query: () -> Flow<ResultType>,
     crossinline fetch: suspend () -> RequestType,

@@ -138,6 +138,7 @@
         <entry key="feature/archived/src/main/java/app/tinks/readkeeper/archived/ui/ArchivedListCard.kt" value="0.1685185185185185" />
         <entry key="feature/archived/src/main/java/app/tinks/readkeeper/archived/ui/components/ArchivedCardMetadata.kt" value="0.19907407407407407" />
         <entry key="feature/archived/src/main/java/app/tinks/readkeeper/archived/ui/components/ArchivedVipInfoSection.kt" value="0.19907407407407407" />
+        <entry key="feature/homepage/src/main/java/app/tinks/readkeeper/homepage/quote/QuoteCard.kt" value="0.26481481481481484" />
         <entry key="feature/homepage/src/main/java/app/tinks/readkeeper/homepage/weeklybook/ui/WeeklyBookCard.kt" value="0.8114478114478114" />
         <entry key="feature/homepage/src/main/java/app/tinks/readkeeper/homepage/weeklybook/ui/WeeklyBookMetadata.kt" value="0.3731481481481482" />
         <entry key="feature/homepage/src/main/java/com/github/tinkzhang/homepage/quote/QuoteCard.kt" value="0.15648148148148147" />

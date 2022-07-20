@@ -13,4 +13,5 @@ object SCREEN_ROUTE {
     const val SEARCH = "search"
     const val SEARCH_RESUTL = "search_result/{keyword}"
     const val SETTINGS = "settings"
+    const val EDIT_BOOK = "edit_book/{uuid}"
 }

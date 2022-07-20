@@ -22,15 +22,17 @@ import app.tinks.readkeeper.basic.BookViewModel
 import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
-import app.tinks.readkeeper.uicomponent.*
+import app.tinks.readkeeper.uicomponent.AddProgressDialogContent
+import app.tinks.readkeeper.uicomponent.DpBottomPadding
 import app.tinks.readkeeper.uicomponent.R
+import app.tinks.readkeeper.uicomponent.RkCustomTabClient
 import app.tinks.readkeeper.uicomponent.cellview.GoogleAdView
 import app.tinks.readkeeper.uicomponent.detail.actionsection.ActionSection
 import com.google.android.gms.ads.AdSize
 
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
-fun BookItemPage(
+fun BookDetailPage(
     uuid: String,
     openAddProgressDialog: Boolean = false,
     openEditDialog: Boolean = false,
@@ -43,33 +45,35 @@ fun BookItemPage(
     val topBarScrollState = rememberTopAppBarScrollState()
     val scrollBehavior = remember(decayAnimationSpec) {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-            decayAnimationSpec,
-            state = topBarScrollState
+            decayAnimationSpec, state = topBarScrollState
         )
     }
     var showAddProgressDialog by remember { mutableStateOf(openAddProgressDialog) }
-    var showEditBookPageDialog by remember { mutableStateOf(openEditDialog) }
     var showDeleteBookDialog by remember { mutableStateOf(false) }
     Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
-        LargeTopAppBar(title = { Text(book.basicInfo.title) }, navigationIcon = {
-            IconButton(onClick = { navController.popBackStack() }) {
-                Icon(
-                    Icons.Default.ArrowBack,
-                    contentDescription = stringResource(id = R.string.back),
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-            }
-        }, actions = {
-            IconButton(onClick = {
-                showEditBookPageDialog = true
-            }) {
-                Icon(
-                    Icons.Default.Edit,
-                    contentDescription = "Edit",
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-            }
-        }, scrollBehavior = scrollBehavior
+        LargeTopAppBar(
+            title = { Text(book.basicInfo.title) },
+            navigationIcon = {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        Icons.Default.ArrowBack,
+                        contentDescription = stringResource(id = R.string.back),
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+            },
+            actions = {
+                IconButton(onClick = {
+                    navController.navigate("edit_book/${book.basicInfo.uuid}")
+                }) {
+                    Icon(
+                        Icons.Default.Edit,
+                        contentDescription = "Edit",
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+            },
+            scrollBehavior = scrollBehavior
         )
     }, floatingActionButton = {
         if (book.platform != null) {
@@ -92,16 +96,14 @@ fun BookItemPage(
                     "Edit", color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }, onClick = {
-                showEditBookPageDialog = true
-            },
-
-                icon = {
-                    Icon(
-                        Icons.Default.Edit,
-                        contentDescription = "Edit Book",
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                })
+                navController.navigate("edit_book/${book.basicInfo.uuid}")
+            }, icon = {
+                Icon(
+                    Icons.Default.Edit,
+                    contentDescription = "Edit Book",
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            })
         }
 
     }) { paddingValue ->
@@ -117,13 +119,13 @@ fun BookItemPage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             InfoSection(book = book)
-            ActionSection(book = book,
+            ActionSection(
+                book = book,
                 modifier = Modifier.fillMaxWidth(),
                 onAddToWishClick = { bookViewModel.add(book.copy(status = Status.WISH)) },
                 onAddToReadingClick = { bookViewModel.add(book.copy(status = Status.READING)) },
                 onMoveToReadingClick = { bookViewModel.move(book = book, status = Status.READING) },
-                onEditBookClick = { showEditBookPageDialog = true },
-                onAddProgressClick = { showAddProgressDialog = true })
+            )
             ProgressSection(
                 lastRecord = records.lastOrNull(),
                 pageFormat = book.pageFormat,
@@ -167,13 +169,9 @@ fun BookItemPage(
                     )
                 }
             }
-            if (book.status == Status.READING
-                || book.status == Status.WISH
-                || book.status == Status.ARCHIVED
-            ) {
+            if (book.status == Status.READING || book.status == Status.WISH || book.status == Status.ARCHIVED) {
                 OutlinedButton(
-                    onClick = { showDeleteBookDialog = true },
-                    modifier = Modifier.fillMaxWidth()
+                    onClick = { showDeleteBookDialog = true }, modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(id = R.string.delete_book),
@@ -210,25 +208,6 @@ fun BookItemPage(
                 tint = MaterialTheme.colorScheme.secondary
             )
         }, text = { Text(stringResource(id = R.string.delete_book_confirmation)) })
-    }
-
-    if (showEditBookPageDialog) {
-        Dialog(
-            onDismissRequest = { showEditBookPageDialog = false },
-            properties = DialogProperties(
-                dismissOnClickOutside = false,
-                usePlatformDefaultWidth = true,
-                dismissOnBackPress = true,
-            )
-        ) {
-            EditBookDialogContent(
-                book = book,
-                onCancelClicked = { showEditBookPageDialog = false },
-                onSaveClicked = {
-                    bookViewModel.add(it)
-                    showEditBookPageDialog = false
-                })
-        }
     }
 
     if (showAddProgressDialog) {
