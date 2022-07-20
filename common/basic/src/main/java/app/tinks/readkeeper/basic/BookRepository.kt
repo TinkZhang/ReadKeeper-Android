@@ -53,6 +53,10 @@ class BookRepository @Inject constructor(
         )
     }
 
+    suspend fun update(book: Book) {
+        bookDao.update(book.convertToBookEntity())
+    }
+
     suspend fun delete(uuid: String) {
         database.bookDao().delete(uuid)
         userRepository.remove(uuid)

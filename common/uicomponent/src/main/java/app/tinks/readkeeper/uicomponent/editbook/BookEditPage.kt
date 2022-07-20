@@ -19,36 +19,34 @@ import app.tinks.readkeeper.uicomponent.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookEditPage(
-    uuid: String?,
-    bookEditViewModel: BookEditViewModel,
-    navController: NavController
+    uuid: String?, bookEditViewModel: BookEditViewModel, navController: NavController
 ) {
     if (uuid.isNullOrEmpty()) return
     var showDiscardConfirmationDialog by remember { mutableStateOf(false) }
-    val book by bookEditViewModel.getBook(uuid)
-        .collectAsState(initial = BookFactory.buildEmptyBook())
-    Scaffold(
-        topBar = {
-            SmallTopAppBar(
-                title = { Text(text = stringResource(id = R.string.edit_book)) },
-                modifier = Modifier.fillMaxWidth(),
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            Icons.Default.Close,
-                            contentDescription = stringResource(id = R.string.back),
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
+    val book by bookEditViewModel.bookFlow.collectAsState(initial = BookFactory.buildEmptyBook())
+
+    if (book.basicInfo.isbn == "1234567890123") return
+
+    Scaffold(topBar = {
+        SmallTopAppBar(title = { Text(text = stringResource(id = R.string.edit_book)) },
+            modifier = Modifier.fillMaxWidth(),
+            navigationIcon = {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        Icons.Default.Close,
+                        contentDescription = stringResource(id = R.string.back),
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
                 }
-            )
-        },
-        bottomBar = {
-            FilledTonalIconButton(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
-                Text(text = stringResource(id = R.string.save))
-            }
+            })
+    }, bottomBar = {
+        FilledTonalIconButton(onClick = {
+            bookEditViewModel.update()
+            navController.popBackStack()
+        }, modifier = Modifier.fillMaxWidth()) {
+            Text(text = stringResource(id = R.string.save))
         }
-    ) { it ->
+    }) { it ->
         Column(
             modifier = Modifier
                 .padding(it)
@@ -56,45 +54,40 @@ fun BookEditPage(
                 .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            var title by remember { mutableStateOf(book.basicInfo.title) }
-            EditTitleField(bookTitle = title, modifier = Modifier.fillMaxWidth()) {
-                title = it
+            EditTitleField(bookTitle = book.basicInfo.title, modifier = Modifier.fillMaxWidth()) {
+                bookEditViewModel.book = bookEditViewModel.book.copy(
+                    basicInfo = bookEditViewModel.book.basicInfo.copy(title = it)
+                )
             }
 
-            var pageFormat by remember { mutableStateOf(book.pageFormat) }
-            var page by remember { mutableStateOf(book.realPages) }
-            EditPageField(
-                pages = page,
-                pageFormat = pageFormat,
-                onPageFormatChange = { pageFormat = it },
-                onPageNumberChange = { page = it.toIntOrNull() ?: 0 }
-            )
+            EditPageField(pages = book.realPages,
+                pageFormat = book.pageFormat,
+                onPageFormatChange = {
+                    bookEditViewModel.book = bookEditViewModel.book.copy(pageFormat = it)
+                },
+                onPageNumberChange = {
+                    bookEditViewModel.book =
+                        bookEditViewModel.book.copy(realPages = it.toIntOrNull() ?: 0)
+                })
 
-            var platform by remember { mutableStateOf(book.platform) }
-            PlatformField(platform = platform, modifier = Modifier.fillMaxWidth()) {
-                platform = it
+            PlatformField(platform = book.platform, modifier = Modifier.fillMaxWidth()) {
+                bookEditViewModel.book = bookEditViewModel.book.copy(platform = it)
             }
         }
     }
 
     if (showDiscardConfirmationDialog) {
-        AlertDialog(
-            onDismissRequest = { showDiscardConfirmationDialog = false },
-            confirmButton = {
-                TextButton(onClick = {
-                    showDiscardConfirmationDialog = true
-                    navController.popBackStack()
-                }) {
-                    Text(stringResource(id = R.string.discard))
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showDiscardConfirmationDialog = true }) {
-                    Text(stringResource(id = R.string.keep))
-                }
-            },
-            text = { Text(stringResource(id = R.string.discard_edit_book_confirmation)) }
-        )
+        AlertDialog(onDismissRequest = { showDiscardConfirmationDialog = false }, confirmButton = {
+            TextButton(onClick = {
+                showDiscardConfirmationDialog = true
+                navController.popBackStack()
+            }) {
+                Text(stringResource(id = R.string.discard))
+            }
+        }, dismissButton = {
+            TextButton(onClick = { showDiscardConfirmationDialog = true }) {
+                Text(stringResource(id = R.string.keep))
+            }
+        }, text = { Text(stringResource(id = R.string.discard_edit_book_confirmation)) })
     }
 }
-

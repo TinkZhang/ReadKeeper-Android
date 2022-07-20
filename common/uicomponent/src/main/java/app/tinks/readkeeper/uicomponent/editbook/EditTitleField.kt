@@ -16,7 +16,7 @@ fun EditTitleField(
     modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit = {}
 ) {
-    var title by remember { mutableStateOf(bookTitle) }
+    var title by remember(bookTitle) { mutableStateOf(bookTitle) }
     var isTitleValid by remember { mutableStateOf(false) }
     OutlinedTextField(
         value = title,

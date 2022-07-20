@@ -40,8 +40,8 @@ fun EditPageField(
             .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        var newPageFormat by remember { mutableStateOf(pageFormat) }
-        var newPages by remember { mutableStateOf(pages.toString()) }
+        var newPageFormat by remember(pageFormat) { mutableStateOf(pageFormat) }
+        var newPages by remember(pages) { mutableStateOf(pages.toString()) }
         Text(text = stringResource(id = R.string.page_format))
         if (newPageFormat == PageFormat.PAGE) {
             Row(
@@ -87,7 +87,10 @@ fun EditPageField(
         } else {
             Row(Modifier.fillMaxWidth()) {
                 OutlinedButton(
-                    onClick = { onPageFormatChange(PageFormat.PAGE) },
+                    onClick = {
+                        newPageFormat = PageFormat.PAGE
+                        onPageFormatChange(PageFormat.PAGE)
+                    },
                     shape = RoundedCornerShape(
                         topStart = 8.dp,
                         topEnd = 0.dp,

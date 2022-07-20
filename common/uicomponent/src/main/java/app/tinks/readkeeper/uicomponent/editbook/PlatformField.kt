@@ -24,13 +24,13 @@ fun PlatformField(
     platform: Platform? = null,
     onPlatformChange: (Platform) -> Unit = {}
 ) {
-    var selectedPlatform by remember { mutableStateOf(platform) }
+    var selectedPlatform by remember(platform) { mutableStateOf(platform) }
     var isValid by remember { mutableStateOf(true) }
     var expanded by remember { mutableStateOf(false) }
 
     Box(modifier = modifier) {
         OutlinedTextField(
-            value = selectedPlatform?.label ?: "",
+            value = selectedPlatform?.name ?: "",
             onValueChange = { isValid = selectedPlatform != null },
             isError = !isValid,
             readOnly = true,
@@ -49,7 +49,7 @@ fun PlatformField(
         ) {
             Platform.values().forEach {
                 DropdownMenuItem(
-                    text = { Text(it.label) },
+                    text = { Text(it.name) },
                     onClick = {
                         selectedPlatform = it
                         expanded = false

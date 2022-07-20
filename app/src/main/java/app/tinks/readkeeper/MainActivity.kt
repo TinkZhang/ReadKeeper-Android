@@ -32,8 +32,6 @@ import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import app.tinks.readkeeper.homepage.Homepage
 import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
 import app.tinks.readkeeper.homepage.weeklybook.ui.WeeklyBookVIP
-import app.tinks.readkeeper.uicomponent.detail.BookDetailPage
-import app.tinks.readkeeper.uicomponent.list.BookListPage
 import app.tinks.readkeeper.readkeeper.ui.theme.ReadKeeperTheme
 import app.tinks.readkeeper.search.SearchPage
 import app.tinks.readkeeper.search.SearchResultPage
@@ -43,7 +41,9 @@ import app.tinks.readkeeper.ui.ROUTE_TO_SCREEN_MAP
 import app.tinks.readkeeper.ui.components.RkMainTopBar
 import app.tinks.readkeeper.ui.getBottomBarItemList
 import app.tinks.readkeeper.uicomponent.RkCustomTabClient
+import app.tinks.readkeeper.uicomponent.detail.BookDetailPage
 import app.tinks.readkeeper.uicomponent.editbook.BookEditPage
+import app.tinks.readkeeper.uicomponent.list.BookListPage
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -69,7 +69,6 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             val bookViewModel: BookViewModel = viewModel()
-            val bookEditViewModel: BookEditViewModel = viewModel()
             val isDark by generalViewModel.isDark.collectAsState(initial = true)
             ReadKeeperTheme(darkTheme = isDark ?: isSystemInDarkTheme()) {
                 val navController = rememberNavController()
@@ -204,9 +203,10 @@ class MainActivity : ComponentActivity() {
                                         type = NavType.StringType
                                     })
                                 ) {
+                                    val viewModel = hiltViewModel<BookEditViewModel>()
                                     BookEditPage(
                                         uuid = it.arguments?.getString("uuid"),
-                                        bookEditViewModel = bookEditViewModel,
+                                        bookEditViewModel = viewModel,
                                         navController = navController
                                     )
                                 }

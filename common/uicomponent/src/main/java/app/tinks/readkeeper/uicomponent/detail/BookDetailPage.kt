@@ -45,32 +45,35 @@ fun BookDetailPage(
     val topBarScrollState = rememberTopAppBarScrollState()
     val scrollBehavior = remember(decayAnimationSpec) {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-            decayAnimationSpec,
-            state = topBarScrollState
+            decayAnimationSpec, state = topBarScrollState
         )
     }
     var showAddProgressDialog by remember { mutableStateOf(openAddProgressDialog) }
     var showDeleteBookDialog by remember { mutableStateOf(false) }
     Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
-        LargeTopAppBar(title = { Text(book.basicInfo.title) }, navigationIcon = {
-            IconButton(onClick = { navController.popBackStack() }) {
-                Icon(
-                    Icons.Default.ArrowBack,
-                    contentDescription = stringResource(id = R.string.back),
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-            }
-        }, actions = {
-            IconButton(onClick = {
-                navController.navigate("edit_book/${book.basicInfo.uuid}")
-            }) {
-                Icon(
-                    Icons.Default.Edit,
-                    contentDescription = "Edit",
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-            }
-        }, scrollBehavior = scrollBehavior
+        LargeTopAppBar(
+            title = { Text(book.basicInfo.title) },
+            navigationIcon = {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        Icons.Default.ArrowBack,
+                        contentDescription = stringResource(id = R.string.back),
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+            },
+            actions = {
+                IconButton(onClick = {
+                    navController.navigate("edit_book/${book.basicInfo.uuid}")
+                }) {
+                    Icon(
+                        Icons.Default.Edit,
+                        contentDescription = "Edit",
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+            },
+            scrollBehavior = scrollBehavior
         )
     }, floatingActionButton = {
         if (book.platform != null) {
@@ -94,14 +97,13 @@ fun BookDetailPage(
                 )
             }, onClick = {
                 navController.navigate("edit_book/${book.basicInfo.uuid}")
-            },
-                icon = {
-                    Icon(
-                        Icons.Default.Edit,
-                        contentDescription = "Edit Book",
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                })
+            }, icon = {
+                Icon(
+                    Icons.Default.Edit,
+                    contentDescription = "Edit Book",
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            })
         }
 
     }) { paddingValue ->
@@ -117,7 +119,8 @@ fun BookDetailPage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             InfoSection(book = book)
-            ActionSection(book = book,
+            ActionSection(
+                book = book,
                 modifier = Modifier.fillMaxWidth(),
                 onAddToWishClick = { bookViewModel.add(book.copy(status = Status.WISH)) },
                 onAddToReadingClick = { bookViewModel.add(book.copy(status = Status.READING)) },
@@ -166,13 +169,9 @@ fun BookDetailPage(
                     )
                 }
             }
-            if (book.status == Status.READING
-                || book.status == Status.WISH
-                || book.status == Status.ARCHIVED
-            ) {
+            if (book.status == Status.READING || book.status == Status.WISH || book.status == Status.ARCHIVED) {
                 OutlinedButton(
-                    onClick = { showDeleteBookDialog = true },
-                    modifier = Modifier.fillMaxWidth()
+                    onClick = { showDeleteBookDialog = true }, modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(id = R.string.delete_book),
