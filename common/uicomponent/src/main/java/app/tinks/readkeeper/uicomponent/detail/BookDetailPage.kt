@@ -161,11 +161,11 @@ fun BookDetailPage(
                     totalPages = book.basicInfo.pages,
                     platform = book.platform
                 )
-                NoteSection(records.reversed(),
+                NoteSection(records.reversed().filterNot { it.note.isNullOrEmpty() },
                     pageFormat = book.pageFormat,
                     realPages = book.realPages,
                     onShowAllNotesClick = {
-                        //TODO: open all notes list page
+                        navController.navigate("all_notes/$uuid")
                     })
                 DescriptionSection(description = book.basicInfo.description)
                 if ((FirebaseRemoteConfigWrapper.isDetailPagBannerEnabled)) {

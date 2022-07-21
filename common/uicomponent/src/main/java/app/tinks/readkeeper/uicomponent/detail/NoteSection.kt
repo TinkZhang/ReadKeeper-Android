@@ -38,11 +38,11 @@ fun NoteSection(
             OutlinedButton(
                 onClick = onShowAllNotesClick,
                 Modifier
-                    .fillMaxWidth(0.8f)
+                    .fillMaxWidth()
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 8.dp)
             ) {
-                Text("Show All Notes")
+                Text(stringResource(id = R.string.show_all_notes))
             }
         }
     }

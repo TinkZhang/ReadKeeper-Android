@@ -15,7 +15,7 @@ import app.tinks.readkeeper.basic.model.PageFormat
 import app.tinks.readkeeper.basic.model.Record
 
 @Composable
-fun BookNote(record: Record, pageFormat: PageFormat, pages: Int) {
+fun BookNote(record: Record, pageFormat: PageFormat, pages: Int, bigSize: Boolean = false) {
     if (!record.note.isNullOrEmpty()) {
         Row(
             Modifier
@@ -23,9 +23,7 @@ fun BookNote(record: Record, pageFormat: PageFormat, pages: Int) {
                 .padding(vertical = 8.dp)
         ) {
             ReadingProgressCircleWithText(
-                format = pageFormat,
-                position = record.endPage,
-                totalPages = pages
+                format = pageFormat, position = record.endPage, totalPages = pages
             )
             Column(
                 Modifier
@@ -33,15 +31,16 @@ fun BookNote(record: Record, pageFormat: PageFormat, pages: Int) {
                     .padding(start = 8.dp)
             ) {
                 Text(
-                    record.note!!,
-                    style = MaterialTheme.typography.bodyMedium
+                    record.note!!, style = if (bigSize) MaterialTheme.typography.bodyLarge
+                    else MaterialTheme.typography.bodyMedium
                 )
                 Text(
                     text = "--- ${record.timestamp.toDate().toLocaleString()}",
                     Modifier
                         .padding(top = 8.dp)
                         .align(Alignment.End),
-                    style = MaterialTheme.typography.bodySmall,
+                    style = if (bigSize) MaterialTheme.typography.bodyMedium
+                    else MaterialTheme.typography.bodySmall
                 )
             }
         }
@@ -55,9 +54,7 @@ private fun BookNotePreview() {
         record = Record(
             note = "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
             endPage = 123,
-        ),
-        pageFormat = PageFormat.PAGE,
-        pages = 213
+        ), pageFormat = PageFormat.PAGE, pages = 213
     )
 }
 
@@ -68,8 +65,6 @@ private fun BookNotePreview2() {
         record = Record(
             note = "this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. this is a test note for testing only, you don't need spend much time on reading this silly hello world text. ",
             endPage = 123,
-        ),
-        pageFormat = PageFormat.PERCENT_1000,
-        pages = 1000
+        ), pageFormat = PageFormat.PERCENT_1000, pages = 1000
     )
 }
