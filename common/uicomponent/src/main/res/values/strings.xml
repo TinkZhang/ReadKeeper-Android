@@ -38,6 +38,11 @@
     <string name="book_platform">Choose Platform</string>
     <string name="select_platform">Select platform</string>
     <string name="platform">Platform</string>
+    <string name="progress">Progress</string>
+    <string name="note">Note</string>
+    <string name="last_position">Last position: %d</string>
+    <string name="last_position_float_1">Last position: %.1f</string>
+    <string name="last_position_float_2">Last position: %.2f</string>
     <plurals name="added_second_ago">
         <item quantity="one">Added %d second ago</item>
         <item quantity="other">Added %d seconds ago</item>
