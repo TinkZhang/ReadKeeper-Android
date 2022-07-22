@@ -44,6 +44,7 @@ import app.tinks.readkeeper.uicomponent.RkCustomTabClient
 import app.tinks.readkeeper.uicomponent.detail.BookDetailPage
 import app.tinks.readkeeper.uicomponent.editbook.BookEditPage
 import app.tinks.readkeeper.uicomponent.list.BookListPage
+import app.tinks.readkeeper.uicomponent.notelist.NoteListPage
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -187,6 +188,19 @@ class MainActivity : ComponentActivity() {
                                         it.arguments?.getBoolean("open_progress_dialog") ?: false,
                                         it.arguments?.getBoolean("open_edit_dialog") ?: false,
                                         bookViewModel,
+                                        navController = navController
+                                    )
+                                }
+                                composable(
+                                    SCREEN_ROUTE.ALL_NOTES,
+                                    arguments = listOf(navArgument("uuid") {
+                                        type = NavType.StringType
+                                    })
+                                ) {
+                                    val viewModel = hiltViewModel<BookViewModel>()
+                                    NoteListPage(
+                                        uuid = it.arguments?.getString("uuid"),
+                                        bookViewModel = viewModel,
                                         navController = navController
                                     )
                                 }

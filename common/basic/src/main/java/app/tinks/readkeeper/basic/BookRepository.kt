@@ -34,12 +34,12 @@ class BookRepository @Inject constructor(
     private val bookDao = database.bookDao()
     private val recordDao = database.recordDao()
 
-    suspend fun add(book: Book) {
+    suspend fun addBook(book: Book) {
         bookDao.insert(book.convertToBookEntity())
         userRepository.add(book)
     }
 
-    suspend fun add(record: Record) {
+    suspend fun addRecord(record: Record) {
         recordDao.insert(record.convertToRecordEntity())
         userRepository.add(record)
     }
@@ -57,9 +57,18 @@ class BookRepository @Inject constructor(
         bookDao.update(book.convertToBookEntity())
     }
 
-    suspend fun delete(uuid: String) {
-        database.bookDao().delete(uuid)
+    suspend fun deleteBook(uuid: String) {
+        bookDao.delete(uuid)
         userRepository.remove(uuid)
+    }
+
+    suspend fun deleteRecord(id: String) {
+        recordDao.delete(id)
+        userRepository.removeRecord(id)
+    }
+
+    suspend fun updateRecord(record: Record) {
+        recordDao.update(record.convertToRecordEntity())
     }
 
     fun getBook(uuid: String): Flow<List<BookEntity>> = database.bookDao().query(uuid)

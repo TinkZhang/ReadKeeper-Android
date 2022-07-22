@@ -81,13 +81,13 @@ class BookViewModel @Inject constructor(
 
     fun add(book: Book) {
         viewModelScope.launch {
-            repository.add(book)
+            repository.addBook(book)
         }
     }
 
     fun delete(book: Book) {
         viewModelScope.launch {
-            repository.delete(book.basicInfo.uuid)
+            repository.deleteBook(book.basicInfo.uuid)
         }
     }
 
@@ -99,7 +99,21 @@ class BookViewModel @Inject constructor(
 
     fun add(record: Record) {
         viewModelScope.launch {
-            repository.add(record)
+            repository.addRecord(record)
+        }
+    }
+
+    fun delete(record: Record?) {
+        val id = record?.id
+        if (id.isNullOrEmpty()) return
+        viewModelScope.launch {
+            repository.deleteRecord(id)
+        }
+    }
+
+    fun updateRecord(record: Record) {
+        viewModelScope.launch {
+            repository.updateRecord(record)
         }
     }
 

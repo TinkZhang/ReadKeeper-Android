@@ -41,12 +41,12 @@ class SearchResultViewModel @Inject constructor(
 
     fun add(book: Book) {
         viewModelScope.launch {
-            bookRepository.add(book)
+            bookRepository.addBook(book)
         }
     }
 
     fun remove(uuid: String) {
-        viewModelScope.launch { bookRepository.delete(uuid) }
+        viewModelScope.launch { bookRepository.deleteBook(uuid) }
     }
 }
 

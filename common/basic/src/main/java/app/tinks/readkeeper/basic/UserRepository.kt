@@ -78,6 +78,12 @@ object UserRepository {
         }
     }
 
+    fun removeRecord(id: String) {
+        if (user != null) {
+            recordRef?.document(id)?.delete()
+        }
+    }
+
     fun remove(uuid: String) {
         if (user != null) {
             bookRef?.document(uuid)?.delete()

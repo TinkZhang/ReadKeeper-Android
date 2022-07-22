@@ -123,7 +123,7 @@ fun BookDetailPage(
             scrimColor = Color.Black.copy(alpha = 0.7f),
             sheetContent = {
                 AddProgressContent(book = book,
-                    lastPage = records.firstOrNull()?.endPage ?: 0,
+                    lastPage = records.lastOrNull()?.endPage ?: 0,
                     onCancelClicked = {
                         coroutineScope.launch { modalBottomSheetState.hide() }
                     },
@@ -161,17 +161,23 @@ fun BookDetailPage(
                     totalPages = book.basicInfo.pages,
                     platform = book.platform
                 )
-                NoteSection(records.reversed(),
+                NoteSection(records.reversed().filterNot { it.note.isNullOrEmpty() },
                     pageFormat = book.pageFormat,
                     realPages = book.realPages,
                     onShowAllNotesClick = {
-                        //TODO: open all notes list page
+                        navController.navigate("all_notes/$uuid")
                     })
                 DescriptionSection(description = book.basicInfo.description)
-                if ((FirebaseRemoteConfigWrapper.isDetailPagBannerEnabled)) {
-                    GoogleAdView(
-                        adSize = AdSize.MEDIUM_RECTANGLE, keyword = book.basicInfo.title
-                    )
+                if (FirebaseRemoteConfigWrapper.isDetailPagBannerEnabled) {
+                    if (book.status == Status.WISH || records.size in 3..10) {
+                        GoogleAdView(
+                            adSize = AdSize.FLUID, keyword = book.basicInfo.title
+                        )
+                    } else if (records.size > 3) {
+                        GoogleAdView(
+                            adSize = AdSize.MEDIUM_RECTANGLE, keyword = book.basicInfo.title
+                        )
+                    }
                 }
                 if ((FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled && !FirebaseRemoteConfigWrapper.searchEngines?.searchEngines.isNullOrEmpty()) || !book.basicInfo.amazonLink.isNullOrEmpty()) {
                     GetBookSection(
