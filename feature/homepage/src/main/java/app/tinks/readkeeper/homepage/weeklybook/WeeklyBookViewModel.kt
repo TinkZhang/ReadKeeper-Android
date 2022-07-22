@@ -49,7 +49,7 @@ class WeeklyBookViewModel @Inject constructor(
 
     fun addTo(book: NYTimesBook, status: Status) {
         viewModelScope.launch {
-            bookRepository.add(book.convertToBook().copy(status = status))
+            bookRepository.addBook(book.convertToBook().copy(status = status))
         }
     }
 }

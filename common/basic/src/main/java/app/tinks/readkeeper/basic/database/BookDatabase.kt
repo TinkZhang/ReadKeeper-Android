@@ -56,7 +56,10 @@ interface RecordDao {
     suspend fun insert(recordEntity: RecordEntity)
 
     @Query("DELETE FROM recordEntity WHERE id == (:id)")
-    suspend fun delete(id: Int)
+    suspend fun delete(id: String)
+
+    @Update
+    suspend fun update(record: RecordEntity)
 }
 
 @Entity

@@ -15,34 +15,39 @@ import app.tinks.readkeeper.basic.model.PageFormat
 import app.tinks.readkeeper.basic.model.Record
 
 @Composable
-fun BookNote(record: Record, pageFormat: PageFormat, pages: Int, bigSize: Boolean = false) {
-    if (!record.note.isNullOrEmpty()) {
-        Row(
+fun BookNote(
+    record: Record,
+    pageFormat: PageFormat,
+    pages: Int,
+    modifier: Modifier = Modifier,
+    bigSize: Boolean = false
+) {
+    if (record.note.isNullOrEmpty()) return
+    Row(
+        modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        ReadingProgressCircleWithText(
+            format = pageFormat, position = record.endPage, totalPages = pages
+        )
+        Column(
             Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp)
+                .padding(start = 16.dp)
         ) {
-            ReadingProgressCircleWithText(
-                format = pageFormat, position = record.endPage, totalPages = pages
+            Text(
+                record.note!!, style = if (bigSize) MaterialTheme.typography.bodyLarge
+                else MaterialTheme.typography.bodyMedium
             )
-            Column(
+            Text(
+                text = "--- ${record.timestamp.toDate().toLocaleString()}",
                 Modifier
-                    .fillMaxWidth()
-                    .padding(start = 8.dp)
-            ) {
-                Text(
-                    record.note!!, style = if (bigSize) MaterialTheme.typography.bodyLarge
-                    else MaterialTheme.typography.bodyMedium
-                )
-                Text(
-                    text = "--- ${record.timestamp.toDate().toLocaleString()}",
-                    Modifier
-                        .padding(top = 8.dp)
-                        .align(Alignment.End),
-                    style = if (bigSize) MaterialTheme.typography.bodyMedium
-                    else MaterialTheme.typography.bodySmall
-                )
-            }
+                    .padding(top = 8.dp)
+                    .align(Alignment.End),
+                style = if (bigSize) MaterialTheme.typography.bodyMedium
+                else MaterialTheme.typography.bodySmall
+            )
         }
     }
 }

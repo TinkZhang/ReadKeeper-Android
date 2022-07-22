@@ -43,8 +43,13 @@
     <string name="last_position">Last position: %d</string>
     <string name="last_position_float_1">Last position: %.1f</string>
     <string name="last_position_float_2">Last position: %.2f</string>
+    <string name="position">Position: %d</string>
+    <string name="position_float_1">Position: %.1f</string>
+    <string name="position_float_2">Position: %.2f</string>
     <string name="all_notes">All Notes</string>
     <string name="show_all_notes">Show All Notes</string>
+    <string name="update">Update</string>
+    <string name="optional">Optional</string>
     <plurals name="added_second_ago">
         <item quantity="one">Added %d second ago</item>
         <item quantity="other">Added %d seconds ago</item>
