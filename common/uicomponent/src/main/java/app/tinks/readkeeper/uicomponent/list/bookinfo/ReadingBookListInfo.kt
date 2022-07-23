@@ -15,7 +15,6 @@ import app.tinks.readkeeper.basic.model.Book
 import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.uicomponent.PreviewAnnotation
 import app.tinks.readkeeper.uicomponent.R
-import app.tinks.readkeeper.uicomponent.cellview.InfoText
 import app.tinks.readkeeper.uicomponent.cellview.ReadingProgressBar
 import app.tinks.readkeeper.uicomponent.cellview.ReadingProgressText
 import app.tinks.readkeeper.uicomponent.cellview.TimeText
@@ -32,14 +31,12 @@ fun ReadingBookListInfo(
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        InfoText(text = book.basicInfo.author, maxLine = 2)
         Row(
-            horizontalArrangement = Arrangement.spacedBy(32.dp),
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            TimeText(book.timeInfo.addedTime)
             book.platform?.let { platform ->
                 AssistChip(
                     onClick = { },
@@ -53,12 +50,13 @@ fun ReadingBookListInfo(
                     }
                 )
             }
+            TimeText(book.timeInfo.addedTime, isLongFormat = true)
         }
-        if (book.progress != 0) {
+        if (book.platform != null) {
             ReadingProgressText(
                 format = book.pageFormat,
                 position = book.progress,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
             )
             Row(

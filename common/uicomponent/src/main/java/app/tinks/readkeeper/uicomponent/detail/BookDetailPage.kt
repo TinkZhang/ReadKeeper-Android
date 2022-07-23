@@ -129,6 +129,7 @@ fun BookDetailPage(
                     },
                     onSaveClicked = {
                         bookViewModel.add(it)
+                        bookViewModel.update(book.copy(progress = it.endPage))
                         coroutineScope.launch {
                             modalBottomSheetState.hide()
                         }
