@@ -15,31 +15,42 @@ import app.tinks.readkeeper.basic.model.Book
 import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.uicomponent.PreviewAnnotation
 import app.tinks.readkeeper.uicomponent.R
+import app.tinks.readkeeper.uicomponent.cellview.InfoText
 import app.tinks.readkeeper.uicomponent.cellview.ReadingProgressBar
 import app.tinks.readkeeper.uicomponent.cellview.ReadingProgressText
 import app.tinks.readkeeper.uicomponent.cellview.TimeText
 import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReadingBookListInfo(
     book: Book,
     modifier: Modifier = Modifier,
-    onAddProgressClicked: () -> Unit = {}
+    onAddProgressClicked: () -> Unit = {},
+    onEditBookClicked: () -> Unit = {},
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
+        InfoText(text = book.basicInfo.author, maxLine = 2)
         Row(
             horizontalArrangement = Arrangement.spacedBy(32.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             TimeText(book.timeInfo.addedTime)
-            book.platform?.icon?.let {
-                Image(
-                    painter = painterResource(id = it),
-                    contentDescription = book.platform?.label
+            book.platform?.let { platform ->
+                AssistChip(
+                    onClick = { },
+                    label = { Text(platform.label) },
+                    leadingIcon = {
+                        Image(
+                            painterResource(id = platform.icon),
+                            null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
                 )
             }
         }
@@ -67,11 +78,11 @@ fun ReadingBookListInfo(
 
         } else {
             TextButton(
-                onClick = onAddProgressClicked,
+                onClick = onEditBookClicked,
                 modifier = Modifier.align(Alignment.End)
             ) {
                 Text(
-                    text = stringResource(id = R.string.start_reading),
+                    text = stringResource(id = R.string.set_platform),
                 )
             }
         }

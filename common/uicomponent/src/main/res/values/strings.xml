@@ -9,7 +9,7 @@
     <string name="minute">%dm</string>
     <string name="hour">%dh</string>
     <string name="day">%dd</string>
-    <string name="start_reading">Start reading now</string>
+    <string name="set_platform">Set platform</string>
     <string name="isbn">ISBN</string>
     <string name="added_time">Added on %s</string>
     <string name="edit_book">Edit Book</string>

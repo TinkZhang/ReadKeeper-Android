@@ -43,8 +43,6 @@ firebase-remote-config = "21.0.1"
 play-auth = "20.0.0"
 play-service-coroutines = "1.5.2"
 
-instabug = "10.8.1"
-
 #https://developer.android.com/jetpack/androidx/releases/paging
 paging-compose = "1.0.0-alpha15"
 
@@ -100,7 +98,6 @@ retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref 
 retrofit-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "retrofit-logging" }
 
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
-instabug = { module = "com.instabug.library:instabug", version.ref = "instabug" }
 
 firebaseAnalytics = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebase-analytics" }
 firebaseFirestore = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firebase-firestore" }
@@ -126,7 +123,7 @@ browser = { module = "androidx.browser:browser", version.ref = "browser" }
 splashScreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
 
 room = { module = "androidx.room:room-runtime", version.ref = "room" }
-roomPaging = { module = "androidx.room:room-paging", version.ref = "room"}
+roomPaging = { module = "androidx.room:room-paging", version.ref = "room" }
 roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
 roomKotlin = { module = "androidx.room:room-compiler", version.ref = "room" }
 
