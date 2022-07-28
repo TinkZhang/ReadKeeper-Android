@@ -180,7 +180,11 @@ fun BookDetailPage(
                         )
                     }
                 }
-                if ((FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled && !FirebaseRemoteConfigWrapper.searchEngines?.searchEngines.isNullOrEmpty()) || !book.basicInfo.amazonLink.isNullOrEmpty()) {
+                if ((book.status == Status.WISH
+                            && FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled
+                            && !FirebaseRemoteConfigWrapper.searchEngines?.searchEngines.isNullOrEmpty())
+                    || !book.basicInfo.amazonLink.isNullOrEmpty()
+                ) {
                     GetBookSection(
                         title = book.basicInfo.title,
                         searchEngines = if (FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled) {

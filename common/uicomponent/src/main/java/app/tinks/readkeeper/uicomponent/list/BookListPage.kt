@@ -17,15 +17,14 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import app.tinks.readkeeper.basic.BookViewModel
 import app.tinks.readkeeper.basic.model.Status
+import app.tinks.readkeeper.uicomponent.cellview.EmptyBookListItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @ExperimentalMaterial3Api
 @Composable
 fun BookListPage(
-    bookViewModel: BookViewModel,
-    status: Status,
-    navController: NavController
+    bookViewModel: BookViewModel, status: Status, navController: NavController
 ) {
     val selectedCategory = bookViewModel.selectedCategory.value
     Column(
@@ -34,8 +33,7 @@ fun BookListPage(
             .padding(16.dp)
     ) {
         LazyRow(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
         ) {
             val categories = bookViewModel.categories.value
             if (categories != null) {
@@ -55,8 +53,7 @@ fun BookListPage(
         }
 
         val books = bookViewModel.getListFlow(status).collectAsLazyPagingItems()
-        SwipeRefresh(
-            state = rememberSwipeRefreshState(isRefreshing = books.loadState.refresh is LoadState.Loading),
+        SwipeRefresh(state = rememberSwipeRefreshState(isRefreshing = books.loadState.refresh is LoadState.Loading),
             onRefresh = {
                 bookViewModel.sync()
                 books.refresh()
@@ -82,6 +79,11 @@ fun BookListPage(
                         }
                     }
                 }
+                if (books.itemCount == 0) {
+                    item {
+                        EmptyBookListItem(modifier = Modifier.fillMaxSize())
+                    }
+                }
                 itemsIndexed(books) { index, item ->
                     if (item != null) {
                         BookListCard(
@@ -92,8 +94,7 @@ fun BookListPage(
                                     navController.navigate("reading_item/${item.basicInfo.uuid}")
                                 },
                             onAddProgressClicked = {
-                                navController
-                                    .navigate("reading_item/${item.basicInfo.uuid}?open_progress_dialog=${true}")
+                                navController.navigate("reading_item/${item.basicInfo.uuid}?open_progress_dialog=${true}")
                             },
                         )
                     }
@@ -108,8 +109,6 @@ fun BookListPage(
                         )
                     }
                 }
-
-                item { Spacer(modifier = Modifier.height(96.dp)) }
             }
         }
     }
