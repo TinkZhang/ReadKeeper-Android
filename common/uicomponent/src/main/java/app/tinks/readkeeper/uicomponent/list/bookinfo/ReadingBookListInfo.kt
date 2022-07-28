@@ -21,33 +21,42 @@ import app.tinks.readkeeper.uicomponent.cellview.TimeText
 import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReadingBookListInfo(
     book: Book,
     modifier: Modifier = Modifier,
-    onAddProgressClicked: () -> Unit = {}
+    onAddProgressClicked: () -> Unit = {},
+    onEditBookClicked: () -> Unit = {},
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(32.dp),
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            TimeText(book.timeInfo.addedTime)
-            book.platform?.icon?.let {
-                Image(
-                    painter = painterResource(id = it),
-                    contentDescription = book.platform?.label
+            book.platform?.let { platform ->
+                AssistChip(
+                    onClick = { },
+                    label = { Text(platform.label) },
+                    leadingIcon = {
+                        Image(
+                            painterResource(id = platform.icon),
+                            null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
                 )
             }
+            TimeText(book.timeInfo.addedTime, isLongFormat = true)
         }
-        if (book.progress != 0) {
+        if (book.platform != null) {
             ReadingProgressText(
                 format = book.pageFormat,
                 position = book.progress,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
             )
             Row(
@@ -67,11 +76,11 @@ fun ReadingBookListInfo(
 
         } else {
             TextButton(
-                onClick = onAddProgressClicked,
+                onClick = onEditBookClicked,
                 modifier = Modifier.align(Alignment.End)
             ) {
                 Text(
-                    text = stringResource(id = R.string.start_reading),
+                    text = stringResource(id = R.string.set_platform),
                 )
             }
         }

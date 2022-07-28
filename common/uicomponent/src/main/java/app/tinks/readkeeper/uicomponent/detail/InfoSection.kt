@@ -1,6 +1,7 @@
 package app.tinks.readkeeper.uicomponent.detail
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,13 +20,14 @@ fun InfoSection(book: Book) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InfoAttributes(book: Book, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         InfoText(text = book.basicInfo.author, maxLine = 2)
         Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
