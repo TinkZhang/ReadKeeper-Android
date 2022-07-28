@@ -159,7 +159,7 @@ fun BookDetailPage(
                 ProgressSection(
                     lastRecord = records.lastOrNull(),
                     pageFormat = book.pageFormat,
-                    totalPages = book.basicInfo.pages,
+                    totalPages = book.realPages,
                     platform = book.platform
                 )
                 NoteSection(records.reversed().filterNot { it.note.isNullOrEmpty() },

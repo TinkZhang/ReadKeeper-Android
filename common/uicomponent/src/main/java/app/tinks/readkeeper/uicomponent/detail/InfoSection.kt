@@ -1,14 +1,10 @@
 package app.tinks.readkeeper.uicomponent.detail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import app.tinks.readkeeper.basic.model.Book
 import app.tinks.readkeeper.basic.model.BookFactory
@@ -40,19 +36,6 @@ fun InfoAttributes(book: Book, modifier: Modifier = Modifier) {
             PageText(pageFormat = book.pageFormat, realPage = book.realPages)
         }
         IsbnText(isbn = book.basicInfo.isbn)
-        book.platform?.let { platform ->
-            AssistChip(
-                onClick = { },
-                label = { Text(platform.label) },
-                leadingIcon = {
-                    Image(
-                        painterResource(id = platform.icon),
-                        null,
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
-            )
-        }
         TimeText(time = book.timeInfo.addedTime, isLongFormat = true)
     }
 }
