@@ -120,8 +120,8 @@ fun SearchResultPage(
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
-                                    dismissAction = { viewModel.add(item.update(status = Status.WISH)) }
                                 )
+                                viewModel.add(item.update(status = Status.WISH))
                             } else {
                                 showSnackbar(
                                     message = context.getString(
@@ -131,8 +131,8 @@ fun SearchResultPage(
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
-                                    dismissAction = { viewModel.remove(item.basicInfo.uuid) }
                                 )
+                                viewModel.remove(item.basicInfo.uuid)
                             }
                         },
                         onReadingButtonClicked = { checked ->
@@ -145,8 +145,8 @@ fun SearchResultPage(
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
-                                    dismissAction = { viewModel.add(item.update(status = Status.READING)) }
                                 )
+                                viewModel.add(item.update(status = Status.READING))
                             } else {
                                 showSnackbar(
                                     message = context.getString(
@@ -156,8 +156,8 @@ fun SearchResultPage(
                                     scope = scope,
                                     snackbarHostState = snackbarHostState,
                                     actionLabel = context.getString(R.string.undo),
-                                    dismissAction = { viewModel.remove(item.basicInfo.uuid) }
                                 )
+                                viewModel.remove(item.basicInfo.uuid)
                             }
                         }
                     )
@@ -185,7 +185,7 @@ private fun showSnackbar(
     scope: CoroutineScope,
     snackbarHostState: SnackbarHostState,
     actionLabel: String,
-    dismissAction: () -> Unit
+    dismissAction: () -> Unit = {}
 ) {
     scope.launch {
         when (snackbarHostState.showSnackbar(
