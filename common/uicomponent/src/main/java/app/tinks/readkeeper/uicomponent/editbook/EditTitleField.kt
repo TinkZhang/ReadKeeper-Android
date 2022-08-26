@@ -1,5 +1,6 @@
 package app.tinks.readkeeper.uicomponent.editbook
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -10,6 +11,7 @@ import app.tinks.readkeeper.uicomponent.PreviewAnnotation
 import app.tinks.readkeeper.uicomponent.R
 import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditTitleField(
     bookTitle: String,

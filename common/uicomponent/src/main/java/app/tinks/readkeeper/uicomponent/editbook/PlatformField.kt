@@ -18,6 +18,7 @@ import app.tinks.readkeeper.uicomponent.PreviewAnnotation
 import app.tinks.readkeeper.uicomponent.R
 import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlatformField(
     modifier: Modifier = Modifier,

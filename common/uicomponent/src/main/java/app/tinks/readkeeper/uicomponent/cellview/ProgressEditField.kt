@@ -2,10 +2,7 @@ package app.tinks.readkeeper.uicomponent.cellview
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,6 +14,7 @@ import app.tinks.readkeeper.basic.model.PageFormat
 import app.tinks.readkeeper.uicomponent.R
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProgressEditField(
     book: Book,
