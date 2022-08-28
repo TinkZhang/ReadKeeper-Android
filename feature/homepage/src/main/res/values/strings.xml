@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start_reading">Start Reading</string>
+    <string name="search_to_add">Tap here to search a book, then add it into the reading list.</string>
+    <string name="reading_card">Recent Reading</string>
+</resources>

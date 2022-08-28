@@ -1,7 +1,16 @@
 package app.tinks.readkeeper.basic.database
 
 import androidx.paging.PagingSource
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.PrimaryKey
+import androidx.room.Query
+import androidx.room.RoomDatabase
+import androidx.room.Update
 import app.tinks.readkeeper.basic.model.PageFormat
 import app.tinks.readkeeper.basic.model.Platform
 import app.tinks.readkeeper.basic.model.Status
@@ -18,7 +27,7 @@ abstract class BookDatabase : RoomDatabase() {
 
 @Dao
 interface BookDao {
-    @Query("SELECT * FROM bookEntity WHERE status == (:status) ")
+    @Query("SELECT * FROM bookEntity WHERE status == (:status) ORDER BY editedTime DESC ")
     fun pagingSource(status: Status): PagingSource<Int, BookEntity>
 
     @Query("DELETE FROM bookEntity")
@@ -36,10 +45,13 @@ interface BookDao {
     @Query("SELECT * FROM bookEntity WHERE uuid == (:uuid)")
     fun query(uuid: String): Flow<List<BookEntity>>
 
-    @Query("SELECT * FROM bookEntity ORDER BY uuid LIMIT 1")
+    @Query("SELECT * FROM bookEntity ORDER BY editedTime DESC LIMIT 1")
     suspend fun first(): List<BookEntity>
 
-    @Query("SELECT * FROM bookEntity")
+    @Query("SELECT * FROM bookEntity WHERE status == 'READING' ORDER BY editedTime DESC LIMIT 1")
+    fun firstReading(): Flow<List<BookEntity>>
+
+    @Query("SELECT * FROM bookEntity ORDER BY editedTime DESC")
     suspend fun getAllBooks(): List<BookEntity>
 
     @Update

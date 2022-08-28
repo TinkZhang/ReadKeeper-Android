@@ -74,4 +74,6 @@ class BookRepository @Inject constructor(
     fun getBook(uuid: String): Flow<List<BookEntity>> = database.bookDao().query(uuid)
 
     fun getRecord(uuid: String): Flow<List<RecordEntity>> = database.recordDao().query(uuid)
+
+    fun getFirstReading(): Flow<List<BookEntity>> = database.bookDao().firstReading()
 }
