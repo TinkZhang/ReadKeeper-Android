@@ -3,6 +3,7 @@ package app.tinks.readkeeper.homepage.weeklybook
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.tinks.readkeeper.basic.BookRepository
+import app.tinks.readkeeper.basic.convertors.convertToBook
 import app.tinks.readkeeper.basic.model.NYBookType
 import app.tinks.readkeeper.basic.model.NYTimesBook
 import app.tinks.readkeeper.basic.model.Status
@@ -52,4 +53,7 @@ class WeeklyBookViewModel @Inject constructor(
             bookRepository.addBook(book.convertToBook().copy(status = status))
         }
     }
+
+    fun getFirstReading() =
+        bookRepository.getFirstReading().map { list -> list.map { it.convertToBook() } }
 }

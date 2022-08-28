@@ -5,7 +5,11 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
-import androidx.compose.material3.*
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -14,14 +18,13 @@ import androidx.compose.ui.unit.sp
 @ExperimentalMaterial3Api
 @Composable
 fun Section(
+    modifier: Modifier = Modifier,
     header: @Composable () -> Unit = {},
     title: String? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     ElevatedCard(
-        Modifier
-            .fillMaxWidth()
-            .padding(bottom = DpVipSectionPadding),
+        modifier.fillMaxWidth()
     ) {
         Column(
             Modifier
