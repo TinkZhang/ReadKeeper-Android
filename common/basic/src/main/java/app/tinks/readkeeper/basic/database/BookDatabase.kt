@@ -64,6 +64,9 @@ interface RecordDao {
     @Query("SELECT * FROM recordEntity WHERE uuid == (:uuid) ORDER BY timeStamp")
     fun query(uuid: String): Flow<List<RecordEntity>>
 
+    @Query("SELECT * FROM recordEntity ORDER BY timeStamp")
+    fun queryAll(): Flow<List<RecordEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(recordEntity: RecordEntity)
 

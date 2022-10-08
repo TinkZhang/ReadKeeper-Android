@@ -24,7 +24,7 @@ fun GoogleAdView(
         .padding(bottom = DpVipSectionPadding),
         factory = { content ->
             AdView(content).apply {
-                this.adSize = adSize
+                this.setAdSize(adSize)
                 this.adUnitId = adUnitId
             }
         },
