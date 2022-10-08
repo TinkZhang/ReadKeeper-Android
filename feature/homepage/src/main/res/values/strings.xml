@@ -3,4 +3,5 @@
     <string name="start_reading">Start Reading</string>
     <string name="search_to_add">Tap here to search a book, then add it into the reading list.</string>
     <string name="reading_card">Recent Reading</string>
+    <string name="reading_history">Reading History</string>
 </resources>

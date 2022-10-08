@@ -9,9 +9,20 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -26,11 +37,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import app.tinks.readkeeper.basic.*
+import app.tinks.readkeeper.basic.BookEditViewModel
+import app.tinks.readkeeper.basic.BookViewModel
+import app.tinks.readkeeper.basic.LoginStatus
+import app.tinks.readkeeper.basic.SCREEN_ROUTE
+import app.tinks.readkeeper.basic.UserRepository
 import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
 import app.tinks.readkeeper.homepage.Homepage
-import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
+import app.tinks.readkeeper.homepage.weeklybook.HomepageViewModel
 import app.tinks.readkeeper.homepage.weeklybook.ui.WeeklyBookVIP
 import app.tinks.readkeeper.readkeeper.ui.theme.ReadKeeperTheme
 import app.tinks.readkeeper.search.SearchPage
@@ -115,7 +130,7 @@ class MainActivity : ComponentActivity() {
                                         navController.getBackStackEntry(SCREEN_ROUTE.HOME)
                                     }
                                     val parentViewModel =
-                                        hiltViewModel<WeeklyBookViewModel>(parentEntry)
+                                        hiltViewModel<HomepageViewModel>(parentEntry)
                                     WeeklyBookVIP(
                                         title = it.arguments?.getString("title") ?: "",
                                         viewModel = parentViewModel,

@@ -52,7 +52,7 @@ junit = "4.13.2"
 unit-test = "1.1.3"
 ui-test = "3.4.0"
 
-google-ad = "20.5.0"
+google-ad = "21.2.0"
 
 gson = "2.8.9"
 

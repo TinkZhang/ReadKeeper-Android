@@ -4,10 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.tinks.readkeeper.basic.BookRepository
 import app.tinks.readkeeper.basic.convertors.convertToBook
+import app.tinks.readkeeper.basic.convertors.convertToRecord
 import app.tinks.readkeeper.basic.model.NYBookType
 import app.tinks.readkeeper.basic.model.NYTimesBook
+import app.tinks.readkeeper.basic.model.Record
 import app.tinks.readkeeper.basic.model.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -15,7 +18,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WeeklyBookViewModel @Inject constructor(
+class HomepageViewModel @Inject constructor(
     private val repository: WeeklyBookRepository,
     private val bookRepository: BookRepository
 ) : ViewModel() {
@@ -41,6 +44,10 @@ class WeeklyBookViewModel @Inject constructor(
             }
         }
     }
+
+    fun getAllRecords(): Flow<List<Record>> =
+        bookRepository.getAllRecords()
+            .map { it.map { recordEntity -> recordEntity.convertToRecord() } }
 
     fun getBook(title: String) =
         _fictionBooks.value.firstOrNull { it.title == title }

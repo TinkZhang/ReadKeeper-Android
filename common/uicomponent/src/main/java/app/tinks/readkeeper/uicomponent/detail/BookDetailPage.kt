@@ -191,6 +191,9 @@ fun BookDetailPage(
                         navController.navigate("all_notes/$uuid")
                     })
                 DescriptionSection(description = book.basicInfo.description)
+                if (records.isNotEmpty()) {
+                    HistorySection(records)
+                }
                 if (FirebaseRemoteConfigWrapper.isDetailPagBannerEnabled) {
                     if (book.status == Status.WISH || records.size in 3..10) {
                         GoogleAdView(

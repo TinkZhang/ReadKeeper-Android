@@ -25,16 +25,16 @@ import app.tinks.readkeeper.basic.model.NYBookType
 import app.tinks.readkeeper.basic.model.NYTimesBook
 import app.tinks.readkeeper.basic.model.NYTimesBookSample
 import app.tinks.readkeeper.homepage.R
-import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
-import app.tinks.readkeeper.uicomponent.cellview.BookCardImage
+import app.tinks.readkeeper.homepage.weeklybook.HomepageViewModel
 import app.tinks.readkeeper.uicomponent.Section
+import app.tinks.readkeeper.uicomponent.cellview.BookCardImage
 
 @OptIn(ExperimentalMaterialApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun WeeklyBookCard(
     type: NYBookType,
     navController: NavController? = null,
-    viewModel: WeeklyBookViewModel = viewModel(),
+    viewModel: HomepageViewModel = viewModel(),
 ) {
     Section(header = {
         Column() {

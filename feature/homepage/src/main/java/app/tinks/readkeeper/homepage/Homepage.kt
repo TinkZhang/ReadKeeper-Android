@@ -20,7 +20,8 @@ import androidx.navigation.NavController
 import app.tinks.readkeeper.basic.SCREEN_ROUTE
 import app.tinks.readkeeper.basic.model.NYBookType
 import app.tinks.readkeeper.homepage.quote.QuoteCard
-import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
+import app.tinks.readkeeper.homepage.weeklybook.HomepageViewModel
+import app.tinks.readkeeper.homepage.weeklybook.ui.AllHistoryCard
 import app.tinks.readkeeper.homepage.weeklybook.ui.HomepageReadingCard
 import app.tinks.readkeeper.homepage.weeklybook.ui.NoReadingCard
 import app.tinks.readkeeper.homepage.weeklybook.ui.WeeklyBookCard
@@ -30,7 +31,7 @@ import app.tinks.readkeeper.uicomponent.DpBottomPadding
 @Composable
 fun Homepage(
     navController: NavController,
-    viewModel: WeeklyBookViewModel,
+    viewModel: HomepageViewModel,
 ) {
     val firstReading by viewModel.getFirstReading().collectAsState(initial = null)
     Column(
@@ -46,15 +47,13 @@ fun Homepage(
             NoReadingCard(onClick = { navController.navigate(SCREEN_ROUTE.SEARCH) })
         } else {
             val book = firstReading?.first()
-            HomepageReadingCard(book = book,
-                onAddProgressClick = {
-                    navController.navigate("reading_item/${book?.basicInfo?.uuid}?open_progress_dialog=${true}")
-                },
-                onClick = {
-                    navController.navigate("reading_item/${book?.basicInfo?.uuid}")
-                }
-            )
+            HomepageReadingCard(book = book, onAddProgressClick = {
+                navController.navigate("reading_item/${book?.basicInfo?.uuid}?open_progress_dialog=${true}")
+            }, onClick = {
+                navController.navigate("reading_item/${book?.basicInfo?.uuid}")
+            })
         }
+        AllHistoryCard(viewModel.getAllRecords().collectAsState(initial = emptyList()).value)
         if (viewModel.fictionBooks.collectAsState().value.isNotEmpty()) {
             WeeklyBookCard(NYBookType.Fictions, navController)
         }

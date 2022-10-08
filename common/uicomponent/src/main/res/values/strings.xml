@@ -51,6 +51,7 @@
     <string name="update">Update</string>
     <string name="optional">Optional</string>
     <string name="empty_book_list">There is no book in this list.</string>
+    <string name="history">History</string>
     <plurals name="added_second_ago">
         <item quantity="one">Added %d second ago</item>
         <item quantity="other">Added %d seconds ago</item>

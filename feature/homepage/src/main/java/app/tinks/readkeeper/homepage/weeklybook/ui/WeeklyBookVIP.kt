@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
-import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
+import app.tinks.readkeeper.homepage.weeklybook.HomepageViewModel
 import app.tinks.readkeeper.uicomponent.DpBottomPadding
 import app.tinks.readkeeper.uicomponent.DpContentLargePadding
 import app.tinks.readkeeper.uicomponent.RkCustomTabClient
@@ -47,7 +47,7 @@ import app.tinks.readkeeper.uicomponent.detail.actionsection.SearchActionSection
 @Composable
 fun WeeklyBookVIP(
     title: String,
-    viewModel: WeeklyBookViewModel,
+    viewModel: HomepageViewModel,
     navController: NavController
 ) {
     val book by remember {
