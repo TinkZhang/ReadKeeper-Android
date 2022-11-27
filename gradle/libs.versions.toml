@@ -5,26 +5,26 @@ targetSdk = "33"
 compileSdk = "33"
 
 #https://developer.android.com/jetpack/androidx/releases/core
-androidx-core = "1.9.0-rc01"
+androidx-core = "1.9.0"
 #https://developer.android.com/jetpack/androidx/releases/appcompat
-androidx-appcompat = "1.5.0"
+androidx-appcompat = "1.5.1"
 #https://github.com/material-components/material-components-android/releases
-material = "1.6.1"
+material = "1.7.0"
 
 #https://developer.android.com/jetpack/androidx/releases/compose-ui
-compose = "1.3.0-rc01"
+compose = "1.3.1"
 #https://developer.android.com/jetpack/androidx/releases/compose-material3
-compose-material3 = "1.0.0-rc01"
+compose-material3 = "1.0.1"
 #https://developer.android.com/jetpack/compose/navigation?hl=zh-cn
-compose-navigation = "2.5.2"
+compose-navigation = "2.5.3"
 #https://developer.android.com/jetpack/androidx/releases/lifecycle
 compose-viewmodel = "2.5.1"
 
 #https://search.maven.org/search?q=g:com.google.accompanist
-accompanist = "0.26.5-rc"
+accompanist = "0.27.1"
 
 #https://developer.android.com/jetpack/androidx/releases/activity
-activity-compose = "1.6.0"
+activity-compose = "1.6.1"
 
 testing-junit = "4.13.2"
 testing-androix-junit = "1.1.3"
@@ -44,7 +44,7 @@ play-auth = "20.0.0"
 play-service-coroutines = "1.5.2"
 
 #https://developer.android.com/jetpack/androidx/releases/paging
-paging-compose = "1.0.0-alpha16"
+paging-compose = "1.0.0-alpha17"
 
 datastore = "1.0.0"
 
@@ -64,7 +64,7 @@ splash-screen = "1.0.0"
 room = "2.4.3"
 
 #https://mvnrepository.com/artifact/com.google.dagger/hilt-android
-hilt-android = "2.43.2"
+hilt-android = "2.44.2"
 hilt-compiler = "1.0.0"
 #https://developer.android.com/jetpack/compose/libraries?hl=zh-cn#hilt-navigation
 hilt-navigation-compose = "1.0.0"
