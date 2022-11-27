@@ -258,6 +258,7 @@ fun BookDetailPage(
         if (showDeleteBookDialog) {
             AlertDialog(onDismissRequest = { showDeleteBookDialog = false }, confirmButton = {
                 FilledTonalButton(onClick = {
+                    navController.popBackStack()
                     bookViewModel.delete(book)
                     showDeleteBookDialog = false
                 }) {

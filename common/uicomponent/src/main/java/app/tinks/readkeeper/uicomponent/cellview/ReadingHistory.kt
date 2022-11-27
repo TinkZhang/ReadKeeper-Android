@@ -22,6 +22,7 @@ import app.tinks.readkeeper.basic.model.Record
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.temporal.ChronoUnit.DAYS
 
 data class Contribution(
     val pages: Int = 0, val day: LocalDate
@@ -49,8 +50,8 @@ fun generateContributions(records: List<Record>): List<Contribution> {
         day = day.plusDays(1)
     }
     for (record in records) {
-        val index = Instant.ofEpochMilli(record.timestamp.seconds.times(1000))
-            .atZone(ZoneId.systemDefault()).toLocalDate().compareTo(firstDay)
+        val index = DAYS.between(firstDay, Instant.ofEpochMilli(record.timestamp.seconds.times(1000))
+            .atZone(ZoneId.systemDefault()).toLocalDate()).toInt()
         contributions[index] = Contribution(
             pages = contributions[index].pages + record.endPage - record.startPage,
             day = contributions[index].day

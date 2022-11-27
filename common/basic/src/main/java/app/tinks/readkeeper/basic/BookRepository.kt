@@ -47,14 +47,15 @@ class BookRepository @Inject constructor(
     suspend fun move(book: Book, status: Status) {
         bookDao.update(
             book.convertToBookEntity().copy(
-                status = status,
-                addedTime = Timestamp.now().seconds
+                status = status, addedTime = Timestamp.now().seconds
             )
         )
+        userRepository.update(book.copy(status = status))
     }
 
     suspend fun update(book: Book) {
         bookDao.update(book.convertToBookEntity())
+        userRepository.update(book)
     }
 
     suspend fun deleteBook(uuid: String) {

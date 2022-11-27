@@ -14,6 +14,7 @@ import app.tinks.readkeeper.basic.convertors.convertToBook
 import app.tinks.readkeeper.basic.convertors.convertToRecord
 import app.tinks.readkeeper.basic.database.BookDatabase
 import app.tinks.readkeeper.basic.model.Book
+import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.basic.model.Record
 import app.tinks.readkeeper.basic.model.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,8 +25,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BookViewModel @Inject constructor(
-    private val repository: BookRepository,
-    private val database: BookDatabase
+    private val repository: BookRepository, private val database: BookDatabase
 ) : ViewModel() {
     init {
         sync()
@@ -73,7 +73,8 @@ class BookViewModel @Inject constructor(
     }
 
     fun getBook(uuid: String): Flow<Book> {
-        return repository.getBook(uuid).map { it.first().convertToBook() }
+        return repository.getBook(uuid)
+            .map { it.firstOrNull()?.convertToBook() ?: BookFactory.buildEmptyBook() }
     }
 
     fun getRecords(uuid: String): Flow<List<Record>> =

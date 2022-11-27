@@ -9,6 +9,7 @@ import app.tinks.readkeeper.basic.model.NYTimesBook
 import app.tinks.readkeeper.basic.model.Record
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldPath
@@ -66,7 +67,7 @@ object UserRepository {
     suspend fun getFirstBook(): Book? =
         bookRef?.orderBy(FieldPath.of("timeInfo", "editedTime"))?.limitToLast(1)?.get()?.await()
             ?.toObjects(Book::class.java)?.firstOrNull().also {
-                Timber.d("The first book in Firebase is ${it?.basicInfo?.title}")
+                Timber.d("The first book in Firebase is ${it?.basicInfo?.title} ${it?.platform}")
             }
 
     suspend fun getAllBooks(): List<Book> =
@@ -75,6 +76,13 @@ object UserRepository {
     fun add(record: Record) {
         if (user != null) {
             recordRef?.document(record.id)?.set(record)
+        }
+    }
+
+    fun update(book: Book) {
+        if (user != null) {
+            remove(book.basicInfo.uuid)
+            add(book.copy(timeInfo = book.timeInfo.copy(editedTime = Timestamp.now())))
         }
     }
 

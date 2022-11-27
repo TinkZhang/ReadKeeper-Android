@@ -3,8 +3,8 @@ skinparam titleBorderRoundCorner 15
 skinparam titleBorderThickness 2
 skinparam titleBorderColor red
 skinparam titleBackgroundColor Aqua-CadetBlue
-title ReadKeeper Book Class Diagram
-class BookInfo {
+title ReadKeeper Book Class Diagram v2.0
+class BasicInfo {
     title: String
     imageUrl: String
     author: String
@@ -16,7 +16,7 @@ class TimeInfo {
     addedTime: Timestamp
     editedTime: Timestamp
 }
-enum ReadingPlatform {
+enum Platform {
     Paper
     PDF
     Apple_BOOK
@@ -29,44 +29,62 @@ enum PageFormat {
     PAGE
     PERCENTAGE
 }
-class ReadingRecord {
+enum Status {
+    READING
+    WISH
+    ARCHIVED
+    SEARCH
+}
+class Record {
+    uuid: String
     startPage: Int
     endPage: Int
     timestamp: Timestamp
 }
-class ReadingNote {
+class Note {
+    uuid: String
     note: String
     position: Int
     timestamp: Timestamp
 }
-interface EditableBook extends Book {
-    uuid: String
-    timeInfo: TimeInfo
-    category: String
-}
 
-interface Book {
-    bookInfo: BookInfo
-}
-TimeInfo <-- EditableBook
-BookInfo <-- Book
-ReadingPlatform <-- ReadingBook
-PageFormat <-- ReadingBook
-ReadingRecord <-- ReadingBook
-ReadingNote <-- ReadingBook
+TimeInfo <-- Book
+BasicInfo <-- Book
+Status <-- Book
+Platform <-- Book
+PageFormat <-- Book
+Record <-- Book
+Note <-- Book
 
-class SearchBook implements Book {
-    {method} convertToWishBook(): WishBook
-    {method} convertToReadingBook(): ReadingBook
-}
-class ReadingBook implements EditableBook {
-    platform: ReadingPlatform
+class Book {
+    status: Status
+    platform: Platform
     pageFormat: PageFormat
-    records: List<ReadingRecord>
-    notes: List<ReadingNote>
-    archived: Boolean
+    timeInfo: TimeInfo
+    records: List<Record>
+    notes: List<Note>
 }
-class WishBook implements EditableBook {
-    {method} convertToReadingBook(): ReadingBook
+class BookEntity {
+    title: String
+    imageUrl: String
+    author: String
+    pages: Int
+    rating: Double
+    pubYear: Int
+}
+class RecordEntity {
+    uuid: String
+    startPage: Int
+    endPage: Int
+    timestamp: Timestamp
+}
+class NoteEntity {
+    uuid: String
+    note: String
+    position: Int
+    timestamp: Timestamp   
+}
+class BookDto {
+
 }
 @enduml
