@@ -5,24 +5,19 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import app.tinks.readkeeper.basic.UserRepository
-import app.tinks.readkeeper.basic.database.BookDatabase
 import app.tinks.readkeeper.basic.database.BookEntity
+import app.tinks.readkeeper.basic.database.bookDatabase
 import timber.log.Timber
 import java.io.IOException
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class BookRemoteMediator @Inject constructor(
-    private val database: BookDatabase,
-    private val userRepository: UserRepository,
-) : RemoteMediator<Int, BookEntity>() {
+class BookRemoteMediator : RemoteMediator<Int, BookEntity>() {
 
     // Add condition to decide whether need to invalidate local data
     override suspend fun initialize(): InitializeAction {
         val cacheTimeout = TimeUnit.MILLISECONDS.convert(144, TimeUnit.HOURS)
-        return if (System.currentTimeMillis() - database.lastUpdated >= cacheTimeout) {
+        return if (System.currentTimeMillis() - bookDatabase.lastUpdated >= cacheTimeout) {
             InitializeAction.SKIP_INITIAL_REFRESH
         } else {
             InitializeAction.LAUNCH_INITIAL_REFRESH

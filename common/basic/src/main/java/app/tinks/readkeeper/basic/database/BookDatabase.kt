@@ -9,14 +9,21 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.Query
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.Update
+import app.tinks.readkeeper.basic.ReadApplication
 import app.tinks.readkeeper.basic.model.PageFormat
 import app.tinks.readkeeper.basic.model.Platform
 import app.tinks.readkeeper.basic.model.Status
 import com.google.firebase.Timestamp
 import kotlinx.coroutines.flow.Flow
 
+val bookDatabase: BookDatabase = Room.databaseBuilder(
+    ReadApplication.getContext(),
+    BookDatabase::class.java,
+    "book_database"
+).build()
 
 @Database(entities = [BookEntity::class, RecordEntity::class], version = 1)
 abstract class BookDatabase : RoomDatabase() {

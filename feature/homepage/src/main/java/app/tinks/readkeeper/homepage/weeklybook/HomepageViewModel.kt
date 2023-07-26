@@ -8,20 +8,15 @@ import app.tinks.readkeeper.basic.convertors.convertToRecord
 import app.tinks.readkeeper.basic.model.NYBookType
 import app.tinks.readkeeper.basic.model.NYTimesBook
 import app.tinks.readkeeper.basic.model.Record
-import app.tinks.readkeeper.basic.model.Status
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class HomepageViewModel @Inject constructor(
-    private val repository: WeeklyBookRepository,
-    private val bookRepository: BookRepository
-) : ViewModel() {
+class HomepageViewModel : ViewModel() {
+    private val repository = WeeklyBookRepository
+    private val bookRepository = BookRepository
     private val _fictionBooks = MutableStateFlow<List<NYTimesBook>>(listOf())
     val fictionBooks: StateFlow<List<NYTimesBook>> = _fictionBooks
 
@@ -55,11 +50,6 @@ class HomepageViewModel @Inject constructor(
                 it.title == title
             }
 
-    fun addTo(book: NYTimesBook, status: Status) {
-        viewModelScope.launch {
-            bookRepository.addBook(book.convertToBook().copy(status = status))
-        }
-    }
 
     fun getFirstReading() =
         bookRepository.getFirstReading().map { list -> list.map { it.convertToBook() } }

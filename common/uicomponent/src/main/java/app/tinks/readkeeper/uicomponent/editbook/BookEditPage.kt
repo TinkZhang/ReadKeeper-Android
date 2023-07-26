@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import app.tinks.readkeeper.basic.BookEditViewModel
 import app.tinks.readkeeper.basic.model.BookFactory
@@ -19,7 +20,9 @@ import app.tinks.readkeeper.uicomponent.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookEditPage(
-    uuid: String?, bookEditViewModel: BookEditViewModel, navController: NavController
+    uuid: String?,
+    bookEditViewModel: BookEditViewModel = viewModel(),
+    navController: NavController
 ) {
     if (uuid.isNullOrEmpty()) return
     var showDiscardConfirmationDialog by remember { mutableStateOf(false) }

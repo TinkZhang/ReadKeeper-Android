@@ -1,14 +1,18 @@
 package app.tinks.readkeeper.basic
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "Settings")
 
@@ -17,9 +21,11 @@ object DataStoreKey {
     const val IS_QUOTE_ENABLE = "quote"
 }
 
-class DataStoreRepository @Inject constructor(
-    private val context: Context
-) {
+@SuppressLint("StaticFieldLeak")
+object DataStoreRepository {
+
+    val context: Context = ReadApplication.getContext()!!
+
     suspend fun putString(key: String, value: String) {
         val preferencesKey = stringPreferencesKey(key)
         context.dataStore.edit { preferences ->
@@ -58,12 +64,12 @@ class DataStoreRepository @Inject constructor(
 
     suspend fun updateString(key: String, value: String) {
         val preferencesKey = stringPreferencesKey(key)
-        context.dataStore.edit { it[preferencesKey] = value}
+        context.dataStore.edit { it[preferencesKey] = value }
     }
 
     suspend fun updateBoolean(key: String, value: Boolean) {
         val preferencesKey = booleanPreferencesKey(key)
-        context.dataStore.edit { it[preferencesKey] = value}
+        context.dataStore.edit { it[preferencesKey] = value }
     }
 
     suspend fun getInt(key: String): Int? {

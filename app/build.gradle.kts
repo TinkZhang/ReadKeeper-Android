@@ -3,7 +3,6 @@ plugins {
     id("kotlin-android")
     id("com.google.gms.google-services")
     kotlin("kapt")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -69,6 +68,7 @@ dependencies {
 
     // Compose
     implementation(libs.bundles.androidx.compose)
+    implementation(libs.navigation.testing)
     androidTestImplementation(libs.composeUiTestJunit)
     debugImplementation(libs.composeUiTest)
 
@@ -87,10 +87,6 @@ dependencies {
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.bundles.testing)
-
-    // Hilt
-    implementation(libs.bundles.hilt)
-    kapt(libs.bundles.hiltComplier)
 
     // Room
     implementation(libs.room)

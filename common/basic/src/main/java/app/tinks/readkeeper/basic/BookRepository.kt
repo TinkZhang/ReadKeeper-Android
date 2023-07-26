@@ -3,20 +3,19 @@ package app.tinks.readkeeper.basic
 import app.tinks.readkeeper.basic.convertors.convertToBook
 import app.tinks.readkeeper.basic.convertors.convertToBookEntity
 import app.tinks.readkeeper.basic.convertors.convertToRecordEntity
-import app.tinks.readkeeper.basic.database.BookDatabase
 import app.tinks.readkeeper.basic.database.BookEntity
 import app.tinks.readkeeper.basic.database.RecordEntity
+import app.tinks.readkeeper.basic.database.bookDatabase
 import app.tinks.readkeeper.basic.model.Book
 import app.tinks.readkeeper.basic.model.Record
 import app.tinks.readkeeper.basic.model.Status
 import com.google.firebase.Timestamp
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
-import javax.inject.Inject
 
-class BookRepository @Inject constructor(
-    private val database: BookDatabase, private val userRepository: UserRepository
-) {
+object BookRepository {
+    private val database = bookDatabase
+    private val userRepository = UserRepository
     suspend fun sync() {
         val firstLocalBookEditedTime =
             database.bookDao().first().firstOrNull()?.convertToBook()?.timeInfo?.editedTime?.seconds

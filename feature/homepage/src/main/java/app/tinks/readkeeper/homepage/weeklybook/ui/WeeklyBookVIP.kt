@@ -24,18 +24,19 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import app.tinks.readkeeper.basic.model.NYTimesBook
 import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
-import app.tinks.readkeeper.homepage.weeklybook.HomepageViewModel
+import app.tinks.readkeeper.homepage.weeklybook.WeeklyBookViewModel
 import app.tinks.readkeeper.uicomponent.DpBottomPadding
 import app.tinks.readkeeper.uicomponent.DpContentLargePadding
 import app.tinks.readkeeper.uicomponent.RkCustomTabClient
@@ -46,13 +47,10 @@ import app.tinks.readkeeper.uicomponent.detail.actionsection.SearchActionSection
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
 fun WeeklyBookVIP(
-    title: String,
-    viewModel: HomepageViewModel,
+    viewModel: WeeklyBookViewModel = viewModel(),
     navController: NavController
 ) {
-    val book by remember {
-        mutableStateOf(viewModel.getBook(title))
-    }
+    val book by viewModel.book.collectAsState(initial = NYTimesBook())
     val topBarScrollState = rememberTopAppBarState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         state = topBarScrollState

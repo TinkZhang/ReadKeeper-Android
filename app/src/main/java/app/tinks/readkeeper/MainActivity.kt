@@ -10,65 +10,36 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import app.tinks.readkeeper.basic.BookEditViewModel
-import app.tinks.readkeeper.basic.BookViewModel
 import app.tinks.readkeeper.basic.LoginStatus
 import app.tinks.readkeeper.basic.SCREEN_ROUTE
 import app.tinks.readkeeper.basic.UserRepository
-import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.firebaseRemoteConfig.FirebaseRemoteConfigWrapper
-import app.tinks.readkeeper.homepage.Homepage
-import app.tinks.readkeeper.homepage.weeklybook.HomepageViewModel
-import app.tinks.readkeeper.homepage.weeklybook.ui.WeeklyBookVIP
+import app.tinks.readkeeper.navigation.MainScreenViewData
+import app.tinks.readkeeper.navigation.ROUTE_TO_SCREEN_MAP
+import app.tinks.readkeeper.navigation.RkNavHost
+import app.tinks.readkeeper.navigation.ui.RkNavigationBar
 import app.tinks.readkeeper.readkeeper.ui.theme.ReadKeeperTheme
-import app.tinks.readkeeper.search.SearchPage
-import app.tinks.readkeeper.search.SearchResultPage
-import app.tinks.readkeeper.settings.SettingsPage
-import app.tinks.readkeeper.ui.MainScreenViewData
-import app.tinks.readkeeper.ui.ROUTE_TO_SCREEN_MAP
 import app.tinks.readkeeper.ui.components.RkMainTopBar
-import app.tinks.readkeeper.ui.getBottomBarItemList
 import app.tinks.readkeeper.uicomponent.RkCustomTabClient
-import app.tinks.readkeeper.uicomponent.detail.BookDetailPage
-import app.tinks.readkeeper.uicomponent.editbook.BookEditPage
-import app.tinks.readkeeper.uicomponent.list.BookListPage
-import app.tinks.readkeeper.uicomponent.notelist.NoteListPage
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
-import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @ExperimentalMaterial3Api
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private var mCustomTabClient: RkCustomTabClient? = null
     private val generalViewModel: GeneralViewModel by viewModels()
@@ -84,7 +55,6 @@ class MainActivity : ComponentActivity() {
             }
         }
         setContent {
-            val bookViewModel: BookViewModel = viewModel()
             val isDark by generalViewModel.isDark.collectAsState(initial = true)
             ReadKeeperTheme(darkTheme = isDark ?: isSystemInDarkTheme()) {
                 val navController = rememberNavController()
@@ -119,145 +89,7 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxSize()
                                 .padding(innerPadding)
                         ) {
-                            NavHost(navController, startDestination = SCREEN_ROUTE.HOME) {
-                                composable(SCREEN_ROUTE.HOME) {
-                                    Homepage(
-                                        navController = navController, viewModel = hiltViewModel()
-                                    )
-                                }
-                                composable(SCREEN_ROUTE.WEEKLY_ITEM) {
-                                    val parentEntry = remember {
-                                        navController.getBackStackEntry(SCREEN_ROUTE.HOME)
-                                    }
-                                    val parentViewModel =
-                                        hiltViewModel<HomepageViewModel>(parentEntry)
-                                    WeeklyBookVIP(
-                                        title = it.arguments?.getString("title") ?: "",
-                                        viewModel = parentViewModel,
-                                        navController = navController,
-                                    )
-                                }
-                                composable(SCREEN_ROUTE.SEARCH) {
-                                    SearchPage(
-                                        onSearch = { navController.navigate("search_result/${it}") },
-                                        onHistoryItemClick = { navController.navigate("search_result/${it}") },
-                                        onBackClick = { navController.popBackStack() }
-                                    )
-                                }
-                                composable(
-                                    route = SCREEN_ROUTE.SEARCH_RESUTL,
-                                    arguments = listOf(navArgument("keyword") {
-                                        type = NavType.StringType
-                                    })
-                                ) {
-                                    SearchResultPage(
-                                        onTitleClick = { navController.popBackStack() },
-                                        onBackClick = {
-                                            navController.popBackStack(
-                                                SCREEN_ROUTE.HOME,
-                                                false
-                                            )
-                                        }
-                                    )
-                                }
-                                composable(SCREEN_ROUTE.WISH_LIST) {
-                                    BookListPage(
-                                        bookViewModel = bookViewModel,
-                                        status = Status.WISH,
-                                        navController = navController
-                                    )
-                                }
-                                composable(
-                                    SCREEN_ROUTE.WISH_ITEM,
-                                    arguments = listOf(navArgument("uuid") {
-                                        type = NavType.StringType
-                                    })
-                                ) {
-                                    BookDetailPage(
-                                        uuid = it.arguments?.getString("uuid") ?: "",
-                                        bookViewModel = bookViewModel,
-                                        navController = navController
-                                    )
-                                }
-                                composable(SCREEN_ROUTE.READING_LIST) {
-                                    BookListPage(
-                                        bookViewModel,
-                                        status = Status.READING,
-                                        navController = navController
-                                    )
-                                }
-                                composable(
-                                    SCREEN_ROUTE.READING_ITEM,
-                                    arguments = listOf(navArgument("uuid") {
-                                        type = NavType.StringType
-                                    }, navArgument("open_progress_dialog") {
-                                        type = NavType.BoolType
-                                        defaultValue = false
-                                    }, navArgument("open_edit_dialog") {
-                                        type = NavType.BoolType
-                                        defaultValue = false
-                                    })
-                                ) {
-                                    BookDetailPage(
-                                        it.arguments?.getString("uuid") ?: "",
-                                        it.arguments?.getBoolean("open_progress_dialog") ?: false,
-                                        it.arguments?.getBoolean("open_edit_dialog") ?: false,
-                                        bookViewModel,
-                                        navController = navController
-                                    )
-                                }
-                                composable(
-                                    SCREEN_ROUTE.ALL_NOTES,
-                                    arguments = listOf(navArgument("uuid") {
-                                        type = NavType.StringType
-                                    })
-                                ) {
-                                    val viewModel = hiltViewModel<BookViewModel>()
-                                    NoteListPage(
-                                        uuid = it.arguments?.getString("uuid"),
-                                        bookViewModel = viewModel,
-                                        navController = navController
-                                    )
-                                }
-                                composable(SCREEN_ROUTE.ARCHIVED_LIST) {
-                                    BookListPage(
-                                        bookViewModel = bookViewModel,
-                                        status = Status.ARCHIVED,
-                                        navController = navController
-                                    )
-                                }
-                                composable(
-                                    SCREEN_ROUTE.EDIT_BOOK,
-                                    arguments = listOf(navArgument("uuid") {
-                                        type = NavType.StringType
-                                    })
-                                ) {
-                                    val viewModel = hiltViewModel<BookEditViewModel>()
-                                    BookEditPage(
-                                        uuid = it.arguments?.getString("uuid"),
-                                        bookEditViewModel = viewModel,
-                                        navController = navController
-                                    )
-                                }
-                                composable(
-                                    SCREEN_ROUTE.ARCHIVED_ITEM,
-                                    arguments = listOf(navArgument("uuid") {
-                                        type = NavType.StringType
-                                    })
-                                ) {
-                                    BookDetailPage(
-                                        uuid = it.arguments?.getString("uuid") ?: "",
-                                        bookViewModel = bookViewModel,
-                                        navController = navController
-                                    )
-                                }
-                                composable(SCREEN_ROUTE.SETTINGS) {
-                                    SettingsPage(
-                                        settingsViewModel = hiltViewModel(),
-                                        navController = navController
-                                    )
-                                }
-                            }
+                            RkNavHost(navController = navController)
                         }
                     }
                 }
@@ -301,47 +133,5 @@ class MainActivity : ComponentActivity() {
         mCustomTabClient?.destroy()
         mCustomTabClient = null
         super.onDestroy()
-    }
-}
-
-@Composable
-fun RkNavigationBar(navController: NavHostController) {
-    NavigationBar {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentDestination = navBackStackEntry?.destination
-        getBottomBarItemList().forEach { screen ->
-            NavigationBarItem(
-                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                icon = {
-                    if (currentDestination?.hierarchy?.any { it.route == screen.route } == true) {
-                        Icon(
-                            screen.selectedIcon,
-                            contentDescription = stringResource(id = screen.labelId)
-                        )
-                    } else {
-                        Icon(
-                            screen.unselectedIcon,
-                            contentDescription = stringResource(id = screen.labelId)
-                        )
-                    }
-                },
-                label = { Text(stringResource(id = screen.labelId)) },
-                onClick = {
-                    navController.navigate(screen.route) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
-                        // on the back stack as users select items
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
-                        }
-                        // Avoid multiple copies of the same destination when
-                        // reselecting the same item
-                        launchSingleTop = true
-                        // Restore state when reselecting a previously selected item
-                        restoreState = true
-                    }
-                },
-            )
-        }
     }
 }

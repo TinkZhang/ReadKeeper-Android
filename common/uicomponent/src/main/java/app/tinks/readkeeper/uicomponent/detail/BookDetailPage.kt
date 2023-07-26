@@ -46,6 +46,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import app.tinks.readkeeper.basic.BookViewModel
 import app.tinks.readkeeper.basic.model.BookFactory
@@ -67,7 +68,7 @@ fun BookDetailPage(
     uuid: String,
     openAddProgressDialog: Boolean = false,
     openEditDialog: Boolean = false,
-    bookViewModel: BookViewModel,
+    bookViewModel: BookViewModel = viewModel(),
     navController: NavController
 ) {
     val book by bookViewModel.getBook(uuid).collectAsState(initial = BookFactory.buildEmptyBook())

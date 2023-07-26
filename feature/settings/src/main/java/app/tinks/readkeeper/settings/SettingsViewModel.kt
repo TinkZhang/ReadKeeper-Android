@@ -6,17 +6,12 @@ import androidx.lifecycle.ViewModel
 import app.tinks.readkeeper.basic.DataStoreKey
 import app.tinks.readkeeper.basic.DataStoreRepository
 import app.tinks.readkeeper.basic.UserRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-@HiltViewModel
-class SettingsViewModel @Inject constructor(
-    private val dataStoreRepository: DataStoreRepository,
-    private val userRepository: UserRepository
-) : ViewModel() {
-
+class SettingsViewModel : ViewModel() {
+    private val dataStoreRepository = DataStoreRepository
+    private val userRepository = UserRepository
     var themeStatus: Flow<ThemeStatus> = dataStoreRepository.getString(DataStoreKey.THEME).map {
         ThemeStatus.valueOf(it ?: ThemeStatus.DEFAULT.name)
     }

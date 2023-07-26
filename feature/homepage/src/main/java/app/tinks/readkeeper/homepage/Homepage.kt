@@ -16,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import app.tinks.readkeeper.basic.SCREEN_ROUTE
 import app.tinks.readkeeper.basic.model.NYBookType
@@ -31,7 +32,7 @@ import app.tinks.readkeeper.uicomponent.DpBottomPadding
 @Composable
 fun Homepage(
     navController: NavController,
-    viewModel: HomepageViewModel,
+    viewModel: HomepageViewModel = viewModel(),
 ) {
     val firstReading by viewModel.getFirstReading().collectAsState(initial = null)
     Column(

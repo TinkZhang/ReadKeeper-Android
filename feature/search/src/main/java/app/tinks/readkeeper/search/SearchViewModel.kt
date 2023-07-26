@@ -3,19 +3,15 @@ package app.tinks.readkeeper.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.tinks.readkeeper.basic.DataStoreRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 const val PREFERENCE_KEY_HISTORY = "history"
 const val MAX_HISTORY_NUMBER = 8
 const val HISTORY_BREAKER = "##"
 
-@HiltViewModel
-class SearchViewModel @Inject constructor(
-    private val dataStoreRepository: DataStoreRepository
-) : ViewModel() {
+class SearchViewModel : ViewModel() {
+    private val dataStoreRepository: DataStoreRepository = DataStoreRepository
     private val searchHistoryFlow = dataStoreRepository.getString(PREFERENCE_KEY_HISTORY)
     private var searchHistoryString: String = ""
 

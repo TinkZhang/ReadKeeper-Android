@@ -1,7 +1,13 @@
 package app.tinks.readkeeper.uicomponent.list
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -11,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -24,7 +31,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @ExperimentalMaterial3Api
 @Composable
 fun BookListPage(
-    bookViewModel: BookViewModel, status: Status, navController: NavController
+    bookViewModel: BookViewModel = viewModel(),
+    status: Status, navController: NavController
 ) {
     val selectedCategory = bookViewModel.selectedCategory.value
     Column(
@@ -68,11 +76,13 @@ fun BookListPage(
 //                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
                         }
                     }
+
                     books.loadState.append is LoadState.Error -> {
                         item {
 //                            RkSearchErrorItem((books.loadState.refresh as LoadState.Error).error)
                         }
                     }
+
                     books.loadState.refresh is LoadState.NotLoading -> {
                         item {
 //                            RkSearchTipItem(books.itemCount)

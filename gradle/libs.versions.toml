@@ -16,7 +16,7 @@ compose = "1.3.1"
 #https://developer.android.com/jetpack/androidx/releases/compose-material3
 compose-material3 = "1.1.1"
 #https://developer.android.com/jetpack/compose/navigation?hl=zh-cn
-compose-navigation = "2.6.0"
+compose-navigation = "2.5.3"
 #https://developer.android.com/jetpack/androidx/releases/lifecycle
 compose-viewmodel = "2.6.1"
 
@@ -62,12 +62,6 @@ browser = "1.3.0"
 splash-screen = "1.0.1"
 
 room = "2.4.3"
-
-#https://mvnrepository.com/artifact/com.google.dagger/hilt-android
-hilt-android = "2.44.2"
-hilt-compiler = "1.0.0"
-#https://developer.android.com/jetpack/compose/libraries?hl=zh-cn#hilt-navigation
-hilt-navigation-compose = "1.0.0"
 
 [libraries]
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -128,11 +122,7 @@ roomPaging = { module = "androidx.room:room-paging", version.ref = "room" }
 roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
 roomKotlin = { module = "androidx.room:room-compiler", version.ref = "room" }
 
-#https://developer.android.com/training/dependency-injection/hilt-android#setup
-hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
-hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt-android" }
-hiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-compiler" }
-hiltNavigationCompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
+navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version = "2.5.3" }
 
 [bundles]
 androidx-compose = ["composeUi", "coil", "composeMaterial", "composeUiTooling", "composeIcon", "composeMaterial3", "composeLiveData", "composeNavigation", "composeViewModel"]
@@ -140,5 +130,3 @@ retrofit = ["retrofit", "retrofit-gson", "retrofit-logging"]
 google-login = ["firebaseAuth", "playAuth"]
 firestore = ["firebaseFirestore", "play-services-coroutines"]
 testing = ["unitTest", "uiTest"]
-hilt = ["hiltAndroid", "hiltNavigationCompose"]
-hiltComplier = ["hiltAndroidCompiler", "hiltCompiler"]

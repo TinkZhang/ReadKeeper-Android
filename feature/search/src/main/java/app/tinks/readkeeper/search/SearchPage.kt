@@ -7,11 +7,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.History
-import androidx.compose.material3.*
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import app.tinks.readkeeper.search.ui.components.SearchResultItem
 import app.tinks.readkeeper.search.ui.components.SearchTextField
 import app.tinks.readkeeper.uicomponent.PreviewAnnotation
@@ -25,8 +31,8 @@ fun SearchPage(
     onHistoryItemClick: (String) -> Unit = {},
     onSearch: (String) -> Unit = {},
     onBackClick: () -> Unit = {},
+    viewModel: SearchViewModel = viewModel()
 ) {
-    val viewModel: SearchViewModel = hiltViewModel()
     SearchPage(
         historyItems = viewModel.searchHistory.collectAsState(initial = emptyList()).value,
         onHistoryItemClick = onHistoryItemClick,

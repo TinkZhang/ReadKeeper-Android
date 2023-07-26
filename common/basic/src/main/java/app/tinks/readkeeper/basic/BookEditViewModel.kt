@@ -9,17 +9,15 @@ import androidx.lifecycle.viewModelScope
 import app.tinks.readkeeper.basic.convertors.convertToBook
 import app.tinks.readkeeper.basic.model.Book
 import app.tinks.readkeeper.basic.model.BookFactory
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class BookEditViewModel @Inject constructor(
-    private val repository: BookRepository,
+class BookEditViewModel(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    private val repository = BookRepository
+
     var uuid by mutableStateOf("")
     var bookFlow: Flow<Book>
     var book: Book = BookFactory.buildEmptyBook()

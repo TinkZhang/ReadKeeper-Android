@@ -52,10 +52,6 @@ dependencies {
     // DataStore
     implementation(libs.datastore)
 
-    // Hilt
-    implementation(libs.bundles.hilt)
-    kapt(libs.bundles.hiltComplier)
-
     // Paging
     implementation(libs.pagingCompose)
 
@@ -71,7 +67,7 @@ dependencies {
 
     // Google Ad
     implementation(libs.googleAd)
-    
+
     // Timber
     implementation(libs.timber)
 }

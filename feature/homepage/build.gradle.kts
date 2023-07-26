@@ -67,10 +67,6 @@ dependencies {
 
     // Datastore
     implementation(libs.datastore)
-
-    // Hilt
-    implementation(libs.bundles.hilt)
-    kapt(libs.bundles.hiltComplier)
 }
 
 // Allow references to generated code

@@ -41,6 +41,9 @@ dependencies {
     implementation(libs.bundles.firestore)
     implementation(libs.firebaseRemoteConfig)
 
+    // Compose
+    implementation(libs.bundles.androidx.compose)
+
     // Paging
     implementation(libs.pagingCompose)
 
@@ -52,10 +55,6 @@ dependencies {
 
     // Timber
     implementation(libs.timber)
-
-    // Hilt
-    implementation(libs.bundles.hilt)
-    kapt(libs.bundles.hiltComplier)
 
     // Datastore
     implementation(libs.datastore)

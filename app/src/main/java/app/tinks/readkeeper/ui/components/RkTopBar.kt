@@ -56,7 +56,7 @@ fun RkMainTopBar(
         navigationIcon = {
             Image(
                 painter = painterResource(id = R.drawable.ic_readkeeperlogo),
-                contentDescription = "",
+                contentDescription = "ReadKeeper Logo",
             )
         },
         title = {

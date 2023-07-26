@@ -13,19 +13,16 @@ import app.tinks.readkeeper.basic.model.Book
 import app.tinks.readkeeper.basic.model.Status
 import app.tinks.readkeeper.search.network.SIZE
 import app.tinks.readkeeper.search.network.googlebook.GoogleBookItem
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 const val KEYWORD = "keyword"
 
-@HiltViewModel
-class SearchResultViewModel @Inject constructor(
+class SearchResultViewModel(
     savedStateHandle: SavedStateHandle,
-    private val bookRepository: BookRepository
 ) : ViewModel() {
+    private val bookRepository = BookRepository
     val keyword: String = savedStateHandle[KEYWORD] ?: ""
 
     init {
