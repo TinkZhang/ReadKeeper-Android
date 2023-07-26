@@ -37,29 +37,22 @@ fun EditPageField(
                 color = MaterialTheme.colorScheme.primary,
                 shape = RoundedCornerShape(2.dp)
             )
-            .padding(8.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+            .padding(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         var newPageFormat by remember(pageFormat) { mutableStateOf(pageFormat) }
         var newPages by remember(pages) { mutableStateOf(pages.toString()) }
         Text(text = stringResource(id = R.string.page_format))
         if (newPageFormat == PageFormat.PAGE) {
             Row(
-                Modifier
-                    .fillMaxWidth()
+                Modifier.fillMaxWidth()
             ) {
                 FilledTonalButton(
                     onClick = {
                         newPageFormat = PageFormat.PAGE
                         onPageFormatChange(PageFormat.PAGE)
-                    },
-                    shape = RoundedCornerShape(
-                        topStart = 8.dp,
-                        topEnd = 0.dp,
-                        bottomEnd = 0.dp,
-                        bottomStart = 8.dp
-                    ),
-                    modifier = Modifier.weight(1.0f)
+                    }, shape = RoundedCornerShape(
+                        topStart = 8.dp, topEnd = 0.dp, bottomEnd = 0.dp, bottomStart = 8.dp
+                    ), modifier = Modifier.weight(1.0f)
                 ) {
                     Icon(
                         Icons.Default.Check,
@@ -72,14 +65,9 @@ fun EditPageField(
                     onClick = {
                         newPageFormat = PageFormat.PERCENT_100
                         onPageFormatChange(PageFormat.PERCENT_100)
-                    },
-                    shape = RoundedCornerShape(
-                        topStart = 0.dp,
-                        topEnd = 8.dp,
-                        bottomEnd = 8.dp,
-                        bottomStart = 0.dp
-                    ),
-                    modifier = Modifier.weight(1.0f)
+                    }, shape = RoundedCornerShape(
+                        topStart = 0.dp, topEnd = 8.dp, bottomEnd = 8.dp, bottomStart = 0.dp
+                    ), modifier = Modifier.weight(1.0f)
                 ) {
                     Text(stringResource(id = R.string.percent))
                 }
@@ -90,24 +78,16 @@ fun EditPageField(
                     onClick = {
                         newPageFormat = PageFormat.PAGE
                         onPageFormatChange(PageFormat.PAGE)
-                    },
-                    shape = RoundedCornerShape(
-                        topStart = 8.dp,
-                        topEnd = 0.dp,
-                        bottomEnd = 0.dp,
-                        bottomStart = 8.dp
-                    ),
-                    modifier = Modifier.weight(1.0f)
+                    }, shape = RoundedCornerShape(
+                        topStart = 8.dp, topEnd = 0.dp, bottomEnd = 0.dp, bottomStart = 8.dp
+                    ), modifier = Modifier.weight(1.0f)
                 ) {
                     Text(stringResource(id = R.string.pages))
                 }
                 FilledTonalButton(
                     onClick = { onPageFormatChange(PageFormat.PERCENT_100) },
                     shape = RoundedCornerShape(
-                        topStart = 0.dp,
-                        topEnd = 8.dp,
-                        bottomEnd = 8.dp,
-                        bottomStart = 0.dp
+                        topStart = 0.dp, topEnd = 8.dp, bottomEnd = 8.dp, bottomStart = 0.dp
                     ),
                     modifier = Modifier.weight(1.0f)
                 ) {
@@ -135,13 +115,16 @@ fun EditPageField(
                         textStyle = MaterialTheme.typography.titleMedium.copy(textAlign = TextAlign.Center),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            textColor = MaterialTheme.colorScheme.onSurface,
-                            containerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f),
+                        colors = TextFieldDefaults.colors(
+                            focusedTextColor = androidx.compose.material.MaterialTheme.colors.onSurface,
+                            focusedContainerColor = androidx.compose.material.MaterialTheme.colors.onSurface.copy(
+                                alpha = 0.04f
+                            )
                         ),
                         isError = newPages.toIntOrNull() == null
                     )
                 }
+
                 else -> {
                     Column(
                         modifier = Modifier.fillMaxWidth(),
@@ -154,15 +137,12 @@ fun EditPageField(
                                     .clickable {
                                         newPageFormat = it
                                         onPageFormatChange(it)
-                                    },
-                                verticalAlignment = Alignment.CenterVertically
+                                    }, verticalAlignment = Alignment.CenterVertically
                             ) {
-                                RadioButton(
-                                    selected = newPageFormat == it,
-                                    onClick = {
-                                        newPageFormat = it
-                                        onPageFormatChange(it)
-                                    })
+                                RadioButton(selected = newPageFormat == it, onClick = {
+                                    newPageFormat = it
+                                    onPageFormatChange(it)
+                                })
                                 Text(
                                     text = when (it) {
                                         PageFormat.PAGE -> ""

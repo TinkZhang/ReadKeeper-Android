@@ -22,7 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,7 +40,8 @@ fun SearchTextField(
         focusRequester.requestFocus()
         onDispose { }
     }
-    OutlinedTextField(value = keyword,
+    OutlinedTextField(
+        value = keyword,
         onValueChange = {
             keyword = it
         },
@@ -62,11 +62,18 @@ fun SearchTextField(
         modifier = Modifier
             .fillMaxWidth()
             .focusRequester(focusRequester),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Transparent,
-            unfocusedBorderColor = Color.Transparent,
-            textColor = MaterialTheme.colorScheme.onSurface,
-            cursorColor = MaterialTheme.colorScheme.primary
+//        colors = TextFieldDefaults.outlinedTextFieldColors(
+//            focusedBorderColor = Color.Transparent,
+//            unfocusedBorderColor = Color.Transparent,
+//            textColor = MaterialTheme.colorScheme.onSurface,
+//            cursorColor = MaterialTheme.colorScheme.primary
+//        )
+        // TODO: Fix
+        colors = TextFieldDefaults.colors(
+            focusedTextColor = androidx.compose.material.MaterialTheme.colors.onSurface,
+            focusedContainerColor = androidx.compose.material.MaterialTheme.colors.onSurface.copy(
+                alpha = 0.04f,
+            )
         )
     )
 }
