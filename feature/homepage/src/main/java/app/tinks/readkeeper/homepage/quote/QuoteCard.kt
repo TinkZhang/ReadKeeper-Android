@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import app.tinks.readkeeper.uicomponent.DpContentMediumPadding
 import app.tinks.readkeeper.uicomponent.Section
@@ -38,7 +39,9 @@ private fun QuoteStatelessCard(quote: Quote, onClicked: () -> Unit = {}) {
         Column(modifier = Modifier
             .fillMaxWidth()
             .clickable { onClicked() }
-            .animateContentSize()) {
+            .animateContentSize()
+            .testTag("Quote Card")
+        ) {
             Text(quote.quote)
             Spacer(modifier = Modifier.height(DpContentMediumPadding))
             Text(" --- ${quote.author}", Modifier.align(Alignment.End))

@@ -3,7 +3,7 @@ package app.tinks.readkeeper
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
 import app.tinks.readkeeper.navigation.RkNavHost
@@ -26,9 +26,9 @@ class NavigationTest {
     }
 
     @Test
-    fun `navigation-verify-start-destination`() {
+    fun `navigation_verify-start-destination`() {
         composeTestRule
-            .onNodeWithContentDescription("ReadKeeper Logo")
+            .onNodeWithTag("Quote Card")
             .assertIsDisplayed()
     }
 }
