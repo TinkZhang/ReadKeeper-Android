@@ -15,8 +15,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -50,26 +50,21 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterial3Api
 @Composable
 fun SettingsPage(
-    settingsViewModel: SettingsViewModel = viewModel(),
-    navController: NavController? = null
+    settingsViewModel: SettingsViewModel = viewModel(), navController: NavController? = null
 ) {
     Scaffold(topBar = {
-        SmallTopAppBar(
-            title = { Text("Settings") },
-            navigationIcon = {
-                IconButton(onClick = {
-                    navController?.popBackStack(
-                        SCREEN_ROUTE.HOME,
-                        false
-                    )
-                }) {
-                    Icon(
-                        Icons.Default.ArrowBack,
-                        contentDescription = stringResource(id = R.string.back)
-                    )
-                }
-            },
-        )
+        TopAppBar(title = { Text(stringResource(id = R.string.settings)) }, navigationIcon = {
+            IconButton(onClick = {
+                navController?.popBackStack(
+                    SCREEN_ROUTE.HOME, false
+                )
+            }) {
+                Icon(
+                    Icons.Default.ArrowBack,
+                    contentDescription = stringResource(id = R.string.back)
+                )
+            }
+        })
     }) { padding ->
         val scope = rememberCoroutineScope()
         val context = LocalContext.current
@@ -82,7 +77,7 @@ fun SettingsPage(
                 key = DataStoreKey.THEME,
                 icon = Icons.Default.Palette,
             ),
-            options = ThemeStatus.values().map { it.label },
+            options = ThemeStatus.values().map { stringResource(id = it.label) },
         )
 
         val isQuoteEnable by settingsViewModel.isQuoteEnabled.collectAsState(initial = true)
@@ -92,7 +87,8 @@ fun SettingsPage(
         Box(
             Modifier
                 .padding(padding)
-                .fillMaxSize()) {
+                .fillMaxSize()
+        ) {
             Column(
                 Modifier
                     .fillMaxWidth()
@@ -116,37 +112,29 @@ fun SettingsPage(
                     else -> LoginContent(onLoginClick = { settingsViewModel.signIn(context) })
                 }
                 Divider(Modifier.padding(top = 16.dp))
-                GeneralContent(
-                    themeSetting = themeSetting,
+                GeneralContent(themeSetting = themeSetting,
                     theme = theme,
-                    onThemeSettingClick = { shouldShowThemeDialog = true }
-                )
-                HomepageContent(
-                    isQuoteEnabled = isQuoteEnable,
-                    onQuoteSettingClick = {
-                        scope.launch {
-                            settingsViewModel.saveSetting(
-                                DataStoreKey.IS_QUOTE_ENABLE,
-                                !isQuoteEnable
-                            )
-                        }
+                    onThemeSettingClick = { shouldShowThemeDialog = true })
+                HomepageContent(isQuoteEnabled = isQuoteEnable, onQuoteSettingClick = {
+                    scope.launch {
+                        settingsViewModel.saveSetting(
+                            DataStoreKey.IS_QUOTE_ENABLE, !isQuoteEnable
+                        )
                     }
-                )
+                })
                 FeedbackContent(context = context)
                 AboutContent(context = context)
                 Spacer(Modifier.height(16.dp))
             }
 
             if (shouldShowThemeDialog) {
-                RadioSettingDialog(
-                    options = ThemeStatus.values(),
+                RadioSettingDialog(options = ThemeStatus.values(),
                     title = themeSetting.commonAttribute.title,
                     selectedItem = theme,
                     onItemSelect = { value ->
                         scope.launch {
                             settingsViewModel.saveSetting(
-                                themeSetting.commonAttribute.key,
-                                value.name.uppercase()
+                                themeSetting.commonAttribute.key, value.name.uppercase()
                             )
                         }
                         shouldShowThemeDialog = false

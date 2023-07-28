@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -17,10 +16,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import app.tinks.readkeeper.basic.model.NYBookType
 import app.tinks.readkeeper.basic.model.NYTimesBook
 import app.tinks.readkeeper.basic.model.NYTimesBookSample
@@ -29,11 +28,11 @@ import app.tinks.readkeeper.homepage.weeklybook.HomepageViewModel
 import app.tinks.readkeeper.uicomponent.Section
 import app.tinks.readkeeper.uicomponent.cellview.BookCardImage
 
-@OptIn(ExperimentalMaterialApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun WeeklyBookCard(
     type: NYBookType,
-    navController: NavController? = null,
+    onBookClicked: (String) -> Unit = {},
     viewModel: HomepageViewModel = viewModel(),
 ) {
     Section(header = {
@@ -44,7 +43,7 @@ fun WeeklyBookCard(
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
-                text = "Weekly Best Seller - ${type.name}",
+                text = stringResource(id = R.string.weekly_best_seller, type.name),
                 style = MaterialTheme.typography.titleMedium,
             )
         }
@@ -55,7 +54,7 @@ fun WeeklyBookCard(
         }
         LazyRow() {
             items(books) { book: NYTimesBook ->
-                NYTimesBookCard(book, navController)
+                NYTimesBookCard(book, onBookClicked)
             }
         }
     }
@@ -70,17 +69,17 @@ private fun WeeklyBookCardPreview() {
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun NYTimesBookCard(
     book: NYTimesBook,
-    navController: NavController? = null
+    onBookClicked: (String) -> Unit = {},
 ) {
     ElevatedCard(
         modifier = Modifier
             .padding(end = 8.dp)
             .clickable {
-                navController?.navigate("weekly_item/${book.title}")
+                onBookClicked(book.title)
             },
     ) {
         Box() {
@@ -102,4 +101,3 @@ fun NYTimesBookCard(
 private fun NYTimesBookCardPreview() {
     NYTimesBookCard(book = NYTimesBookSample())
 }
-

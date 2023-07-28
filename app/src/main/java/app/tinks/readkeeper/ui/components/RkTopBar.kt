@@ -5,7 +5,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
@@ -68,11 +68,11 @@ fun RkMainTopBar(
                     animationSpec = tween(
                         durationMillis = 300, delayMillis = 700
                     )
-                ) with fadeOut(animationSpec = tween(durationMillis = 300, delayMillis = 500))
-            }) { showSearch ->
+                ) togetherWith fadeOut(animationSpec = tween(durationMillis = 300, delayMillis = 500))
+            }, label = "") { showSearch ->
                 if (showSearch) {
                     SearchBar(
-                        text = R.string.home_search_bar, onClick = onSearchClick
+                        text = R.string.home_search_bar, onClick = onSearchClick,
                     )
                 } else {
                     RkTopBarTitleText(

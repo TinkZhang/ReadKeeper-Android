@@ -50,8 +50,9 @@
     <string name="show_all_notes">Show All Notes</string>
     <string name="update">Update</string>
     <string name="optional">Optional</string>
-    <string name="empty_book_list">There is no book in this list.</string>
+    <string name="empty_book_list">No book in this list yet</string>
     <string name="history">History</string>
+    <string name="empty_book_list_hint">Search a book then add it into this list</string>
     <plurals name="added_second_ago">
         <item quantity="one">Added %d second ago</item>
         <item quantity="other">Added %d seconds ago</item>

@@ -2,6 +2,7 @@ package app.tinks.readkeeper.settings
 
 import android.content.Context
 import android.util.Log
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import app.tinks.readkeeper.basic.DataStoreKey
 import app.tinks.readkeeper.basic.DataStoreRepository
@@ -49,6 +50,6 @@ class SettingsViewModel : ViewModel() {
     }
 }
 
-enum class ThemeStatus(val label: String) {
-    DARK("Dark"), LIGHT("Light"), DEFAULT("System default")
+enum class ThemeStatus(@StringRes val label: Int) {
+    DARK(R.string.dark), LIGHT(R.string.light), DEFAULT(R.string.system_default)
 }

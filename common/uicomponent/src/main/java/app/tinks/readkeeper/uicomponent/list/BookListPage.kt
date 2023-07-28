@@ -32,7 +32,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @Composable
 fun BookListPage(
     bookViewModel: BookViewModel = viewModel(),
-    status: Status, navController: NavController
+    status: Status,
+    navController: NavController
 ) {
     val selectedCategory = bookViewModel.selectedCategory.value
     Column(
@@ -103,9 +104,17 @@ fun BookListPage(
                                 .clickable {
                                     navController.navigate("reading_item/${item.basicInfo.uuid}")
                                 },
-                            onAddProgressClicked = {
+                            onAddProgressClick = {
                                 navController.navigate("reading_item/${item.basicInfo.uuid}?open_progress_dialog=${true}")
                             },
+                            onSetPlatformClick = {
+                                navController.navigate("edit_book/${item.basicInfo.uuid}")
+                            },
+                            onMoveFromWishToReadingClick = {
+                                bookViewModel.move(
+                                    item, Status.READING
+                                )
+                            }
                         )
                     }
                 }

@@ -41,8 +41,10 @@ object UserRepository {
     init {
         if (user == null) {
             loginStatus.value = LoginStatus.Logout
+            isLogged.value = false
         } else {
             loginStatus.value = LoginStatus.Login
+            isLogged.value = true
         }
     }
 
@@ -59,9 +61,7 @@ object UserRepository {
     }
 
     fun add(books: List<Book>) {
-        if (user != null) {
-            books.forEach { add(it) }
-        }
+        books.forEach { add(it) }
     }
 
     suspend fun getFirstBook(): Book? =
@@ -74,33 +74,33 @@ object UserRepository {
         bookRef?.get()?.await()?.toObjects(Book::class.java) ?: emptyList()
 
     fun add(record: Record) {
-        if (user != null) {
-            recordRef?.document(record.id)?.set(record)
-        }
+        recordRef?.document(record.id)?.set(record)
     }
 
     fun update(book: Book) {
-        if (user != null) {
-            remove(book.basicInfo.uuid)
-            add(book.copy(timeInfo = book.timeInfo.copy(editedTime = Timestamp.now())))
-        }
+        remove(book.basicInfo.uuid)
+        add(book.copy(timeInfo = book.timeInfo.copy(editedTime = Timestamp.now())))
     }
 
     fun removeRecord(id: String) {
-        if (user != null) {
-            recordRef?.document(id)?.delete()
+        recordRef?.document(id)?.delete()
+    }
+
+    fun updateRecord(record: Record) {
+        recordRef?.document(record.id)?.apply {
+            delete()
+            set(record)
         }
     }
 
     fun remove(uuid: String) {
-        if (user != null) {
-            bookRef?.document(uuid)?.delete()
-        }
+        bookRef?.document(uuid)?.delete()
     }
 
     fun signOutWithGoogle() {
         Firebase.auth.signOut()
         loginStatus.value = LoginStatus.Logout
+        isLogged.value = false
     }
 
     fun signInWithGoogle(context: Context) {
@@ -140,9 +140,11 @@ object UserRepository {
         Firebase.auth.signInWithCredential(credential).addOnCompleteListener(activity) { task ->
             if (task.isSuccessful) {
                 loginStatus.value = LoginStatus.Login
+                isLogged.value = true
                 Timber.d("Google Sign in succeed !!!")
             } else {
                 loginStatus.value = LoginStatus.Error
+                isLogged.value = false
                 Timber.e("Failed to sign in!!!")
             }
         }

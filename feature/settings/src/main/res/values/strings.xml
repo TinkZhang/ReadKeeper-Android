@@ -11,4 +11,14 @@
     <string name="source_code_setting_title">App code on Github</string>
     <string name="app_version_setting_title">App version</string>
     <string name="logout">Log out</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_explain">Help to make the App better</string>
+    <string name="bug_report"><![CDATA[Bug report & Suggestion]]></string>
+    <string name="rate_on_store">Rate on Play Store</string>
+    <string name="give_5_star">Please give me 5 stars. \\uD83D\\uDE18</string>
+    <string name="login_hint">Login to keep your data on server\n</string>
+    <string name="login_fail">Failed to Login with Google. \\nPlease try again.</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
+    <string name="system_default">System default</string>
 </resources>

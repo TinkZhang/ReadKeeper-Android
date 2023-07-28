@@ -4,4 +4,6 @@
     <string name="search_to_add">Tap here to search a book, then add it into the reading list.</string>
     <string name="reading_card">Recent Reading</string>
     <string name="reading_history">Reading History</string>
+    <string name="quote">\uD83E\uDD89 Quote</string>
+    <string name="weekly_best_seller">Weekly Best Seller - %s</string>
 </resources>

@@ -69,7 +69,7 @@ fun ReadingHistory(contributions: List<Contribution>) {
         mutableStateOf(0.0f)
     }
     val animatedColorFactor by animateFloatAsState(
-        targetValue = flag, animationSpec = tween(1800)
+        targetValue = flag, animationSpec = tween(1800), label = ""
     )
     LaunchedEffect(key1 = flag) {
         flag = 4.0f

@@ -31,7 +31,7 @@ fun BookEditPage(
     if (book.basicInfo.isbn == "1234567890123") return
 
     Scaffold(topBar = {
-        SmallTopAppBar(title = { Text(text = stringResource(id = R.string.edit_book)) },
+        TopAppBar(title = { Text(text = stringResource(id = R.string.edit_book)) },
             modifier = Modifier.fillMaxWidth(),
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {

@@ -29,7 +29,7 @@ fun HomepageReadingCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onClick() },
-            onAddProgressClicked = onAddProgressClick,
+            onAddProgressClick = onAddProgressClick,
         )
     }
 }

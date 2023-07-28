@@ -12,13 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.tinks.readkeeper.basic.DataStoreKey
+import app.tinks.readkeeper.settings.R
 import app.tinks.readkeeper.settings.ThemeStatus
 import app.tinks.readkeeper.settings.model.SettingAttribute
 import app.tinks.readkeeper.settings.model.SettingItem
 import app.tinks.readkeeper.settings.model.SingleSelectionItem
 import app.tinks.readkeeper.settings.ui.SettingItemCell
-import app.tinks.readkeeper.basic.DataStoreKey
-import app.tinks.readkeeper.settings.R
 
 @Composable
 fun GeneralContent(
@@ -29,12 +29,12 @@ fun GeneralContent(
     Column {
         Text(
             stringResource(id = R.string.general_setting_title),
-            style = MaterialTheme.typography.titleLarge,
+            style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(top = 8.dp)
         )
         SettingItemCell(
             item = themeSetting,
-            label = theme.label,
+            label = stringResource(id = theme.label),
             onClick = onThemeSettingClick
         )
         Divider(Modifier.padding(4.dp))
@@ -51,7 +51,7 @@ private fun GeneralContentPreview() {
                 key = DataStoreKey.THEME,
                 icon = Icons.Default.Palette,
             ),
-            options = ThemeStatus.values().map { it.label },
+            options = ThemeStatus.values().map { stringResource(id = it.label) },
         ), theme = ThemeStatus.DEFAULT
     )
 }

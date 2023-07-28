@@ -1,6 +1,9 @@
 package app.tinks.readkeeper.uicomponent.list.bookinfo
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -9,10 +12,10 @@ import androidx.compose.ui.unit.dp
 import app.tinks.readkeeper.basic.model.Book
 import app.tinks.readkeeper.basic.model.BookFactory
 import app.tinks.readkeeper.uicomponent.PreviewAnnotation
-import app.tinks.readkeeper.uicomponent.cellview.ReadingIconToggleButton
 import app.tinks.readkeeper.uicomponent.cellview.InfoText
 import app.tinks.readkeeper.uicomponent.cellview.PageText
 import app.tinks.readkeeper.uicomponent.cellview.RatingText
+import app.tinks.readkeeper.uicomponent.cellview.ReadingIconToggleButton
 import app.tinks.readkeeper.uicomponent.cellview.TimeText
 import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
 
@@ -20,7 +23,7 @@ import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
 fun WishBookListInfo(
     book: Book,
     modifier: Modifier = Modifier,
-    onReadingButtonClicked: (Boolean) -> Unit = {},
+    onMoveFromWishToReadingClick: (Book) -> Unit = {},
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -36,9 +39,8 @@ fun WishBookListInfo(
             checked = false,
             modifier = Modifier
                 .align(Alignment.End)
-                .padding(end = 16.dp)
         ) {
-            onReadingButtonClicked(it)
+            onMoveFromWishToReadingClick(book)
         }
     }
 }

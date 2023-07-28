@@ -13,12 +13,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
@@ -44,7 +45,7 @@ import kotlinx.coroutines.launch
 fun SearchResultPage(
     onTitleClick: () -> Unit = {},
     onBackClick: () -> Unit = {},
-    viewModel: SearchResultViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: SearchResultViewModel = viewModel()
 ) {
     val keyword = viewModel.keyword
     val snackbarHostState = remember { SnackbarHostState() }
@@ -52,14 +53,13 @@ fun SearchResultPage(
     val context = LocalContext.current
     Scaffold(
         topBar = {
-            SmallTopAppBar(
-                title = {
-                    Text(
-                        keyword,
-                        Modifier
-                            .fillMaxWidth()
-                            .clickable { onTitleClick() })
-                },
+            TopAppBar(title = {
+                Text(
+                    keyword,
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable { onTitleClick() })
+            },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
@@ -67,14 +67,15 @@ fun SearchResultPage(
                             contentDescription = stringResource(id = R.string.back)
                         )
                     }
-                },
-            )
+                })
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
         val books = viewModel.flow.collectAsLazyPagingItems()
         LazyColumn(
-            Modifier.padding(innerPadding),
+            Modifier
+                .padding(innerPadding)
+                .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             when {
@@ -83,10 +84,12 @@ fun SearchResultPage(
                         CircularProgressIndicator(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .padding(top = 32.dp)
                                 .wrapContentWidth(Alignment.CenterHorizontally)
                         )
                     }
                 }
+
                 books.loadState.refresh is LoadState.Error -> {
                     item {
                         RkSearchErrorItem(
@@ -98,6 +101,7 @@ fun SearchResultPage(
                                 })
                     }
                 }
+
                 books.loadState.append is LoadState.Error -> {
                     item {
                         RkSearchErrorItem(
@@ -109,6 +113,7 @@ fun SearchResultPage(
                                 })
                     }
                 }
+
                 books.loadState.refresh is LoadState.NotLoading -> {
                     item {
                         RkSearchTipItem(books.itemCount)
@@ -119,7 +124,8 @@ fun SearchResultPage(
                 if (item != null) {
                     BookListCard(
                         book = item,
-                        onWishButtonClicked = { checked ->
+                        modifier = Modifier.fillMaxWidth(),
+                        onWishButtonClick = { checked ->
                             if (checked) {
                                 showSnackbar(
                                     message = context.getString(
@@ -144,7 +150,7 @@ fun SearchResultPage(
                                 viewModel.remove(item.basicInfo.uuid)
                             }
                         },
-                        onReadingButtonClicked = { checked ->
+                        onReadingButtonClick = { checked ->
                             if (checked) {
                                 showSnackbar(
                                     message = context.getString(
@@ -172,7 +178,7 @@ fun SearchResultPage(
                     )
                 }
                 if (index == 4) {
-                    GoogleAdView(adSize = AdSize.BANNER, keyword = keyword)
+                    GoogleAdView(adSize = AdSize.MEDIUM_RECTANGLE, keyword = keyword)
                 }
             }
 

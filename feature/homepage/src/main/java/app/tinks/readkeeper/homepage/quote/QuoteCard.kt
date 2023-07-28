@@ -13,7 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import app.tinks.readkeeper.homepage.R
 import app.tinks.readkeeper.uicomponent.DpContentMediumPadding
 import app.tinks.readkeeper.uicomponent.Section
 import kotlin.random.Random
@@ -35,7 +37,7 @@ fun QuoteCard() {
 @ExperimentalMaterial3Api
 @Composable
 private fun QuoteStatelessCard(quote: Quote, onClicked: () -> Unit = {}) {
-    Section(title = "\uD83E\uDD89 Random Quote") {
+    Section(title = stringResource(id = R.string.quote)) {
         Column(modifier = Modifier
             .fillMaxWidth()
             .clickable { onClicked() }

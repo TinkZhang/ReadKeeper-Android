@@ -42,7 +42,6 @@ fun Homepage(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-//        HomepageSearchBar(onClick = { navController.navigate(SCREEN_ROUTE.SEARCH) })
         QuoteCard()
         if (firstReading.isNullOrEmpty()) {
             NoReadingCard(onClick = { navController.navigate(SCREEN_ROUTE.SEARCH) })
@@ -56,10 +55,14 @@ fun Homepage(
         }
         AllHistoryCard(viewModel.getAllRecords().collectAsState(initial = emptyList()).value)
         if (viewModel.fictionBooks.collectAsState().value.isNotEmpty()) {
-            WeeklyBookCard(NYBookType.Fictions, navController)
+            WeeklyBookCard(NYBookType.Fictions, onBookClicked = {
+                navController.navigate("weekly_item/$it")
+            })
         }
         if (viewModel.nonFictionBooks.collectAsState().value.isNotEmpty()) {
-            WeeklyBookCard(NYBookType.NonFictions, navController)
+            WeeklyBookCard(NYBookType.NonFictions, onBookClicked = {
+                navController.navigate("weekly_item/$it")
+            })
         }
         Spacer(modifier = Modifier.height(DpBottomPadding))
     }

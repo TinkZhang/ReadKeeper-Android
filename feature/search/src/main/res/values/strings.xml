@@ -6,4 +6,10 @@
     <string name="remove_from_wish">%s is removed from wish list.</string>
     <string name="added_into_wish">%s is added into wish list.</string>
     <string name="undo">Undo</string>
+    <string name="retry">Please tap here to try again.</string>
+    <string name="search_fail">Search failed.</string>
+    <string name="timeout">Time out.</string>
+    <string name="bad_request">Bad request.</string>
+    <string name="network_error">Network issue.</string>
+    <string name="something_went_wrong">Something went wrong.</string>
 </resources>
