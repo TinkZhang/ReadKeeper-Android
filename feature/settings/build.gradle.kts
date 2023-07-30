@@ -60,4 +60,7 @@ dependencies {
 
     // DataStore
     implementation(libs.datastore)
+
+    // AppReview
+    implementation(libs.bundles.review)
 }

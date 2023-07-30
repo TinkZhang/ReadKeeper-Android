@@ -5,7 +5,7 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.google.gson.Gson
 
-const val KeyIsWishVipSearchLinkEnabled = "isWishVipSearchLinkEnabled"
+const val KeyIsDetailPageSearchLinkEnabled = "bDetailPageSearchLinkEnabled"
 const val KeyIsDetailPageBannerEnabled = "bDetailPageBannerEnabled"
 const val KeyJsonSearchEngines = "jsonSearchEngines"
 
@@ -22,18 +22,22 @@ object FirebaseRemoteConfigWrapper {
         }
     }
 
-    val isWishVipSearchLinkEnabled =
-        Firebase.remoteConfig.getBoolean(KeyIsWishVipSearchLinkEnabled)
+    val isDetailPageSearchLinkEnabled =
+        Firebase.remoteConfig.getBoolean(KeyIsDetailPageSearchLinkEnabled)
     val isDetailPagBannerEnabled = Firebase.remoteConfig.getBoolean(KeyIsDetailPageBannerEnabled)
-    val searchEngines: SearchEngines? = Gson().fromJson(
-        Firebase.remoteConfig.getString(KeyJsonSearchEngines),
-        SearchEngines::class.java
-    )
+    val searchEngines: SearchEngines? = try {
+        Gson().fromJson(
+            Firebase.remoteConfig.getString(KeyJsonSearchEngines),
+            SearchEngines::class.java
+        )
+    } catch (e: Exception) {
+        null
+    }
 
 }
 
 private val remoteConfigMap: Map<String, Any> = mapOf(
-    KeyIsWishVipSearchLinkEnabled to false,
+    KeyIsDetailPageSearchLinkEnabled to false,
     KeyIsDetailPageBannerEnabled to false,
     KeyJsonSearchEngines to "{\"searchEngines\": [{{\"name\": \"Google\", \"link\": \"https://www.google.com/search?q=KEYWORD&tbm=bks\"}]}"
 )

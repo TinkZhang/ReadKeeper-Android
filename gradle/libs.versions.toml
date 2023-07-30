@@ -42,6 +42,8 @@ firebase-analytics = "20.0.2"
 firebase-remote-config = "21.0.1"
 play-auth = "20.0.0"
 play-service-coroutines = "1.5.2"
+#https://developer.android.com/guide/playcore/in-app-review/kotlin-java
+app-review = "2.0.1"
 
 #https://developer.android.com/jetpack/androidx/releases/paging
 paging-compose = "1.0.0-alpha17"
@@ -124,9 +126,13 @@ roomKotlin = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version = "2.5.3" }
 
+appReview = { group = "com.google.android.play", name = "review", version.ref = "app-review" }
+appReviewKotlin = { group = "com.google.android.play", name = "review-ktx", version.ref = "app-review" }
+
 [bundles]
 androidx-compose = ["composeUi", "coil", "composeMaterial", "composeUiTooling", "composeIcon", "composeMaterial3", "composeLiveData", "composeNavigation", "composeViewModel"]
 retrofit = ["retrofit", "retrofit-gson", "retrofit-logging"]
 google-login = ["firebaseAuth", "playAuth"]
 firestore = ["firebaseFirestore", "play-services-coroutines"]
 testing = ["unitTest", "uiTest"]
+review = ["appReview", "appReviewKotlin"]

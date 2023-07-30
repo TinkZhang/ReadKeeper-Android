@@ -65,9 +65,8 @@ fun RkNavHost(navController: NavHostController) {
             })
         ) {
             BookDetailPage(
-                it.arguments?.getString("uuid") ?: "",
-                it.arguments?.getBoolean("open_progress_dialog") ?: false,
-                it.arguments?.getBoolean("open_edit_dialog") ?: false,
+                uuid = it.arguments?.getString("uuid") ?: "",
+                openAddProgressDialog = it.arguments?.getBoolean("open_progress_dialog") ?: false,
                 navController = navController
             )
         }

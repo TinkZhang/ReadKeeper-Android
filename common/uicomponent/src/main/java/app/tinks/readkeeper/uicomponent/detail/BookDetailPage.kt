@@ -206,13 +206,13 @@ fun BookDetailPage(
                     }
                 }
                 if ((book.status == Status.WISH
-                            && FirebaseRemoteConfigWrapper.isWishVipSearchLinkEnabled
+                            && FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled
                             && !FirebaseRemoteConfigWrapper.searchEngines?.searchEngines.isNullOrEmpty())
                     || !book.basicInfo.amazonLink.isNullOrEmpty()
                 ) {
                     GetBookSection(
                         title = book.basicInfo.title,
-                        searchEngines = if (FirebaseRemoteConfigWrapper.isWishVipSearchLinkEnabled) {
+                        searchEngines = if (FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled) {
                             FirebaseRemoteConfigWrapper.searchEngines?.searchEngines
                         } else null,
                         client = mCustomTabClient,

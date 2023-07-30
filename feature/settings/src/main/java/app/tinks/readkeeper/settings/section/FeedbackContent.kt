@@ -1,5 +1,6 @@
 package app.tinks.readkeeper.settings.section
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -25,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,6 +36,9 @@ import app.tinks.readkeeper.settings.R
 import app.tinks.readkeeper.settings.model.ExternalPageItem
 import app.tinks.readkeeper.settings.model.SettingAttribute
 import app.tinks.readkeeper.settings.ui.SettingItemCell
+import com.google.android.play.core.review.ReviewException
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.play.core.review.model.ReviewErrorCode
 
 
 @Composable
@@ -97,13 +102,15 @@ fun FeedbackContent(isExpanded: Boolean = false, context: Context? = null) {
                 ),
                 onClick = {
                     val intent = Intent(Intent.ACTION_SENDTO).apply {
-                        data = Uri.parse("mailto:tink.readkeeper@gmail.com?subject=Feedback for ReadKeeper")
+                        data =
+                            Uri.parse("mailto:tink.readkeeper@gmail.com?subject=Feedback for ReadKeeper")
                     }
-                    if (context!= null) {
+                    if (context != null) {
                         ContextCompat.startActivity(context, intent, null)
                     }
                 }
             )
+            val activity = LocalContext.current as Activity
             SettingItemCell(
                 item = ExternalPageItem(
                     commonAttribute = SettingAttribute(
@@ -113,12 +120,30 @@ fun FeedbackContent(isExpanded: Boolean = false, context: Context? = null) {
                 ),
                 label = stringResource(id = R.string.give_5_star),
                 onClick = {
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data =
-                            Uri.parse("https://play.google.com/store/apps/details?id=com.ebay.gumtree.au")
-                    }
-                    if (context != null) {
-                        ContextCompat.startActivity(context, intent, null)
+//                    val intent = Intent(Intent.ACTION_VIEW).apply {
+//                        data =
+//                            Uri.parse("https://play.google.com/store/apps/details?id=com.ebay.gumtree.au")
+//                    }
+//                    if (context != null) {
+//                        ContextCompat.startActivity(context, intent, null)
+//                    }
+                    val manager = context?.let { ReviewManagerFactory.create(it) }
+                    val request = manager?.requestReviewFlow()
+                    request?.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            // We got the ReviewInfo object
+                            val reviewInfo = task.result
+                            val flow = manager.launchReviewFlow(activity, reviewInfo)
+                            flow.addOnCompleteListener { _ ->
+                                // The flow has finished. The API does not indicate whether the user
+                                // reviewed or not, or even whether the review dialog was shown. Thus, no
+                                // matter the result, we continue our app flow.
+                            }
+                        } else {
+                            // There was some problem, log or handle the error code.
+                            @ReviewErrorCode val reviewErrorCode =
+                                (task.getException() as ReviewException).errorCode
+                        }
                     }
                 }
             )
