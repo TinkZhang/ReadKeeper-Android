@@ -72,14 +72,14 @@ fun NoteListPage(
                 EditProgressContent(book = book,
                     lastPage = records.firstOrNull()?.endPage ?: 0,
                     record = selectedRecord,
-                    onCancelClicked = {
+                    onCancelClick = {
                         coroutineScope.launch { modalBottomSheetState.hide() }
                     },
-                    onDeleteClicked = {
+                    onDeleteClick = {
                         bookViewModel.delete(selectedRecord)
                         coroutineScope.launch { modalBottomSheetState.hide() }
                     },
-                    onSaveClicked = {
+                    onSaveClick = {
                         bookViewModel.updateRecord(it)
                         coroutineScope.launch { modalBottomSheetState.hide() }
                     })

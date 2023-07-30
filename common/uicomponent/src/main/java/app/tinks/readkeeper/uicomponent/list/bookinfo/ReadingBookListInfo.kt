@@ -39,7 +39,7 @@ import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
 fun ReadingBookListInfo(
     book: Book,
     modifier: Modifier = Modifier,
-    onAddProgressClicked: () -> Unit = {},
+    onAddProgressClick: () -> Unit = {},
     onSetPlatformClick: () -> Unit = {},
 ) {
     Column(
@@ -84,7 +84,7 @@ fun ReadingBookListInfo(
                         .height(24.dp),
                     progress = book.progress.toFloat() / book.realPages
                 )
-                IconButton(onClick = onAddProgressClicked) {
+                IconButton(onClick = onAddProgressClick) {
                     Icon(Icons.Default.DataSaverOn, contentDescription = "Localized description")
                 }
             }

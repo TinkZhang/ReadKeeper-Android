@@ -22,7 +22,6 @@ import app.tinks.readkeeper.basic.SCREEN_ROUTE
 import app.tinks.readkeeper.basic.model.NYBookType
 import app.tinks.readkeeper.homepage.quote.QuoteCard
 import app.tinks.readkeeper.homepage.weeklybook.HomepageViewModel
-import app.tinks.readkeeper.homepage.weeklybook.ui.AllHistoryCard
 import app.tinks.readkeeper.homepage.weeklybook.ui.HomepageReadingCard
 import app.tinks.readkeeper.homepage.weeklybook.ui.NoReadingCard
 import app.tinks.readkeeper.homepage.weeklybook.ui.WeeklyBookCard
@@ -53,14 +52,14 @@ fun Homepage(
                 navController.navigate("reading_item/${book?.basicInfo?.uuid}")
             })
         }
-        AllHistoryCard(viewModel.getAllRecords().collectAsState(initial = emptyList()).value)
+//        AllHistoryCard(viewModel.getAllRecords().collectAsState(initial = emptyList()).value)
         if (viewModel.fictionBooks.collectAsState().value.isNotEmpty()) {
-            WeeklyBookCard(NYBookType.Fictions, onBookClicked = {
+            WeeklyBookCard(NYBookType.Fictions, onBookClick = {
                 navController.navigate("weekly_item/$it")
             })
         }
         if (viewModel.nonFictionBooks.collectAsState().value.isNotEmpty()) {
-            WeeklyBookCard(NYBookType.NonFictions, onBookClicked = {
+            WeeklyBookCard(NYBookType.NonFictions, onBookClick = {
                 navController.navigate("weekly_item/$it")
             })
         }

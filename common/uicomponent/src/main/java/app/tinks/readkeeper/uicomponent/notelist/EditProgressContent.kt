@@ -1,6 +1,12 @@
 package app.tinks.readkeeper.uicomponent.notelist
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.TextButton
@@ -8,7 +14,11 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,9 +36,9 @@ fun EditProgressContent(
     book: Book,
     record: Record?,
     lastPage: Int = 0,
-    onCancelClicked: () -> Unit = {},
-    onDeleteClicked: () -> Unit = {},
-    onSaveClicked: (Record) -> Unit = {},
+    onCancelClick: () -> Unit = {},
+    onDeleteClick: () -> Unit = {},
+    onSaveClick: (Record) -> Unit = {},
 ) {
     if (record == null) {
         Box(modifier = Modifier.size(1.dp))
@@ -47,18 +57,18 @@ fun EditProgressContent(
             ProgressEditField(book, lastPage, value = "", readOnly = true)
             NoteEditField(noteTextState) { noteTextState = it }
             Row(Modifier.fillMaxWidth()) {
-                TextButton(onClick = onDeleteClicked, modifier = Modifier.weight(1.0f)) {
+                TextButton(onClick = onDeleteClick, modifier = Modifier.weight(1.0f)) {
                     Text(
                         stringResource(id = R.string.delete),
                         color = MaterialTheme.colorScheme.error
                     )
                 }
-                TextButton(onClick = onCancelClicked, modifier = Modifier.weight(1.0f)) {
+                TextButton(onClick = onCancelClick, modifier = Modifier.weight(1.0f)) {
                     Text(stringResource(id = R.string.cancel))
                 }
                 FilledTonalButton(
                     onClick = {
-                        onSaveClicked(
+                        onSaveClick(
                             record.copy(note = noteTextState)
                         )
                         noteTextState = ""

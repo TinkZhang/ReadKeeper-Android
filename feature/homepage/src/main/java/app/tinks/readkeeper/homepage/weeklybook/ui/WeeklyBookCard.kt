@@ -32,7 +32,7 @@ import app.tinks.readkeeper.uicomponent.cellview.BookCardImage
 @Composable
 fun WeeklyBookCard(
     type: NYBookType,
-    onBookClicked: (String) -> Unit = {},
+    onBookClick: (String) -> Unit = {},
     viewModel: HomepageViewModel = viewModel(),
 ) {
     Section(header = {
@@ -54,7 +54,7 @@ fun WeeklyBookCard(
         }
         LazyRow() {
             items(books) { book: NYTimesBook ->
-                NYTimesBookCard(book, onBookClicked)
+                NYTimesBookCard(book, onBookClick)
             }
         }
     }
@@ -73,13 +73,13 @@ private fun WeeklyBookCardPreview() {
 @Composable
 fun NYTimesBookCard(
     book: NYTimesBook,
-    onBookClicked: (String) -> Unit = {},
+    onBookClick: (String) -> Unit = {},
 ) {
     ElevatedCard(
         modifier = Modifier
             .padding(end = 8.dp)
             .clickable {
-                onBookClicked(book.title)
+                onBookClick(book.title)
             },
     ) {
         Box() {

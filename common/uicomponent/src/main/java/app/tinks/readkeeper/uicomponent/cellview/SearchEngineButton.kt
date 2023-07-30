@@ -1,6 +1,11 @@
 package app.tinks.readkeeper.uicomponent.cellview
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Launch
@@ -62,7 +67,7 @@ fun SearchEngineButton(
 ) {
     SearchEngineButton(
         // TODO: the link generation rule could be different between different search engine
-        link = searchEngine.link + title,
+        link = searchEngine.link.replace("KEYWORD", title),
         label = searchEngine.name,
         client = client,
         modifier = modifier

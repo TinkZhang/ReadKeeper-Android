@@ -6,4 +6,5 @@
     <string name="reading_history">Reading History</string>
     <string name="quote">\uD83E\uDD89 Quote</string>
     <string name="weekly_best_seller">Weekly Best Seller - %s</string>
+    <string name="description">Description</string>
 </resources>

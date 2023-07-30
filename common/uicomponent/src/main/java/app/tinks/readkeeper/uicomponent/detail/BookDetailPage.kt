@@ -67,7 +67,6 @@ import kotlinx.coroutines.launch
 fun BookDetailPage(
     uuid: String,
     openAddProgressDialog: Boolean = false,
-    openEditDialog: Boolean = false,
     bookViewModel: BookViewModel = viewModel(),
     navController: NavController
 ) {
@@ -147,10 +146,10 @@ fun BookDetailPage(
             sheetContent = {
                 AddProgressContent(book = book,
                     lastPage = records.lastOrNull()?.endPage ?: 0,
-                    onCancelClicked = {
+                    onCancelClick = {
                         coroutineScope.launch { modalBottomSheetState.hide() }
                     },
-                    onSaveClicked = {
+                    onSaveClick = {
                         bookViewModel.add(it)
                         bookViewModel.update(book.copy(progress = it.endPage))
                         coroutineScope.launch {
@@ -192,9 +191,9 @@ fun BookDetailPage(
                         navController.navigate("all_notes/$uuid")
                     })
                 DescriptionSection(description = book.basicInfo.description)
-                if (records.isNotEmpty()) {
-                    HistorySection(records)
-                }
+//                if (records.isNotEmpty()) {
+//                    HistorySection(records)
+//                }
                 if (FirebaseRemoteConfigWrapper.isDetailPagBannerEnabled) {
                     if (book.status == Status.WISH || records.size in 3..10) {
                         GoogleAdView(
@@ -207,13 +206,13 @@ fun BookDetailPage(
                     }
                 }
                 if ((book.status == Status.WISH
-                            && FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled
+                            && FirebaseRemoteConfigWrapper.isWishVipSearchLinkEnabled
                             && !FirebaseRemoteConfigWrapper.searchEngines?.searchEngines.isNullOrEmpty())
                     || !book.basicInfo.amazonLink.isNullOrEmpty()
                 ) {
                     GetBookSection(
                         title = book.basicInfo.title,
-                        searchEngines = if (FirebaseRemoteConfigWrapper.isDetailPageSearchLinkEnabled) {
+                        searchEngines = if (FirebaseRemoteConfigWrapper.isWishVipSearchLinkEnabled) {
                             FirebaseRemoteConfigWrapper.searchEngines?.searchEngines
                         } else null,
                         client = mCustomTabClient,

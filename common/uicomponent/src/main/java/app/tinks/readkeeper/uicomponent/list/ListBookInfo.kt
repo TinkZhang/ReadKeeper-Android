@@ -26,7 +26,7 @@ fun ListBookInfo(
         Status.READING -> ReadingBookListInfo(
             book = book,
             modifier = modifier,
-            onAddProgressClicked = onAddProgressClick,
+            onAddProgressClick = onAddProgressClick,
             onSetPlatformClick = onSetPlatformClick,
         )
 
@@ -40,8 +40,8 @@ fun ListBookInfo(
         Status.SEARCH -> SearchBookListInfo(
             book = book,
             modifier = modifier,
-            onWishButtonClicked = onWishButtonClick,
-            onReadingButtonClicked = onReadingButtonClick
+            onWishButtonClick = onWishButtonClick,
+            onReadingButtonClick = onReadingButtonClick
         )
     }
 }

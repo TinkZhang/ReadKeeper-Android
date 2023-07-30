@@ -41,7 +41,7 @@ fun RkIconToggleButton(
             fadeIn(animationSpec = tween(320, delayMillis = 90)) +
                     scaleIn(initialScale = 1.5f, animationSpec = tween(320, delayMillis = 90)) with
                     fadeOut(animationSpec = tween(90))
-        }) { checked ->
+        }, label = "") { checked ->
             if (checked) {
                 Icon(
                     checkedIcon,

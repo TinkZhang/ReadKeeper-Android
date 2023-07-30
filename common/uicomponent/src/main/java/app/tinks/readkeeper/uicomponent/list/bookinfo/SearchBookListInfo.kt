@@ -28,8 +28,8 @@ import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
 fun SearchBookListInfo(
     book: Book,
     modifier: Modifier = Modifier,
-    onWishButtonClicked: (Boolean) -> Unit = {},
-    onReadingButtonClicked: (Boolean) -> Unit = {}
+    onWishButtonClick: (Boolean) -> Unit = {},
+    onReadingButtonClick: (Boolean) -> Unit = {}
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -52,11 +52,11 @@ fun SearchBookListInfo(
                 checked = readingChecked
             ) {
                 readingChecked = it
-                onReadingButtonClicked(it)
+                onReadingButtonClick(it)
             }
             WishIconToggleButton(checked = wishChecked) {
                 wishChecked = it
-                onWishButtonClicked(it)
+                onWishButtonClick(it)
             }
         }
     }

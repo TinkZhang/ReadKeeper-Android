@@ -36,11 +36,11 @@ fun QuoteCard() {
 
 @ExperimentalMaterial3Api
 @Composable
-private fun QuoteStatelessCard(quote: Quote, onClicked: () -> Unit = {}) {
+private fun QuoteStatelessCard(quote: Quote, onClick: () -> Unit = {}) {
     Section(title = stringResource(id = R.string.quote)) {
         Column(modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClicked() }
+            .clickable { onClick() }
             .animateContentSize()
             .testTag("Quote Card")
         ) {
