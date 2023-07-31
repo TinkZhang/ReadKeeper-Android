@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "594810278400-qcqf9nortc309vbk33rnv6dbnu5h3obe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.tinks.readkeeper",
+            "certificate_hash": "4d59fbf676731565a71d8da737a074d682b8c692"
+          }
+        },
+        {
           "client_id": "594810278400-ajdesa7lble6v7th11uufc0m355cajer.apps.googleusercontent.com",
           "client_type": 3
         }

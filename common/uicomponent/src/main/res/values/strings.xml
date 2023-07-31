@@ -19,7 +19,7 @@
     <string name="get_book_section_title">Get the book</string>
     <string name="buy_it_from_amazon">Buy it from Amazon</string>
     <string name="amazon">Amazon</string>
-    <string name="add_achived">+ Archived</string>
+    <string name="add_archived">Move to Archived</string>
     <string name="delete_book">Delete this book</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>

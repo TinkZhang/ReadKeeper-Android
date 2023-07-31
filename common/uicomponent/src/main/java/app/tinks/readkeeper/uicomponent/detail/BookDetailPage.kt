@@ -225,7 +225,7 @@ fun BookDetailPage(
                         onClick = { bookViewModel.move(book, Status.ARCHIVED) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(text = stringResource(id = R.string.add_achived))
+                        Text(text = stringResource(id = R.string.add_archived))
                         Spacer(modifier = Modifier.width(4.dp))
                         Icon(
                             Icons.Filled.Archive,

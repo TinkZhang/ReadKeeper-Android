@@ -66,7 +66,6 @@ fun SearchEngineButton(
     modifier: Modifier = Modifier,
 ) {
     SearchEngineButton(
-        // TODO: the link generation rule could be different between different search engine
         link = searchEngine.link.replace("KEYWORD", title),
         label = searchEngine.name,
         client = client,
