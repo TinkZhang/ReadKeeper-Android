@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -13,6 +14,7 @@ import app.tinks.readkeeper.firebaseRemoteConfig.SearchEngine
 import app.tinks.readkeeper.uicomponent.PreviewAnnotation
 import app.tinks.readkeeper.uicomponent.R
 import app.tinks.readkeeper.uicomponent.RkCustomTabClient
+import app.tinks.readkeeper.uicomponent.cellview.BuyItNowAmazonButton
 import app.tinks.readkeeper.uicomponent.cellview.SearchEngineButton
 import app.tinks.readkeeper.uicomponent.detail.actionsection.DetailTitleSection
 import app.tinks.readkeeper.uicomponent.theme.ReadKeeperTheme
@@ -35,10 +37,12 @@ fun GetBookSection(
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             if (!amazonLink.isNullOrEmpty()) {
-                SearchEngineButton(
+                BuyItNowAmazonButton(
                     link = amazonLink,
-                    label = stringResource(id = R.string.amazon),
-                    client = client
+                    client = client,
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .align(Alignment.CenterHorizontally)
                 )
             }
             searchEngines?.forEach {

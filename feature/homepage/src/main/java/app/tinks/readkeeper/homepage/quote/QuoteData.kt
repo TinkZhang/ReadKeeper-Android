@@ -1,10 +1,12 @@
 package app.tinks.readkeeper.homepage.quote
 
 import android.content.Context
+import androidx.annotation.Keep
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import kotlin.random.Random
 
+@Keep
 @Entity
 data class Quote(
     @PrimaryKey val uid: Int,

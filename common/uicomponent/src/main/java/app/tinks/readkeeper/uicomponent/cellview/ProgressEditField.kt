@@ -50,10 +50,6 @@ fun ProgressEditField(
                     Text("%")
                 }
             },
-            colors = TextFieldDefaults.colors(
-                focusedTextColor = androidx.compose.material.MaterialTheme.colors.onSurface,
-                focusedContainerColor = androidx.compose.material.MaterialTheme.colors.onSurface.copy(alpha = 0.04f)
-            )
         )
     } else {
         val progressTextState =
@@ -87,10 +83,6 @@ fun ProgressEditField(
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
-            ),
-            colors = TextFieldDefaults.colors(
-                focusedTextColor = androidx.compose.material.MaterialTheme.colors.onSurface,
-                focusedContainerColor = androidx.compose.material.MaterialTheme.colors.onSurface.copy(alpha = 0.04f)
             )
         )
     }

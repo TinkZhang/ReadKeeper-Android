@@ -24,7 +24,7 @@ object DataStoreKey {
 @SuppressLint("StaticFieldLeak")
 object DataStoreRepository {
 
-    val context: Context = ReadApplication.getContext()!!
+    val context: Context = ReadApplication.getContext()
 
     suspend fun putString(key: String, value: String) {
         val preferencesKey = stringPreferencesKey(key)

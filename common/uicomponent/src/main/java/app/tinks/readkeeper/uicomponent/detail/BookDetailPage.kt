@@ -229,7 +229,7 @@ fun BookDetailPage(
                         Spacer(modifier = Modifier.width(4.dp))
                         Icon(
                             Icons.Filled.Archive,
-                            contentDescription = null,
+                            contentDescription = "Archived",
                             tint = MaterialTheme.colorScheme.secondary
                         )
                     }

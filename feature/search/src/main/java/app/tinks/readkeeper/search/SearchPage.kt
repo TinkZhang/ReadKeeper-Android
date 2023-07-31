@@ -60,7 +60,7 @@ fun SearchPage(
             )
         }, navigationIcon = {
             IconButton(onClick = onBackClick) {
-                Icon(Icons.Default.ArrowBack, contentDescription = null)
+                Icon(Icons.Default.ArrowBack, contentDescription = "Back")
             }
         })
     }) { innerPadding ->

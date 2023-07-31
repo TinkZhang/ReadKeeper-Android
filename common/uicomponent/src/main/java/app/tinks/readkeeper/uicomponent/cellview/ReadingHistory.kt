@@ -1,5 +1,6 @@
 package app.tinks.readkeeper.uicomponent.cellview
 
+import androidx.annotation.Keep
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -24,6 +25,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit.DAYS
 
+@Keep
 data class Contribution(
     val pages: Int = 0, val day: LocalDate
 )

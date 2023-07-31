@@ -52,7 +52,6 @@ fun Homepage(
                 navController.navigate("reading_item/${book?.basicInfo?.uuid}")
             })
         }
-//        AllHistoryCard(viewModel.getAllRecords().collectAsState(initial = emptyList()).value)
         if (viewModel.fictionBooks.collectAsState().value.isNotEmpty()) {
             WeeklyBookCard(NYBookType.Fictions, onBookClick = {
                 navController.navigate("weekly_item/$it")

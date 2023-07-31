@@ -1,7 +1,9 @@
 package app.tinks.readkeeper.search.network.googlebook
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class VolumeInfo(
     @SerializedName("authors")
     val authors: List<String>?,
@@ -24,5 +26,5 @@ data class VolumeInfo(
     @SerializedName("subtitle")
     val subtitle: String,
     @SerializedName("title")
-    val title: String
+    val title: String?
 )

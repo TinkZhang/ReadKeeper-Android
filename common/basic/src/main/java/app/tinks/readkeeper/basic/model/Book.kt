@@ -1,9 +1,11 @@
 package app.tinks.readkeeper.basic.model
 
+import androidx.annotation.Keep
 import app.tinks.readkeeper.basic.R
 import com.google.firebase.Timestamp
-import java.util.*
+import java.util.UUID
 
+@Keep
 data class Book(
     val basicInfo: BasicInfo = BasicInfo(),
     val timeInfo: TimeInfo = TimeInfo(),
@@ -36,6 +38,7 @@ enum class PageFormat {
     PERCENT_10000
 }
 
+@Keep
 enum class Status {
     READING,
     WISH,
@@ -43,6 +46,7 @@ enum class Status {
     SEARCH
 }
 
+@Keep
 enum class Platform(val label: String, val icon: Int) {
     PAPER("Paper", R.drawable.ic_paper_book),
     PDF("PDF", R.drawable.ic_pdf),
@@ -53,11 +57,13 @@ enum class Platform(val label: String, val icon: Int) {
     GENERAL("Others", R.drawable.ic_other_book),
 }
 
+@Keep
 data class TimeInfo(
     val addedTime: Timestamp = Timestamp.now(),
     val editedTime: Timestamp = Timestamp.now()
 )
 
+@Keep
 data class BasicInfo(
     var title: String = "",
     var imageUrl: String = "",
@@ -67,6 +73,6 @@ data class BasicInfo(
     var pubYear: Int = 0,
     val amazonLink: String? = null,
     val isbn: String? = null,
-    val uuid: String = isbn + UUID.randomUUID().toString(),
+    val uuid: String = (isbn ?: "") + UUID.randomUUID().toString(),
     val description: String = "",
 )

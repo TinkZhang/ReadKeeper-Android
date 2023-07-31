@@ -1,8 +1,10 @@
 package app.tinks.readkeeper.basic.model
 
+import androidx.annotation.Keep
 import com.google.firebase.Timestamp
-import java.util.*
+import java.util.UUID
 
+@Keep
 data class Record(
     val id: String = UUID.randomUUID().toString(),
     val uuid: String = UUID.randomUUID().toString(),

@@ -48,14 +48,14 @@ fun SearchTextField(
         },
         singleLine = true,
         keyboardActions = KeyboardActions(onSearch = {
-            onSearch(keyword)
+            onSearch(keyword.ifBlank { "hello" })
         }),
         placeholder = { Text(stringResource(id = placeHolderText)) },
         textStyle = MaterialTheme.typography.titleLarge,
         trailingIcon = {
-            IconButton(onClick = { onSearch(keyword) }) {
+            IconButton(onClick = { onSearch(keyword.ifEmpty { "hello" }) }) {
                 Icon(
-                    Icons.Default.Search, contentDescription = null
+                    Icons.Default.Search, contentDescription = "Search"
                 )
             }
         },

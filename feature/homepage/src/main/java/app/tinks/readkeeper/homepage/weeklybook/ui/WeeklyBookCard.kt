@@ -39,7 +39,7 @@ fun WeeklyBookCard(
         Column() {
             Icon(
                 painter = painterResource(id = R.drawable.ic_newyorktimes),
-                contentDescription = null,
+                contentDescription = "New York Times Logo",
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(

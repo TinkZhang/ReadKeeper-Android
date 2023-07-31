@@ -1,5 +1,6 @@
 package app.tinks.readkeeper.basic.database
 
+import androidx.annotation.Keep
 import androidx.paging.PagingSource
 import androidx.room.ColumnInfo
 import androidx.room.Dao
@@ -84,6 +85,7 @@ interface RecordDao {
     suspend fun update(record: RecordEntity)
 }
 
+@Keep
 @Entity
 data class BookEntity(
     @PrimaryKey val uuid: String,
@@ -106,6 +108,7 @@ data class BookEntity(
 )
 
 @Entity
+@Keep
 data class RecordEntity(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "uuid") val uuid: String,

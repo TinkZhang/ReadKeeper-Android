@@ -32,7 +32,7 @@ fun EmptyBookListItem(
     ) {
         Image(
             painterResource(id = R.drawable.empty_folder),
-            contentDescription = null,
+            contentDescription = "Empty list",
             modifier = Modifier.fillMaxWidth(0.6f),
             contentScale = ContentScale.FillWidth
         )

@@ -50,13 +50,13 @@ class SearchResultViewModel(
 private fun GoogleBookItem.convertToBook(): Book {
     return Book(
         basicInfo = BasicInfo(
-            isbn = this.volumeInfo.industryIdentifiers?.lastOrNull()?.identifier,
-            title = this.volumeInfo.title,
+            isbn = this.volumeInfo.industryIdentifiers?.lastOrNull()?.identifier ?: "",
+            title = this.volumeInfo.title ?: "",
             imageUrl = this.volumeInfo.imageLinks?.thumbnail?.replace("http:", "https:") ?: "",
             author = this.volumeInfo.authors?.joinToString() ?: "",
             rating = this.volumeInfo.averageRating,
             pages = this.volumeInfo.pageCount,
-            pubYear = this.volumeInfo.publishedDate?.split('-')?.first()?.toInt() ?: 0
+            pubYear = this.volumeInfo.publishedDate?.split('-')?.first()?.toIntOrNull() ?: 0
         ),
         status = Status.SEARCH
     )

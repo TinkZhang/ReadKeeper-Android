@@ -1,10 +1,12 @@
 package app.tinks.readkeeper.basic.model
 
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "nytimesbook")
+@Keep
 data class NYTimesBook(
     @PrimaryKey
     val title: String = "",

@@ -30,7 +30,7 @@ fun NoReadingCard(
         Text(text = stringResource(id = R.string.search_to_add))
         Icon(
             Icons.Default.Search,
-            contentDescription = null,
+            contentDescription = "Search",
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(vertical = 8.dp)

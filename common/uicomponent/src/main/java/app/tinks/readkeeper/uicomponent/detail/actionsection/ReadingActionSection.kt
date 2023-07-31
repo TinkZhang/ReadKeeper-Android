@@ -35,7 +35,7 @@ fun ReadingActionSection(
         ) {
             Text(text = stringResource(id = R.string.edit_book))
             Spacer(modifier = Modifier.width(4.dp))
-            Icon(Icons.Filled.Edit, contentDescription = null)
+            Icon(Icons.Filled.Edit, contentDescription = "Edit")
         }
     } else {
         FilledTonalButton(

@@ -56,7 +56,7 @@ fun EditPageField(
                 ) {
                     Icon(
                         Icons.Default.Check,
-                        contentDescription = null,
+                        contentDescription = "Check",
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                     Text(stringResource(id = R.string.pages))
@@ -100,7 +100,10 @@ fun EditPageField(
                 }
             }
         }
-        Crossfade(targetState = newPageFormat, modifier = Modifier.fillMaxWidth()) { format ->
+        Crossfade(
+            targetState = newPageFormat, modifier = Modifier.fillMaxWidth(),
+            label = ""
+        ) { format ->
             when (format) {
                 PageFormat.PAGE -> {
                     OutlinedTextField(
@@ -115,12 +118,6 @@ fun EditPageField(
                         textStyle = MaterialTheme.typography.titleMedium.copy(textAlign = TextAlign.Center),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                        colors = TextFieldDefaults.colors(
-                            focusedTextColor = androidx.compose.material.MaterialTheme.colors.onSurface,
-                            focusedContainerColor = androidx.compose.material.MaterialTheme.colors.onSurface.copy(
-                                alpha = 0.04f
-                            )
-                        ),
                         isError = newPages.toIntOrNull() == null
                     )
                 }
